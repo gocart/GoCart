@@ -1,0 +1,782 @@
+/**************************************************************
+Version:	1.0
+Template:	Default
+Author:		Noah Mormino
+Company:	Clear Sky Designs
+Notes:		Default template for Gocart 1.0
+**************************************************************/
+
+body {
+	margin:0px;
+	padding:0px;
+	font-family: Arial, Verdana, sans-serif;
+	font-size:13px;
+	color:#262626;
+}
+
+img {
+	border:0px;
+}
+
+form {
+	margin:0px;
+	padding:0px;
+}
+
+th {
+	padding:5px;
+	background:#ccc;
+	font-size:14px;
+	color:#525252;
+}
+
+a, a:visited {
+	color:#0083de;
+	text-decoration:underline;
+}
+
+a:hover {
+	color:#005fa1;
+}
+
+iframe {
+	border:0px;
+}
+
+.gc_modal{
+	width: 100%;
+}
+
+.gc_clr {
+	clear:both;
+}
+
+.gc_left {
+	float:left;
+	text-align:left;
+	clear:left;
+}
+
+.gc_right {
+	float:right;
+	text-align:right;
+	clear:right;
+}
+
+.gc_content {
+	display:none;
+}
+/* Header */
+#gc_header {
+	background-color:#0083de;
+}
+
+#gc_header_session {
+	color:#fff;
+	background-color:#003459;
+	border:1px solid #000;
+	color:#fff;
+	float:right;
+	padding:3px;
+	margin-top:10px;
+}
+
+#gc_header_session a {
+	color:#fff;
+}
+
+#gc_header_search {
+	float:right;
+	clear:right;
+	margin-top:30px;
+	text-align:right;
+}
+
+/* Page Menu */
+#gc_page_menu {
+	background-color:#262626;
+	border-top:1px solid #000;
+	border-bottom:1px solid #000;
+	margin-bottom:20px;
+}
+
+/* Left Nav */
+#gc_left_nav {
+	width:200px;
+	float:left;
+	padding-right:10px;
+}
+
+.gc_nav_title {
+	text-align:center;
+	font-size:14px;
+	font-weight:bold;
+	padding-bottom:5px;
+}
+
+/* main body */
+#gc_body {
+	margin-left:210px;
+	clear:none;
+}
+
+#gc_breadcrumb {
+	font-size:10px;
+	font-family: Verdana, Arial, sans-serif;
+	border-bottom:1px solid #ccc;
+	margin-bottom:10px;
+	margin-top:-10px;
+	padding-bottom:5px;
+	font-weight:bold;
+}
+
+#gc_breadcrumb a {
+	font-weight:normal;
+}
+
+#gc_page_title {
+	font-size:28px;
+	margin-bottom:10px;
+}
+
+.gc_error {
+	color:#ff0000;
+	padding:5px;
+	background-color:#ffd3d3;
+	border:1px solid #ff0000;
+	margin-bottom:10px;	
+}
+
+.gc_message {
+	color:#005fa1;
+	padding:5px;
+	background-color:#c1e6ff;
+	border:1px solid #0083de;
+	margin-bottom:10px;
+}
+
+/* Category Page */
+.gc_category_description {
+	background-color:#f2f2f2;
+	border:1px solid #ccc;
+	padding:5px;
+	margin-bottom:10px;
+}
+
+.gc_product_list {
+	width:100%;
+}
+
+.gc_product_row {
+	text-align:left;
+	width:100%;
+}
+
+.gc_product_row_buffer {
+	height:5px;
+	overflow:hidden;
+}
+
+.gc_product_grid {
+	text-align:center;
+	padding:0px 5px 10px 5px;
+	vertical-align:top;
+}
+
+.gc_product_thumbnail img{
+	padding:5px;
+	border:1px solid #cccccc;
+	margin:auto;
+}
+
+.gc_product_info {
+	padding:10px;
+	width:100%;
+}
+
+.gc_product_name {
+	font-weight:bold;
+	font-size:14px;
+}
+
+.gc_product_code {
+	font-size:11px;
+	font-family:verdana, arial, sans-serif;
+	padding:5px 0px;
+}
+
+.gc_price_slash {
+	text-decoration:line-through;
+}
+
+.gc_price_sale {
+	font-weight:bold;
+	color:#ff0000;
+}
+
+.gc_price_reg {
+	font-weight:bold;
+}
+
+.gc_stock_msg {
+	color:#FF0000;
+}
+
+.gc_product_excerpt {
+	background-color:#f2f2f2;
+	border:1px solid #ccc;
+	padding:3px;
+	display:block;
+	margin-top:5px;
+}
+
+.gc_pagination {
+	text-align:center;
+	padding-bottom:10px;
+}
+
+/* Product Page */
+#gc_product_image {
+	float:left;
+	padding:5px;
+	border:1px solid #ccc;
+}
+
+#gc_product_details {
+	margin-left: 270px;
+}
+
+#gc_product_options {
+
+	padding:5px;
+	background-color:#f2f2f2;
+	border:1px solid #ccc;
+}
+
+#gc_product_form {
+	margin-top:10px;
+	width:500px;
+}
+
+#gc_product_form table {
+	width:100%;
+}
+
+#gc_product_form td{
+	vertical-align:top;
+}
+
+.gc_option_name {
+	font-weight:bold;
+	font-size:11px;
+	font-family:verdana, arial, sans-serif;
+	padding-bottom:10px;
+	padding-right:10px;
+}
+
+.gc_required:before {
+	content: '*';
+	color:#a70000;
+}
+.gc_option {
+	padding-bottom:10px;
+}
+
+#gc_options_note {
+	text-align:center;
+	font-weight:bold;
+	font-size:11px;
+	font-family:verdana, arial, sans-serif;
+	color:#a70000;
+}
+
+#gc_tab_container {
+	padding-top:15px;
+	clear:both;
+}
+.gc_tabs {
+	padding-left:10px;
+}
+.gc_tabs a{
+	padding:4px 10px;
+	background-color:#f2f2f2;
+	border:1px solid #cccccc;
+	text-decoration:none;
+	color:#525252;
+	cursor:pointer;
+}
+
+.gc_tabs a.gc_selected {
+	background-color:#fff;
+	border-bottom:1px solid #fff;
+}
+
+.gc_tab_content {
+	border:1px solid #ccc;
+	background:#fff;
+	padding:10px;
+	margin-top:4px;
+}
+
+#gc_image_gallery img{
+	padding:5px;
+	border:1px solid #ccc;
+	margin:5px;
+}
+
+/* View Cart Page */
+.gc_view_cart {
+	width:100%;
+	border-left:1px solid #ccc;
+	border-right:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+}
+
+.gc_view_cart tbody {
+	border-left:1px solid #ccc;
+	border-right:1px solid #ccc;
+}
+
+.gc_view_cart td{
+	vertical-align:top;
+	padding:5px;
+}
+
+.gc_even td{
+	background:#f2f2f2;
+	border-bottom:1px solid #ccc;
+	border-top:1px solid #ccc;
+}
+
+#gc_coupon_code_form {
+	margin-top:10px;
+	background-color:#c1e6ff;
+	border:1px solid #0083de;
+	text-align:center;
+	padding:20px;
+	float:left;
+}
+
+#gc_view_cart_buttons {
+	float:right;
+	clear:none;
+	margin-top:10px;
+}
+
+.gc_view_cart_totals {
+	font-weight:bold;
+}
+
+td.gc_total {
+	font-weight: bold;
+	border-top: 1px solid;
+}
+
+/* Customer Details */
+.gc_customer_details,  .gc_customer_details table{
+	width:100%;
+}
+.gc_customer_details td {
+	vertical-align:top;
+	padding-right:10px;
+}
+#gc_copy_billing {
+	margin:auto;
+	display:block;
+}
+
+#logged_in_address_container{
+	width:100%;
+	overflow: auto;
+	margin-bottom: 15px;
+}
+
+#checkout_billing_address {
+	padding: 5px;
+	border:1px solid #C0C0C0;
+	float:left;
+	width:225px;
+	height: 125px;
+}
+
+#bill_address_display, #ship_address_display {
+	padding: 5px;
+}
+
+#checkout_shipping_address {
+	padding: 5px;
+	border:1px solid #C0C0C0;
+	margin-left:250px;
+	width:225px;
+	height:125px;
+}
+
+/* scheckout */
+#payment_section_container table tr td {
+	vertical-align:top;
+}
+#continue_shopping {
+	float:right;
+	margin-top:-40px;
+}
+
+#gc_coupon_code_form_checkout {
+	color:#4E4E44;
+	float:right;
+	font-size:12px;
+	font-weight:bold;
+	margin-top:10px;
+	text-transform:uppercase;
+	width:470px;
+}
+
+#shipping_section {
+	float:left;
+	margin-top:15px;
+	width:400px;
+}
+
+.checkout_block {
+	border-color: #0083DE;
+	border-width: 1px;
+	border-style: solid;
+	padding:8px;
+	margin-bottom:20px;
+}
+
+.checkout_block h2 {
+	font-weight:normal;
+	margin-bottom:10px;
+	font-size:19px;
+}
+
+.checkout_block h3 {
+	font-weight:normal;
+	color:#777777;
+	font-size:16px;
+}
+
+
+#shipping_address{
+	float:left;
+	width:47.5%;
+	border-right:1px solid #0083DE;
+}
+
+#billing_address{
+	float:right;
+	width:50%;
+}
+
+#tab_detail
+{
+	font-size:13px;
+	font-family:arial, verdana, sans-serif;
+}
+
+.accordion_form {
+	background-color:#fff;
+	float:left;
+}
+
+#name_wrap, #contact_wrap, #address_wrap, #geo_wrap, .card_info_wrap {
+	clear:both;
+}
+
+#address_option_wrap, #name_wrap div,#contact_wrap div, #geo_wrap div, .card_info_wrap div {
+	float:left;
+	font-weight:bold;
+	background-color:#fff;
+	padding:10px 20px 10px 0px;
+}
+
+.card_info_wrap div.pr0 {
+	padding-right:0px;
+}
+
+.card_info_wrap select.input {
+	width:50px;
+	padding:auto;
+}
+#address_wrap {
+	clear:both;
+	padding:10px 0px;
+	padding-bottom:0px;
+	font-weight:bold;
+}
+
+#address_wrap .input{
+	clear:both;
+	margin-bottom:10px;
+	width:300px;
+}
+
+.accordion_form .input{
+	border:1px solid #ccc;
+	padding:3px;
+	width:120px;
+}
+
+.accordion_form .input_hover {
+	border:1px solid #71C837;
+	padding:3px;
+}
+
+.accordion_form .require_fail {
+	border:1px solid red;
+	padding:3px;
+}
+
+#static_address_content {
+	position: relative;
+	margin-bottom: 10px;
+	height: 150px
+}
+
+#static_bill_address {
+	padding: 5px;
+	border:1px solid #C0C0C0;
+	float:left;
+	width:225px;
+}
+
+#static_ship_address {
+	padding: 5px;
+	border:1px solid #C0C0C0;
+	margin-left:250px;
+	width:225px;
+	height:125px;
+}
+
+
+
+/* Customer Details */
+
+.disabled {
+	border 1px solid #AAAAAA;
+	background-color: #CCCCCC;
+}
+.register_field {
+	text-align:right;
+}
+#gc_customer_details,  #gc_customer_details table{
+	width:100%;
+}
+#gc_customer_details td {
+	vertical-align:top;
+	padding-right:10px;
+}
+#gc_copy_billing {
+	float:right;
+}
+
+.gc_reg_input {
+	width:550px;
+}
+
+/* Confirmation page*/
+.confirm_customer
+{
+	font-size:12px;
+	padding:10px;
+	margin-bottom:10px;
+	border:1px solid #b2d799;	
+	background-color:#ffffff;
+}
+.confirm_customer table tr td {
+	vertical-align:top;
+}
+.company_name {
+	font-size:16px;
+	font-weight:bold;
+	padding:0px 0px 3px 0px;
+	text-transform:uppercase;
+}
+
+.order_number {
+	font-size:20px;
+	font-weight:bold;
+	padding:0px 0px 3px 0px;
+	text-transform:uppercase;
+}
+
+
+/* Login paage */
+#gc_login_container {
+	background-color:#f2f2f2;
+	border:1px solid #ccc;
+	padding:10px;
+	display:block;
+	width:230px;
+}
+#gc_login_container td {
+	padding-right:10px;
+	padding-bottom:5px;
+}
+#login_form_links {
+	padding-top:10px;
+	text-align:center;
+	font-size:11px;
+}
+
+/* My Account Page */
+.delete_address {
+	cursor:pointer;
+}
+#address_list .my_account_address {
+	border-bottom:1px solid #0083DE;
+	padding:8px;
+}
+#my_account_info {
+	border:1px solid #0083DE;
+	padding:8px;
+}
+
+/* these are the alternating background colors for the addresses*/
+.address_bg {
+	background-color: #92bff8;
+}
+
+#my_account_info h2 {
+	font-weight:normal;
+	margin-bottom:10px;
+	font-size:19px;
+}
+#my_account_container {
+	overflow: auto;
+}
+
+#customer_details {
+
+	float:left;
+	margin:5px;
+	width:360px;
+}
+
+#customer_details_form {
+	
+}
+
+#confirmation_box {
+	margin-bottom: 10px;
+	border-color: white;
+	border-width: 1px;
+	border-style: solid;
+	background-color: #34a1ff;
+	color: black;
+	padding:5px;
+	
+}
+
+.my_account_header {
+	background-color:#000000;
+	color:#FFFFFF;
+	font-weight:bold;
+	padding:5px;
+}
+
+#address_container {
+	float:right;
+	width:300px;
+	margin: 5px;
+}
+
+.my_address {
+	height: 120px;
+	margin: 15px;
+	padding: 5px;
+	border: 1px solid #c0c0c0;
+}
+
+
+
+
+
+/* Payment Page */
+.gc_payment_form {
+	display:none;
+	
+	-moz-border-radius:5px 5px 5px 5px;
+	border:1px solid;
+	margin:15px;
+	padding:10px;
+}
+
+/* address manager */
+
+#address_mgr_title {
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+#address_mgr_header {
+	width: 775px;
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	padding: 5px;
+}
+
+#address_mgr_container {
+	padding: 5px;
+	width: 773px;
+	height:300px;
+	border-right: 1px solid gray;
+	border-left: 1px solid gray;
+	border-bottom: 1px solid gray;
+	position: relative;
+}
+
+#address_list_container{
+	float: left;
+	width: 450px;
+	height: 300px;
+	overflow:auto;
+	
+
+}
+
+.required {
+	border-left: 1px solid red;
+}
+
+.require_fail {
+	border: 1px solid red;
+}
+
+.address_entry {
+	width:95%;
+	padding: 5px;
+	margin: 1px;
+	border: 1px solid #8d8d8d;
+}
+
+.odd {
+	background-color: #cfcfcf;
+}
+
+.even {
+	background-color: white;
+}
+
+#address_form_placeholder {
+	clear:both;
+	position:absolute;
+	right:5px;
+	top:10px;
+	width:300px;
+}
+
+#address_bullets {
+	margin:10px;
+}
+
+#address_mgr_form_container {
+	clear:both;
+	position:absolute;
+	right:5px;
+	top:10px;
+	width:300px;
+	
+	
+}
