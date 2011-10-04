@@ -11,17 +11,12 @@ $(document).ready(function(){
 	});
 	if($('.banner_container').size() > 1)
 	{
-		rotate_interval();
+		rotate_banner();
 	}
 	
 });
 
 var cnt	= 0;
-
-function rotate_interval()
-{
-	rotate = setInterval("rotate_banner()", 3000);
-}
 
 function rotate_banner()
 {
@@ -32,9 +27,9 @@ function rotate_banner()
 	{
 		cnt = 0;
 	}
-	$('.banner_container:eq('+cnt+')').fadeIn();
-	
-	$('.banner_container').stop();
+	$('.banner_container:eq('+cnt+')').fadeIn(function(){
+		setTimeout("rotate_banner()", 3000);
+	});
 }
 </script>
 
