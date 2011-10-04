@@ -34,13 +34,13 @@ $new_window		= array('id'=>'new_window', 'name'=>'new_window', 'value'=>1, 'chec
 		<div class="gc_field2">
 			<label for="enable_on">Enable On: </label>
 			<?php echo form_input($enable_on); ?>
-			<input type="hidden" name="enable_on" id="enable_on_alt" value="<?php echo set_value('enable_on', $enable_on) ?>" />
+			<input type="hidden" name="enable_on_alt" id="enable_on_alt" value="<?php echo set_value('enable_on', $enable_on) ?>" />
 		</div>
 
 		<div class="gc_field2">
 			<label for="disable_on">Disable On: </label>
 			<?php echo form_input($disable_on); ?>
-			<input type="hidden" name="disable_on" id="disable_on_alt" value="<?php echo set_value('disable_on', $disable_on) ?>" />
+			<input type="hidden" name="disable_on_alt" id="disable_on_alt" value="<?php echo set_value('disable_on', $disable_on) ?>" />
 		</div>
 
 		<div class="gc_field2">
