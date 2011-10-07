@@ -98,6 +98,7 @@ class Install extends CI_Controller {
 				$settings['address2']		= $this->input->post('address2');
 				$settings['city']			= $this->input->post('city');
 				$settings['state']			= $this->input->post('state');
+				$settings['country']		= $this->input->post('country');
 				$settings['zip']			= $this->input->post('zip');
 				$settings['email']			= $this->input->post('website_email');
 				$settings['ssl_support']	= (bool)$this->input->post('ssl_support');
