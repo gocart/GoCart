@@ -54,7 +54,7 @@ function save_sortable()
 	<tbody id="category_contents">
 <?php foreach ($category_products as $product):?>
 		<tr id="product-<?php echo $product->id;?>" class="gc_row">
-			<td class="gc_cell_left"><?php echo $product->code;?></td>
+			<td class="gc_cell_left"><?php echo $product->sku;?></td>
 			<td><?php echo $product->name;?></td>
 			<td><?php echo $product->price;?></td>
 			<td class="gc_cell_right"><?php echo $product->saleprice;?></td>
