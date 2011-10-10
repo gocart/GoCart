@@ -32,7 +32,7 @@ function areyousure()
 		</tr>
 	</thead>
 	<tbody>
-		<?php echo (count($cards) < 1)?'<tr><td style="text-align:center;" colspan="3">There are currently no giftcards.</td></tr>':''?>
+		<?php echo (count($cards) < 1)?'<tr><td style="text-align:center;" colspan="7">There are currently no giftcards.</td></tr>':''?>
 <?php foreach ($cards as $card):?>
 		<tr>
 			<td><?php echo  $card['code']; ?></td>
