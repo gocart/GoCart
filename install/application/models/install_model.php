@@ -4626,7 +4626,7 @@ class Install_model extends CI_Model {
 		  PRIMARY KEY  (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 		
-		$query[] = "INSERT INTO `settings` (`id`,`code`,`setting_key`,`setting`)
+		$query[] = "INSERT INTO `".$prefix."settings` (`id`,`code`,`setting_key`,`setting`)
 					VALUES	(181,'gift_cards','predefined_card_amounts','10,20,25,50,100'),
 							(182,'gift_cards','enabled','0'),
 							(183,'gift_cards','allow_custom_amount','1');";
