@@ -47,7 +47,7 @@ function areyousure()
 	<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder');?>/banners/form" >Add New Banner</a>
 </div>
 
-<?php if ($banners): ?>
+
 <table class="gc_table" cellspacing="0" cellpadding="0">
 	<thead>
 		<tr>
@@ -57,8 +57,9 @@ function areyousure()
 			<th class="gc_cell_right"></th>
 		</tr>
 	</thead>
+	<?php echo (count($banners) < 1)?'<tr><td style="text-align:center;" colspan="3">There are currently no banners.</td></tr>':''?>
+	<?php if ($banners): ?>
 	<tbody id="banners_sortable">
-		<?php echo (count($banners) < 1)?'<tr><td style="text-align:center;" colspan="4">There are currently no banners.</td></tr>':''?>
 	<?php
 
 	foreach ($banners as $banner):
@@ -108,10 +109,7 @@ function areyousure()
 		</tr>
 	<?php endforeach; ?>
 	</tbody>
+	<?php endif;?>
 </table>
-<?php else : ?>
-	<h2>
-		There are currently no banners.
-	</h2>
-<?php endif;?>
+
 <?php include('footer.php'); ?>

@@ -47,7 +47,6 @@ function areyousure()
 	<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder');?>/boxes/form" >Add New Box</a>
 </div>
 
-<?php if ($boxes): ?>
 <table class="gc_table" cellspacing="0" cellpboxding="0">
 	<thead>
 		<tr>
@@ -57,10 +56,11 @@ function areyousure()
 			<th class="gc_cell_right"></th>
 		</tr>
 	</thead>
-	<tbody id="boxes_sortable">
-		<?php echo (count($boxes) < 1)?'<tr><td style="text-align:center;" colspan="4">There are currently no boxes.</td></tr>':''?>
-	<?php
+	<?php echo (count($boxes) < 1)?'<tr><td style="text-align:center;" colspan="4">There are currently no boxes.</td></tr>':''?>
 
+	<?php if($boxes):?>
+	<tbody id="boxes_sortable">
+	<?php
 	foreach ($boxes as $box):
 
 		//clear the dates out if they're all zeros
@@ -108,10 +108,6 @@ function areyousure()
 		</tr>
 	<?php endforeach; ?>
 	</tbody>
+	<?php endif;?>
 </table>
-<?php else : ?>
-	<h2>
-		There are currently no boxes.
-	</h2>
-<?php endif;?>
 <?php include('footer.php'); ?>
