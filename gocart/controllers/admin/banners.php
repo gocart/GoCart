@@ -17,7 +17,7 @@ class Banners extends CI_Controller
 	function index()
 	{
 		$data['banners']		= $this->Banner_model->get_banners();
-		$data['page_title']	= 'Ads';
+		$data['page_title']		= 'Banners';
 		
 		$this->load->view($this->config->item('admin_folder').'/banners', $data);
 	}
