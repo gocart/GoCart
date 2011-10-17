@@ -19,83 +19,64 @@ if(isset($_SERVER['HTTPS']))
 <script type="text/javascript">
 $(document).ready(function(){
 	$('input:submit').button();
-	$('#login_container').css('opacity', .9)
-	
 });
-if (navigator.userAgent.toLowerCase().indexOf("chrome") >= 0) {
-    $(window).load(function(){
-        $('input:-webkit-autofill').each(function(){
-            var text = $(this).val();
-            var name = $(this).attr('name');
-            $(this).after(this.outerHTML).remove();
-            $('input[name=' + name + ']').val(text);
-        });
-    });
-}
 </script>
 <style type="text/css">
 body {
-	background-image:url('/images/admin/gc_login_bg.gif');
+	background-image:url('/images/admin/bg_dots.gif');
 	margin:0px;
 	padding:0px;
+}
+#logo {
+	margin:150px auto 15px;
+	display:block;
 }
 #login_container {
 	margin:auto;
-	position:absolute;
 	font-family:'Lucida Grande', Arial, Verdana, sans-serif;
-	font-size:20px;
-	z-index:2;
-	left:150px;
-	top:100px;
+	font-size:14px;
 	color:#555;
-	background-color:#fff;
-	-moz-box-shadow: 0px 0px 5px #000;
-	-webkit-box-shadow: 0px 0px 5px #000;
-	box-shadow: 0px 0px 5px #000;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
 	padding:10px;
+	width:310px;
 }
-h3 {
-	font-family: "Lucida Grande", Arial, Verdana, sans-serif;
-	color:#555;
-	font-weight:normal;
-	font-size:28px;
-	padding:0px;
-	margin:0px;
-}
-.gc_tf1
+.form_input
 {
+	display:block;
 	border:1px solid #ccc;
-	padding:7px;
+	padding:5px;
 	width:300px;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	font-size:20px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	font-size:16px;
 	outline:none;
-	font-family: "Lucida Grande", Arial, Verdana, sans-serif;
-	color:#525252;
+	font-family:Arial, Verdana, sans-serif;
+	color:#555555;
+	margin:0px 0px 10px;
+}
+
+label {
+	display:block;
+	padding:3px;
 }
 
 #error {
-	background-color:#900000;
-	border-bottom:1px solid #a50101;
+	background-color:#d7330d;
+	border:1px solid #be2907;
+	width:958px;
+	margin:auto;
 	color:#ffffff;
 	font-size:12px;
 	font-family: "Lucida Grande", Arial, Verdana, sans-serif;
 	font-weight:bold;
 	text-align:center;
 	padding:10px 0px;
-	-moz-box-shadow: 0px 0px 5px #000;
-	-webkit-box-shadow: 0px 0px 5px #000;
-	box-shadow: 0px 0px 5px #000;
 }
+
 </style>
 </head>
 <body>
-	<img style="position:absolute;bottom:0px;right:0px;z-index:1;" src="/images/admin/gc_login_logo.png" alt="logo"/>
+	<img src="/images/admin/login_logo.png" id="logo"/>
 	<?php
 	if ($this->session->flashdata('message'))
 	{
@@ -104,27 +85,21 @@ h3 {
 	?>
 	
 	<?php echo secure_form_open($this->config->item('admin_folder').'/login') ?>
-	<table id="login_container">
-		<tr>
-			<td colspan="2"><h3>Login</h3></td>
-		</tr>
-		<tr>
-			<td>Email: </td>
-			<td><?php echo  form_input(array('id'=>'email', 'name'=>'email', 'class'=>'gc_tf1')); ?></td>
-		</tr>
-		<tr>
-			<td>Password:</td>
-			<td><?php echo  form_password(array('id'=>'password', 'name'=>'password', 'class'=>'gc_tf1')); ?></td>
-		</tr>
-		<tr>
-			<td>Keep Me Logged In:</td>
-			<td><input type="checkbox" value="true" name="remember" /></td>
+	<div id="login_container">
+			<label>Email</label>
+			<?php echo  form_input(array('id'=>'email', 'name'=>'email', 'class'=>'form_input')); ?>
+			
+			
+			<label>Password:</label>
+			<?php echo  form_password(array('id'=>'password', 'name'=>'password', 'class'=>'form_input')); ?>
+			Keep Me Logged In:
+			<input type="checkbox" value="true" name="remember" />
 		</tr>
 		<tr>
 			<td></td>
-			<td><input type="submit" value="Login" name="submit" style="font-size:25px;padding:5px 10px; float:right;"/></td>
+			<td><input type="submit" value="Login" name="submit" style=" margin:0px; padding:5px 10px; float:right;"/></td>
 		</tr>
-	</table>
+	</div>
 	<input type="hidden" value="<?php echo $redirect; ?>" name="redirect"/>
 	<input type="hidden" value="submitted" name="submitted"/>
 	<?php echo  form_close(); ?>
