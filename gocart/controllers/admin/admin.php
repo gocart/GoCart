@@ -101,13 +101,13 @@ class Admin extends CI_Controller
 			
 			$this->auth->save($save);
 			
-			if ($id)
+			if (!$id)
 			{
-				$this->session->set_flashdata('message', $this->input->post('firstname').' '.$this->input->post('lastname').' has been added.');
+				$this->session->set_flashdata('message', 'The user has been added');
 			}
 			else
 			{
-				$this->session->set_flashdata('message', $this->input->post('firstname').' '.$this->input->post('lastname').'\'s information has been updated.');
+				$this->session->set_flashdata('message', ' The user has been updated.');
 			}
 			
 			//go back to the customer list
