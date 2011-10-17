@@ -38,6 +38,7 @@ body {
 	color:#555;
 	padding:10px;
 	width:310px;
+	background-color:#fff;
 }
 .form_input
 {
@@ -94,11 +95,10 @@ label {
 			<?php echo  form_password(array('id'=>'password', 'name'=>'password', 'class'=>'form_input')); ?>
 			Keep Me Logged In:
 			<input type="checkbox" value="true" name="remember" />
-		</tr>
-		<tr>
-			<td></td>
-			<td><input type="submit" value="Login" name="submit" style=" margin:0px; padding:5px 10px; float:right;"/></td>
-		</tr>
+			
+			<input type="submit" value="Login" name="submit" style=" margin:0px; padding:5px 10px; float:right;"/>
+			
+			<br style="clear:both;"/>
 	</div>
 	<input type="hidden" value="<?php echo $redirect; ?>" name="redirect"/>
 	<input type="hidden" value="submitted" name="submitted"/>
