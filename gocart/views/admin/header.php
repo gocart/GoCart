@@ -17,6 +17,7 @@ if(isset($_SERVER['HTTPS']))
 <link href="<?php echo $http;?>://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/smoothness/jquery-ui.css" type="text/css" rel="stylesheet"/> 
 <script type="text/javascript" src="<?php echo $http;?>://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script> 
 <script type="text/javascript" src="<?php echo $http;?>://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+<link href='<?php echo $http;?>://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css' />
 
 <link href="/js/jquery/colorbox/colorbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="/js/jquery/colorbox/jquery.colorbox-min.js"></script>
@@ -42,9 +43,15 @@ function buttons()
 <body>
 <div id="wrapper">
 	<div id="header">
-		<a href="/"><img src="/images/admin/logo.png" alt="dashboard"/></a>
+		<div class="shine"></div>
+		<a href="/<?php echo $this->config->item('admin_folder');?>/dashboard"><img src="/images/admin/logo.png" alt="dashboard"/></a>
 		<h2><?php echo  $page_title; ?></h2>
-		<a style="float:right;" href="/<?php echo $this->config->item('admin_folder');?>/login/logout">Logout</a>
+		
+		<span>
+			<a style="float:right;" href="/<?php echo $this->config->item('admin_folder');?>/login/logout">Logout</a>
+			<a style="float:right;" href="/">Front End</a>
+			<a style="float:right;" href="/<?php echo $this->config->item('admin_folder');?>/dashboard">Dashboard</a>
+		</span>
 	</div>
 	<div id="container">
 		<div id="menu_wrapper">
