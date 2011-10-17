@@ -26,7 +26,7 @@
 		margin: 40px;
 		font: 13px/20px normal Helvetica, Arial, sans-serif;
 		color: #4F5155;
-		background-image:url('/images/admin/gc_login_bg.gif');
+		background-image:url('/images/admin/bg_dots.gif');
 	}
 
 	a {
@@ -74,17 +74,17 @@
 	p.footer{
 		text-align: right;
 		font-size: 11px;
-		border-top: 1px solid #D0D0D0;
+		border-top: 1px solid #eeeeee;
 		line-height: 32px;
 		padding: 0 10px 0 10px;
 		margin: 20px 0 0 0;
 	}
 	
 	#container{
-		margin: 10px;
-		border: 1px solid #000;
+		margin: 10px auto;
+		padding:10px;
 		background-color:#fff;
-		-webkit-box-shadow: 0 0 8px #000;
+		width:700px;
 	}
 	
 	fieldset {
@@ -123,11 +123,9 @@
 	</style>
 </head>
 <body>
-
+<div style="text-align:center; padding:20px;"><img src="/images/admin/login_logo.png" alt="GoCart"/></div>
 <div id="container">
-	<div style="text-align:center; padding:20px;"><img src="/images/cart.png" alt="GoCart"/></div>
 	<div id="body">
-		<p>Thanks for trying out GoCart!</p>
 		
 		<?php if($errors):?>
 		
