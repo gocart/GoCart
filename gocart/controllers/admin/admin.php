@@ -70,8 +70,8 @@ class Admin extends CI_Controller
 			$data['access']		= $admin->access;
 		}
 		
-		$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('firstname', 'First Name', 'trim|max_length[32]');
+		$this->form_validation->set_rules('lastname', 'Last Name', 'trim|max_length[32]');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[128]|callback_check_email');
 		$this->form_validation->set_rules('access', 'Access', 'trim|required');
 		

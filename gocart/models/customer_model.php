@@ -345,39 +345,12 @@ Class Customer_model extends CI_Model
 	
 	function get_groups()
 	{
-		// get data
-		$result = $this->db->get('customer_groups');
-		// reassemble serialized values
-		$groups = $result->result_array();
-		$key = 0;
-		$return = array();
-		foreach($groups as $group)
-		{
-			$return[$key]['id'] = $group['id'];
-			$return[$key] = array_merge($return[$key], unserialize($group['group_data']));
-			$key++;
-		}
-		return $return;
+		return $this->db->get('customer_groups')->result();		
 	}
 	
 	function get_group($id)
 	{
-		$this->db->where('id', $id);
-		$result = $this->db->get('customer_groups');
-		
-		if(empty($result))
-		{
-			return;
-		}
-		
-		$group = $result->row_array();
-		
-		if($group)
-		{
-			$group = array_merge($group, unserialize($group['group_data']));
-		}
-		
-		return $group;
+		return $this->db->where('id', $id)->get('customer_groups')->row();		
 	}
 	
 	function delete_group($id)
@@ -388,11 +361,9 @@ Class Customer_model extends CI_Model
 	
 	function save_group($data)
 	{
-		if($data['id']) 
+		if(!empty($data['id'])) 
 		{
-			$this->db->set('group_data', $data['group_data']);
-			$this->db->where('id', $data['id']);
-			$this->db->update('customer_groups');
+			$this->db->where('id', $data['id'])->update('customer_groups', $data);
 			return $data['id'];
 		} else {
 			$this->db->insert('customer_groups', $data);
