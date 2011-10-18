@@ -17,24 +17,24 @@ class usps_international
 		
 		$this->service_list = array(
 			
-			"USPS GXG&lt;sup&gt;&amp;trade;&lt;\/sup&gt; Envelopes**",
-			"Express Mail&lt;sup&gt;&amp;reg;&lt;\/sup&gt; International",
-			"Express Mail&lt;sup&gt;&amp;reg;&lt;\/sup&gt; International Flat Rate Envelope",
-			"Express Mail&lt;sup&gt;&amp;reg;&lt;\/sup&gt; International Legal Flat Rate Envelope",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;\/sup&gt; International",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;\/sup&gt; International Large Flat Rate Box",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;\/sup&gt; International Medium Flat Rate Box",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;\/sup&gt; International Small Flat Rate Box**",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;\/sup&gt; International DVD Flat Rate Box**",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;\/sup&gt; International Large Video Flat Rate Box**",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;\/sup&gt; International Flat Rate Envelope**",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;\/sup&gt; International Legal Flat Rate Envelope**",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;\/sup&gt; International Padded Flat Rate Envelope**",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;\/sup&gt; International Gift Card Flat Rate Envelope**",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;\/sup&gt; International Small Flat Rate Envelope**",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;\/sup&gt; International Window Flat Rate Envelope**",
-			"First-Class Mail&lt;sup&gt;&amp;reg;&lt;\/sup&gt; International Package**",
-			"First-Class Mail&lt;sup&gt;&amp;reg;&lt;\/sup&gt; International Large Envelope**"
+			"USPS GXG&lt;sup&gt;&amp;trade;&lt;/sup&gt; Envelopes**",
+			"Express Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International",
+			"Express Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Flat Rate Envelope",
+			"Express Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Legal Flat Rate Envelope",
+			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International",
+			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Large Flat Rate Box",
+			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Medium Flat Rate Box",
+			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Small Flat Rate Box**",
+			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International DVD Flat Rate Box**",
+			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Large Video Flat Rate Box**",
+			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Flat Rate Envelope**",
+			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Legal Flat Rate Envelope**",
+			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Padded Flat Rate Envelope**",
+			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Gift Card Flat Rate Envelope**",
+			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Small Flat Rate Envelope**",
+			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Window Flat Rate Envelope**",
+			"First-Class Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Package**",
+			"First-Class Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Large Envelope**"
 						
 		);
 
@@ -136,16 +136,15 @@ class usps_international
        	
        	if(isset($array['INTLRATEV2RESPONSE'][0]['PACKAGE'][0]['ERROR'])) 
        	{
+       	//	var_dump($array);
        		
        		return array(); // if the request failed, just send back an empty set
        	}
        	
-       //	var_dump($array);
-  		
-		foreach ($array['INTLRATEV2RESPONSE'][0]['PACKAGE'][0]['SERVICE'] as $value)
+   		foreach ($array['INTLRATEV2RESPONSE'][0]['PACKAGE'][0]['SERVICE'] as $value)
        	{	
-	         //if(in_array($value['SVCDESCRIPTION'][0]['VALUE'],$service_list))
-             //{	
+	         if(in_array($value['SVCDESCRIPTION'][0]['VALUE'],$service_list))
+             {	
 	         	$amount = $value['POSTAGE'][0]['VALUE'];
 	         	
 	         	if(is_numeric($handling_amount)) // valid entry?
@@ -161,8 +160,8 @@ class usps_international
 	    			}
 	        	}
 	
-	            $rates[$value['SVCDESCRIPTION'][0]['VALUE']] = $amount;
-		     // }	
+	            $rates[html_entity_decode($value['SVCDESCRIPTION'][0]['VALUE'])] = $amount;
+		      }	
         }
 
   			
@@ -239,7 +238,7 @@ class usps_international
 			$handling_amount = $post['handling_amount'];
 		}
 		
-		$form	= '<table><tr><td>Username: </td><td>'.form_input('username', $username, 'class="gc_tf1"') .'</td></tr>';
+		$form	= '<table><tr><td>Username: </td><td>'.form_input('username', $username) .'</td></tr>';
 					//<tr><td>Password: </td><td>'.form_input('password', $password) .'</td></tr>';
 		
 		$form	.= '</td></tr><tr><td valign="top">Services To Offer: </td><td>';
@@ -283,16 +282,16 @@ class usps_international
 		$form .= form_dropdown('size', $opts, $size);
 		
 		$form .= '</td></tr><tr><td>Pkg Length: </td><td>';
-		$form .= form_input('length', $length, 'class="gc_tf1"');
+		$form .= form_input('length', $length);
 		
 		$form .= '</td></tr><tr><td>Pkg Width: </td><td>';
-		$form .= form_input('width', $width, 'class="gc_tf1"');
+		$form .= form_input('width', $width);
 		
 		$form .= '</td></tr><tr><td>Pkg Height: </td><td>';
-		$form .= form_input('height', $height, 'class="gc_tf1"');
+		$form .= form_input('height', $height);
 		
 		$form .= '</td></tr><tr><td>Pkg Girth: </td><td>';
-		$form .= form_input('girth', $girth, 'class="gc_tf1"');
+		$form .= form_input('girth', $girth);
 		
 		$form .= '</td></tr><tr><td>Machinable: </td><td>';
 		
@@ -304,7 +303,7 @@ class usps_international
 		
 		$form .= form_dropdown('handling_method', array('$'=>'$', '%'=>'%'), $handling_method);
 		
-		$form .= ' '. form_input('handling_amount', $handling_amount, 'class="gc_tf1"');
+		$form .= ' '. form_input('handling_amount', $handling_amount);
 		
 		$form .= '</td></tr><tr><td>Module Status: </td><td>';
 		
