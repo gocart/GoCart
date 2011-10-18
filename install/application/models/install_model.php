@@ -4363,10 +4363,12 @@ class Install_model extends CI_Model {
 
 
 		$query[] = "CREATE TABLE `".$prefix."customer_groups` (
-		  `id` int(11) NOT NULL auto_increment,
-		  `group_data` text collate utf8_general_ci NOT NULL,
-		  PRIMARY KEY  (`id`)
-		) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+		 `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `discount` float DEFAULT NULL,
+		  `name` varchar(50) DEFAULT NULL,
+		  `discount_type` enum('fixed','percent') DEFAULT NULL,
+		  PRIMARY KEY (`id`)
+		) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;";
 
 
 		$query[] = "DROP TABLE IF EXISTS `".$prefix."customers`;";

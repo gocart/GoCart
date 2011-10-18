@@ -11,7 +11,6 @@ function areYouSure(i)
 	<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder');?>/pages/link_form">Add New Link</a>
 </div>
 
-<?php if((bool)count($pages)):?>
 <table class="gc_table" cellspacing="0" cellpadding="0">
 	<thead>
 		<tr>
@@ -20,6 +19,9 @@ function areYouSure(i)
 			<th class="gc_cell_right"></th>
 		</tr>
 	</thead>
+	
+	<?php echo (count($pages) < 1)?'<tr><td style="text-align:center;" colspan="2">There are currently no pages.</td></tr>':''?>
+	<?php if($pages):?>
 	<tbody>
 		
 		<?php
@@ -42,7 +44,7 @@ function areYouSure(i)
 						<a href="<?php echo $page->url;?>" target="_blank">Follow Link</a>
 					<?php else: ?>
 						<a href="<?php echo base_url(); ?><?php echo $GLOBALS['admin_folder'];?>/pages/form/<?php echo  $page->id; ?>">Edit</a>
-						<a href="<?php echo secure_base_url(); ?><?php echo $page->slug; ?>" target="_blank">Go to Page</a>
+						<a href="/<?php echo $page->slug; ?>" target="_blank">Go to Page</a>
 					<?php endif; ?>
 						
 				</td>
@@ -54,8 +56,6 @@ function areYouSure(i)
 		page_loop($pages);
 		?>
 	</tbody>
+	<?php endif;?>
 </table>
-<?php else :?>
-	<h2>There are currently no pages.</h2>
-<?php endif;?>
 <?php include('footer.php'); ?>
