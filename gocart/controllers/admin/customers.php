@@ -75,7 +75,7 @@ class Customers extends CI_Controller {
 		$group_list[0]='';
 		foreach($groups as $group)
 		{
-			$group_list[$group['id']] = $group['name'];
+			$group_list[$group->id] = $group->name;
 		}
 		$data['group_list'] = $group_list;
 		
