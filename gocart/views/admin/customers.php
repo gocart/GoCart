@@ -8,7 +8,6 @@ function areyousure()
 <div class="button_set">
 	<a href="<?php echo base_url();?><?php echo $this->config->item('admin_folder');?>/customers/export_xml">Download Customer List (XML)</a>
 	<a href="<?php echo base_url();?><?php echo $this->config->item('admin_folder');?>/customers/get_subscriber_list">Download Email Subscriber List (CSV)</a>
-	<a id="admin_groups" href="<?php echo base_url();?><?php echo $this->config->item('admin_folder');?>/customers/groups/" title="Customer Groups">Edit Customer Groups</a>
 	<a href="<?php echo  secure_base_url(); ?><?php echo $this->config->item('admin_folder');?>/customers/form">Add New Customer</a>
 </div>
 

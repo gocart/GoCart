@@ -32,8 +32,11 @@ function areyousure()
 					<td><?php echo $group->discount ?></td>
 					<td><?php echo $group->discount_type ?></td>
 					<td>
+						<?php 
+						// keep the default group from being deleted
+						if($group->id != 1) : ?>
 						<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/customers/delete_group/<?php echo $group->id ?>" class="ui-state-default ui-corner-all" style="float:right;"><span class="ui-icon ui-icon-circle-minus"></span></a>
-						
+						<?php endif; ?>
 						<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/customers/edit_group/<?php echo $group->id ?>" class="ui-state-default ui-corner-all" style="float:right; margin-right:5px;"><span class="ui-icon ui-icon-pencil"></span></a>
 					</td>
 				</tr>
