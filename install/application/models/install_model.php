@@ -4360,6 +4360,9 @@ class Install_model extends CI_Model {
 
 
 		$query[] = "DROP TABLE IF EXISTS `".$prefix."customer_groups`;";
+		
+		$query[] = "INSERT INTO `".$prefix."customer_groups` (`id`,`discount`,`name`,`discount_type`)
+					VALUES (1,0,'Shoppers','fixed');";
 
 
 		$query[] = "CREATE TABLE `".$prefix."customer_groups` (
@@ -4387,7 +4390,7 @@ class Install_model extends CI_Model {
 		  `ship_to_bill_address` enum('false','true') collate utf8_general_ci NOT NULL default 'true',
 		  `password` varchar(40) collate utf8_general_ci NOT NULL,
 		  `active` tinyint(1) NOT NULL,
-		  `group_id` int(11) NOT NULL default '0',
+		  `group_id` int(11) NOT NULL default '1',
 		  `confirmed` tinyint(1) NOT NULL,
 		  PRIMARY KEY  (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
