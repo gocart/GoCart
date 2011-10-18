@@ -4369,7 +4369,7 @@ class Install_model extends CI_Model {
 		 `id` int(11) NOT NULL AUTO_INCREMENT,
 		  `discount` float DEFAULT NULL,
 		  `name` varchar(50) DEFAULT NULL,
-		  `discount_type` enum('fixed','percent') DEFAULT NULL,
+		  `discount_type` enum('fixed','percent') DEFAULT 'percent',
 		  PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;";
 
