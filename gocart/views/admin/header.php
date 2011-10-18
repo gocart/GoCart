@@ -64,6 +64,7 @@ function buttons()
 				<a href="<?php echo $admin_url;?>orders">Orders</a>
 				<?php if($this->auth->check_access('Admin')) : ?>
 				<a href="<?php echo $admin_url;?>customers">Customers</a>
+				<a href="<?php echo $admin_url;?>customers/groups">Groups</a>
 				<a href="<?php echo $admin_url;?>reports">Reports</a>
 				<a href="<?php echo $admin_url;?>coupons">Coupons</a>
 				<a href="<?php echo $admin_url;?>giftcards">Giftcards</a>
