@@ -47,10 +47,9 @@ class Customers extends CI_Controller {
 		$data['customers'] = (array)$this->Customer_model->get_customers();
 		
 
+		force_download('users.xml', $this->load->view($this->config->item('admin_folder').'/customers_xml', $data, true));
 		
-		//force_download('users.xml', $this->load->view($this->config->item('admin_folder').'/customers_xml', $data, true));
-		
-		$this->load->view($this->config->item('admin_folder').'/customers_xml', $data);
+		//$this->load->view($this->config->item('admin_folder').'/customers_xml', $data);
 	}
 
 	function form($id = false)
@@ -265,18 +264,74 @@ class Customers extends CI_Controller {
 	function groups()
 	{
 		$data['groups'] = $this->Customer_model->get_groups();
+		$data['page_title'] = 'Customer Groups';
 		
 		$this->load->view($this->config->item('admin_folder').'/customer_groups', $data);
 	}
 	
-	function save_group()
-	{	
+	function edit_group($id=0)
+	{
+		$this->load->helper('form');
+		$this->load->library('form_validation');
 		
-		$data['id'] = $this->input->post("group_id");
-		$data['group_data'] = serialize(array("name"=>$this->input->post("group_name"),"discount"=>$this->input->post("group_price"),"discount_type"=>$this->input->post("group_type")));
-		echo $this->Customer_model->save_group($data);
+		$data['page_title']		= 'Add Customer Group';
+		
+		//default values are empty if the customer is new
+		$data['id']				= '';
+		$data['name']   		= '';
+		$data['discount']		= '';
+		$data['discount_type'] 	= '';
+		
+		if($id)
+		{
+			$group = $this->Customer_model->get_group($id);
+			
+			$data['id']				= $group->id;
+			$data['name']   		= $group->name;
+			$data['discount']		= $group->discount;
+			$data['discount_type'] 	= $group->discount_type;
+			
+			$data['page_title'] = 'Edit Customer Group';
+		}
+		
+		$this->form_validation->set_rules('name', 'Group Name', 'trim|required|max_length[50]');
+		$this->form_validation->set_rules('discount', 'Discount', 'trim|required|numeric');
+		$this->form_validation->set_rules('discount_type', 'Discount Type', 'trim|required');
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->load->view($this->config->item('admin_folder').'/customer_group_form', $data);
+		}
+		else
+		{
+			
+			if($id)
+			{
+				$save['id'] = $id;
+			}
+			
+			$save['name'] 		= set_value('name');
+			$save['discount'] 	= set_value('discount');
+			$save['discount_type'] = set_value('discount_type');
+			
+			$this->Customer_model->save_group($save);
+			
+			if (!$id)
+			{
+				$this->session->set_flashdata('message', 'The group "'.set_value('name').'" has been added.');
+			}
+			else
+			{
+				$this->session->set_flashdata('message', 'The group "'.set_value('name').'" has been updated.');
+			}
+			
+			//go back to the customer group list
+			redirect($this->config->item('admin_folder').'/customers/groups');
+		
+		}
 		
 	}
+	
 	
 	function get_group()
 	{
@@ -288,15 +343,15 @@ class Customers extends CI_Controller {
 	}
 	
 	
-	function delete_group()
+	function delete_group($id)
 	{
-		$id = $this->input->post('id');
 		
 		if(empty($id)) return;
 		
 		$this->Customer_model->delete_group($id);
 		
-		echo $id;
+		//go back to the customer list
+		redirect($this->config->item('admin_folder').'/customers/groups');
 	}
 	
 	function address_list($customer_id)
