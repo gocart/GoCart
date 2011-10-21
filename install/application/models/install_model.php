@@ -4360,10 +4360,6 @@ class Install_model extends CI_Model {
 
 
 		$query[] = "DROP TABLE IF EXISTS `".$prefix."customer_groups`;";
-		
-		$query[] = "INSERT INTO `".$prefix."customer_groups` (`id`,`discount`,`name`,`discount_type`)
-					VALUES (1,0,'Shoppers','fixed');";
-
 
 		$query[] = "CREATE TABLE `".$prefix."customer_groups` (
 		 `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -4373,7 +4369,9 @@ class Install_model extends CI_Model {
 		  PRIMARY KEY (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;";
 
-
+		$query[] = "INSERT INTO `".$prefix."customer_groups` (`id`,`discount`,`name`,`discount_type`)
+					VALUES (1,0,'Shoppers','fixed');";
+				
 		$query[] = "DROP TABLE IF EXISTS `".$prefix."customers`;";
 
 
