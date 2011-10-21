@@ -73,8 +73,4 @@ function areyousure()
 	</tbody>
 </table>
 
-<script type="text/javascript">
-$('#admin_groups').colorbox({width:'600px', innerHeight:'500px', scrolling:false});
-</script>
-
 <?php include('footer.php'); ?>
