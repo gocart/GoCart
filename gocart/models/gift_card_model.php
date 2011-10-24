@@ -83,19 +83,34 @@ class Gift_card_model extends CI_Model
 		return $res->row();
 	}
 	
-	function send_notification($code)
+	function send_notification($gc_data)
 	{
 		
-		if(!$card = $this->get_gift_card($code)) return;
-		
+		$this->load->helper('formatting_helper');
+		$row = $this->db->where('id', '1')->get('canned_messages')->row_array();
+
+		// set replacement values for subject & body
+		$row['subject']	= str_replace('{from}', $gc_data['from'], $row['subject']);
+		$row['subject']	= str_replace('{site_name}', $this->config->item('company_name'), $row['subject']);
+
+		$row['content']	= str_replace('{code}', $gc_data['code'], $row['content']);
+		$row['content']	= str_replace('{amount}', format_currency($gc_data['beginning_amount']), $row['content']);
+		$row['content']	= str_replace('{from}', $gc_data['from'], $row['content']);
+		$row['content']	= str_replace('{personal_message}', nl2br($gc_data['personal_message']), $row['content']);
+		$row['content']	= str_replace('{url}', $this->config->item('base_url'), $row['content']);
+		$row['content']	= str_replace('{site_name}', $this->config->item('company_name'), $row['content']);
+
 		$this->load->library('email');
 
-		$this->email->from($card->from);
-		$this->email->to($card->to_email);
-		
-		$this->email->subject('You have been given a gift card to' /* site name */ );
-		$this->email->message('Test email<BR>'. $card->personal_message);
-		
+		$config['mailtype'] = 'html';
+		$this->email->initialize($config);
+
+		$this->email->from($this->config->item('email'));
+		$this->email->to($gc_data['to_email']);
+
+		$this->email->subject($row['subject']);
+		$this->email->message($row['content']);
+
 		$this->email->send();
 	}
 	
@@ -109,8 +124,8 @@ class Gift_card_model extends CI_Model
 	
 	// use a run-of-the-mill pw generator as a code generator
 	function generate_password($length=16) {
-		$vowels = 'aeuy';
-		$consonants = 'bdghjmnpqrstvz23456789';
+		$vowels = '0123';
+		$consonants = '456789ABCDEF';
 	 
 		$password = '';
 		$alt = time() % 2;

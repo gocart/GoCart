@@ -66,7 +66,7 @@ class Install_model extends CI_Model {
 		) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;";
 
 
-		$query[] = "INSERT INTO `".$prefix."canned_messages` VALUES ('1', '0', 'internal', 'Gift Card Email Notification', 'You&#39; have received a gift card from {from} to {site_name}!', '<p>Congrats on your new {site_name} gift card!<br><br>Card Code: {code}<br>Gift Amount: ${amount}<br>From: {from}<br>Redeemable at: {site_name} {url}</p><p>Personal Message from Sender:<br>{personal_message}</p><p>Be sure to save this email in a safe place. Your gift card code is as good as cash.</p>'),
+		$query[] = "INSERT INTO `".$prefix."canned_messages` VALUES ('1', '0', 'internal', 'Gift Card Email Notification', 'You&#39; have received a gift card from {from} to {site_name}!', '<p>Congrats on your new {site_name} gift card!<br><br>Card Code: {code}<br>Gift Amount: {amount}<br>From: {from}<br>Redeemable at: {site_name} {url}</p><p>Personal Message from Sender:<br>{personal_message}</p><p>Be sure to save this email in a safe place. Your gift card code is as good as cash.</p>'),
 		('3', '0', 'order', 'Order Shipped Notification', 'Your order has shipped (order: {order_number})!', '<p>Dear {customer_name},</p>\n<p>Thank you for your purchase at {site_name}!</p>\n<p>This message is to inform you that your order ({order_number}) has been shipped.</p>\n<p>Enjoy your purchase!</p>'),
 		('6', '0', 'internal', 'Registration Confirmation', 'Thank you for registring at {site_name}!', '<p>Dear {customer_name},</p>\n<p>Thanks for registering at {site_name}. Your participation is appreciated. After registering, you should have been logged in automatically. You may access your account by using the email address this notice was sent to, and the password you signed up with. If you forget your password, on the login page, click the \"forgot password\" link and you can get a new password generated and sent to you.<br /><br />Thanks,<br />{site_name}</p>'),
 		('7', '0', 'internal', 'Order Submitted Confirmation', 'Thank you for your order with {site_name}!', '<p>Dear {customer_name},</p>\n<p>Thank you for your order with {site_name}!</p>\n<p>{order_summary}</p>');";
@@ -4631,7 +4631,7 @@ class Install_model extends CI_Model {
 		
 		$query[] = "INSERT INTO `".$prefix."settings` (`id`,`code`,`setting_key`,`setting`)
 					VALUES	(181,'gift_cards','predefined_card_amounts','10,20,25,50,100'),
-							(182,'gift_cards','enabled','0'),
+							(182,'gift_cards','enabled','1'),
 							(183,'gift_cards','allow_custom_amount','1');";
 		
 		return $query;
