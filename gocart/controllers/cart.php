@@ -323,6 +323,7 @@ class Cart extends CI_Controller {
 			$card['price'] = set_value(set_value('amount'));
 			
 			$card['id'] = -1; // just a placeholder
+			$card['sku'] = 'GiftCard';
 			$card['base_price'] = $card['price']; // price gets modified by options, show the baseline still...
 			$card['name']	= 'Gift Card';
 			$card['code']	= $this->Gift_card_model->generate_password();
