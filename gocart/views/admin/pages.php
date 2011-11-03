@@ -1,9 +1,9 @@
 <?php include('header.php'); ?>
 
 <script type="text/javascript">
-function areyousure(i)
+function areYouSure(i)
 {
-	return confirm('Are you sure you want to delete this page?');
+	return confirm('Are you sure you want to delete '+i+'?');
 }
 </script>
 <div class="button_set">
