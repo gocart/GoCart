@@ -2,7 +2,6 @@
 
 class Install extends CI_Controller {
 
-
 	/**
 	 * Index Page for this controller.
 	 *
@@ -20,6 +19,19 @@ class Install extends CI_Controller {
 	 */
 	public function index()
 	{
+		/*
+		are we installing into a subfolder?
+		if not, then the subfolder variabel below will be empty. If we are it will contain a value.
+		*/
+		$subfolder			= dirname(dirname($_SERVER['PHP_SELF']));
+		$data['subfolder']	= $subfolder;
+		
+		//make sure the config folder is writable
+		$data['config_writable']	= is_writable($_SERVER['DOCUMENT_ROOT'].$subfolder.'/gocart/config/');
+		$data['root_writable']		= is_writable($_SERVER['DOCUMENT_ROOT'].$subfolder);
+		$data['relative_path']		= $subfolder.'/gocart/config/';
+		
+		
 		$this->load->library('form_validation');
 		$this->load->helper(array('form', 'file'));
 		
@@ -42,7 +54,6 @@ class Install extends CI_Controller {
 		$this->form_validation->set_rules('state');
 		$this->form_validation->set_rules('zip');
 		$this->form_validation->set_rules('country');
-		
 		
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -91,7 +102,7 @@ class Install extends CI_Controller {
 				$settings['database']		= $this->input->post('database');
 				$settings['prefix']			= $this->input->post('prefix');				
 				$file_contents				= $this->load->view('templates/database', $settings, true);
-				write_file($_SERVER['DOCUMENT_ROOT'].'/gocart/config/database.php', $file_contents);
+				write_file($_SERVER['DOCUMENT_ROOT'].$subfolder.'/gocart/config/database.php', $file_contents);
 
 				//setup the gocart config file
 				$settings					= array();
@@ -105,26 +116,29 @@ class Install extends CI_Controller {
 				$settings['email']			= $this->input->post('website_email');
 				$settings['ssl_support']	= (bool)$this->input->post('ssl_support');
 				$file_contents				= $this->load->view('templates/gocart', $settings, true);
-				write_file($_SERVER['DOCUMENT_ROOT'].'/gocart/config/gocart.php', $file_contents);
+				write_file($_SERVER['DOCUMENT_ROOT'].$subfolder.'/gocart/config/gocart.php', $file_contents);
 
-				//setup the Code Igniter default config file
+				//setup the CodeIgniter default config file
 				$file_contents				= $this->load->view('templates/config', array(), true);
-				write_file($_SERVER['DOCUMENT_ROOT'].'/gocart/config/config.php', $file_contents);
+				write_file($_SERVER['DOCUMENT_ROOT'].$subfolder.'/gocart/config/config.php', $file_contents);
+				
+				//setup the .htaccess file
+				$file_contents				= $this->load->view('templates/htaccess', array('subfolder'=>$subfolder), true);
+				write_file($_SERVER['DOCUMENT_ROOT'].$subfolder.'/.htaccess', $file_contents);
 
 				//redirect to the admin login
 				if($this->input->post('ssl_support'))
 				{
-					header( 'Location: https://'.$_SERVER['HTTP_HOST'].'/admin/login' ) ;
+					header( 'Location: https://'.$_SERVER['HTTP_HOST'].$subfolder.'/admin/login' ) ;
 				}
 				else
 				{
-					header( 'Location: http://'.$_SERVER['HTTP_HOST'].'/admin/login' ) ;
+					header( 'Location: http://'.$_SERVER['HTTP_HOST'].$subfolder.'/admin/login' ) ;
 				}
 			}
 			else
 			{
 				$data['errors']	= '<p>A connection to the database could not be established.</p>';
-				
 				$this->load->view('install', $data);
 			}
 		}
