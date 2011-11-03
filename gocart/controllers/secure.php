@@ -15,9 +15,9 @@ class Secure extends CI_Controller {
 	var $gift_cards_enabled = false; 
 	
 	//load all the pages into this variable so we can call it from all the methods
-	var $pages = '';
+	var $pages;
 	
-	var $customer = '';
+	var $customer;
 	
 	var $header_text;
 	
@@ -254,7 +254,6 @@ class Secure extends CI_Controller {
 			
 			$this->email->send();
 			
-			
 			$this->session->set_flashdata('message', 'Thanks for registering '.set_value('firstname').'!');
 			
 			//lets automatically log them in
@@ -269,7 +268,7 @@ class Secure extends CI_Controller {
 	
 	function check_email($str)
 	{
-		if($this->customer != false)
+		if(!empty($this->customer['id']))
 		{
 			$email = $this->Customer_model->check_email($str, $this->customer['id']);
 		}
@@ -430,6 +429,37 @@ class Secure extends CI_Controller {
 	
 	}
 	
+	function set_default_address()
+	{
+		$id = $this->input->post('id');
+		$type = $this->input->post('type');
+	
+		$customer = $this->go_cart->customer();
+		$save['id'] = $customer['id'];
+		
+		if($type=='bill')
+		{
+			$save['default_billing_address'] = $id;
+
+			$customer['bill_address'] = $this->Customer_model->get_address($id);
+			$customer['default_billing_address'] = $id;
+		} else {
+
+			$save['default_shipping_address'] = $id;
+
+			$customer['ship_address'] = $this->Customer_model->get_address($id);
+			$customer['default_shipping_address'] = $id;
+		} 
+		
+		//update customer db record
+		$this->Customer_model->save($save);
+		
+		//update customer session info
+		$this->go_cart->save_customer($customer);
+		
+		echo "1";
+	}
+	
 	
 	// this is a form partial for the checkout page
 	function checkout_address_manager()
@@ -453,13 +483,16 @@ class Secure extends CI_Controller {
 	
 	function address_form($id = 0)
 	{
+		
+		$customer = $this->go_cart->customer();
+		
 		//grab the address if it's available
 		$data['id']			= false;
-		$data['company']	= '';
-		$data['firstname']	= '';
-		$data['lastname']	= '';
-		$data['email']		= '';
-		$data['phone']		= '';
+		$data['company']	= $customer['company'];
+		$data['firstname']	= $customer['firstname'];
+		$data['lastname']	= $customer['lastname'];
+		$data['email']		= $customer['email'];
+		$data['phone']		= $customer['phone'];
 		$data['address1']	= '';
 		$data['address2']	= '';
 		$data['city']		= '';
@@ -467,8 +500,7 @@ class Secure extends CI_Controller {
 		$data['zone_id']	= '';
 		$data['zip']		= '';
 		
-		
-		
+
 		if($id != 0)
 		{
 			$a	= $this->Customer_model->get_address($id);

@@ -2,6 +2,7 @@
 
 class Install extends CI_Controller {
 
+
 	/**
 	 * Index Page for this controller.
 	 *
@@ -41,6 +42,7 @@ class Install extends CI_Controller {
 		$this->form_validation->set_rules('state');
 		$this->form_validation->set_rules('zip');
 		$this->form_validation->set_rules('country');
+		
 		
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -122,6 +124,7 @@ class Install extends CI_Controller {
 			else
 			{
 				$data['errors']	= '<p>A connection to the database could not be established.</p>';
+				
 				$this->load->view('install', $data);
 			}
 		}

@@ -205,6 +205,7 @@ class Checkout extends CI_Controller {
 		// only necessary if we need a separate shipping address
 		if($this->input->post('ship_to_bill_address')!='yes') 
 		{		
+			$this->form_validation->set_rules('bill_address_id', 'Billing Address ID', 'numeric');
 			$this->form_validation->set_rules('bill_firstname', 'Billing First Name', 'trim|required|max_length[32]');
 			$this->form_validation->set_rules('bill_lastname', 'Billing Last Name', 'trim|required|max_length[32]');
 			$this->form_validation->set_rules('bill_email', 'Billing Email', 'trim|required|valid_email|max_length[128]');
@@ -218,6 +219,7 @@ class Checkout extends CI_Controller {
 			$this->form_validation->set_rules('bill_zip', 'Billing Zip', 'trim|required|max_length[10]');
 		}
 		
+		$this->form_validation->set_rules('ship_address_id', 'Shipping Address ID', 'numeric');
 		$this->form_validation->set_rules('ship_firstname', 'Shipping First Name', 'trim|required|max_length[32]');
 		$this->form_validation->set_rules('ship_lastname', 'Shipping Last Name', 'trim|required|max_length[32]');
 		$this->form_validation->set_rules('ship_email', 'Shipping Email', 'trim|required|valid_email|max_length[128]');
@@ -234,7 +236,7 @@ class Checkout extends CI_Controller {
 		
 		if ($this->form_validation->run())
 		{
-			//load any customer data to get their ID
+			//load any customer data to get their ID (if logged in)
 			$customer				= $this->go_cart->customer();
 				
 			$customer['ship_to_bill_address'] = 'false';
@@ -259,34 +261,49 @@ class Checkout extends CI_Controller {
 			$customer['ship_address']['zone_id']		= $this->input->post('ship_zone_id');  // use the id's to populate address forms
 			$customer['ship_address']['country_id']		= $this->input->post('ship_country_id');
 			
+			// Remember the chosen address ID for logged in customers, use as default in the future
+			if(empty($customer['default_shipping_address']) && set_value('ship_address_id')!='')
+			{
+				$customer['default_shipping_address'] = set_value('ship_address_id');	
+			}
+			
 			if($this->input->post('ship_to_bill_address')=='yes') 
 			{
 				$customer['ship_to_bill_address'] = 'true';
 				$customer['bill_address'] = $customer['ship_address'];
+				
+				$customer['default_billing_address'] = @$customer['default_shipping_address'];
   			}
  			else 
  			{
  				
-	 			$customer['bill_address']['firstname']		= $this->input->post('bill_firstname');
-				$customer['bill_address']['lastname']		= $this->input->post('bill_lastname');
-				$customer['bill_address']['email']			= $this->input->post('bill_email');
-				$customer['bill_address']['phone']			= $this->input->post('bill_phone');
-				$customer['bill_address']['company']		= $this->input->post('bill_company');
-				$customer['bill_address']['address1']		= $this->input->post('bill_address1');
-				$customer['bill_address']['address2']		= $this->input->post('bill_address2');
-				$customer['bill_address']['city']			= $this->input->post('bill_city');
-				$customer['bill_address']['zip']			= $this->input->post('bill_zip');
+	 			$customer['bill_address']['firstname']		= set_value('bill_firstname');
+				$customer['bill_address']['lastname']		= set_value('bill_lastname');
+				$customer['bill_address']['email']			= set_value('bill_email');
+				$customer['bill_address']['phone']			= set_value('bill_phone');
+				$customer['bill_address']['company']		= set_value('bill_company');
+				$customer['bill_address']['address1']		= set_value('bill_address1');
+				$customer['bill_address']['address2']		= set_value('bill_address2');
+				$customer['bill_address']['city']			= set_value('bill_city');
+				$customer['bill_address']['zip']			= set_value('bill_zip');
 				
 				
 				// get zone / country data using the zone id submitted as state
-				$bill_country	= $this->Location_model->get_country($this->input->post('bill_country_id'));
-				$bill_zone		= $this->Location_model->get_zone($this->input->post('bill_zone_id'));
+				$bill_country	= $this->Location_model->get_country(set_value('bill_country_id'));
+				$bill_zone		= $this->Location_model->get_zone(set_value('bill_zone_id'));
 
 				$customer['bill_address']['zone']			= $bill_zone->code;  // save the state for output formatted addresses
 				$customer['bill_address']['country']		= $bill_country->name; // some shipping libraries require country name
 				$customer['bill_address']['country_code']   = $bill_country->iso_code_2; // some shipping libraries require the code 
-				$customer['bill_address']['zone_id']		= $this->input->post('bill_zone_id');  // use the zone id to populate address state field value
-				$customer['bill_address']['country_id']		= $this->input->post('bill_country_id');
+				$customer['bill_address']['zone_id']		= set_value('bill_zone_id');  // use the zone id to populate address state field value
+				$customer['bill_address']['country_id']		= set_value('bill_country_id');
+				
+				// Remember chosen ID
+				if(empty($customer['default_billing_address']) && set_value('bill_address_id')!='')
+				{
+					$customer['default_billing_address'] = set_value('bill_address_id');	
+				}
+				
 			}
 			
 			// for guest customers, load the billing address data as their base info as well
@@ -301,7 +318,7 @@ class Checkout extends CI_Controller {
 			
 			if(!isset($customer['group_id']))
 			{
-				$customer['group_id'] = 0;
+				$customer['group_id'] = 1; // default group
 			}
 			
 			// save customer details

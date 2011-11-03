@@ -1,5 +1,5 @@
 <script type="text/javascript">
-$(document).ready(function(){	
+$(document).ready(function() {	
 	//disable the form elements under billing if the checkbox is checked
 	if($('#different_address').is(':checked'))
 	{
@@ -24,14 +24,8 @@ $(document).ready(function(){
 
 	$('#bill_country_id').change(function(){
 			populate_zone_menu('bill');
-		});
-	// disable billing fields
-	if($('#different_address').is(':checked'))
-	{
-		$('.bill').attr('disabled', true);
-		$('.bill').addClass('disabled');
-		copy_shipping_address();
-	}
+		});	
+
 });
 // context is ship or bill
 function populate_zone_menu(context, value)
@@ -122,7 +116,7 @@ function save_customer()
 	}, 'json');
 }
 </script>
-<?php /* Only show this javascript if the user is logged in */?>
+<?php /* Only show this javascript if the user is logged in */ ?>
 <?php if($this->Customer_model->is_logged_in(false, false)) : ?>
 <script type="text/javascript">
 	
@@ -167,7 +161,9 @@ function save_customer()
 				zone_id = value;
 			}
 		});	
-
+		
+		// - save the address id
+		$('#'+address_type+'_address_id').val(address_id);
 
 		// repopulate the zone list, set the right value, then copy all to billing
 		$.post('/locations/get_zone_menu',{id:$('#'+address_type+'_country_id').val()}, function(data) {
@@ -221,6 +217,7 @@ else
 }
 
 //form elements
+
 $b_company	= array('id'=>'bill_company', 'class'=>'bill input', 'name'=>'bill_company', 'value'=> @$customer['bill_address']['company']);
 $b_address1	= array('id'=>'bill_address1', 'class'=>'bill input bill_req', 'name'=>'bill_address1', 'value'=>@$customer['bill_address']['address1']);
 $b_address2	= array('id'=>'bill_address2', 'class'=>'bill input', 'name'=>'bill_address2', 'value'=> @$customer['bill_address']['address2']);
@@ -231,6 +228,7 @@ $b_phone	= array('id'=>'bill_phone', 'class'=>'bill input bill_req', 'name'=>'bi
 $b_city		= array('id'=>'bill_city', 'class'=>'bill input bill_req', 'name'=>'bill_city', 'value'=>@$customer['bill_address']['city']);
 $b_zip		= array('id'=>'bill_zip', 'maxlength'=>'10', 'class'=>'bill input bill_req', 'name'=>'bill_zip', 'value'=> @$customer['bill_address']['zip']);
 
+
 $s_company	= array('id'=>'ship_company', 'class'=>'ship input', 'name'=>'ship_company', 'value'=> @$customer['ship_address']['company']);
 $s_address1	= array('id'=>'ship_address1', 'class'=>'ship input ship_req', 'name'=>'ship_address1', 'value'=>@$customer['ship_address']['address1']);
 $s_address2	= array('id'=>'ship_address2', 'class'=>'ship input', 'name'=>'ship_address2', 'value'=> @$customer['ship_address']['address2']);
@@ -240,6 +238,7 @@ $s_email	= array('id'=>'ship_email', 'class'=>'ship input ship_req', 'name'=>'sh
 $s_phone	= array('id'=>'ship_phone', 'class'=>'ship input ship_req', 'name'=>'ship_phone', 'value'=> @$customer['ship_address']['phone']);
 $s_city		= array('id'=>'ship_city', 'class'=>'ship input ship_req', 'name'=>'ship_city', 'value'=>@$customer['ship_address']['city']);
 $s_zip		= array('id'=>'ship_zip', 'maxlength'=>'10', 'class'=>'ship input ship_req', 'name'=>'ship_zip', 'value'=> @$customer['ship_address']['zip']);
+
 ?>
 
 	<div id="customer_error_box" class="error" style="display:none"></div>
@@ -258,6 +257,7 @@ $s_zip		= array('id'=>'ship_zip', 'maxlength'=>'10', 'class'=>'ship input ship_r
 			</div>
 			
 			<div class="form_wrap">
+				<input type="hidden" name="ship_address_id" id="ship_address_id" />
 				<div class="shorter">
 					Company<br/>
 					<?php echo form_input($s_company);?>
@@ -329,6 +329,7 @@ $s_zip		= array('id'=>'ship_zip', 'maxlength'=>'10', 'class'=>'ship input ship_r
 				<?php endif; ?>
 			</div>
 			<div class="form_wrap">
+				<input type="hidden" name="bill_address_id" id="bill_address_id" />
 				<div class="shorter">
 					Company<br/>
 					<?php echo form_input($b_company);?>
@@ -400,10 +401,10 @@ $s_zip		= array('id'=>'ship_zip', 'maxlength'=>'10', 'class'=>'ship input ship_r
 <?php if($this->Customer_model->is_logged_in(false, false)) : ?>
 <div id="stored_addresses" style="display:none;">
 	<div id="address_manager">
-		<h3 style="text-align:center;">Stored Addresses</h3>
+		<h3 style="text-align:center;">Your Addresses</h3>
 		<script type="text/javascript">
 		$(document).ready(function(){
-			$('#address_list .my_account_address:even').addClass('address_bg');	
+			$('#address_list .my_account_address:even').addClass('address_bg');
 		});
 		</script>
 		<div id="address_list">

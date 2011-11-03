@@ -40,6 +40,12 @@ $(document).ready(function(){
 });
 
 
+function set_default(address_id, type)
+{
+	$.post('<?php echo secure_base_url() ?>secure/set_default_address/',{id:address_id, type:type});
+}
+
+
 </script>
 
 <div id="my_account_container">
@@ -127,12 +133,13 @@ $confirm	= array('id'=>'confirm', 'class'=>'input', 'name'=>'confirm', 'value'=>
 					<div class="address_toolbar">
 						<input type="button"class="delete_address" rel="<?php echo $a['id'];?>" value="Delete" />
 						<input type="button"class="edit_address" rel="<?php echo $a['id'];?>" value="Edit" />
+						<br>
+						<input type="radio" name="bill_chk" onclick="set_default(<?php echo $a['id'] ?>, 'bill')" <?php if($customer['default_billing_address']==$a['id']) echo 'checked="checked"'?> /> Default Billing <input type="radio" name="ship_chk" onclick="set_default(<?php echo $a['id'] ?>,'ship')" <?php if($customer['default_shipping_address']==$a['id']) echo 'checked="checked"'?>/> Default Shipping
 					</div>
 					<?php
 					$b	= $a['field_data'];
 					echo nl2br(format_address($b));
 					?>
-					
 				</div>
 			<?php endforeach;?>
 			</div>

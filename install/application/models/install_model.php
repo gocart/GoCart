@@ -4383,7 +4383,7 @@ class Install_model extends CI_Model {
 		  `email_subscribe` tinyint(1) default NULL,
 		  `phone` varchar(32) collate utf8_general_ci NOT NULL,
 		  `company` varchar(128) collate utf8_general_ci NOT NULL,
-		  `default_address` int(11) default NULL,
+		  `default_billing_address` int(11) default NULL,
 		  `default_shipping_address` int(11) default NULL,
 		  `ship_to_bill_address` enum('false','true') collate utf8_general_ci NOT NULL default 'true',
 		  `password` varchar(40) collate utf8_general_ci NOT NULL,
