@@ -26,7 +26,7 @@
 		margin: 40px;
 		font: 13px/20px normal Helvetica, Arial, sans-serif;
 		color: #4F5155;
-		background-image:url('/images/admin/bg_dots.gif');
+		background-image:url('<?php echo $subfolder;?>/images/admin/bg_dots.gif');
 	}
 
 	a {
@@ -56,17 +56,17 @@
 		padding: 12px 10px 12px 10px;
 	}
 	
-	#errors {
+	.errors p{
 		font-family: Consolas, Monaco, Courier New, Courier, monospace;
 		font-size: 12px;
-		background-color: #fde7f2;
-		border: 1px solid #de94a0;
-		color: #c23636;
+		color:#fff;
+		background-color:#d04000;
+		border:1px solid #bf3d03;
 		display: block;
-		margin: 14px 0 14px 0;
-		padding: 12px 10px 12px 10px;
+		margin: 5px 0;
+		padding: 5px 7px 5px 7px;
 	}
-
+	
 	#body{
 		margin: 0 15px 0 15px;
 	}
@@ -120,21 +120,30 @@
 	small {
 		font-style:oblique;
 	}
+	
 	</style>
 </head>
 <body>
-<div style="text-align:center; padding:20px;"><img src="/images/admin/login_logo.png" alt="GoCart"/></div>
+<div style="text-align:center; padding:20px;"><img src="<?php echo $subfolder;?>/images/admin/login_logo.png" alt="GoCart"/></div>
 <div id="container">
 	<div id="body">
 		
-		<?php if($errors):?>
-		
-		<div id="errors">
-			<h2>Error!</h2>
-			<?php echo $errors;?>
-		</div>
-		
+		<?php if(!$config_writable):?>
+			<div class="errors">
+				<p>The <?php echo $relative_path?> folder is not writable! This is required to generate the config files.</p>
+			</div>
 		<?php endif;?>
+		<?php if(!$root_writable):?>
+			<div class="errors">
+				<p>The root folder is not writable! This is required for generating the .htaccess file.</p>
+			</div>
+		<?php endif;?>
+		<?php if($errors):?>
+			<div class="errors">
+				<?php echo $errors;?>
+			</div>
+		<?php endif;?>
+			
 		<?php echo form_open('/');?>
 
 			<fieldset>

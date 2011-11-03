@@ -15,13 +15,6 @@ $config['currency']			= 'USD';  // USD, EUR, etc
 $config['currency_symbol']  = '$';
 //$config['currency_separator'] = ',';
 
-// server info
-$config['path'] 			= $_SERVER['DOCUMENT_ROOT'];
-$config['secure_base_url']	= 'http<?php echo($ssl_support)?'s':''?>://'.$_SERVER['HTTP_HOST'].'/'; // should be https:// if ssl is installed
-
-//set this manually if it does not work
-$config['relative_path']	= str_replace($_SERVER['DOCUMENT_ROOT'], '', APPPATH);
-
 // site logo path (for packing slip)
 $config['site_logo']		= '/images/logo.png';
 
