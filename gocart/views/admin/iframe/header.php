@@ -17,13 +17,13 @@ if(isset($_SERVER['HTTPS']))
 <script type="text/javascript" src="<?php echo $http;?>://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 
 
-<link type="text/css" href="/js/jquery/colorbox/colorbox.css" rel="stylesheet" />
-<script type="text/javascript" src="/js/jquery/colorbox/jquery.colorbox-min.js"></script>
+<link type="text/css" href="/assets/js/jquery/colorbox/colorbox.css" rel="stylesheet" />
+<script type="text/javascript" src="/assets/js/jquery/colorbox/jquery.colorbox-min.js"></script>
 
 
-<script type="text/javascript" src="/js/jquery/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript" src="/js/jquery/tiny_mce/tiny_mce_init.js"></script>
-<link href="/css/admin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/assets/js/jquery/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" src="/assets/js/jquery/tiny_mce/tiny_mce_init.js"></script>
+<link href="/assets/css/admin.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
 $(document).ready(function(){

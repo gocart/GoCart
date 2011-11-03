@@ -12,7 +12,7 @@
 <meta name="Description" content="Go Cart is an open source shopping cart built on the Code Igniter framework">
 <?php endif;?>
 
-<link href="/css/styles.css" type="text/css" rel="stylesheet"/> 
+<link href="/assets/css/styles.css" type="text/css" rel="stylesheet"/> 
 
 <?php
 //test for http / https for non hosted files
@@ -27,9 +27,9 @@ if(isset($_SERVER['HTTPS']))
 <script type="text/javascript" src="<?php echo $http;?>://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 
 
-<link type="text/css" href="/js/jquery/colorbox/colorbox.css" rel="stylesheet" />
-<script type="text/javascript" src="/js/jquery/colorbox/jquery.colorbox-min.js"></script>
-<script type="text/javascript" src="/js/jquery/equal_heights.js"></script>
+<link type="text/css" href="/assets/js/jquery/colorbox/colorbox.css" rel="stylesheet" />
+<script type="text/javascript" src="/assets/js/jquery/colorbox/jquery.colorbox-min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery/equal_heights.js"></script>
 
 <script type="text/javascript"> 
  
