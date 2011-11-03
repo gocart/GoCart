@@ -136,7 +136,7 @@
 		
 		<?php endif;?>
 		<?php echo form_open('/');?>
-			
+
 			<fieldset>
 				<legend>Database Information</legend>
 				

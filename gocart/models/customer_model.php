@@ -193,7 +193,7 @@ Class Customer_model extends CI_Model
 		{
 			
 			// Retrieve customer addresses
-			$this->db->where(array('customer_id'=>$customer['id'], 'id'=>$customer['default_address']));
+			$this->db->where(array('customer_id'=>$customer['id'], 'id'=>$customer['default_billing_address']));
 			$address = $this->db->get('customers_address_bank')->row_array();
 			if($address)
 			{

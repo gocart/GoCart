@@ -1,0 +1,15 @@
+
+Version 1.0.1
+-------------
+	Release date: Nov 3, 2011
+
+	Bug Fixes
+		
+		- Fixed Various bugs relating to initial values in the database on a fresh install that resulted in errors in various places.
+		- Fixed missing array value for gift card "product" that was resulting in a key error on the view cart page.
+		- Fixed Product search page reference to a missing field.
+		- Updated the user group code, converted serialized field information to normal, added a default user group for customers.
+		
+	Features
+		
+		- Finished the ability for customers to set an address as default.
