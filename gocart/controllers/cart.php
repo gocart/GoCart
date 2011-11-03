@@ -212,6 +212,7 @@ class Cart extends CI_Controller {
 		
 		// Validate Options 
 		// this returns a status array, with product item array automatically modified and options added
+		//  Warning: this method receives the product by reference
 		$status = $this->Option_model->validate_product_options($product, $post_options);
 		
 		// don't add the product if we are missing required option values
@@ -226,6 +227,7 @@ class Cart extends CI_Controller {
 			redirect($this->Product_model->get_slug($product_id));
 		
 		} else {
+		
 			//Add the original option vars to the array so we can edit it later
 			$product['post_options']	= $post_options;
 			$product['cartkey']			= $cartkey;
