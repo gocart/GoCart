@@ -45,7 +45,7 @@ class Cart extends CI_Controller {
 		$this->load->helper('directory');
 
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
-		$data['banners']				= $this->Banner_model->get_homepage_banners(5);
+		$data['banners']			= $this->Banner_model->get_homepage_banners(5);
 		$data['boxes']				= $this->box_model->get_homepage_boxes(4);
 		$data['homepage']			= true;
 		
@@ -172,9 +172,13 @@ class Cart extends CI_Controller {
 		foreach($related as $r)
 		{
 			$r					= $this->Product_model->get_product($r);
-			$r->images			= (array)json_decode($r->images);
-			$r->options			= $this->Option_model->get_product_options($r->id);
-			$data['related'][]	= $r;
+			if($r)
+			{
+				$r->images			= (array)json_decode($r->images);
+				$r->options			= $this->Option_model->get_product_options($r->id);
+				$data['related'][]	= $r;
+			}
+			
 		}
 		$data['posted_options']	= $this->session->flashdata('option_values');
 	

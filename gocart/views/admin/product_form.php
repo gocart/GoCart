@@ -465,7 +465,10 @@ function delete_product_option(id)
 			<tbody id="product_items_container">
 			<?php if(!empty($related_products)):foreach($related_products as $rel): if(!empty($rel)) :?>
 				<?php 
-					echo related_items($rel, $products[$rel]);
+					if(array_key_exists($rel, $products))
+					{
+						echo related_items($rel, $products[$rel]);
+					}
 				?>
 			<?php endif; endforeach; endif;?>
 			</tbody>
