@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Go Cart :: <?php echo  $page_title; ?></title>
 
-<link href="/css/admin.css" rel="stylesheet" type="text/css" />
+<link href="/assets/css/admin.css" rel="stylesheet" type="text/css" />
 
 <?php
 //test for http / https for non hosted files
@@ -19,11 +19,11 @@ if(isset($_SERVER['HTTPS']))
 <script type="text/javascript" src="<?php echo $http;?>://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 <link href='<?php echo $http;?>://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css' />
 
-<link href="/js/jquery/colorbox/colorbox.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="/js/jquery/colorbox/jquery.colorbox-min.js"></script>
+<link href="/assets/js/jquery/colorbox/colorbox.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/assets/js/jquery/colorbox/jquery.colorbox-min.js"></script>
 
-<script type="text/javascript" src="/js/jquery/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript" src="/js/jquery/tiny_mce/tiny_mce_init.php"></script>
+<script type="text/javascript" src="/assets/js/jquery/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" src="/assets/js/jquery/tiny_mce/tiny_mce_init.php"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){

@@ -19,7 +19,7 @@ function init_mce()
 	
 	$('#content_editor').tinymce({
 			// Location of TinyMCE script
-			script_url : '/js/jquery/tiny_mce/tiny_mce.js',
+			script_url : '/assets/js/jquery/tiny_mce/tiny_mce.js',
 			theme : "simple",
 			content_css : "<?php echo base_url().$this->config->item('admin_folder').'/css/styles.css' ?>",
 			width: 450,
