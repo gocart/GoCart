@@ -223,14 +223,14 @@ Class Product_model extends CI_Model
 		$this->db->like('name', $term);
 		$this->db->or_like('description', $term);
 		$this->db->or_like('excerpt', $term);
-		$this->db->or_like('code', $term);
+		$this->db->or_like('sku', $term);
 		$results['count']	= $this->db->count_all_results('products');
 
 		//this one gets just the ones we need.
 		$this->db->like('name', $term);
 		$this->db->or_like('description', $term);
 		$this->db->or_like('excerpt', $term);
-		$this->db->or_like('code', $term);
+		$this->db->or_like('sku', $term);
 		$results['products']	= $this->db->get('products', $limit, $offset)->result();
 		return $results;
 	}
