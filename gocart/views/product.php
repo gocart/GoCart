@@ -163,7 +163,7 @@
 							$checked = ' checked="checked"';
 						}?>
 						<div class="gc_option_list">
-						<input<?php echo $checked;?> type="checkbox" name="option[<?php echo $option->id;?>]" value="<?php echo $values->id;?>"/>
+						<input<?php echo $checked;?> type="checkbox" name="option[<?php echo $option->id;?>][]" value="<?php echo $values->id;?>"/>
 						<?php echo($values->price != 0)?'('.format_currency($values->price).') ':''; echo $values->name;?>
 						</div>
 					<?php endforeach ?>

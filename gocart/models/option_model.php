@@ -181,12 +181,14 @@ Class Option_model extends CI_Model
 			   // multi-valued
 			if($option->type == 'checklist')
 			{
+
 				$opts = array();				
 				// tally our adjustments
 				
 				//check to make sure this is an array before looping
 				if(is_array($option_value))
 				{
+					
 					foreach($option_value as $check_value) 
 					{
 						//$val = $this->get_value($check_value);
