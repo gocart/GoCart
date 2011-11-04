@@ -1,5 +1,5 @@
 <?php
-class Banners extends CI_Controller
+class Banners extends MY_Controller
 {
 	function __construct()
 	{

@@ -1,6 +1,6 @@
 <?php
 
-class Shipping extends CI_Controller {
+class Shipping extends MY_Controller {
 	
 	function __construct()
 	{

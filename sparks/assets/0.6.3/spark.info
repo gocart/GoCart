@@ -1,0 +1,7 @@
+name: assets
+
+version: 0.6.3
+
+compatibility: 2.0.2
+
+tags: ["assets", "css", "javascript", "lesscss"]

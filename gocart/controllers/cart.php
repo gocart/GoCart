@@ -1,6 +1,6 @@
 <?php
 
-class Cart extends CI_Controller {
+class Cart extends MY_Controller {
 	
 	//we collect the categories automatically with each load rather than for each function
 	//this just cuts the codebase down a bit
