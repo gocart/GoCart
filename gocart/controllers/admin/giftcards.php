@@ -1,6 +1,6 @@
 <?php
 
-class Giftcards extends CI_Controller {
+class Giftcards extends MY_Controller {
 	
 	function __construct()
 	{

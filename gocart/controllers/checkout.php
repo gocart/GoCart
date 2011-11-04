@@ -1,7 +1,7 @@
 <?php 
 // Single page checkout controller
 
-class Checkout extends CI_Controller {
+class Checkout extends MY_Controller {
 
 	//we collect the categories automatically with each load rather than for each function
 	//this just cuts the codebase down a bit

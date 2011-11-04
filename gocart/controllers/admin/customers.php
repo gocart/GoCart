@@ -1,6 +1,6 @@
 <?php
 
-class Customers extends CI_Controller {
+class Customers extends MY_Controller {
 
 	//this is used when editing or adding a customer
 	var $customer_id	= false;	

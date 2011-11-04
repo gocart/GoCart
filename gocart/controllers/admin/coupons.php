@@ -1,6 +1,6 @@
 <?php
 
-class Coupons extends CI_Controller {	
+class Coupons extends MY_Controller {	
 	
 	var $coupon_id;
 	

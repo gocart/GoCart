@@ -1,5 +1,5 @@
 <?php
-class Admin extends CI_Controller
+class Admin extends MY_Controller
 {
 	//these are used when editing, adding or deleting an admin
 	var $admin_id		= false;

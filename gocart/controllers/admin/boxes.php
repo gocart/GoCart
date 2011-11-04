@@ -1,5 +1,5 @@
 <?php
-class Boxes extends CI_Controller
+class Boxes extends MY_Controller
 {
 	function __construct()
 	{

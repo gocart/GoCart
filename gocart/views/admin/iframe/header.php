@@ -15,14 +15,8 @@ s<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.o
         <script type="text/javascript" src="<?php echo $http; ?>://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script> 
         <script type="text/javascript" src="<?php echo $http; ?>://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 
-
-        <link type="text/css" href="/assets/js/jquery/colorbox/colorbox.css" rel="stylesheet" />
-        <script type="text/javascript" src="/assets/js/jquery/colorbox/jquery.colorbox-min.js"></script>
-
-
-        <script type="text/javascript" src="/assets/js/jquery/tiny_mce/tiny_mce.js"></script>
-        <script type="text/javascript" src="/assets/js/jquery/tiny_mce/tiny_mce_init.js"></script>
-        <link href="/assets/css/admin.css" rel="stylesheet" type="text/css" />
+        <?php display_css(array('../js/jquery/colorbox/colorbox.css', 'admin.css')); ?>
+        <?php display_js(array('jquery/colorbox/jquery.colorbox-min.js', 'jquery/tiny_mce/tiny_mce.js', 'jquery/tiny_mce/tiny_mce_init.js')); ?>
 
         <script type="text/javascript">
             $(document).ready(function(){
