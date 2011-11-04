@@ -14,10 +14,24 @@ if (!defined('BASEPATH'))
  * @filename  : MY_Controller.php
  */
 
+class MY_Controller extends CI_Controller {
 
-class MY_Controller extends CI_Controller{
     function __construct() {
         parent::__construct();
-        $this->load->spark('assets/0.6.3');  
+        $this->load->spark('assets/0.6.3');
     }
+
+}
+
+class MY_Admin_Contriller extends CI_Controller {
+
+    function __construct() {
+        parent::__construct();
+        $this->load->library('Auth');
+
+        $this->auth->is_logged_in($_SERVER['REQUEST_URI']);
+        $this->auth->check_access('Admin', true);
+
+    }
+
 }
