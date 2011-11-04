@@ -1,1 +1,4 @@
 ._*
+nbproject/*
+*/config/development/*
+*/logs/*

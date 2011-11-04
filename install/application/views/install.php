@@ -26,7 +26,7 @@
 		margin: 40px;
 		font: 13px/20px normal Helvetica, Arial, sans-serif;
 		color: #4F5155;
-		background-image:url('/images/admin/bg_dots.gif');
+		background-image:url('/assets/images/admin/bg_dots.gif');
 	}
 
 	a {
@@ -123,7 +123,7 @@
 	</style>
 </head>
 <body>
-<div style="text-align:center; padding:20px;"><img src="/images/admin/login_logo.png" alt="GoCart"/></div>
+<div style="text-align:center; padding:20px;"><img src="/assets/images/admin/login_logo.png" alt="GoCart"/></div>
 <div id="container">
 	<div id="body">
 		

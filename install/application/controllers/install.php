@@ -24,7 +24,7 @@ class Install extends CI_Controller {
 		$this->load->helper(array('form', 'file'));
 		
 		$this->form_validation->set_rules('hostname', 'Hostname', 'required');
-		$this->form_validation->set_rules('database', 'Database Name', 'required');
+		//$this->form_validation->set_rules('database', 'Database Name', 'required');
 		$this->form_validation->set_rules('username', 'Username', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
 		$this->form_validation->set_rules('prefix', 'Database Prefix', 'required');
