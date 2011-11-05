@@ -1,4 +1,3 @@
-
 Version 1.1
 ------------
 	Release date: Nov 5, 2011
