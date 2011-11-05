@@ -158,7 +158,7 @@ class Authorize_net
         $this->CI->authorize_net_lib->add_x_field('x_last_name', $cc_data["x_last_name"]);
         $this->CI->authorize_net_lib->add_x_field('x_address', $customer['bill_address']["address1"]. $customer['bill_address']["address2"]);
         $this->CI->authorize_net_lib->add_x_field('x_city', $customer['bill_address']["city"]);
-        $this->CI->authorize_net_lib->add_x_field('x_state', $customer['bill_address']["state"]);
+        $this->CI->authorize_net_lib->add_x_field('x_state', $customer['bill_address']["zone"]);
         $this->CI->authorize_net_lib->add_x_field('x_zip', $customer['bill_address']["zip"]);
         $this->CI->authorize_net_lib->add_x_field('x_country', $customer['bill_address']["city"]);
         $this->CI->authorize_net_lib->add_x_field('x_email', $customer['bill_address']["email"]);

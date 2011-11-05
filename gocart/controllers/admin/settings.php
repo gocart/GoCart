@@ -5,13 +5,14 @@ class Settings extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+		remove_ssl();
 		$this->load->library('Auth');
 		$this->auth->check_access('Admin', true);
 		$this->load->model('Settings_model');
 		$this->load->model('Messages_model');
 		
 		//this adds the redirect url to our flash data, incase they are not logged in
-		$this->auth->is_logged_in($_SERVER['REQUEST_URI']);
+		$this->auth->is_logged_in(uri_string());
 	}
 	
 	function index()
@@ -120,14 +121,13 @@ class Settings extends CI_Controller {
 			$this->Messages_model->save_message($save);
 			
 			$this->session->set_flashdata('message', 'Your message has been saved.');
-			secure_redirect($this->config->item('admin_folder').'/settings');
+			redirect($this->config->item('admin_folder').'/settings');
 		}
 	}
 	
 	function delete_message($id)
 	{
-		
 		$this->Messages_model->delete_message($id);
-		secure_redirect($this->config->item('admin_folder').'/settings');
+		redirect($this->config->item('admin_folder').'/settings');
 	}
 }

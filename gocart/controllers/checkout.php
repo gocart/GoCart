@@ -26,12 +26,8 @@ class Checkout extends CI_Controller {
 	{
 		parent::__construct();
 		
-		//check to see if they are on a secure URL, this will stop them from typing in the insecure url and
-		//attempting to force an insecure page.... why would someone do this? I dunnno....
-		if (!secure_page())
-		{
-			secure_redirect(uri_string());
-		}
+		force_ssl();
+		
 		$this->load->helper(array('formatting_helper', 'form_helper'));
 		$this->load->model(array('Page_model', 'Settings_model', 'Location_model'));
 		$this->load->library('Go_cart');
@@ -168,7 +164,7 @@ class Checkout extends CI_Controller {
 		
 		//$this->session->set_flashdata('message', 'Your additional Details have been saved!');
 		
-		//secure_redirect('checkout');
+		//redirect('checkout');
 	}
 	
 	function customer_details()
@@ -423,7 +419,7 @@ class Checkout extends CI_Controller {
 			//  - check to see if we have a payment method set, if we need one
 			if(empty($payment) && $this->go_cart->total()>0)
 			{
-				secure_redirect('checkout');
+				redirect('checkout');
 			}
 		}
 		
@@ -439,7 +435,7 @@ class Checkout extends CI_Controller {
 			{
 				// send them back to the checkout page with the error
 				$this->session->set_flashdata('error', $error_status);
-				secure_redirect('checkout');
+				redirect('checkout');
 			}
 			
 		}

@@ -120,7 +120,7 @@ class fedex
 		$request['RequestedShipment']['Recipient'] = array('Address' => array (
 													  'StreetLines' => array($customer_address['address1'],$customer_address['address2']), // Destination details
 													  'City' => $customer_address['city'],
-													  'StateOrProvinceCode' => $customer_address['state'],
+													  'StateOrProvinceCode' => $customer_address['zone'],
 													  'PostalCode' => $customer_address['zip'],
 													  'CountryCode' => $customer_address['country_code']));
 		$request['RequestedShipment']['ShippingChargesPayment'] = array('PaymentType' => 'SENDER',

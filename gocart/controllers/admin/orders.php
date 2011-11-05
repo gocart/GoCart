@@ -6,8 +6,9 @@ class Orders extends CI_Controller {
 	{		
 		parent::__construct();
 		$this->load->library('Auth');
+		remove_ssl();
 		//this adds the redirect url to our flash data, incase they are not logged in
-		$this->auth->is_logged_in($_SERVER['REQUEST_URI']);
+		$this->auth->is_logged_in(uri_string());
 		
 		$this->load->model('Order_model');
 		$this->load->model('Search_model');
@@ -73,7 +74,7 @@ class Orders extends CI_Controller {
 			$o->items	= $this->Order_model->get_items($o->id);
 		}
 
-		$this->load->view($this->config->item('admin_folder').'/orders_xml', $data);
+		force_download('orders.xml', $this->load->view($this->config->item('admin_folder').'/orders_xml', $data, true));
 		
 	}
 	
@@ -179,8 +180,8 @@ class Orders extends CI_Controller {
  			$msg['content'] = str_replace("\n", '', html_entity_decode($msg['content']));
  			
  			// {order_number}
- 			$msg['subject'] = str_replace('{order_number}', $data['order']['order_number'], $msg['subject']);
-			$msg['content'] = str_replace('{order_number}', $data['order']['order_number'], $msg['content']);
+ 			$msg['subject'] = str_replace('{order_number}', $data['order']->order_number, $msg['subject']);
+			$msg['content'] = str_replace('{order_number}', $data['order']->order_number, $msg['content']);
     		
     		// {url}
 			$msg['subject'] = str_replace('{url}', $this->config->item('base_url'), $msg['subject']);

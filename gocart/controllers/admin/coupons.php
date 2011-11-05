@@ -7,13 +7,16 @@ class Coupons extends CI_Controller {
 	function __construct()
 	{		
 		parent::__construct();
+		
+		force_ssl();
+		
 		$this->load->library('Auth');
 		$this->auth->check_access('Admin', true);
 		$this->load->model('Coupon_model');
 		$this->load->model('Product_model');
 		
 		//this adds the redirect url to our flash data, incase they are not logged in
-		$this->auth->is_logged_in($_SERVER['REQUEST_URI']);
+		$this->auth->is_logged_in(uri_string());
 	}
 	
 	function index()

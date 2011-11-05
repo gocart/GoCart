@@ -9,7 +9,7 @@ class Admin extends CI_Controller
 		parent::__construct();
 		$this->load->library('Auth');
 		
-		$this->auth->is_logged_in($_SERVER['REQUEST_URI']);
+		$this->auth->is_logged_in(uri_string());
 		$this->auth->check_access('Admin', true);
 		
 		$this->current_admin	= $this->session->userdata('admin');
@@ -35,6 +35,8 @@ class Admin extends CI_Controller
 	}
 	function form($id = false)
 	{
+		force_ssl();
+		
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');

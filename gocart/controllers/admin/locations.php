@@ -5,12 +5,14 @@ class Locations extends CI_Controller {
 	function __construct()
 	{		
 		parent::__construct();
+		remove_ssl();
+		
 		$this->load->library('Auth');
 		$this->auth->check_access('Admin', true);
 		$this->load->model('Location_model');
 		
 		//this adds the redirect url to our flash data, incase they are not logged in
-		$this->auth->is_logged_in($_SERVER['REQUEST_URI']);
+		$this->auth->is_logged_in(uri_string());
 	}
 	
 	function index()
@@ -131,6 +133,33 @@ class Locations extends CI_Controller {
 		}
 	}
 	
+	function delete_zone($id = false)
+	{
+		if ($id)
+		{	
+			$location	= $this->Location_model->get_zone($id);
+			//if the promo does not exist, redirect them to the customer list with an error
+			if (!$location)
+			{
+				$this->session->set_flashdata('message', 'The requested zone could not be found.');
+				redirect($this->config->item('admin_folder').'/locations');
+			}
+			else
+			{
+				$this->Location_model->delete_zone($id);
+				
+				$this->session->set_flashdata('message', 'The "'.$location->name.'" Zone has been deleted from the system.');
+				redirect($this->config->item('admin_folder').'/locations/zones/'.$location->country_id);
+			}
+		}
+		else
+		{
+			//if they do not provide an id send them to the promo list page with an error
+			$this->session->set_flashdata('message', 'The requested Zone could not be found.');
+			redirect($this->config->item('admin_folder').'/locations');
+		}
+	}
+	
 	function zones($country_id)
 	{
 		$data['countries']	= $this->Location_model->get_countries();
@@ -238,7 +267,34 @@ class Locations extends CI_Controller {
 		
 		$this->load->view($this->config->item('admin_folder').'/country_zone_areas', $data);
 	}
-	
+
+	function delete_zone_area($id = false)
+	{
+		if ($id)
+		{	
+			$location	= $this->Location_model->get_zone_area($id);
+			//if the promo does not exist, redirect them to the customer list with an error
+			if (!$location)
+			{
+				$this->session->set_flashdata('message', 'The requested Zone Area could not be found.');
+				redirect($this->config->item('admin_folder').'/locations');
+			}
+			else
+			{
+				$this->Location_model->delete_zone_area($id);
+				
+				$this->session->set_flashdata('message', 'The "'.$location->code.'" Zone Area has been deleted from the system.');
+				redirect($this->config->item('admin_folder').'/locations/zone_areas/'.$location->zone_id);
+			}
+		}
+		else
+		{
+			//if they do not provide an id send them to the promo list page with an error
+			$this->session->set_flashdata('message', 'The requested Zone Area could not be found.');
+			redirect($this->config->item('admin_folder').'/locations/');
+		}
+	}
+		
 	function zone_area_form($zone_id, $area_id =false)
 	{
 		$this->load->helper('form');

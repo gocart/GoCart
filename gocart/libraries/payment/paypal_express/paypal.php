@@ -87,16 +87,18 @@ class PayPal {
 	 * @return string URL of the "success" page
 	 */
 	private function getReturnTo() {
-		return sprintf("%s://%s/".$this->RETURN_URL,
-		$this->getScheme(), $_SERVER['SERVER_NAME']);
+		//return sprintf("%s://%s/".$this->RETURN_URL,
+		//$this->getScheme(), $_SERVER['SERVER_NAME']);
+		return site_url($this->RETURN_URL);
 	}
 
 	/**
 	 * @return string URL of the "cancel" page
 	 */
 	private function getReturnToCancel() {
-		return sprintf("%s://%s/".$this->CANCEL_URL,
-		$this->getScheme(), $_SERVER['SERVER_NAME']);
+		//return sprintf("%s://%s/".$this->CANCEL_URL,
+		//$this->getScheme(), $_SERVER['SERVER_NAME']);
+		return site_url($this->CANCEL_URL);
 	}
 
 	/**
@@ -236,5 +238,3 @@ class PayPal {
 		return $out;
 	}
 }
-
-?>

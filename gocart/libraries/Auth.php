@@ -50,11 +50,11 @@ class Auth
 			{
 				if ($redirect)
 				{
-					secure_redirect($redirect);
+					redirect($redirect);
 				}
 				elseif($default_redirect)
 				{
-					secure_redirect($this->CI->config->item('admin_folder').'/dashboard/');
+					redirect($this->CI->config->item('admin_folder').'/dashboard/');
 				}
 				else
 				{
@@ -89,7 +89,7 @@ class Auth
 				
 			if ($default_redirect)
 			{	
-				secure_redirect($this->CI->config->item('admin_folder').'/login');
+				redirect($this->CI->config->item('admin_folder').'/login');
 			}
 			
 			return false;
@@ -109,7 +109,7 @@ class Auth
 
 				if($default_redirect)
 				{
-					secure_redirect($this->CI->config->item('admin_folder').'/login');
+					redirect($this->CI->config->item('admin_folder').'/login');
 				}
 
 				return false;
@@ -196,7 +196,7 @@ class Auth
 			$this->CI->email->from($this->CI->config->item('email'), $this->CI->config->item('site_name'));
 			$this->CI->email->to($email);
 			$this->CI->email->subject($this->CI->config->item('site_name').': Admin Password Reset');
-			$this->CI->email->message('Your password has been reset to <strong>'. $new_password .'</strong>.');
+			$this->CI->email->message('Your password has been reset to '. $new_password .'.');
 			$this->CI->email->send();
 			return true;
 		}

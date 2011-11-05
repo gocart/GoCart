@@ -42,7 +42,7 @@ body {
 	font-family: Arial, Verdana, sans-serif;
 	font-size:12px;
 	color:#333333;
-	background-image:url('/images/body_bg.gif');
+	background-image:url('../images/body_bg.gif');
 }
 
 .full_wrap {
@@ -76,7 +76,7 @@ body {
 	border-bottom:1px solid #d5d5d5;
 	padding:4px;
 	font-size:12px;
-	background-image:url('/images/input_bg.png');
+	background-image:url('../images/input_bg.png');
 	color:#555;
 	font-family: Arial, Verdana, Sans-Serif;
 }
@@ -1175,7 +1175,7 @@ h2 {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	border:1px solid #910000;
-	background-image:url('../images/status_bg.gif');
+	background-image:url('..../images/status_bg.gif');
 	background-repeat:repeat-x;
 	height:28px;
 	overflow:hidden;
@@ -1192,7 +1192,7 @@ h2 {
 #footer_lid {
 	width:970px;
 	height:8px;
-	background-image:url("/images/footer_lid.gif");
+	background-image:url("../images/footer_lid.gif");
 	overflow:hidden;
 	margin:auto;
 }
@@ -1202,7 +1202,7 @@ h2 {
 	padding:5px;
 	margin:auto;
 	min-height:150px;
-	background-image:url('/images/footer_bg.png');
+	background-image:url('../images/footer_bg.png');
 	background-repeat:no-repeat;
 	background-color:#ddd;
 }

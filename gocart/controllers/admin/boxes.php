@@ -4,12 +4,15 @@ class Boxes extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+		
+		remove_ssl();
+		
 		$this->load->library('auth');
 		$this->auth->check_access('Admin', true);
 		
 		$this->load->model('Box_model');
 		$this->load->helper('date');
-		$this->auth->is_logged_in($_SERVER['REQUEST_URI']);
+		$this->auth->is_logged_in(uri_string());
 	}
 		
 	function index()
