@@ -23,7 +23,7 @@ $(document).ready(function(){
 </script>
 <style type="text/css">
 body {
-	background-image:url('/images/admin/bg_dots.gif');
+	background-image:url('<?php echo base_url('images/admin/bg_dots.gif');?>');
 	margin:0px;
 	padding:0px;
 }
@@ -77,7 +77,7 @@ label {
 </style>
 </head>
 <body>
-	<img src="/images/admin/login_logo.png" id="logo"/>
+	<img src="<?php echo base_url('images/admin/login_logo.png');?>" id="logo"/>
 	<?php
 	if ($this->session->flashdata('message'))
 	{
@@ -85,7 +85,7 @@ label {
 	}
 	?>
 	
-	<?php echo secure_form_open($this->config->item('admin_folder').'/login') ?>
+	<?php echo form_open($this->config->item('admin_folder').'/login') ?>
 	<div id="login_container">
 			<label>Email</label>
 			<?php echo  form_input(array('id'=>'email', 'name'=>'email', 'class'=>'form_input')); ?>

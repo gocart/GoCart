@@ -181,7 +181,7 @@ Phone: <?php echo $customer['phone'];?>
 	
 	<?php
 	//this is our confirm order button, once clicked the order should be processed
-	echo secure_form_open('checkout/place_order');?>
+	echo form_open('checkout/place_order');?>
 	<input type="submit" name="submit" value="Place Order"/>
 	<?php echo form_close();?>
 <?php include('footer.php'); ?>

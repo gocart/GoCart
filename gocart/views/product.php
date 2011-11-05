@@ -18,7 +18,7 @@
 	<div id="product_image">
 		<?php
 		//get the primary photo for the product
-		$photo	= '<img src="'.$this->config->item('template_path').'/images/nopicture.png" alt="no picture available"/>';
+		$photo	= '<img src="'.base_url('images/nopicture.png').'" alt="no picture available"/>';
 
 		if(count($product->images) > 0 )
 		{	
@@ -31,7 +31,7 @@
 				}
 			}
 
-			$photo	= '<a href="/uploads/images/medium/'.$primary->filename.'" rel="gallery" title="'.$primary->caption.'"><img src="/uploads/images/small/'.$primary->filename.'" alt="'.$product->slug.'"/></a>';
+			$photo	= '<a href="'.base_url('uploads/images/medium/'.$primary->filename).'" rel="gallery" title="'.$primary->caption.'"><img src="'.base_url('uploads/images/small/'.$primary->filename).'" alt="'.$product->slug.'"/></a>';
 		}
 		echo $photo;
 	
@@ -48,11 +48,14 @@
 	$img_counter	= 1;
 	if(count($product->images) > 0):?>
 	<div id="product_thumbnails">
-		<?php foreach($product->images as $image): ?>
+		<?php foreach($product->images as $image): 
+			if($image != $primary):
+		?>
 			<div class="product_thumbnail" <?php if($img_counter == 3){echo'style="margin-right:0px;"'; $img_counter=1;}else{$img_counter++;}?>>
-				<a rel="gallery" href="/uploads/images/medium/<?php echo $image->filename;?>" title="<?php echo $image->caption;?>"><img src="/uploads/images/thumbnails/<?php echo $image->filename;?>"/></a>
+				<a rel="gallery" href="<?php echo base_url('uploads/images/medium/'.$image->filename);?>" title="<?php echo $image->caption;?>"><img src="<?php echo base_url('uploads/images/thumbnails/'.$image->filename);?>"/></a>
 			</div>
-		<?php endforeach;?>
+		<?php endif;
+		endforeach;?>
 
 	</div>
 	<?php endif;?>
@@ -222,15 +225,15 @@
 								}
 							}
 
-							$photo	= '<img src="/uploads/images/thumbnails/'.$primary->filename.'" alt="'.$product->seo_title.'"/>';
+							$photo	= '<img src="'.base_url('uploads/images/thumbnails/'.$primary->filename).'" alt="'.$product->seo_title.'"/>';
 						}
 						?>
-						<a href="/<?php echo $product->slug; ?>">
+						<a href="<?php echo site_url($product->slug); ?>">
 							<?php echo $photo; ?>
 						</a>
 					</div>
 					<div class="gc_product_name">
-						<a href="/<?php echo $product->slug; ?>"><?php echo $product->name;?></a>
+						<a href="<?php echo site_url($product->slug); ?>"><?php echo $product->name;?></a>
 					</div>
 					<?php if($product->excerpt != ''): ?>
 					<div class="excerpt"><?php echo $product->excerpt; ?></div>
@@ -273,7 +276,6 @@
 <script type="text/javascript"><!--
 $(function(){ 
 	$('.tabs').tabs();
-	//$('#images_tab>a').colorbox();
 	
 	$('a[rel="gallery"]').colorbox({ width:'80%', height:'80%', scalePhotos:true });
 	
@@ -286,9 +288,6 @@ $(function(){
 		$(this).children().equalHeights();
 	});	
 });
-
-
-
 //--></script>
 
 <?php include('footer.php'); ?>

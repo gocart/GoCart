@@ -1,9 +1,9 @@
 <?php include('header.php'); ?>
 
 <div class="button_set">
-	 <a title="Send Email Notification" id="notify" href="<?php echo base_url().$this->config->item('admin_folder').'/orders/send_notification/'.$order->id; ?>">Send Notification Email</a> <a href="<?php echo base_url(); ?>admin/orders/packing_slip/<?php echo $order->id;?>" target="_blank">Packing Slip</a>
+	 <a title="Send Email Notification" id="notify" href="<?php echo site_url($this->config->item('admin_folder').'/orders/send_notification/'.$order->id); ?>">Send Notification Email</a> <a href="<?php echo site_url('admin/orders/packing_slip/'.$order->id);?>" target="_blank">Packing Slip</a>
 </div>
-<?php echo secure_form_open($this->config->item('admin_folder').'/orders/view/'.$order->id);?>
+<?php echo form_open($this->config->item('admin_folder').'/orders/view/'.$order->id);?>
 <table class="order_table" cellspacing="0" cellpadding="0">
 	<thead>
 		<tr>

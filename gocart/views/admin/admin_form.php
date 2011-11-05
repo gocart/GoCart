@@ -1,5 +1,5 @@
 <?php include('header.php'); ?>
-<?php echo secure_form_open($this->config->item('admin_folder').'/admin/form/'.$id); ?>
+<?php echo form_open($this->config->item('admin_folder').'/admin/form/'.$id); ?>
 
 <div class="button_set">
 	<input type="submit" value="Save Admin"/>

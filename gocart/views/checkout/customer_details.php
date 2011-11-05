@@ -30,7 +30,7 @@ $(document).ready(function() {
 // context is ship or bill
 function populate_zone_menu(context, value)
 {
-	$.post('/locations/get_zone_menu',{id:$('#'+context+'_country_id').val()}, function(data) {
+	$.post('<?php echo site_url('locations/get_zone_menu');?>',{id:$('#'+context+'_country_id').val()}, function(data) {
 		$('#'+context+'_zone_id').html(data);
 		
 		//if the ship country is changed, and copy shipping address is checked, then reset the billing address to blank
@@ -91,7 +91,7 @@ function save_customer()
 	//send data to server
 	form_data  = $('#customer_info_form').serialize();
 	
-	$.post('<?php echo secure_base_url() ?>checkout/save_customer', form_data, function(response)
+	$.post('<?php echo site_url('checkout/save_customer') ?>', form_data, function(response)
 	{
 		if(typeof response != "object") // error
 		{
@@ -166,7 +166,7 @@ function save_customer()
 		$('#'+address_type+'_address_id').val(address_id);
 
 		// repopulate the zone list, set the right value, then copy all to billing
-		$.post('/locations/get_zone_menu',{id:$('#'+address_type+'_country_id').val()}, function(data) {
+		$.post('<?php echo site_url('locations/get_zone_menu');?>',{id:$('#'+address_type+'_country_id').val()}, function(data) {
 			// - uncheck the option box if they choose a billing address
 			if(address_type=='bill')
 			{
@@ -392,7 +392,7 @@ $s_zip		= array('id'=>'ship_zip', 'maxlength'=>'10', 'class'=>'ship input ship_r
 	<table style="margin-top:10px;">
 		<tr>
 			<td><input type="button" value="Continue" onclick="save_customer()"/></td>
-			<td><img id="save_customer_loader" alt="loading" src="/images/ajax-loader.gif" style="display:none;"/></td>
+			<td><img id="save_customer_loader" alt="loading" src="<?php echo base_url('images/ajax-loader.gif');?>" style="display:none;"/></td>
 		</tr>
 	</table>
 	

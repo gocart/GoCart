@@ -45,6 +45,9 @@ Class order_model extends CI_Model
 			}
 			if(!empty($search->end_date))
 			{
+				//increase by 1 day to make this include the final day
+				//I tried <= but it did not function. Any ideas why?
+				$search->end_date = date('Y-m-d', strtotime($search->end_date)+86400);
 				$this->db->where('ordered_on <',$search->end_date);
 			}
 			
@@ -60,7 +63,6 @@ Class order_model extends CI_Model
 		}
 		
 		return $this->db->get('orders')->result();
-		
 	}
 	
 	function get_orders_count($search=false)

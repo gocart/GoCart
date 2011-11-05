@@ -6,9 +6,9 @@ function areyousure()
 }
 </script>
 <div class="button_set">
-	<a href="<?php echo base_url();?><?php echo $this->config->item('admin_folder');?>/customers/export_xml">Download Customer List (XML)</a>
-	<a href="<?php echo base_url();?><?php echo $this->config->item('admin_folder');?>/customers/get_subscriber_list">Download Email Subscriber List (CSV)</a>
-	<a href="<?php echo  secure_base_url(); ?><?php echo $this->config->item('admin_folder');?>/customers/form">Add New Customer</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/export_xml');?>">Download Customer List (XML)</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/get_subscriber_list');?>">Download Email Subscriber List (CSV)</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/form'); ?>">Add New Customer</a>
 </div>
 
 <table class="gc_table" cellspacing="0" cellpadding="0">
@@ -27,9 +27,9 @@ function areyousure()
 			}
 			?>
 			
-			<th class="gc_cell_left"><a href="<?php echo base_url();?><?php echo $this->config->item('admin_folder');?>/customers/index/lastname/<?php echo ($field == 'lastname')?$by:'';?>">Last Name</a></th>
-			<th><a href="<?php echo base_url();?><?php echo $this->config->item('admin_folder');?>/customers/index/firstname/<?php echo ($field == 'firstname')?$by:'';?>">First Name</a></th>
-			<th><a href="<?php echo base_url();?><?php echo $this->config->item('admin_folder');?>/customers/index/email/<?php echo ($field == 'email')?$by:'';?>">Email</a></th>
+			<th class="gc_cell_left"><a href="<?php echo site_url($this->config->item('admin_folder').'/customers/index/lastname/');?>/<?php echo ($field == 'lastname')?$by:'';?>">Last Name</a></th>
+			<th><a href="<?php echo site_url($this->config->item('admin_folder').'/customers/index/firstname/');?>/<?php echo ($field == 'firstname')?$by:'';?>">First Name</a></th>
+			<th><a href="<?php echo site_url($this->config->item('admin_folder').'/customers/index/email/');?>/<?php echo ($field == 'email')?$by:'';?>">Email</a></th>
 			<th>Active</th>
 			<th class="gc_cell_right"></th>
 		</tr>
@@ -61,9 +61,9 @@ function areyousure()
 				?>
 			</td>
 			<td class="gc_cell_right list_buttons">
-				<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder');?>/customers/delete/<?php echo  $customer->id; ?>" onclick="return areyousure();">Delete</a>				
-				<a href="<?php echo  secure_base_url(); ?><?php echo $this->config->item('admin_folder');?>/customers/form/<?php echo  $customer->id; ?>">Edit</a>
-				<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder');?>/customers/addresses/<?php echo  $customer->id; ?>">Addresses</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/delete/'.$customer->id); ?>" onclick="return areyousure();">Delete</a>				
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/form/'.$customer->id); ?>">Edit</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/addresses/'.$customer->id); ?>">Addresses</a>
 			</td>
 		</tr>
 <?php endforeach;

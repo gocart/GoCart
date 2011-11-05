@@ -1,4 +1,6 @@
 <?php echo '<?php  if ( ! defined(\'BASEPATH\')) exit(\'No direct script access allowed\');';?>
+//SSL support
+$config['ssl_support']		= <?php echo ($ssl_support)?'true':'false';?>;
 
 //Business information
 $config['company_name']		= '<?php echo $company_name;?>';

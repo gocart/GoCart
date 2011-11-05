@@ -14,7 +14,7 @@ echo '<?xml version="1.0" ?>';?>
 <email><?php echo $order->email; ?></email>
 <phone><?php echo $order->phone; ?></phone>
 <company><?php echo $order->company; ?></company>
-<group><?php $group = $this->customer_model->get_group($order->id); echo ($group) ? $group['name'] : ''  ?></group>
+<group><?php $group = $this->customer_model->get_group($order->id); echo ($group) ? $group->name : ''  ?></group>
 <ship_address>
 	<company><?php echo $order->ship_company;?></company>
 	<firstname><?php echo $order->ship_firstname;?></firstname>

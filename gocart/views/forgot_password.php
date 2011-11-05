@@ -4,9 +4,7 @@ include('header.php'); ?>
 
 <div id="login_container_wrap">
 		<div id="login_container">
-		<?php echo secure_form_open('secure/login') ?>
-		
-			<?php echo secure_form_open('secure/forgot_password') ?>
+		<?php echo form_open('secure/forgot_password') ?>
 			<table>
 				<tr>
 					<td>Email: </td>
@@ -19,7 +17,7 @@ include('header.php'); ?>
 			</div>
 		</form>
 		<div id="login_form_links">
-			<a href="<?php echo secure_base_url(); ?>secure/login">Return to Login</a>
+			<a href="<?php echo site_url('secure/login'); ?>">Return to Login</a>
 		</div>
 	</div>
 </div>

@@ -157,13 +157,13 @@ if (top.location != location) {
 <div id="gc_view_cart_buttons">
 	<span class="buttonset">
 	<?php if(!$this->Customer_model->is_logged_in(false,false)): ?>
-		<input type="button" onclick="window.location='<?php echo secure_base_url();?>checkout/login'" value="Login"/>
-		<input type="button" onclick="window.location='<?php echo secure_base_url();?>checkout/register'" value="Register"/>
+		<input type="button" onclick="window.location='<?php echo site_url('checkout/login');?>'" value="Login"/>
+		<input type="button" onclick="window.location='<?php echo site_url('checkout/register');?>'" value="Register"/>
 	<?php endif; ?>
 		<input type="submit" value="Update Cart"/>
 	</span>
 	<?php if ($this->Customer_model->is_logged_in(false,false) || !$this->config->item('require_login')): ?>
-			<input style="padding:10px 15px; font-size:16px;" type="button" onclick="window.location='<?php echo secure_base_url();?>checkout'" value="Checkout &raquo;"/>
+			<input style="padding:10px 15px; font-size:16px;" type="button" onclick="window.location='<?php echo site_url('checkout');?>'" value="Checkout &raquo;"/>
 	<?php endif; ?>
 	
 	

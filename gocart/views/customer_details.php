@@ -61,7 +61,7 @@ function pick_address(context, cbox_title)
 	{
 		cbox_title = 'Choose an Address';
 	}
-	$.fn.colorbox({href: '<?php echo base_url() ?>secure/checkout_address_manager', 
+	$.fn.colorbox({href: '<?php echo site_url('secure/checkout_address_manager'); ?>', 
 				   width:"850", 
 				   height:"450", 
 				   title:cbox_title,
@@ -87,7 +87,7 @@ function toggle_static_shipping_address(checked)
 
 function save_address_choice(context, address_id)
 {
-	$.post('<?php echo base_url() ?>secure/set_customer_address_choice', {context:context, address_id:address_id}, function(response)
+	$.post('<?php echo site_url('secure/set_customer_address_choice'); ?>', {context:context, address_id:address_id}, function(response)
 	{
 		if(response.company!==undefined) // test to see if we have field contents
 		{	
@@ -119,7 +119,7 @@ function save_address_choice(context, address_id)
 
 </script>
 <div>
-<?php echo secure_form_open('checkout/customer_details'); ?>
+<?php echo form_open('checkout/customer_details'); ?>
 	<input type="hidden" name="submitted" value="submitted" />
 	
 	<?php if(validation_errors()): ?>
@@ -131,7 +131,7 @@ function save_address_choice(context, address_id)
 	<?php if(!$this->Customer_model->is_logged_in(false, false)):?>
 		<div style="margin-top: 35px"><input type="submit" value="Continue" class="gc_reg_button" /></div>
 	<?php else:?>
-		<div style="margin-top: 35px"><input type="button" onclick="window.location='<?php echo base_url() ?>checkout/continue_from_cust_info'" value="Continue" class="gc_reg_button" /></div>
+		<div style="margin-top: 35px"><input type="button" onclick="window.location='<?php echo site_url('checkout/continue_from_cust_info'); ?>'" value="Continue" class="gc_reg_button" /></div>
 	<?php endif; ?>
 	</form>
 </div>

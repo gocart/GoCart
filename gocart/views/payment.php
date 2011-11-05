@@ -29,7 +29,7 @@
 </table>
 </div>
 	<?php foreach ($payment_methods as $method=>$info):?>
-	<?php echo secure_form_open('checkout/payment'); ?>
+	<?php echo form_open('checkout/payment'); ?>
 		<?php
 			if($module == $method)
 			{
@@ -56,29 +56,5 @@ function set_payment(value) {
 	$('#pmnt_'+value).show();
 
 }
-
-/*
-$(document).ready(function(){
-	
-	//make this on keypress and on change, so if they change it with arrow keys it will get picked up
-	$('#payment_method').change(function(){
-		//hide all payment methods
-		$('.gc_payment_form').hide();
-		if($('#payment_method').val() != 'none')
-		{
-			$('#pmnt_'+$(this).val()).show();
-		}
-	});
-	
-	$('#payment_method').keypress(function(){
-		//hide all payment methods
-		$('.gc_payment_form').hide();
-		if($('#payment_method').val() != 'none')
-		{
-			$('#pmnt_'+$(this).val()).show();
-		}
-	});
-});
-*/
 </script>
-<?php include('footer.php'); ?>
+<?php include('footer.php');

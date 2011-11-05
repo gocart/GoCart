@@ -7,7 +7,7 @@ function areyousure()
 </script>
 
 <div class="button_set">
-	<a class="button" href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder');?>/categories/form">Add New Category</a>
+	<a class="button" href="<?php echo site_url($this->config->item('admin_folder').'/categories/form'); ?> ">Add New Category</a>
 </div>
 
 <table class="gc_table" cellspacing="0" cellpadding="0">
@@ -29,11 +29,11 @@ function areyousure()
 				<td class="gc_cell_left" style="width:16px;"><?php echo  $cat['category']->id; ?></td>
 				<td><?php echo  $sub.$cat['category']->name; ?></td>
 				<td class="gc_cell_right list_buttons">
-					<a href="<?php echo  base_url(); ?><?php echo ADMIN_FOLDER;?>/categories/delete/<?php echo  $cat['category']->id; ?>" onclick="return areyousure();">Delete</a>
+					<a href="<?php echo  site_url(ADMIN_FOLDER.'/categories/delete/'.$cat['category']->id);?>" onclick="return areyousure();">Delete</a>
 
-					<a href="<?php echo  base_url(); ?><?php echo ADMIN_FOLDER;?>/categories/form/<?php echo  $cat['category']->id; ?>" class="ui-state-default ui-corner-all">Edit</a>
+					<a href="<?php echo  site_url(ADMIN_FOLDER.'/categories/form/'.$cat['category']->id);?>" class="ui-state-default ui-corner-all">Edit</a>
 
-					<a href="<?php echo  base_url(); ?><?php echo ADMIN_FOLDER;?>/categories/organize/<?php echo  $cat['category']->id; ?>">Organize</a>
+					<a href="<?php echo  site_url(ADMIN_FOLDER.'/categories/organize/'.$cat['category']->id);?>">Organize</a>
 				</td>
 			</tr>
 			<?php
@@ -50,4 +50,4 @@ function areyousure()
 		?>
 	</tbody>
 </table>
-<?php include('footer.php'); ?>
+<?php include('footer.php');

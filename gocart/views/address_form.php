@@ -78,7 +78,7 @@ echo form_input($f_id);
 <script type="text/javascript">
 $(function(){
 	$('#f_country_id').change(function(){
-			$.post('/locations/get_zone_menu',{id:$('#f_country_id').val()}, function(data) {
+			$.post('<?php echo site_url('locations/get_zone_menu');?>',{id:$('#f_country_id').val()}, function(data) {
 			  $('#f_zone_id').html(data);
 			});
 		});
@@ -86,22 +86,22 @@ $(function(){
 
 function save_address()
 {
-	$.post("<?php echo secure_base_url();?>secure/address_form/"+$('#f_id').val(), {	company: $('#f_company').val(),
-																						firstname: $('#f_firstname').val(),
-																						lastname: $('#f_lastname').val(),
-																						email: $('#f_email').val(),
-																						phone: $('#f_phone').val(),
-																						address1: $('#f_address1').val(),
-																						address2: $('#f_address2').val(),
-																						city: $('#f_city').val(),
-																						country_id: $('#f_country_id').val(),
-																						zone_id: $('#f_zone_id').val(),
-																						zip: $('#f_zip').val()
-																						},
+	$.post("<?php echo site_url('secure/address_form');?>/"+$('#f_id').val(), {	company: $('#f_company').val(),
+																				firstname: $('#f_firstname').val(),
+																				lastname: $('#f_lastname').val(),
+																				email: $('#f_email').val(),
+																				phone: $('#f_phone').val(),
+																				address1: $('#f_address1').val(),
+																				address2: $('#f_address2').val(),
+																				city: $('#f_city').val(),
+																				country_id: $('#f_country_id').val(),
+																				zone_id: $('#f_zone_id').val(),
+																				zip: $('#f_zip').val()
+																				},
 		function(data){
 			if(data == 1)
 			{
-				window.location = "<?php echo secure_base_url();?>secure/my_account";
+				window.location = "<?php echo site_url('secure/my_account');?>";
 			}
 			else
 			{

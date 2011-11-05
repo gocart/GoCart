@@ -30,14 +30,14 @@ $(document).ready(function(){
 
 function get_best_sellers()
 {
-	$.post('/<?php echo $this->config->item('admin_folder');?>/reports/best_sellers',{start:$('#best_sellers_start').val(), end:$('#best_sellers_end').val()}, function(data){
+	$.post('<?php echo site_url($this->config->item('admin_folder').'/reports/best_sellers');?>',{start:$('#best_sellers_start').val(), end:$('#best_sellers_end').val()}, function(data){
 		$('#best_sellers').html(data);
 	});
 }
 
 function get_sales()
 {
-	$.post('/<?php echo $this->config->item('admin_folder');?>/reports/sales',{bah:Math.floor(Math.random( )*9999999999)}, function(data){
+	$.post('<?php echo site_url($this->config->item('admin_folder').'/reports/sales');?>',{bah:Math.floor(Math.random( )*9999999999)}, function(data){
 		$('#sales_container').html(data);
 	});
 }

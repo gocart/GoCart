@@ -3,7 +3,7 @@
 $('#shipping_payment_container').show();
 $('#submit_button_container').show();
 
-$.post('<?php echo secure_base_url();?>checkout/shipping_payment_methods', function(data){
+$.post('<?php echo site_url('checkout/shipping_payment_methods');?>', function(data){
 	$('#shipping_payment_container').html(data);
 });
 </script>
@@ -48,7 +48,7 @@ $ship	= $customer['ship_address'];
 <table style="margin-top:10px;">
 	<tr>
 		<td><input type="button" value="Edit Customer Information" onclick="get_customer_form();"/></td>
-		<td><img id="save_customer_loader" alt="loading" src="/images/ajax-loader.gif" style="display:none;"/></td>
+		<td><img id="save_customer_loader" alt="loading" src="<?php echo base_url('images/ajax-loader.gif');?>" style="display:none;"/></td>
 	</tr>
 </table>
 

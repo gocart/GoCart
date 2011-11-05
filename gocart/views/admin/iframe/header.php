@@ -17,13 +17,14 @@ if(isset($_SERVER['HTTPS']))
 <script type="text/javascript" src="<?php echo $http;?>://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 
 
-<link type="text/css" href="/js/jquery/colorbox/colorbox.css" rel="stylesheet" />
-<script type="text/javascript" src="/js/jquery/colorbox/jquery.colorbox-min.js"></script>
+<link type="text/css" href="<?php echo base_url('js/jquery/colorbox/colorbox.css');?>" rel="stylesheet" />
+<script type="text/javascript" src="<?php echo base_url('js/jquery/colorbox/jquery.colorbox-min.js');?>"></script>
 
 
-<script type="text/javascript" src="/js/jquery/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript" src="/js/jquery/tiny_mce/tiny_mce_init.js"></script>
-<link href="/css/admin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?php echo base_url('js/jquery/tiny_mce/tiny_mce.js');?>"></script>
+<script type="text/javascript" src="<?php echo base_url('js/jquery/tiny_mce/jquery.tinymce.js');?>"></script>
+<script type="text/javascript" src="<?php echo base_url('js/jquery/tiny_mce/tiny_mce_init.js');?>"></script>
+<link href="<?php echo base_url('css/admin.css');?>" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
 $(document).ready(function(){

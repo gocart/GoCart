@@ -29,7 +29,7 @@ function save_sortable()
 	serial=$('#banners_sortable').sortable('serialize');
 			
 	$.ajax({
-		url:'/<?php echo $this->config->item('admin_folder');?>/banners/organize',
+		url:'<?php echo site_url($this->config->item('admin_folder').'/banners/organize');?>',
 		type:'POST',
 		data:serial
 	});
@@ -44,7 +44,7 @@ function areyousure()
 
 
 <div class="button_set">
-	<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder');?>/banners/form" >Add New Banner</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/banners/form'); ?>" >Add New Banner</a>
 </div>
 
 
@@ -103,8 +103,8 @@ function areyousure()
 			<td><?php echo $enable;?></td>
 			<td><?php echo $disable;?></td>
 			<td class="gc_cell_right list_buttons">
-				<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder');?>/banners/delete/<?php echo  $banner->id; ?>" onclick="return areyousure();" >Delete</a>
-				<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder');?>/banners/form/<?php echo  $banner->id; ?>">Edit</a>
+				<a href="<?php echo  site_url($this->config->item('admin_folder').'/banners/delete/'.$banner->id);?>" onclick="return areyousure();" >Delete</a>
+				<a href="<?php echo  site_url($this->config->item('admin_folder').'/banners/form/'.$banner->id);?>">Edit</a>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -112,4 +112,4 @@ function areyousure()
 	<?php endif;?>
 </table>
 
-<?php include('footer.php'); ?>
+<?php include('footer.php');

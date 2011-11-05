@@ -9,7 +9,7 @@ function areyousure()
 </script>
 
 <div class="button_set">
-	<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/customers/edit_group">Add New Group</a>
+	<a href="<?php echo site_url( $this->config->item('admin_folder').'/customers/edit_group'); ?>">Add New Group</a>
 </div>
 
 	
@@ -31,13 +31,13 @@ function areyousure()
 					<td><?php echo $group->name;?></td>
 					<td><?php echo $group->discount ?></td>
 					<td><?php echo $group->discount_type ?></td>
-					<td>
+					<td class="list_buttons">
 						<?php 
 						// keep the default group from being deleted
 						if($group->id != 1) : ?>
-						<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/customers/delete_group/<?php echo $group->id ?>" class="ui-state-default ui-corner-all" style="float:right;"><span class="ui-icon ui-icon-circle-minus"></span></a>
+						<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/delete_group/'.$group->id); ?>" onclick="return areyousure();">Delete</a>
 						<?php endif; ?>
-						<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/customers/edit_group/<?php echo $group->id ?>" class="ui-state-default ui-corner-all" style="float:right; margin-right:5px;"><span class="ui-icon ui-icon-pencil"></span></a>
+						<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/edit_group/'.$group->id); ?>">Edit</a>
 					</td>
 				</tr>
 		<?php	endforeach; ?>

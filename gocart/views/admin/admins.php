@@ -7,7 +7,7 @@ function areyousure()
 </script>
 
 <div class="button_set">
-	<a href="<?php echo secure_base_url(); ?><?php echo $this->config->item('admin_folder');?>/admin/form">Add New Admin</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/admin/form'); ?>">Add New Admin</a>
 </div>
 
 <table class="gc_table" cellspacing="0" cellpadding="0">
@@ -32,9 +32,9 @@ function areyousure()
 				$current_admin	= $this->session->userdata('admin');
 				$margin			= 30;
 				if ($current_admin['id'] != $admin->id): ?>
-				<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder');?>/admin/delete/<?php echo  $admin->id; ?>" onclick="return areyousure();">Delete</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/admin/delete/'.$admin->id); ?>" onclick="return areyousure();">Delete</a>
 				<?php endif; ?>
-				<a href="<?php echo  secure_base_url(); ?><?php echo $this->config->item('admin_folder');?>/admin/form/<?php echo  $admin->id; ?>">Edit</a>	
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/admin/form/'.$admin->id);?>">Edit</a>	
 			</td>
 		</tr>
 <?php endforeach; ?>

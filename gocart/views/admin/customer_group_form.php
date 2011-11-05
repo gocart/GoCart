@@ -11,7 +11,6 @@ echo form_open($this->config->item('admin_folder').'/customers/edit_group/'.$id)
 
 <div class="button_set">
    <input type="submit" value="Save Group" />
-	<a class="button" href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/customers/groups">Cancel</a>		
 </div>
 	
 <div id="gc_tabs">

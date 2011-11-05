@@ -2,7 +2,7 @@
 <?php if(validation_errors()): ?>
 <div class="gc_reg_error"><?php echo validation_errors(); ?></div>
 <?php endif; ?>
-<?php echo secure_form_open('checkout/shipping'); ?>
+<?php echo form_open('checkout/shipping'); ?>
 <table class="gc_view_cart" cellpadding="0" cellspacing="0">
 	<thead>
 		<tr>
@@ -136,7 +136,7 @@
 	</tbody>
 	</table>
 	<input type="submit" name="submit" value="Confirm Order and Proceed to Payment" />
-<?php echo form_close(); ?>
+</form>
 <script type="text/javascript">
 	
 	function set_shipping_cost(shipping_type)

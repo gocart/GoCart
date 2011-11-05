@@ -15,11 +15,14 @@ error_reporting(-1);
 
 # Main settings vars
 
+$path	= str_replace('/js/jquery/tiny_mce/plugins/Archiv', '', dirname(__FILE__));
+$folder	= str_replace($_SERVER['DOCUMENT_ROOT'], '', $path);
+
 $s = array(
 	# full path to upload files to and show files from
-	'upload_path'			=> $_SERVER['DOCUMENT_ROOT'].'/uploads/wysiwyg/',
+	'upload_path'			=> $path.'/uploads/wysiwyg/',
 	# full URI to upload directory
-	'upload_uri'			=> 'http://'.$_SERVER['HTTP_HOST'].'/uploads/wysiwyg/',
+	'upload_uri'			=> 'http://'.$_SERVER['HTTP_HOST'].$folder.'/uploads/wysiwyg/',
 	# Selectable file types, seperated by a ; (* for all) example *.txt;*.doc;*.pdf
 	'selectable_files'		=> '*',
 	# Selectable image types, seperated by a ; (* for all) example *.gif;*.png;*.jpg

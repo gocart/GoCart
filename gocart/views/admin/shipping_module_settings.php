@@ -1,8 +1,8 @@
 <?php include('header.php'); ?>
 
-<form id="settings_form" method="post" action="<?php echo secure_base_url();?><?php echo $this->config->item('admin_folder');?>/shipping/settings/<?php echo $module;?>">
+<form id="settings_form" method="post" action="<?php echo site_url($this->config->item('admin_folder').'/shipping/settings/'.$module);?>">
 	<div class="button_set">
-		<input type="submit" value="submit"/> <input type="button" value="cancel" onclick="window.location='<?php echo secure_base_url();?><?php echo $this->config->item('admin_folder');?>/shipping'">
+		<input type="submit" value="submit"/>
 	</div>
 	
 	<div id="gc_tabs">
