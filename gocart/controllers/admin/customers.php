@@ -12,7 +12,7 @@ class Customers extends CI_Controller {
 		$this->load->model(array('Customer_model', 'Location_model'));
 		$this->load->helper('formatting_helper');
 		//this adds the redirect url to our flash data, incase they are not logged in
-		$this->auth->is_logged_in($_SERVER['REQUEST_URI']);
+		$this->auth->is_logged_in(uri_string());
 	}
 	
 	function index($field='lastname', $by='ASC', $page=0)
@@ -54,6 +54,7 @@ class Customers extends CI_Controller {
 
 	function form($id = false)
 	{
+		force_ssl();
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		

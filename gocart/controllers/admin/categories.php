@@ -5,12 +5,15 @@ class Categories extends CI_Controller {
 	function __construct()
 	{		
 		parent::__construct();
+		
+		remove_ssl();
+		
 		$this->load->library('Auth');
 		$this->auth->check_access('Admin', true);
 		
 		$this->load->model('Category_model');
 		//this adds the redirect url to our flash data, incase they are not logged in
-		$this->auth->is_logged_in($_SERVER['REQUEST_URI']);
+		$this->auth->is_logged_in(uri_string());
 	}
 	
 	function index()

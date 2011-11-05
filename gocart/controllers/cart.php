@@ -18,6 +18,10 @@ class Cart extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+		
+		//make sure we're not always behind ssl
+		remove_ssl();
+		
 		$this->load->library('Go_cart');
 		$this->load->model(array('Page_model', 'Product_model', 'Gift_card_model', 'Option_model', 'Order_model', 'Settings_model'));
 		$this->load->helper(array('form_helper', 'formatting_helper'));

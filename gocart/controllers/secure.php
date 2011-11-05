@@ -27,10 +27,8 @@ class Secure extends CI_Controller {
 		
 		//check to see if they are on a secure URL, this will stop them from typing in the insecure url and
 		//attempting to force an insecure page.... why would someone do this? I dunnno....
-		if (!secure_page())
-		{
-			secure_redirect(uri_string());
-		}
+		force_ssl();
+		
 		$this->load->library('Go_cart');
 		$this->load->model(array('Page_model', 'Product_model', 'Option_model','location_model'));
 		$this->load->helper('form_helper');
@@ -58,7 +56,7 @@ class Secure extends CI_Controller {
 		//if they are logged in, we send them back to the my_account by default, if they are not logging in
 		if ($redirect)
 		{
-			secure_redirect('secure/my_account/');
+			redirect('secure/my_account/');
 		}
 		
 		$data['page_title']	= 'Login';
@@ -88,7 +86,7 @@ class Secure extends CI_Controller {
 				}
 				else
 				{
-					secure_redirect($redirect);
+					redirect($redirect);
 				}
 				
 			}
@@ -107,7 +105,7 @@ class Secure extends CI_Controller {
 					$this->session->set_flashdata('redirect', $redirect);
 					$this->session->set_flashdata('error', 'Authentication Failed!');
 					
-					secure_redirect('secure/login');
+					redirect('secure/login');
 				}
 			}
 		}
@@ -127,7 +125,7 @@ class Secure extends CI_Controller {
 	function logout()
 	{
 		$this->Customer_model->logout();
-		secure_redirect('secure/login');
+		redirect('secure/login');
 	}
 	
 	function register()
@@ -137,7 +135,7 @@ class Secure extends CI_Controller {
 		//if they are logged in, we send them back to the my_account by default
 		if ($redirect)
 		{
-			secure_redirect('secure/my_account');
+			redirect('secure/my_account');
 		}
 		
 		$this->load->library('form_validation');
@@ -262,7 +260,7 @@ class Secure extends CI_Controller {
 			//we're just going to make this secure regardless, because we don't know if they are
 			//wanting to redirect to an insecure location, if it needs to be secured then we can use the secure redirect in the controller
 			//to redirect them, if there is no redirect, the it should redirect to the homepage.
-			secure_redirect($redirect);
+			redirect($redirect);
 		}
 	}
 	
@@ -308,7 +306,7 @@ class Secure extends CI_Controller {
 			{
 				$this->session->set_flashdata('message', 'There is no record of your account.');
 			}
-			secure_redirect('secure/forgot_password');
+			redirect('secure/forgot_password');
 		}
 		
 		// load other page content 
@@ -353,7 +351,7 @@ class Secure extends CI_Controller {
 		// paginate the orders
 		$this->load->library('pagination');
 
-		$config['base_url'] = secure_base_url().'secure/my_account';
+		$config['base_url'] = base_url().'secure/my_account';
 		$config['total_rows'] = $this->order_model->count_customer_orders($this->customer['id']);
 		$config['per_page'] = '15'; 
 	
@@ -423,7 +421,7 @@ class Secure extends CI_Controller {
 			
 			$this->session->set_flashdata('message', 'Your account has been updated');
 			
-			secure_redirect('secure/my_account');
+			redirect('secure/my_account');
 			//$this->load->view('my_account', $data);
 		}
 	

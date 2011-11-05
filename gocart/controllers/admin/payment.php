@@ -5,16 +5,19 @@ class Payment extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+		
+		force_ssl();
+		
 		$this->load->library('Auth');
 		$this->auth->check_access('Admin', true);
 		$this->load->model('Settings_model');
 		//this adds the redirect url to our flash data, incase they are not logged in
-		$this->auth->is_logged_in($_SERVER['REQUEST_URI']);
+		$this->auth->is_logged_in(uri_string());
 	}
 	
 	function index()
 	{
-		secure_redirect($this->config->item('admin_folder').'/settings');
+		redirect($this->config->item('admin_folder').'/settings');
 	}
 	
 	function install($module)
@@ -35,7 +38,7 @@ class Payment extends CI_Controller {
 			$this->Settings_model->delete_setting('payment_modules', $module);
 			$this->$module->uninstall();
 		}
-		secure_redirect($this->config->item('admin_folder').'/payment');
+		redirect($this->config->item('admin_folder').'/payment');
 	}
 	
 	//this is an alias of install
@@ -56,14 +59,14 @@ class Payment extends CI_Controller {
 			if(!$check)
 			{
 				$this->session->set_flashdata('message', $module.' settings have been updated');
-				secure_redirect($this->config->item('admin_folder').'/payment');
+				redirect($this->config->item('admin_folder').'/payment');
 			}
 			else
 			{
 				//set the error data and form data in the flashdata
 				$this->session->set_flashdata('message', $check);
 				$this->session->set_flashdata('post', $_POST);
-				secure_redirect($this->config->item('admin_folder').'/payment/settings/'.$module);
+				redirect($this->config->item('admin_folder').'/payment/settings/'.$module);
 			}
 		}
 		elseif($this->session->flashdata('post'))

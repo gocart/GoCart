@@ -1,3 +1,37 @@
+
+Version 1.1
+------------
+	Release date: Nov 5, 2011
+	
+	Bug Fixes
+		
+		- Group percentage discounts were reversed.
+		- Coupons applied to individual items with percentage discounts were reversed.
+		- XML Order export was broken.
+		- XML Customer export was broken.
+		- Admin order notification system was broken.
+		- Location management was missing delete functions for Zones and Zone Areas.
+		- Order date search cut off the last date.
+		- Installation script added extra characters to the canned message for Gift Cards.
+		- Fixed a minor bug with HTML code being displayed in a forgot password email.
+	
+	Features
+	
+		- GoCart can now be installed in a sub-directory.
+		- Rewriting URLs is now optional at the time of installation.
+		- If GoCart isn't installed, the user is automatically redirected to the Install script.
+	
+	Other
+		
+		- Handling of secure pages is completely changed and is considerably easier now.
+		- Replaced the custom TinyMCE theme with the "o2k7 - silver" theme.
+		- Eliminated several unused views.
+		- Updated to TinyMCE 3.4.7
+		
+Version 1.0.2
+-------------
+	Release date: Nov 4, 2011
+
 	Bug Fixes
 		- Fixed the delete confirmation on the admin/pages.php view.
 

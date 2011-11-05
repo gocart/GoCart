@@ -297,8 +297,13 @@ class go_cart {
 		if($this->_cart_contents['coupon_list'][$coupon_code]['reduction_type']=="percent")
 		{
 			//make sure we're removing the right percentage
-			$discount			= $price * ((float) $this->_cart_contents['coupon_list'][$coupon_code]['reduction_amount'] /100);
-			$discount_amount	= abs($discount - $price);
+//			$reduction_amount	= 100 - $coupon['reduction_amount'];
+//			$str = ' - ($subtotal * ('. $reduction_ammount .' /100))';
+			
+			
+			$reduction_amount	= 100 - (float) $this->_cart_contents['coupon_list'][$coupon_code]['reduction_amount'];
+			$discount			= ($price * ($reduction_amount/100));
+			$discount_amount	= abs($price-$discount);
 		} 
 		else
 		{
