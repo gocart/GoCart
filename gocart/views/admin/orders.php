@@ -33,7 +33,7 @@ function areYouSure(order)
 		{
 			$sort	= 'asc';
 		}
-		$return = base_url().$admin_folder.'/orders/index/'.$by.'/'.$sort.'/'.$code;
+		$return = site_url($admin_folder.'/orders/index/'.$by.'/'.$sort.'/'.$code);
 		return $return;
 	}
 			
@@ -116,7 +116,7 @@ if ($term)
 		<td>
 			<div id="status_container_<?php echo $order->id; ?>" style="position:relative; font-weight:bold; padding-left:20px;">
 				<span id="status_<?php echo $order->id; ?>" class="<?php echo url_title($order->status); ?>"><?php echo $order->status; ?></span>
-				<img style="position:absolute; left:2px;" src="/images/edit.gif" alt="edit" title="edit" onclick="edit_status(<?php echo $order->id; ?>)"/>
+				<img style="position:absolute; left:2px;" src="<?php echo base_url('images/edit.gif');?>" alt="edit" title="edit" onclick="edit_status(<?php echo $order->id; ?>)"/>
 			</div>
 			<div id="edit_status_<?php echo $order->id; ?>" style="display:none; position:relative; white-space:nowrap;">
 				<?php
@@ -128,7 +128,7 @@ if ($term)
 		</td>
 		<td><div class="MainTableNotes"><?php echo $order->notes; ?></div></td>
 		<td class="gc_cell_right list_buttons">
-			<a href="<?php echo base_url(); ?><?php echo $this->config->item('admin_folder');?>/orders/view/<?php echo$order->id; ?>">View</a>
+			<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/view/'.$order->id);?>">View</a>
 		</td>
 	</tr>
     <?php endforeach; ?>
@@ -212,7 +212,7 @@ function edit_status(id)
 
 function save_status(id)
 {
-	$.post("<?php echo base_url(); ?><?php echo $this->config->item('admin_folder');?>/orders/edit_status", { id: id, status: $('#status_form_'+id).val()}, function(data){
+	$.post("<?php echo site_url($this->config->item('admin_folder').'/orders/edit_status'); ?>", { id: id, status: $('#status_form_'+id).val()}, function(data){
 		$('#status_'+id).html('<span class="'+data+'">'+$('#status_form_'+id).val()+'</span>');
 	});
 	

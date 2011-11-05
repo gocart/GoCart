@@ -14,10 +14,10 @@
 			<td><?php echo $module; ?></td>
 			<td class="gc_cell_right list_buttons">
 			<?php if($enabled): ?>
-				<a href="<?php echo base_url().$this->config->item('admin_folder');?>/shipping/uninstall/<?php echo $module; ?>" onclick="return areyousure();">Uninstall</a>
-				<a href="<?php echo secure_base_url().$this->config->item('admin_folder');?>/shipping/settings/<?php echo $module; ?>">Settings</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/shipping/uninstall/'.$module);?>" onclick="return areyousure();">Uninstall</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/shipping/settings/'.$module);?>">Settings</a>
 			<?php else: ?>
-				<a href="<?php echo base_url().$this->config->item('admin_folder');?>/shipping/install/<?php echo $module; ?>">Install</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/shipping/install/'.$module);?>">Install</a>
 			<?php endif; ?>
 			</td>
 		</tr>
@@ -40,10 +40,10 @@
 			<td><?php echo $module; ?></td>
 			<td class="gc_cell_right list_buttons">
 			<?php if($enabled): ?>
-				<a href="<?php echo base_url().$this->config->item('admin_folder');?>/payment/uninstall/<?php echo $module; ?>" onclick="return areyousure();">Uninstall</a>
-				<a href="<?php echo secure_base_url().$this->config->item('admin_folder');?>/payment/settings/<?php echo $module; ?>">Settings</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/payment/uninstall/'.$module);?>" onclick="return areyousure();">Uninstall</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/payment/settings/'.$module);?>">Settings</a>
 			<?php else: ?>
-				<a href="<?php echo base_url().$this->config->item('admin_folder');?>/payment/install/<?php echo $module; ?>">Install</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/payment/install/'.$module);?>">Install</a>
 			<?php endif; ?>
 			</td>
 		</tr>
@@ -53,7 +53,7 @@
 <?php endif; ?>		
 
 <div class="button_set">
-	<a href="<?php echo base_url().$this->config->item('admin_folder');?>/settings/canned_message_form/">Add Canned Message</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/settings/canned_message_form/');?>">Add Canned Message</a>
 </div>
 
 <?php if(count($canned_messages) > 0): ?>
@@ -70,9 +70,9 @@
 			<td><?php echo $message['name']; ?></td>
 			<td class="gc_cell_right list_buttons">
 			<?php if($message['deletable'] == 1) : ?>	
-				<a href="<?php echo base_url().$this->config->item('admin_folder');?>/settings/delete_message/<?php echo $message['id']; ?>" onclick="return areyousure();">Delete</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/settings/delete_message/'.$message['id']);?>" onclick="return areyousure();">Delete</a>
 			<?php endif; ?>	
-				<a href="<?php echo base_url().$this->config->item('admin_folder');?>/settings/canned_message_form/<?php echo $message['id']; ?>">Edit</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/settings/canned_message_form/'.$message['id']);?>">Edit</a>
 			</td>
 		</tr>
 	<?php endforeach; ?>

@@ -17,7 +17,7 @@
 
 <div id="product_left">
 	<div id="product_image">
-		<a href="/images/giftcard.gif" rel="gallery" title=""><img src="/images/giftcard.gif" alt="Giftcard"/></a>
+		<a href="<?php echo base_url('images/giftcard.gif');?>" rel="gallery" title=""><img src="<?php echo base_url('images/giftcard.gif');?>" alt="Giftcard"/></a>
 	</div>
 </div>
 <div id="product_right">	

@@ -6,7 +6,7 @@ function areyousure()
 }
 </script>
 <div class="button_set">
-	<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/coupons/form">Add New Coupon</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/coupons/form'); ?>">Add New Coupon</a>
 </div>
 
 <table class="gc_table" cellspacing="0" cellpadding="0">
@@ -26,8 +26,8 @@ function areyousure()
 			  <?php echo  $coupon->num_uses ." / ". $coupon->max_uses; ?>
 			</td>
 			<td class="list_buttons" >
-				<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/coupons/delete/<?php echo  $coupon->id; ?>" onclick="return areyousure();">Delete</a>
-				<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/coupons/form/<?php echo  $coupon->id; ?>">Edit</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/coupons/delete/'.$coupon->id); ?>" onclick="return areyousure();">Delete</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/coupons/form/'.$coupon->id); ?>">Edit</a>
 			</td>
 	  </tr>
 <?php endforeach; ?>

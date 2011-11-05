@@ -58,7 +58,7 @@ include('header.php'); ?>
 			}
 			echo '<a href="'.$banner->link.'" '.$target.' >';
 		}
-		echo '<img class="banners_img'.$banner_count.'" src="/uploads/'.$banner->image.'" />';
+		echo '<img class="banners_img'.$banner_count.'" src="'.base_url('uploads/'.$banner->image).'" />';
 		
 		if($banner->link != '')
 		{
@@ -87,7 +87,7 @@ include('header.php'); ?>
 			}
 			echo '<a href="'.$box->link.'" '.$target.' >';
 		}
-		echo '<img src="/uploads/'.$box->image.'" />';
+		echo '<img src="'.base_url('uploads/'.$box->image).'" />';
 		
 		if($box->link != '')
 		{

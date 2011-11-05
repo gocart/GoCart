@@ -29,7 +29,7 @@ function save_sortable()
 	serial=$('#countries').sortable('serialize');
 			
 	$.ajax({
-		url:'/<?php echo $this->config->item('admin_folder');?>/locations/organize_countries',
+		url:'<?php echo site_url($this->config->item('admin_folder').'/locations/organize_countries');?>',
 		type:'POST',
 		data:serial
 	});
@@ -43,8 +43,8 @@ function areyousure()
 
 <div class="button_set" style="text-align:right;">
 	<strong style="float:left; font-size:12px;">Countries are sortable! Just drag and drop them in the order you would like for them to appear.</strong>
-	<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/locations/country_form" >Add New Country</a>
-	<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/locations/zone_form" >Add New Zone</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/locations/country_form'); ?>">Add New Country</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/locations/zone_form'); ?>">Add New Zone</a>
 </div>
 <br/>
 <table class="gc_table" cellspacing="0" cellpadding="0">
@@ -67,9 +67,9 @@ function areyousure()
 			<td><?php echo $location->tax+0;?>%</td>
 			<td><?php echo ((bool)$location->status)?'enabled':'disabled';?></td>
 			<td class="gc_cell_right list_buttons" >
-				<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/locations/delete_country/<?php echo  $location->id; ?>" onclick="return areyousure();">Delete</a>
-				<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/locations/country_form/<?php echo  $location->id; ?>">Edit</a>
-				<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/locations/zones/<?php echo  $location->id; ?>">Zones</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/locations/delete_country/'.$location->id); ?>" onclick="return areyousure();">Delete</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/locations/country_form/'.$location->id); ?>">Edit</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/locations/zones/'.$location->id); ?>">Zones</a>
 			</td>
 	  </tr>
 <?php endforeach; ?>

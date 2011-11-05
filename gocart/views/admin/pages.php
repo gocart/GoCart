@@ -7,8 +7,8 @@ function areyousure()
 }
 </script>
 <div class="button_set">
-	<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder');?>/pages/form">Add New Page</a>
-	<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder');?>/pages/link_form">Add New Link</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/pages/form'); ?>">Add New Page</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/pages/link_form'); ?>">Add New Link</a>
 </div>
 
 <table class="gc_table" cellspacing="0" cellpadding="0">
@@ -35,16 +35,16 @@ function areyousure()
 					<?php echo $dash.' '.$page->title; ?>
 				</td>
 				<td class="gc_cell_right list_buttons">
-					<a href="<?php echo  secure_base_url(); ?><?php echo $GLOBALS['admin_folder'];?>/pages/delete/<?php echo  $page->id; ?>" onclick="return areyousure();">Delete</a>
+					<a href="<?php echo  base_url(); ?><?php echo $GLOBALS['admin_folder'];?>/pages/delete/<?php echo  $page->id; ?>" onclick="return areyousure();">Delete</a>
 
 					
 					
 					<?php if(empty($page->content)): ?>
-						<a href="<?php echo base_url(); ?><?php echo $GLOBALS['admin_folder'];?>/pages/link_form/<?php echo  $page->id; ?>">Edit</a>
+						<a href="<?php echo site_url($GLOBALS['admin_folder'].'/pages/link_form/'.$page->id); ?>">Edit</a>
 						<a href="<?php echo $page->url;?>" target="_blank">Follow Link</a>
 					<?php else: ?>
-						<a href="<?php echo base_url(); ?><?php echo $GLOBALS['admin_folder'];?>/pages/form/<?php echo  $page->id; ?>">Edit</a>
-						<a href="/<?php echo $page->slug; ?>" target="_blank">Go to Page</a>
+						<a href="<?php echo site_url($GLOBALS['admin_folder'].'/pages/form/'.$page->id); ?>">Edit</a>
+						<a href="<?php echo site_url($page->slug); ?>" target="_blank">Go to Page</a>
 					<?php endif; ?>
 						
 				</td>

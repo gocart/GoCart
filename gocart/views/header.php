@@ -12,7 +12,7 @@
 <meta name="Description" content="Go Cart is an open source shopping cart built on the Code Igniter framework">
 <?php endif;?>
 
-<link href="/css/styles.css" type="text/css" rel="stylesheet"/> 
+<link href="<?php echo base_url('css/styles.css');?>" type="text/css" rel="stylesheet"/> 
 
 <?php
 //test for http / https for non hosted files
@@ -27,9 +27,9 @@ if(isset($_SERVER['HTTPS']))
 <script type="text/javascript" src="<?php echo $http;?>://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 
 
-<link type="text/css" href="/js/jquery/colorbox/colorbox.css" rel="stylesheet" />
-<script type="text/javascript" src="/js/jquery/colorbox/jquery.colorbox-min.js"></script>
-<script type="text/javascript" src="/js/jquery/equal_heights.js"></script>
+<link type="text/css" href="<?php echo base_url('js/jquery/colorbox/colorbox.css');?>" rel="stylesheet" />
+<script type="text/javascript" src="<?php echo base_url('js/jquery/colorbox/jquery.colorbox-min.js');?>"></script>
+<script type="text/javascript" src="<?php echo base_url('js/jquery/equal_heights.js');?>"></script>
 
 <script type="text/javascript"> 
  
@@ -80,7 +80,7 @@ if(isset($additional_header_info))
 				<?php if(empty($page->content)):?>
 					<a href="<?php echo $page->url;?>" <?php if($page->new_window ==1){echo 'target="_blank"';} ?>><?php echo $page->menu_title;?></a>
 				<?php else:?>
-					<a href="<?php echo base_url();?><?php echo $page->slug;?>"><?php echo $page->menu_title;?></a>
+					<a href="<?php echo site_url($page->slug);?>"><?php echo $page->menu_title;?></a>
 				<?php endif;
 				if($layer == 1)
 				{
@@ -112,13 +112,13 @@ if(isset($additional_header_info))
 		?>
 		
 		<?php if($this->Customer_model->is_logged_in(false, false)):?>
-			<li class="bold begin_user_menu"><a href="<?php echo base_url();?>secure/logout">Logout</a></li>
-			<li class="bold"><a href="<?php echo  secure_base_url();?>secure/my_account">My Account</a></li>
+			<li class="bold begin_user_menu"><a href="<?php echo site_url('secure/logout');?>">Logout</a></li>
+			<li class="bold"><a href="<?php echo  site_url('secure/my_account');?>">My Account</a></li>
 		<?php else: ?>
-			<li class="bold begin_user_menu"><a href="<?php echo secure_base_url();?>secure/login">Login</a></li>
+			<li class="bold begin_user_menu"><a href="<?php echo site_url('secure/login');?>">Login</a></li>
 		<?php endif; ?>
 		<li class="bold">
-			<a href="/cart/view_cart">
+			<a href="<?php echo site_url('cart/view_cart');?>">
 			<?php
 			if ($this->go_cart->total_items()==0)
 			{
@@ -156,7 +156,7 @@ if(isset($additional_header_info))
 		</div>
 		
 		<a href="<?php echo base_url();?>">
-			<img src="/images/logo.png" alt="<?php echo $this->config->item('company_name'); ?>">
+			<img src="<?php echo base_url('images/logo.png');?>" alt="<?php echo $this->config->item('company_name'); ?>">
 		</a>
 		
 	</div>
@@ -164,8 +164,8 @@ if(isset($additional_header_info))
 
 <div class="wide_wrap">
 	
-	<img src="/images/menu_left_wrap.gif" alt="left" class="main_menu_left_wrap"/>
-	<img src="/images/menu_right_wrap.gif" alt="right" class="main_menu_right_wrap"/>
+	<img src="<?php echo base_url('images/menu_left_wrap.gif');?>" alt="left" class="main_menu_left_wrap"/>
+	<img src="<?php echo base_url('images/menu_right_wrap.gif');?>" alt="right" class="main_menu_right_wrap"/>
 	
 	<div id="main_menu">
 		<ul id="nav">
@@ -180,7 +180,7 @@ if(isset($additional_header_info))
 			foreach ($cats as $cat)
 			{
 
-				echo '<li><a href="'.base_url().''.$cat['category']->slug.'">'.$cat['category']->name.'</a>'."\n";
+				echo '<li><a href="'.site_url($cat['category']->slug).'">'.$cat['category']->name.'</a>'."\n";
 				if (sizeof($cat['children']) > 0)
 				{
 					if($layer == 1)
@@ -208,7 +208,7 @@ if(isset($additional_header_info))
 		
 		if($gift_cards_enabled)
 		{
-			echo '<li><a href="'.base_url().'cart/giftcard">Gift Card</a></li>';
+			echo '<li><a href="'.site_url('cart/giftcard').'">Gift Card</a></li>';
 		}
 		?>
 		</ul>

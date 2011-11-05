@@ -13,10 +13,10 @@ echo '<?xml version="1.0" ?>';?>
 <email_subscribe><?php echo $customer['email_subscribe'] ?></email_subscribe>
 <phone><?php echo $customer['phone'] ?></phone>
 <company><?php echo $customer['company'] ?></company>
-<group><?php $group = $this->Customer_model->get_group($customer['id']); echo ($group) ? $group['name'] : ''  ?></group>
+<group><?php $group = $this->Customer_model->get_group($customer['id']); echo ($group) ? $group->name : ''  ?></group>
 <billing_address>
 	<?php 
-		$bill_address = $this->Customer_model->get_address($customer['default_address']);
+		$bill_address = $this->Customer_model->get_address($customer['default_billing_address']);
 		if($bill_address)
 		{
 			foreach($bill_address['field_data'] as $k=>$v)

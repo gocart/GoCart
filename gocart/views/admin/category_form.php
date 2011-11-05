@@ -73,7 +73,7 @@
 		<label for="image">Image: </label><small>Max Size <?php echo  $this->config->item('size_limit')/1024; ?>kb</small>
 			<?php echo form_upload(array('name'=>'image', 'id'=>'image'));?> <br/>
 		<?php if($id && $image != ''):?>
-		<div style="text-align:center; padding:5px; border:1px solid #ccc;"><img src="<?php echo base_url();?>uploads/images/small/<?php echo $image;?>" alt="current"/><br/>Current File</div>
+		<div style="text-align:center; padding:5px; border:1px solid #ccc;"><img src="<?php echo base_url('uploads/images/small/'.$image);?>" alt="current"/><br/>Current File</div>
 		<?php endif;?>
 		
 		</div>

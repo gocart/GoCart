@@ -2,13 +2,13 @@
 <script type="text/javascript">
 function areyousure()
 {
-	return confirm('Are you sure you want to delete this Country?');
+	return confirm('Are you sure you want to delete this Zone?');
 }
 </script>
 
 <div class="button_set" style="text-align:right;">
-	<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/locations/country_form" >Add New Country</a>
-	<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/locations/zone_form" >Add New Zone</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/locations/country_form');?>" >Add New Country</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/locations/zone_form'); ?>" >Add New Zone</a>
 </div>
 <br/>
 <table class="gc_table" cellspacing="0" cellpadding="0">
@@ -29,9 +29,9 @@ function areyousure()
 			<td><?php echo $location->tax+0;?>%</td>
 			<td><?php echo ((bool)$location->status)?'enabled':'disabled';?></td>
 			<td class="gc_cell_right list_buttons" >
-				<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/locations/delete_zone/<?php echo  $location->id; ?>" onclick="return areyousure();">Delete</a>
-				<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/locations/zone_form/<?php echo  $location->id; ?>">Edit</a>
-				<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder'); ?>/locations/zone_areas/<?php echo  $location->id; ?>">Zone Areas</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/locations/delete_zone/'.$location->id); ?>" onclick="return areyousure();">Delete</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/locations/zone_form/'.$location->id); ?>">Edit</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/locations/zone_areas/'.$location->id); ?>">Zone Areas</a>
 			</td>
 	  </tr>
 <?php endforeach; ?>

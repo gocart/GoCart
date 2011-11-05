@@ -1,5 +1,14 @@
 <?php
 
+//if the gocart config file doesn't exist, the cart hasn't been installed.
+if(!file_exists(dirname($_SERVER['SCRIPT_FILENAME']).'/gocart/config/gocart.php'))
+{
+	$path	= rtrim($_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']), '/').'/';
+
+	header('Location: http://'.$path.'install');
+	die;
+}
+
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT

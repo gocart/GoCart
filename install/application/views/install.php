@@ -26,7 +26,7 @@
 		margin: 40px;
 		font: 13px/20px normal Helvetica, Arial, sans-serif;
 		color: #4F5155;
-		background-image:url('<?php echo $subfolder;?>/images/admin/bg_dots.gif');
+		background-image:url('<?php echo $subfolder;?>images/admin/bg_dots.gif');
 	}
 
 	a {
@@ -124,7 +124,7 @@
 	</style>
 </head>
 <body>
-<div style="text-align:center; padding:20px;"><img src="<?php echo $subfolder;?>/images/admin/login_logo.png" alt="GoCart"/></div>
+<div style="text-align:center; padding:20px;"><img src="<?php echo $subfolder;?>images/admin/login_logo.png" alt="GoCart"/></div>
 <div id="container">
 	<div id="body">
 		
@@ -135,7 +135,7 @@
 		<?php endif;?>
 		<?php if(!$root_writable):?>
 			<div class="errors">
-				<p>The root folder is not writable! This is required for generating the .htaccess file.</p>
+				<p>The root folder is not writable! This is required if you want to use "Cleaner URLs" to generate .htaccess file.</p>
 			</div>
 		<?php endif;?>
 		<?php if($errors):?>
@@ -170,7 +170,8 @@
 				
 				<label for="company_name">Company Name</label> <?php echo form_input(array('name'=>'company_name', 'value'=>set_value('company_name') ));?><br/>
 				<label for="website_email">Website Email</label> <?php echo form_input(array('name'=>'website_email', 'value'=>set_value('website_email') ));?><br/>
-				<label for="ssl">SSL Support</label> <?php echo form_checkbox('ssl_support', '1', (bool)set_value('ssl_support') );?> 
+				<label for="ssl">SSL Support</label> <?php echo form_checkbox('ssl_support', '1', (bool)set_value('ssl_support') );?><br/>
+				<label for="mod_rewrite">Cleaner URLs</label> <?php echo form_checkbox('mod_rewrite', '1', (bool)set_value('mod_rewrite') );?> <small>Removes "index.php" from the url and requires Apache with mod_rewrite</small>
 				
 			</fieldset>
 			

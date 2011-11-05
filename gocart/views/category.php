@@ -25,12 +25,12 @@
 			
 			<div class="category_box">
 				<div class="thumbnail">
-					<a href="/<?php echo $subcategory->slug; ?>">
-						<img src="<?php echo (!empty($subcategory->image))?'/uploads/images/thumbnails/'.$subcategory->image:'/images/nopicture.png" alt="no image available';?>"/>
+					<a href="<?php echo base_url($subcategory->slug); ?>">
+						<img src="<?php echo (!empty($subcategory->image))?base_url('uploads/images/thumbnails/'.$subcategory->image):base_url('images/nopicture.png').'" alt="no image available';?>"/>
 					</a>
 				</div>
 				<div class="product_name">
-					<a href="/<?php echo $subcategory->slug; ?>"><?php echo $subcategory->name;?></a>
+					<a href="<?php echo base_url($subcategory->slug); ?>"><?php echo $subcategory->name;?></a>
 				</div>
 				<?php if($subcategory->excerpt != ''): ?>
 				<div class="excerpt"><?php echo $subcategory->excerpt; ?></div>
@@ -77,7 +77,7 @@
 				
 				<div class="thumbnail">
 					<?php
-					$photo	= '<img src="/images/nopicture.png" alt="no image available"/>';
+					$photo	= '<img src="'.base_url('images/nopicture.png').'" alt="no image available"/>';
 					$product->images	= array_values($product->images);
 					
 					if(!empty($product->images[0]))
@@ -91,15 +91,15 @@
 							}
 						}
 
-						$photo	= '<img src="/uploads/images/thumbnails/'.$primary->filename.'" alt="'.$product->seo_title.'"/>';
+						$photo	= '<img src="'.base_url('uploads/images/thumbnails/'.$primary->filename).'" alt="'.$product->seo_title.'"/>';
 					}
 					?>
-					<a href="/<?php echo $product->slug; ?>">
+					<a href="<?php echo site_url($product->slug); ?>">
 						<?php echo $photo; ?>
 					</a>
 				</div>
 				<div class="product_name">
-					<a href="/<?php echo $product->slug; ?>"><?php echo $product->name;?></a>
+					<a href="<?php echo site_url($product->slug); ?>"><?php echo $product->name;?></a>
 				</div>
 				<?php if($product->excerpt != ''): ?>
 				<div class="excerpt"><?php echo $product->excerpt; ?></div>

@@ -19,9 +19,9 @@ function init_mce()
 	
 	$('#content_editor').tinymce({
 			// Location of TinyMCE script
-			script_url : '/js/jquery/tiny_mce/tiny_mce.js',
+			script_url : '<?php echo base_url('js/jquery/tiny_mce/tiny_mce.js');?>',
 			theme : "simple",
-			content_css : "<?php echo base_url().$this->config->item('admin_folder').'/css/styles.css' ?>",
+			content_css : "<?php echo base_url($this->config->item('admin_folder').'/css/styles.css'); ?>",
 			width: 450,
 			height: 200
 	});
@@ -38,18 +38,12 @@ var messages = {
 
 // store customer name information, so names are indexed by email
 var customer_names = {
-<?php if(!empty($order['customer']['email']))
-{
-	echo '"'.$order['customer']['email'].'":"'.$order['customer']['firstname'].' '.$order['customer']['lastname'].'",';
-}
-if(!empty($order['customer']['ship_address']['email']))
-{
-	echo '"'.$order['customer']['ship_address']['email'].'":"'.$order['customer']['ship_address']['firstname'].' '.$order['customer']['ship_address']['lastname'].'",';
-}
-if($order['customer']['bill_address']['email'] != $order['customer']['ship_address']['email'])
-{
-	echo '"'.$order['customer']['bill_address']['email'].'":"'.$order['customer']['bill_address']['firstname'].' '.$order['customer']['bill_address']['lastname'].'",';
-} ?>
+<?php 
+
+	echo '"'.$order->email.'":"'.$order->firstname.' '.$order->lastname.'",';
+	echo '"'.$order->ship_email.'":"'.$order->ship_firstname.' '.$order->ship_lastname.'",';
+	echo '"'.$order->bill_email.'":"'.$order->bill_firstname.' '.$order->bill_lastname.'",';
+?>
 }
 
 // use our customer names var to update the customer name in the template
@@ -70,7 +64,7 @@ function set_canned_message(id)
 
 </script>
 <div style="text-align:left">
-<form id="msg_form" action="<?php echo base_url().$this->config->item('admin_folder') ?>/orders/send_notification" method="post">
+<form id="msg_form" action="<?php echo site_url($this->config->item('admin_folder').'/orders/send_notification');?>" method="post">
 <input type="hidden" name="send" value="true">
 <?php if(!empty($errors)) : ?>
 <div id="err_box" class="error">
@@ -99,17 +93,17 @@ function set_canned_message(id)
 <tr>
 	<td><select name="recipient" onchange="update_name()" id="recipient_name">
 		<?php 
-			if(!empty($order['customer']['email']))
+			if(!empty($order->email))
 			{
-				echo '<option value="'.$order['customer']['email'].'">Account Main Email ('.$order['customer']['email'].')';
+				echo '<option value="'.$order->email.'">Account Main Email ('.$order->email.')';
 			}
-			if(!empty($order['customer']['ship_address']['email']))
+			if(!empty($order->ship_email))
 			{
-				echo '<option value="'.$order['customer']['ship_address']['email'].'">Shipping Email ('.$order['customer']['ship_address']['email'].')';
+				echo '<option value="'.$order->ship_email.'">Shipping Email ('.$order->ship_email.')';
 			}
-			if($order['customer']['bill_address']['email'] != $order['customer']['ship_address']['email'])
+			if($order->bill_email != $order->ship_email)
 			{
-				echo '<option value="'.$order['customer']['bill_address']['email'].'">Billing Email ('.$order['customer']['bill_address']['email'].')';
+				echo '<option value="'.$order->bill_email.'">Billing Email ('.$order->bill_email.')';
 			}
 		?>
 	</select></td>

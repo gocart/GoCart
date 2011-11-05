@@ -29,7 +29,7 @@ function save_sortable()
 	serial=$('#boxes_sortable').sortable('serialize');
 			
 	$.ajax({
-		url:'/<?php echo $this->config->item('admin_folder');?>/boxes/organize',
+		url:'<?php echo site_url($this->config->item('admin_folder').'/boxes/organize');?>',
 		type:'POST',
 		data:serial
 	});
@@ -44,7 +44,7 @@ function areyousure()
 
 
 <div class="button_set">
-	<a href="<?php echo base_url(); ?><?php echo $this->config->item('admin_folder');?>/boxes/form" >Add New Box</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/boxes/form'); ?>" >Add New Box</a>
 </div>
 
 <table class="gc_table" cellspacing="0" cellpboxding="0">
@@ -102,8 +102,8 @@ function areyousure()
 			<td><?php echo $enable;?></td>
 			<td><?php echo $disable;?></td>
 			<td class="gc_cell_right list_buttons">
-				<a href="<?php echo base_url(); ?><?php echo $this->config->item('admin_folder');?>/boxes/delete/<?php echo  $box->id; ?>" onclick="return areyousure();" >Delete</a>
-				<a href="<?php echo base_url(); ?><?php echo $this->config->item('admin_folder');?>/boxes/form/<?php echo  $box->id; ?>">Edit</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/boxes/delete/'.$box->id); ?>" onclick="return areyousure();" >Delete</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/boxes/form/'.$box->id); ?>">Edit</a>
 			</td>
 		</tr>
 	<?php endforeach; ?>

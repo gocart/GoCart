@@ -52,7 +52,7 @@ $new_window		= array('id'=>'new_window', 'name'=>'new_window', 'value'=>1, 'chec
 			<?php echo form_upload($f_image); ?>
 
 			<?php if($id && $image != ''):?>
-			<div style="text-align:center; pboxding:5px; border:1px solid #ccc;"><img src="<?php echo base_url();?>uploads/<?php echo $image;?>" alt="current"/><br/>Current File</div>
+			<div style="text-align:center; pboxding:5px; border:1px solid #ccc;"><img src="<?php echo base_url('uploads/'.$image);?>" alt="current"/><br/>Current File</div>
 			<?php endif;?>
 		</div>
 		

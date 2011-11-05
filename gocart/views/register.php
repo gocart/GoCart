@@ -10,7 +10,7 @@ $phone		= array('id'=>'bill_phone', 'class'=>'bill input bill_req', 'name'=>'pho
 ?>
 <div id="login_container_wrap">
 	<div id="login_container">
-	<?php echo secure_form_open('secure/register'); ?>
+	<?php echo form_open('secure/register'); ?>
 		<input type="hidden" name="submitted" value="submitted" />
 		<input type="hidden" name="redirect" value="<?php echo $redirect; ?>" />
 
@@ -59,9 +59,9 @@ $phone		= array('id'=>'bill_phone', 'class'=>'bill input bill_req', 'name'=>'pho
 	</form>
 	
 	<div id="login_form_links">
-		<a href="<?php echo secure_base_url(); ?>secure/login">Go to Login</a>
+		<a href="<?php echo site_url('secure/login'); ?>">Go to Login</a>
 	</div>
 	
 	</div>
 </div>
-<?php include('footer.php'); ?>
+<?php include('footer.php');

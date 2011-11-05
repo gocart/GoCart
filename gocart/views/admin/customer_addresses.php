@@ -6,12 +6,11 @@ function areyousure()
 }
 </script>
 <div class="button_set">
-	<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder');?>/customers/address_form/<?php echo $customer->id;?>">Add Address</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/address_form/'.$customer->id);?>">Add Address</a>
 </div>
 <table class="gc_table" cellspacing="0" cellpadding="0">
 	<thead>
 		<tr>
-			<?php /*<th>ID</th> uncomment this if you want it*/ ?>
 			<th class="gc_cell_left">Name/Company</th>
 			<th>Contact</th>
 			<th>Address</th>
@@ -48,8 +47,8 @@ function areyousure()
 			<td><?php echo $f['country'];?></td>
 			
 			<td class="gc_cell_right list_buttons">
-				<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder');?>/customers/delete_address/<?php echo $customer->id;?>/<?php echo  $address['id']; ?>" onclick="return areyousure();">Delete</a>				
-				<a href="<?php echo  base_url(); ?><?php echo $this->config->item('admin_folder');?>/customers/address_form/<?php echo $customer->id;?>/<?php echo  $address['id']; ?>">Edit</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/delete_address/'.$customer->id.'/'.$address['id']);?>" onclick="return areyousure();">Delete</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/address_form/'.$customer->id.'/'.$address['id']);?>">Edit</a>
 			</td>
 		</tr>
 <?php endforeach; ?>

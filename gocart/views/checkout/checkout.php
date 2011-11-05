@@ -14,7 +14,7 @@ $(document).ready(function() {
 	});
 	
 	<?php if(isset($customer['ship_address'])):?>
-		$.post('<?php echo secure_base_url() ?>checkout/customer_details', function(data){
+		$.post('<?php echo site_url('checkout/customer_details');?>', function(data){
 			//populate the form with their information
 			$('#customer_info_fields').html(data);
 			$('input:button, input:submit, button').button();
@@ -33,8 +33,8 @@ function get_customer_form()
 	$('#submit_button_container').hide();
 	
 	//remove the shipping and payment forms
-	$('#shipping_payment_container').html('<div class="checkout_block"><img alt="loading" src="/images/ajax-loader.gif"/><br style="clear:both;"/></div>').hide();
-	$.post('<?php echo secure_base_url() ?>checkout/customer_form', function(data){
+	$('#shipping_payment_container').html('<div class="checkout_block"><img alt="loading" src="<?php echo base_url('images/ajax-loader.gif');?>"/><br style="clear:both;"/></div>').hide();
+	$.post('<?php echo site_url('checkout/customer_form'); ?>', function(data){
 		//populate the form with their information
 		$('#customer_info_fields').html(data);
 		$('input:button, input:submit, button').button();
@@ -68,7 +68,7 @@ function submit_order()
 	
 		frm_data = $('#pmnt_form_'+chosen_method).serialize();
 		
-		$.post('<?php echo secure_base_url() ?>checkout/save_payment_method', frm_data, function(response)
+		$.post('<?php echo site_url('checkout/save_payment_method'); ?>', frm_data, function(response)
 		{
 			if(typeof response != "object")
 			{
@@ -90,22 +90,7 @@ function submit_order()
 	} else {
 		$('#order_submit_form').trigger('submit');	
 	}
-				
 }
-
-
-
-// LOGGED IN USERS Address management functionality
-//-------------------------------------------------
-
-
-// Save the customer address choice, update at the server
-
-
-
-// General Functionality
-//-------------------------------------------
-
 
 function display_error(panel, message) 
 {
@@ -132,7 +117,7 @@ function set_shipping_cost()
 		
 	clear_errors();
 	
-	$.post('<?php echo secure_base_url() ?>checkout/save_shipping_method', {shipping:$(':radio[name$="shipping_input"]:checked').val()}, function(response)
+	$.post('<?php echo site_url('checkout/save_shipping_method');?>', {shipping:$(':radio[name$="shipping_input"]:checked').val()}, function(response)
 	{
 		update_summary();
 	});
@@ -194,7 +179,7 @@ function submit_payment_method()
 function save_order()
 {
 	//submit additional order details
-	$.post('/checkout/save_additional_details', $('#additional_details_form').serialize(), function(){
+	$.post('<?php echo site_url('checkout/save_additional_details');?>', $('#additional_details_form').serialize(), function(){
 
 		//thus must be a callback, otherwise there is a risk of the form submitting without the additional details saved
 		// if we need to save a payment method
@@ -202,7 +187,7 @@ function save_order()
 
 			frm_data = $('#pmnt_form_'+chosen_method).serialize();
 
-			$.post('/checkout/save_payment_method', frm_data, function(response)
+			$.post('<?php echo site_url('checkout/save_payment_method');?>', frm_data, function(response)
 			{
 				if(typeof response != "object")
 				{
@@ -232,7 +217,7 @@ function save_order()
 function update_summary()
 {
 	// refresh confirmation content
-	$.post('<?php echo secure_base_url() ?>checkout/order_summary', {}, function(response)
+	$.post('<?php echo site_url('checkout/order_summary');?>', {}, function(response)
 	{
 		$('#summary_section').html(response);
 	});
@@ -242,8 +227,8 @@ function update_summary()
 </script>
 <div class="continue_shopping">
 	<?php if(!$this->Customer_model->is_logged_in(false, false)) : ?>
-		<input type="button" onclick="window.location='<?php echo secure_base_url();?>checkout/login'" value="Login" />
-		<input type="button" onclick="window.location='<?php echo secure_base_url();?>checkout/register'" value="Register Now"/>
+		<input type="button" onclick="window.location='<?php echo site_url('checkout/login');?>'" value="Login" />
+		<input type="button" onclick="window.location='<?php echo site_url('checkout/register');?>'" value="Register Now"/>
 	<?php endif;?>
 	<input type="button" onclick="window.location='<?php echo base_url();?>'" value="Continue Shopping"/>
 </div>
@@ -251,14 +236,14 @@ function update_summary()
 <div class="checkout_block">
 	<div id="customer_info_fields">
 		<h3>Customer Information</h3>
-		<img alt="loading" src="/images/ajax-loader.gif"/>
+		<img alt="loading" src="<?php echo base_url('images/ajax-loader.gif');?>"/>
 	</div>
 	<br style="clear:both;"/>
 </div>
 
 <div id="shipping_payment_container" style="display:none;">
 	<div class="checkout_block">
-		<img alt="loading" src="/images/ajax-loader.gif"/>
+		<img alt="loading" src="<?php echo base_url('images/ajax-loader.gif');?>"/>
 		<br style="clear:both;"/>
 	</div>
 </div>
@@ -267,10 +252,10 @@ function update_summary()
 <?php  include('summary.php'); ?>
 </div>
 <div id="submit_button_container" style="display:none; text-align:center; padding-top:10px;">
-<form id="order_submit_form" action="<?php echo secure_base_url(); ?>checkout/place_order" method="post">
+<form id="order_submit_form" action="<?php echo site_url('checkout/place_order'); ?>" method="post">
 <input type="hidden" name="process_order" value="true">
 <input style="padding:10px 15px; font-size:16px;" type="button" onclick="submit_payment_method()" value="Submit Order" />
 </form>
 </div>
 
-<?php include(APPPATH.'views/'.$this->config->item('template').'/footer.php'); ?>
+<?php include(APPPATH.'views/footer.php');

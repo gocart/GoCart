@@ -7,10 +7,10 @@ function areyousure()
 </script>
 <div class="button_set">
 	<a href="#" onclick="$('#bulk_form').submit(); return false;">Bulk Save</a>
-	<a href="<?php echo base_url(); ?><?php echo $this->config->item('admin_folder');?>/products/form">Add New Product</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/products/form');?>">Add New Product</a>
 </div>
 
-<?php echo secure_form_open($this->config->item('admin_folder').'/products/bulk_save', array('id'=>'bulk_form'));?>
+<?php echo form_open($this->config->item('admin_folder').'/products/bulk_save', array('id'=>'bulk_form'));?>
 	<table class="gc_table" cellspacing="0" cellpadding="0">
 		<thead>
 			<tr>
@@ -41,11 +41,9 @@ function areyousure()
 					?>
 				</td>
 				<td class="gc_cell_right list_buttons">
-					<a href="<?php echo base_url(); ?><?php echo $this->config->item('admin_folder');?>/products/delete/<?php echo  $product->id; ?>" onclick="return areyousure();">Delete</a>
-				
-					<a href="<?php echo base_url(); ?><?php echo $this->config->item('admin_folder');?>/products/form/<?php echo  $product->id; ?>">Edit</a>
-				
-					<a href="<?php echo base_url(); ?><?php echo $this->config->item('admin_folder');?>/products/form/<?php echo  $product->id; ?>/1">Copy</a>
+					<a href="<?php echo  site_url($this->config->item('admin_folder').'/products/delete/'.$product->id);?>" onclick="return areyousure();">Delete</a>
+					<a href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$product->id);?>">Edit</a>
+					<a href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$product->id.'/1');?>">Copy</a>
 				</td>
 			</tr>
 	<?php endforeach; ?>
@@ -54,6 +52,6 @@ function areyousure()
 </form>
 <div class="button_set">
 	<a href="#" onclick="$('#bulk_form').submit(); return false;">Bulk Save</a>
-	<a href="<?php echo base_url(); ?><?php echo $this->config->item('admin_folder');?>/products/form">Add New Product</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/products/form');?>">Add New Product</a>
 </div>
 <?php include('footer.php'); ?>

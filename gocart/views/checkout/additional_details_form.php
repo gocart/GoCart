@@ -7,7 +7,7 @@
 		?>
 		<h3>Additional Order Details</h3>
 		<?php //additional order details ?>
-		<form id="additional_details_form" method="post" action="<?php echo secure_base_url();?>checkout/save_additional_details">
+		<form id="additional_details_form" method="post" action="<?php echo site_url('checkout/save_additional_details');?>">
 			<div class="form_wrap">
 				<div>
 					How did you hear about us?<br/>

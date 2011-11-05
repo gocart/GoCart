@@ -43,12 +43,6 @@ $route['default_controller']	= "cart";
 //this for the admininstration console
 $route['admin']					= 'admin/dashboard';
 
-//if the database file doesn't exist, the cart hasn't been installed.
-if(!file_exists('database.png'))
-{
-	header('Location: http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/install');
-}
-
 //get routes from database
 include('database.php');
 

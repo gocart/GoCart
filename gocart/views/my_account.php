@@ -14,7 +14,7 @@ $(document).ready(function(){
 		{
 			if(confirm('Are you sure you want to delete this address?'))
 			{
-				$.post("<?php echo secure_base_url();?>secure/delete_address", { id: $(this).attr('rel') },
+				$.post("<?php echo site_url('secure/delete_address');?>", { id: $(this).attr('rel') },
 					function(data){
 						$('#address_'+data).remove();
 						$('#address_list .my_account_address').removeClass('address_bg');
@@ -29,7 +29,7 @@ $(document).ready(function(){
 	});
 	
 	$('.edit_address').click(function(){
-		$.fn.colorbox({	href: '<?php echo secure_base_url() ?>secure/address_form/'+$(this).attr('rel'), width:'600px', height:'500px'}, function(){
+		$.fn.colorbox({	href: '<?php echo site_url('secure/address_form'); ?>/'+$(this).attr('rel'), width:'600px', height:'500px'}, function(){
 			$('input:submit, input:button, button').button();
 		});
 	});
@@ -42,7 +42,7 @@ $(document).ready(function(){
 
 function set_default(address_id, type)
 {
-	$.post('<?php echo secure_base_url() ?>secure/set_default_address/',{id:address_id, type:type});
+	$.post('<?php echo site_url('secure/set_default_address') ?>/',{id:address_id, type:type});
 }
 
 
@@ -62,7 +62,7 @@ $confirm	= array('id'=>'confirm', 'class'=>'input', 'name'=>'confirm', 'value'=>
 ?>	
 	<div id="my_account_info">
 		<div id="my_information">
-			<?php echo secure_form_open('secure/my_account'); ?>
+			<?php echo form_open('secure/my_account'); ?>
 				<h2>Account Information</h2>
 				<div class="form_wrap">
 					<div>

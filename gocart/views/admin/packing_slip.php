@@ -1,7 +1,7 @@
 <div style="font-size:12px; font-family:arial, verdana, sans-serif;">
 	<?php if ($this->config->item('site_logo')) :?>
 	<div>
-		<img src="<?php echo $this->config->item('site_logo') ?>" />
+		<img src="<?php echo base_url($this->config->item('site_logo'));?>" />
 	</div>
 	<?php endif; ?>
 	

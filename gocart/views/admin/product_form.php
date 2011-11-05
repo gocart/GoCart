@@ -476,7 +476,7 @@ function delete_product_option(id)
 	</div>
 	<div id="gc_product_photos">
 		<div class="gc_segment_content">
-			<iframe src="/<?php echo $this->config->item('admin_folder');?>/products/product_image_form" style="height:75px; border:0px;">
+			<iframe src="<?php echo site_url($this->config->item('admin_folder').'/products/product_image_form');?>" style="height:75px; border:0px;">
 			</iframe>
 			<div id="gc_photos">
 			<?php
@@ -507,7 +507,7 @@ function add_image($photo_id, $filename, $alt, $caption, $primary=false)
 			<tr>
 				<td style="width:81px;padding-right:10px;" rowspan="2">
 					<input type="hidden" name="images[<?php echo $photo_id;?>][filename]" value="<?php echo $filename;?>"/>
-					<img class="gc_thumbnail" src="/uploads/images/thumbnails/<?php echo $filename;?>"/>
+					<img class="gc_thumbnail" src="<?php echo base_url('uploads/images/thumbnails/'.$filename);?>"/>
 				</td>
 				<td>
 					<input type="radio" name="primary_image" value="<?php echo $photo_id;?>" <?php if($primary) echo 'checked="checked"';?>/> primary
@@ -585,7 +585,6 @@ var count = <?php echo $count;?>;
 
 function add_related_product()
 {
-	//alert($('#product_list').val());
 	
 	//if the related product is not already a related product, add it
 	if($('#related_product_'+$('#product_list').val()).length == 0)

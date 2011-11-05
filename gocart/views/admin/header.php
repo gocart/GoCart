@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Go Cart :: <?php echo  $page_title; ?></title>
 
-<link href="/css/admin.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo base_url('css/admin.css');?>" rel="stylesheet" type="text/css" />
 
 <?php
 //test for http / https for non hosted files
@@ -19,11 +19,11 @@ if(isset($_SERVER['HTTPS']))
 <script type="text/javascript" src="<?php echo $http;?>://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 <link href='<?php echo $http;?>://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css' />
 
-<link href="/js/jquery/colorbox/colorbox.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="/js/jquery/colorbox/jquery.colorbox-min.js"></script>
+<link href="<?php echo base_url('js/jquery/colorbox/colorbox.css');?>" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?php echo base_url('js/jquery/colorbox/jquery.colorbox-min.js');?>"></script>
 
-<script type="text/javascript" src="/js/jquery/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript" src="/js/jquery/tiny_mce/tiny_mce_init.php"></script>
+<script type="text/javascript" src="<?php echo base_url('js/jquery/tiny_mce/tiny_mce.js');?>"></script>
+<script type="text/javascript" src="<?php echo base_url('js/jquery/tiny_mce/tiny_mce_init.php');?>"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -44,20 +44,20 @@ function buttons()
 <div id="wrapper">
 	<div id="header">
 		<div class="shine"></div>
-		<a href="/<?php echo $this->config->item('admin_folder');?>/dashboard"><img src="/images/admin/logo.png" alt="dashboard"/></a>
+		<a href="<?php echo site_url($this->config->item('admin_folder').'/dashboard');?>"><img src="<?php echo base_url('images/admin/logo.png');?>" alt="dashboard"/></a>
 		<h2><?php echo  $page_title; ?></h2>
 		
 		<span>
-			<a style="float:right;" href="/<?php echo $this->config->item('admin_folder');?>/login/logout">Logout</a>
-			<a style="float:right;" href="/">Front End</a>
-			<a style="float:right;" href="/<?php echo $this->config->item('admin_folder');?>/dashboard">Dashboard</a>
+			<a style="float:right;" href="<?php echo site_url($this->config->item('admin_folder').'/login/logout');?>">Logout</a>
+			<a style="float:right;" href="<?php echo site_url();?>">Front End</a>
+			<a style="float:right;" href="<?php echo site_url($this->config->item('admin_folder').'/dashboard');?>">Dashboard</a>
 		</span>
 	</div>
 	<div id="container">
 		<div id="menu_wrapper">
 			<?php
 			//just to shorten this up some.
-			$admin_url = base_url().$this->config->item('admin_folder').'/';?>
+			$admin_url = site_url($this->config->item('admin_folder')).'/';?>
 			
 			<div class="menu shadow">
 				<div class="menu_title">Sales</div>
