@@ -11,8 +11,8 @@ class Install_model extends CI_Model {
 
 		$query[] = "CREATE TABLE `".$prefix."admin` (
 		  `id` int(10) unsigned NOT NULL auto_increment,
-		  `firstname` varchar(32) collate utf8_general_ci NOT NULL,
-		  `lastname` varchar(32) collate utf8_general_ci NOT NULL,
+		  `firstname` varchar(32) collate utf8_general_ci NULL,
+		  `lastname` varchar(32) collate utf8_general_ci NULL,
 		  `email` varchar(128) collate utf8_general_ci NOT NULL,
 		  `access` varchar(11) collate utf8_general_ci NOT NULL,
 		  `password` varchar(40) collate utf8_general_ci NOT NULL,
