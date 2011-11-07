@@ -257,12 +257,12 @@ class Categories extends CI_Controller {
 			$save['name']			= $this->input->post('name');
 			$save['description']	= $this->input->post('description');
 			$save['excerpt']		= $this->input->post('excerpt');
-			$save['parent_id']		= $this->input->post('parent_id');
-			$save['sequence']		= $this->input->post('sequence');
+			$save['parent_id']		= intval($this->input->post('parent_id'));
+			$save['sequence']		= intval($this->input->post('sequence'));
 			$save['seo_title']		= $this->input->post('seo_title');
 			$save['meta']			= $this->input->post('meta');
 
-			$save['route_id']		= $route_id;
+			$save['route_id']		= intval($route_id);
 			$save['slug']			= $slug;
 			
 			$category_id	= $this->Category_model->save($save);
