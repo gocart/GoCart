@@ -201,9 +201,9 @@ class Products extends CI_Controller {
 			$save['meta']				= $this->input->post('meta');
 			$save['description']		= $this->input->post('description');
 			$save['excerpt']			= $this->input->post('excerpt');
-			$save['price']				= $this->input->post('price');
-			$save['saleprice']			= $this->input->post('saleprice');
-			$save['weight']				= $this->input->post('weight');
+			$save['price']				= floatval($this->input->post('price'));
+			$save['saleprice']			= floatval($this->input->post('saleprice'));
+			$save['weight']				= floatval($this->input->post('weight'));
 			$save['in_stock']			= $this->input->post('in_stock');
 			$post_images				= $this->input->post('images');
 			
