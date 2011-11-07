@@ -12,7 +12,7 @@ if ( ! function_exists('force_ssl'))
 	{
 		$CI =& get_instance();
 		$CI->config->config['base_url'] = str_replace('http://', 'https://', $CI->config->config['base_url']);
-		if (ssl_support() &&  (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off' || $_SERVER['SERVER_PORT'] != 80))
+		if (ssl_support() &&  (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off'))
 		{
 			redirect($CI->uri->uri_string());
 		}
