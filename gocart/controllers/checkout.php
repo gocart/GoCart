@@ -15,11 +15,8 @@ class Checkout extends CI_Controller {
 	//load all the pages into this variable so we can call it from all the methods
 	var $pages = '';
 	
-	
 	// determine whether to display gift card link on all cart pages
 	var $gift_cards_enabled = false; 
-	
-	var $header_text;
 	
 	// construct 
 	function __construct()
@@ -41,7 +38,6 @@ class Checkout extends CI_Controller {
 		//fill in our variables
 		$this->categories	= $this->Category_model->get_categories_tierd(0);
 		$this->pages		= $this->Page_model->get_pages();	
-		$this->header_text	= $this->Page_model->get_page(142);
 		$gc_setting			= $this->Settings_model->get_settings('gift_cards');
 		
 		if($gc_setting['enabled']==1)
@@ -273,15 +269,15 @@ class Checkout extends CI_Controller {
  			else 
  			{
  				
-	 			$customer['bill_address']['firstname']		= set_value('bill_firstname');
-				$customer['bill_address']['lastname']		= set_value('bill_lastname');
-				$customer['bill_address']['email']			= set_value('bill_email');
-				$customer['bill_address']['phone']			= set_value('bill_phone');
-				$customer['bill_address']['company']		= set_value('bill_company');
-				$customer['bill_address']['address1']		= set_value('bill_address1');
-				$customer['bill_address']['address2']		= set_value('bill_address2');
-				$customer['bill_address']['city']			= set_value('bill_city');
-				$customer['bill_address']['zip']			= set_value('bill_zip');
+	 			$customer['bill_address']['firstname']		= $this->input->post('bill_firstname');
+				$customer['bill_address']['lastname']		= $this->input->post('bill_lastname');
+				$customer['bill_address']['email']			= $this->input->post('bill_email');
+				$customer['bill_address']['phone']			= $this->input->post('bill_phone');
+				$customer['bill_address']['company']		= $this->input->post('bill_company');
+				$customer['bill_address']['address1']		= $this->input->post('bill_address1');
+				$customer['bill_address']['address2']		= $this->input->post('bill_address2');
+				$customer['bill_address']['city']			= $this->input->post('bill_city');
+				$customer['bill_address']['zip']			= $this->input->post('bill_zip');
 				
 				
 				// get zone / country data using the zone id submitted as state
@@ -291,13 +287,13 @@ class Checkout extends CI_Controller {
 				$customer['bill_address']['zone']			= $bill_zone->code;  // save the state for output formatted addresses
 				$customer['bill_address']['country']		= $bill_country->name; // some shipping libraries require country name
 				$customer['bill_address']['country_code']   = $bill_country->iso_code_2; // some shipping libraries require the code 
-				$customer['bill_address']['zone_id']		= set_value('bill_zone_id');  // use the zone id to populate address state field value
-				$customer['bill_address']['country_id']		= set_value('bill_country_id');
+				$customer['bill_address']['zone_id']		= $this->input->post('bill_zone_id');  // use the zone id to populate address state field value
+				$customer['bill_address']['country_id']		= $this->input->post('bill_country_id');
 				
 				// Remember chosen ID
-				if(empty($customer['default_billing_address']) && set_value('bill_address_id')!='')
+				if(empty($customer['default_billing_address']) && $this->input->post('bill_address_id')!='')
 				{
-					$customer['default_billing_address'] = set_value('bill_address_id');	
+					$customer['default_billing_address'] = $this->input->post('bill_address_id');	
 				}
 				
 			}
