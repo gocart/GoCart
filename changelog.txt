@@ -1,3 +1,12 @@
+Version 1.1.1
+	Release date: Nov 7, 2011
+	
+	Bug Fixes
+		
+		- Fixed a bug in MY_url_helper that caused Force_SSL to Force SSL even if SSL isn't enabled.
+		- Fixed a MySQL strict mode bug where administrators do not have a default first and last name.
+		- Fixed a MySQL Strict Mode bug where UserData is not given a value.
+		
 Version 1.1
 ------------
 	Release date: Nov 5, 2011
