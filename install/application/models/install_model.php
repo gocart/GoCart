@@ -4389,7 +4389,7 @@ class Install_model extends CI_Model {
 		  `password` varchar(40) collate utf8_general_ci NOT NULL,
 		  `active` tinyint(1) NOT NULL,
 		  `group_id` int(11) NOT NULL default '1',
-		  `confirmed` tinyint(1) NOT NULL,
+		  `confirmed` tinyint(1) NOT NULL default '0',
 		  PRIMARY KEY  (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
@@ -4610,7 +4610,7 @@ class Install_model extends CI_Model {
 		$query[] = "CREATE TABLE `".$prefix."sessions` (
 		  `session_id` varchar(40) NOT NULL default '0',
 		  `ip_address` varchar(16) NOT NULL default '0',
-		  `user_agent` varchar(120) NOT NULL,
+		  `user_agent` varchar(120) NULL,
 		  `last_activity` int(10) unsigned NOT NULL default '0',
 		  `user_data` text NOT NULL,
 		  PRIMARY KEY  (`session_id`),
