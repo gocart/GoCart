@@ -69,6 +69,8 @@ Class Option_model extends CI_Model
 		{
 			$value['option_id'] = $id;
 			$value['sequence']	= $sequence;
+			$value['weight']	= floatval($value['weight']);
+			$value['price']		= floatval($value['price']);
 			$sequence++;
 			
 			$this->db->insert('option_values', $value);
