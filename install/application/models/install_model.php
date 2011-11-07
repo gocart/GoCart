@@ -84,7 +84,7 @@ class Install_model extends CI_Model {
 		  `description` text collate utf8_general_ci NOT NULL,
 		  `excerpt` text collate utf8_general_ci NOT NULL,
 		  `sequence` int(10) unsigned NOT NULL,
-		  `image` varchar(255) collate utf8_general_ci NOT NULL,
+		  `image` varchar(255) collate utf8_general_ci NULL,
 		  `seo_title` text collate utf8_general_ci NOT NULL,
 		  `meta` text collate utf8_general_ci NOT NULL,
 		  PRIMARY KEY  (`id`)
