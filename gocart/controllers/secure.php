@@ -19,8 +19,6 @@ class Secure extends CI_Controller {
 	
 	var $customer;
 	
-	var $header_text;
-	
 	function __construct()
 	{
 		parent::__construct();
@@ -37,9 +35,9 @@ class Secure extends CI_Controller {
 		
 		//fill up our categories variable
 		$this->categories =  $this->Category_model->get_categories_tierd(0);
-		$this->pages		= $this->Page_model->get_pages(0, array(138));
-		$this->header_text	= $this->Page_model->get_page(142);
+		$this->pages		= $this->Page_model->get_pages();
 		$gc_setting = $this->Settings_model->get_settings('gift_cards');
+		
 		if(!empty($gc_setting['enabled']) && $gc_setting['enabled']==1) $this->gift_cards_enabled = true;
 	}
 	
@@ -198,15 +196,15 @@ class Secure extends CI_Controller {
 			
 			$save['id']		= false;
 			
-			$save['firstname']			= set_value('firstname');
-			$save['lastname']			= set_value('lastname');
-			$save['email']				= set_value('email');
-			$save['phone']				= set_value('phone');
-			$save['company']			= set_value('company');
+			$save['firstname']			= $this->input->post('firstname');
+			$save['lastname']			= $this->input->post('lastname');
+			$save['email']				= $this->input->post('email');
+			$save['phone']				= $this->input->post('phone');
+			$save['company']			= $this->input->post('company');
 			$save['active']				= $this->config->item('new_customer_status');
-			$save['email_subscribe']	= set_value('email_subscribe');
+			$save['email_subscribe']	= intval((bool)$this->input->post('email_subscribe'));
 			
-			$save['password']			= set_value('password');
+			$save['password']			= $this->input->post('password');
 			
 			$redirect					= $this->input->post('redirect');
 			
@@ -227,8 +225,8 @@ class Secure extends CI_Controller {
 			// set replacement values for subject & body
 			
 			// {customer_name}
-			$row['subject'] = str_replace('{customer_name}', set_value('firstname').' '. set_value('lastname'), $row['subject']);
-			$row['content'] = str_replace('{customer_name}', set_value('firstname').' '. set_value('lastname'), $row['content']);
+			$row['subject'] = str_replace('{customer_name}', $this->input->post('firstname').' '. $this->input->post('lastname'), $row['subject']);
+			$row['content'] = str_replace('{customer_name}', $this->input->post('firstname').' '. $this->input->post('lastname'), $row['content']);
 			
 			// {url}
 			$row['subject'] = str_replace('{url}', $this->config->item('base_url'), $row['subject']);
@@ -252,10 +250,10 @@ class Secure extends CI_Controller {
 			
 			$this->email->send();
 			
-			$this->session->set_flashdata('message', 'Thanks for registering '.set_value('firstname').'!');
+			$this->session->set_flashdata('message', 'Thanks for registering '.$this->input->post('firstname').'!');
 			
 			//lets automatically log them in
-			$this->Customer_model->login($save['email'], set_value('confirm'));
+			$this->Customer_model->login($save['email'], $this->input->post('confirm'));
 			
 			//we're just going to make this secure regardless, because we don't know if they are
 			//wanting to redirect to an insecure location, if it needs to be secured then we can use the secure redirect in the controller
@@ -398,31 +396,24 @@ class Secure extends CI_Controller {
 		else
 		{
 			$customer = array();
-			$customer['id']					= $this->customer['id'];
-			$customer['company']			= set_value('company');
-			$customer['firstname']			= set_value('firstname');
-			$customer['lastname']			= set_value('lastname');
-			$customer['email']				= set_value('email');
-			$customer['phone']				= set_value('phone');
-			$customer['email_subscribe']	= set_value('email_subscribe');
+			$customer['id']						= $this->customer['id'];
+			$customer['company']				= $this->input->post('company');
+			$customer['firstname']				= $this->input->post('firstname');
+			$customer['lastname']				= $this->input->post('lastname');
+			$customer['email']					= $this->input->post('email');
+			$customer['phone']					= $this->input->post('phone');
+			$customer['email_subscribe']		= intval((bool)$this->input->post('email_subscribe'));
 			if($this->input->post('password') != '')
 			{
-				$customer['password']		= set_value('password');
+				$customer['password']			= $this->input->post('password');
 			}
-			$this->customer['company']		= set_value('company');
-			$this->customer['firstname']	= set_value('firstname');
-			$this->customer['lastname']		= set_value('lastname');
-			$this->customer['email']		= set_value('email');
-			$this->customer['phone']		= set_value('phone');
-			$this->customer['email_subscribe']	= set_value('email_subscribe');
-			
+						
 			$this->go_cart->save_customer($this->customer);
 			$this->Customer_model->save($customer);
 			
 			$this->session->set_flashdata('message', 'Your account has been updated');
 			
 			redirect('secure/my_account');
-			//$this->load->view('my_account', $data);
 		}
 	
 	}
@@ -557,15 +548,15 @@ class Secure extends CI_Controller {
 			$a = array();
 			$a['id']						= ($id==0) ? '' : $id;
 			$a['customer_id']				= $this->customer['id'];
-			$a['field_data']['company']		= set_value('company');
-			$a['field_data']['firstname']	= set_value('firstname');
-			$a['field_data']['lastname']	= set_value('lastname');
-			$a['field_data']['email']		= set_value('email');
-			$a['field_data']['phone']		= set_value('phone');
-			$a['field_data']['address1']	= set_value('address1');
-			$a['field_data']['address2']	= set_value('address2');
-			$a['field_data']['city']		= set_value('city');
-			$a['field_data']['zip']			= set_value('zip');
+			$a['field_data']['company']		= $this->input->post('company');
+			$a['field_data']['firstname']	= $this->input->post('firstname');
+			$a['field_data']['lastname']	= $this->input->post('lastname');
+			$a['field_data']['email']		= $this->input->post('email');
+			$a['field_data']['phone']		= $this->input->post('phone');
+			$a['field_data']['address1']	= $this->input->post('address1');
+			$a['field_data']['address2']	= $this->input->post('address2');
+			$a['field_data']['city']		= $this->input->post('city');
+			$a['field_data']['zip']			= $this->input->post('zip');
 			
 			// get zone / country data using the zone id submitted as state
 			$country = $this->location_model->get_country(set_value('country_id'));	
@@ -575,8 +566,8 @@ class Secure extends CI_Controller {
 				$a['field_data']['zone']		= $zone->code;  // save the state for output formatted addresses
 				$a['field_data']['country']		= $country->name; // some shipping libraries require country name
 				$a['field_data']['country_code']   = $country->iso_code_2; // some shipping libraries require the code 
-				$a['field_data']['country_id']  = set_value('country_id');
-				$a['field_data']['zone_id']		= set_value('zone_id');  
+				$a['field_data']['country_id']  = $this->input->post('country_id');
+				$a['field_data']['zone_id']		= $this->input->post('zone_id');  
 			}
 			
 			$this->Customer_model->save_address($a);
@@ -584,31 +575,6 @@ class Secure extends CI_Controller {
 			echo 1;
 		}
 	}
-	
-	// address management functions
-	/*
-	function save_address()
-	{
-		$data = $this->input->post('address');
-		if($data)
-		{
-			$customer = $this->go_cart->customer();
-			$data['customer_id'] = $customer['id'];
-			
-			// get zone / country data using the zone id submitted as state
-			$country = $this->location_model->get_country_by_zone_id(set_value('state'));			
-			if(!empty($country))
-			{
-				$data['field_data']['state']		= $country->code;  // save the state for output formatted addresses
-				$data['field_data']['country']		= $country->c_name; // some shipping libraries require country name
-				$data['field_data']['country_code']   = $country->iso_code_2; // some shipping libraries require the code 
-				$data['field_data']['zone_id']		= set_value('state');  // use the zone id to populate address state field value
-			}
-			
-			echo json_encode(array('id'=>$this->Customer_model->save_address($data)));
-		}
-	}
-	*/
 	
 	function delete_address()
 	{
