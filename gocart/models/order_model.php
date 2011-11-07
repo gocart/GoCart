@@ -212,8 +212,10 @@ Class order_model extends CI_Model
 			// update order items
 			foreach($contents as $item)
 			{
-				$save	= array();
+				$save				= array();
 				$save['contents']	= $item;
+				
+				$item				= unserialize($item);
 				$save['product_id'] = $item['id'];
 				$save['quantity'] 	= $item['quantity'];
 				$save['order_id']	= $id;
