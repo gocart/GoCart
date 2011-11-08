@@ -23,7 +23,7 @@ if(isset($_SERVER['HTTPS']))
 
 <script type="text/javascript" src="<?php echo base_url('js/jquery/tiny_mce/tiny_mce.js');?>"></script>
 <script type="text/javascript" src="<?php echo base_url('js/jquery/tiny_mce/jquery.tinymce.js');?>"></script>
-<script type="text/javascript" src="<?php echo base_url('js/jquery/tiny_mce/tiny_mce_init.js');?>"></script>
+<script type="text/javascript" src="<?php echo base_url('js/jquery/tiny_mce/tiny_mce_init.php');?>"></script>
 <link href="<?php echo base_url('css/admin.css');?>" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
