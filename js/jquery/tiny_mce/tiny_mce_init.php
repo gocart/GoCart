@@ -6,6 +6,7 @@ tinyMCE.init({
 	editor_selector : "tinyMCE",
 	skin : "o2k7",
 	skin_variant : "silver",
+	entity_encoding : "raw",
 	dialog_type : "modal",
 	remove_script_host : false,
 	relative_urls : false,
