@@ -23,7 +23,7 @@ class Install extends CI_Controller {
 		are we installing into a subfolder?
 		if not, then the subfolder variabel below will be empty. If we are it will contain a value.
 		*/
-		$subfolder			= rtrim(dirname(dirname($_SERVER['PHP_SELF'])), '/').'/';
+		$subfolder			= rtrim(dirname(dirname($_SERVER['PHP_SELF'])), '/\\').'/';
 		$data['subfolder']	= $subfolder;
 		
 		//make sure the config folder is writable
