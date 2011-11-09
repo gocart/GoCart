@@ -4326,7 +4326,8 @@ class Install_model extends CI_Model {
 		('3952', '222', 'FER', 'County Fermanagh', '1', '0.00000'),
 		('3953', '222', 'LDY', 'County Londonderry', '1', '0.00000'),
 		('3954', '222', 'TYR', 'County Tyrone', '1', '0.00000'),
-		('3955', '222', 'CMA', 'Cumbria', '1', '0.00000');";
+		('3955', '222', 'CMA', 'Cumbria', '1', '0.00000'),
+		('3956', '138', 'AG', 'Aguascalientes', '1', '0.00000');";
 
 
 		$query[] = "DROP TABLE IF EXISTS `".$prefix."coupons`;";
