@@ -274,7 +274,7 @@ class CI_Router {
 				}
 
 				// Does the default controller exist in the sub-folder?
-				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$this->default_controller.'php'))
+				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$this->default_controller.'.php'))
 				{
 					$this->directory = '';
 					return array();
@@ -286,7 +286,7 @@ class CI_Router {
 		}
 		else
 		{
-			if ( file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].'php'))
+			if ( file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].'.php'))
 			{
 				return $segments;
 			}
