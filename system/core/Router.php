@@ -87,13 +87,13 @@ class CI_Router {
 		}
 
 		// Load the routes.php file.
-		if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/routes'.EXT))
+		if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/routes.php'))
 		{
-			include(APPPATH.'config/'.ENVIRONMENT.'/routes'.EXT);
+			include(APPPATH.'config/'.ENVIRONMENT.'/routes.php');
 		}
-		elseif (is_file(APPPATH.'config/routes'.EXT))
+		elseif (is_file(APPPATH.'config/routes.php'))
 		{
-			include(APPPATH.'config/routes'.EXT);
+			include(APPPATH.'config/routes.php');
 		}
 		
 		$this->routes = ( ! isset($route) OR ! is_array($route)) ? array() : $route;
@@ -230,7 +230,7 @@ class CI_Router {
 		}
 
 		// Does the requested controller exist in the root folder?
-		if (file_exists(APPPATH.'controllers/'.$segments[0].EXT) && $flag === FALSE)
+		if (file_exists(APPPATH.'controllers/'.$segments[0].'php') && $flag === FALSE)
 		{
 			return $segments;
 		}
@@ -251,9 +251,9 @@ class CI_Router {
 					$this->_validate_request($segments,TRUE);
 				}
 			// Does the requested controller exist in the sub-folder?
-				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].EXT))
+				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].'php'))
 				{
-					//echo APPPATH.'controllers/'.$this->fetch_directory().$segments[0].EXT;
+					//echo APPPATH.'controllers/'.$this->fetch_directory().$segments[0].'php';
 					show_404($this->fetch_directory().$segments[0]);
 				}
 			}
@@ -274,7 +274,7 @@ class CI_Router {
 				}
 
 				// Does the default controller exist in the sub-folder?
-				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$this->default_controller.EXT))
+				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$this->default_controller.'php'))
 				{
 					$this->directory = '';
 					return array();
@@ -286,7 +286,7 @@ class CI_Router {
 		}
 		else
 		{
-			if ( file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].EXT))
+			if ( file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].'php'))
 			{
 				return $segments;
 			}
