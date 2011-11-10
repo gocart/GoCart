@@ -87,7 +87,6 @@ class CI_Router {
 		}
 
 		// Load the routes.php file.
-		// 加载路由文件
 		if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/routes'.EXT))
 		{
 			include(APPPATH.'config/'.ENVIRONMENT.'/routes'.EXT);
@@ -124,7 +123,6 @@ class CI_Router {
 		$this->uri->_remove_url_suffix();
 
 		// Compile the segments into an array
-		// 得到segments数组
 		$this->uri->_explode_segments();
 
 		// Parse any custom routing that may exist
@@ -159,7 +157,6 @@ class CI_Router {
 		}
 		else
 		{
-			//index模型驱动
 			$this->set_class($this->default_controller);
 			$this->set_method('index');
 			$this->_set_request(array($this->default_controller, 'index'));
@@ -211,7 +208,7 @@ class CI_Router {
 		// Update our "routed" segment array to contain the segments.
 		// Note: If there is no custom routing, this array will be
 		// identical to $this->uri->segments
-		// 针对用户自定义的路由
+		
 		$this->uri->rsegments = $segments;
 	}
 
@@ -220,7 +217,6 @@ class CI_Router {
 	/**
 	 * Validates the supplied segments.  Attempts to determine the path to
 	 * the controller.
-	 * 递归处理
 	 *
 	 * @access	private
 	 * @param	array
@@ -346,7 +342,6 @@ class CI_Router {
 			// Does the RegEx match?
 			if (preg_match('#^'.$key.'$#', $uri))
 			{
-				// 没有匹配项
 				// Do we have a back-reference?
 				if (strpos($val, '$') !== FALSE AND strpos($key, '(') !== FALSE)
 				{
