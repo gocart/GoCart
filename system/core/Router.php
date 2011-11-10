@@ -87,13 +87,14 @@ class CI_Router {
 		}
 
 		// Load the routes.php file.
-		if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/routes.php'))
+		// 加载路由文件
+		if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/routes'.EXT))
 		{
-			include(APPPATH.'config/'.ENVIRONMENT.'/routes.php');
+			include(APPPATH.'config/'.ENVIRONMENT.'/routes'.EXT);
 		}
-		elseif (is_file(APPPATH.'config/routes.php'))
+		elseif (is_file(APPPATH.'config/routes'.EXT))
 		{
-			include(APPPATH.'config/routes.php');
+			include(APPPATH.'config/routes'.EXT);
 		}
 		
 		$this->routes = ( ! isset($route) OR ! is_array($route)) ? array() : $route;
@@ -104,6 +105,7 @@ class CI_Router {
 		$this->default_controller = ( ! isset($this->routes['default_controller']) OR $this->routes['default_controller'] == '') ? FALSE : strtolower($this->routes['default_controller']);
 
 		// Were there any query string segments?  If so, we'll validate them and bail out since we're done.
+		
 		if (count($segments) > 0)
 		{
 			return $this->_validate_request($segments);
@@ -122,6 +124,7 @@ class CI_Router {
 		$this->uri->_remove_url_suffix();
 
 		// Compile the segments into an array
+		// 得到segments数组
 		$this->uri->_explode_segments();
 
 		// Parse any custom routing that may exist
@@ -156,6 +159,7 @@ class CI_Router {
 		}
 		else
 		{
+			//index模型驱动
 			$this->set_class($this->default_controller);
 			$this->set_method('index');
 			$this->_set_request(array($this->default_controller, 'index'));
@@ -182,6 +186,7 @@ class CI_Router {
 	 */
 	function _set_request($segments = array())
 	{
+
 		$segments = $this->_validate_request($segments);
 
 		if (count($segments) == 0)
@@ -206,6 +211,7 @@ class CI_Router {
 		// Update our "routed" segment array to contain the segments.
 		// Note: If there is no custom routing, this array will be
 		// identical to $this->uri->segments
+		// 针对用户自定义的路由
 		$this->uri->rsegments = $segments;
 	}
 
@@ -214,12 +220,13 @@ class CI_Router {
 	/**
 	 * Validates the supplied segments.  Attempts to determine the path to
 	 * the controller.
+	 * 递归处理
 	 *
 	 * @access	private
 	 * @param	array
 	 * @return	array
 	 */
-	function _validate_request($segments)
+	function _validate_request(&$segments ,$flag = FALSE)
 	{
 		if (count($segments) == 0)
 		{
@@ -227,23 +234,30 @@ class CI_Router {
 		}
 
 		// Does the requested controller exist in the root folder?
-		if (file_exists(APPPATH.'controllers/'.$segments[0].'.php'))
+		if (file_exists(APPPATH.'controllers/'.$segments[0].EXT) && $flag === FALSE)
 		{
 			return $segments;
 		}
 
 		// Is the controller in a sub-folder?
-		if (is_dir(APPPATH.'controllers/'.$segments[0]))
+		if (is_dir(APPPATH.'controllers/'.$this->directory.$segments[0]))
 		{
 			// Set the directory and remove it from the segment array
-			$this->set_directory($segments[0]);
+			$this->set_directory($this->directory.$segments[0],$flag);
 			$segments = array_slice($segments, 1);
-
 			if (count($segments) > 0)
 			{
-				// Does the requested controller exist in the sub-folder?
-				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].'.php'))
+
+				if(is_dir(APPPATH.'controllers/'.$this->directory.$segments[0]))
+				{			
+					$this->set_directory($this->directory.$segments[0],TRUE);
+					$segments = array_slice($segments, 1);
+					$this->_validate_request($segments,TRUE);
+				}
+			// Does the requested controller exist in the sub-folder?
+				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].EXT))
 				{
+					//echo APPPATH.'controllers/'.$this->fetch_directory().$segments[0].EXT;
 					show_404($this->fetch_directory().$segments[0]);
 				}
 			}
@@ -264,15 +278,22 @@ class CI_Router {
 				}
 
 				// Does the default controller exist in the sub-folder?
-				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$this->default_controller.'.php'))
+				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$this->default_controller.EXT))
 				{
 					$this->directory = '';
 					return array();
 				}
 
 			}
-
+	
 			return $segments;
+		}
+		else
+		{
+			if ( file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].EXT))
+			{
+				return $segments;
+			}
 		}
 
 
@@ -309,7 +330,7 @@ class CI_Router {
 	{
 		// Turn the segment array into a URI string
 		$uri = implode('/', $this->uri->segments);
-
+		
 		// Is there a literal match?  If so we're done
 		if (isset($this->routes[$uri]))
 		{
@@ -325,6 +346,7 @@ class CI_Router {
 			// Does the RegEx match?
 			if (preg_match('#^'.$key.'$#', $uri))
 			{
+				// 没有匹配项
 				// Do we have a back-reference?
 				if (strpos($val, '$') !== FALSE AND strpos($key, '(') !== FALSE)
 				{
@@ -408,9 +430,12 @@ class CI_Router {
 	 * @param	string
 	 * @return	void
 	 */
-	function set_directory($dir)
+	function set_directory($dir , $flag = FALSE)
 	{
-		$this->directory = str_replace(array('/', '.'), '', $dir).'/';
+		if(!$flag)
+			$this->directory = str_replace(array('/', '.'), '', $dir).'/';
+		else
+			$this->directory = str_replace('.','',$dir).'/';
 	}
 
 	// --------------------------------------------------------------------
