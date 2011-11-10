@@ -222,7 +222,7 @@ class CI_Router {
 	 * @param	array
 	 * @return	array
 	 */
-	function _validate_request(&$segments ,$flag = FALSE)
+	function _validate_request($segments ,$flag = FALSE)
 	{
 		if (count($segments) == 0)
 		{
