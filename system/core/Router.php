@@ -230,7 +230,7 @@ class CI_Router {
 		}
 
 		// Does the requested controller exist in the root folder?
-		if (file_exists(APPPATH.'controllers/'.$segments[0].'php') && $flag === FALSE)
+		if (file_exists(APPPATH.'controllers/'.$segments[0].'.php') && $flag === FALSE)
 		{
 			return $segments;
 		}
@@ -251,7 +251,7 @@ class CI_Router {
 					$this->_validate_request($segments,TRUE);
 				}
 			// Does the requested controller exist in the sub-folder?
-				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].'php'))
+				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].'.php'))
 				{
 					//echo APPPATH.'controllers/'.$this->fetch_directory().$segments[0].'php';
 					show_404($this->fetch_directory().$segments[0]);
