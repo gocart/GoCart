@@ -137,7 +137,7 @@ function submit_payment_method()
 	errors = false;
 		
 	// verify a shipping method is chosen
-	if(shipping_required && $('input:radio[name=shipping_input]:checked').val()===undefined)
+	if(shipping_required && $('input:radio[name=shipping_input]:checked').val()===undefined && $('input:radio[name=shipping_input]').length > 0)
 	{
 		display_error('shipping', 'Please choose a shipping method');
 		errors = true;
