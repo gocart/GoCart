@@ -7,7 +7,7 @@
 	
 	<?php if((!isset($subcategories) || count($subcategories)==0) && (count($products) == 0)):?>
 		<div class="message">
-			There are currently no available products in this category.
+			<?php echo lang('no_products');?>
 		</div>
 	<?php endif;?>
 	<?php
@@ -26,7 +26,7 @@
 			<div class="category_box">
 				<div class="thumbnail">
 					<a href="<?php echo site_url($subcategory->slug); ?>">
-						<img src="<?php echo (!empty($subcategory->image))?base_url('uploads/images/thumbnails/'.$subcategory->image):base_url('images/nopicture.png').'" alt="no image available';?>"/>
+						<img src="<?php echo (!empty($subcategory->image))?base_url('uploads/images/thumbnails/'.$subcategory->image):base_url('images/nopicture.png');?>" alt="<?php echo lang('no_image_available');?>"/>
 					</a>
 				</div>
 				<div class="product_name">
@@ -56,7 +56,7 @@
 
 	<?php if(count($products) > 0):?>
 		<div class="clear"></div>
-		<h2>Products</h2>
+		<h2><?php echo lang('products');?></h2>
 		<div class="pagination">
 		<?php echo $this->pagination->create_links();?>
 		</div>
@@ -77,7 +77,7 @@
 				
 				<div class="thumbnail">
 					<?php
-					$photo	= '<img src="'.base_url('images/nopicture.png').'" alt="no image available"/>';
+					$photo	= '<img src="'.base_url('images/nopicture.png').'" alt="'.lang('no_image_available').'"/>';
 					$product->images	= array_values($product->images);
 					
 					if(!empty($product->images[0]))
@@ -114,7 +114,7 @@
 					<?php endif; ?>
 				</div>
                     <?php if($product->in_stock==0) { ?>
-						<div class="stock_msg">Out of Stock</div>
+						<div class="stock_msg"><?php echo lang('out_of_stock');?></div>
 					<?php } ?>
 				</div>
 			</div>

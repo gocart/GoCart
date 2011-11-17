@@ -1,5 +1,5 @@
 
-<H3>Order Number: <?php echo $order_id ?></H3>
+<H3><?php echo lang('order_number')?>: <?php echo $order_id ?></H3>
 <div class="confirm_customer">
 <?php
 if($customer['company'] != '')
@@ -14,7 +14,7 @@ if($customer['company'] != '')
 <table width="100%" cellpadding="10" border="0">
 	<tr>
 		<td>
-			<strong>Billing Address</strong><br/>
+			<strong><?php echo lang('billing_address');?></strong><br/>
 			<?php 		$bill = $customer['bill_address'];
 					  	 
 					  	 if(!empty($bill['company'])) echo $bill['company'].'<br>';
@@ -26,7 +26,7 @@ if($customer['company'] != '')
 			?> <br/>
 		</td>
 		<td>
-			<strong>Shipping Address</strong><br/>
+			<strong><?php echo lang('shipping_address');?></strong><br/>
 			<?php 		$ship = $customer['ship_address'];
 					  	 
 					  	 if(!empty($ship['company'])) echo $ship['company'].'<br>';
@@ -38,7 +38,7 @@ if($customer['company'] != '')
 		?> <br/>
 		</td>
 		<td>
-			<strong>Payment Information</strong><br/>
+			<strong><?php echo lang('payment_information');?></strong><br/>
 			<?php echo $payment['description']; ?>
 		</td>
 	</tr>
@@ -49,30 +49,30 @@ if($customer['company'] != '')
 		<thead>
 			<tr>
 				<th class="header_left">&nbsp;</th>
-				<th class="product_info" colspan="2">Product Info</th>
-				<th colspan="2">Price &amp; Quantity</th>
+				<th class="product_info" colspan="2"><?php echo lang('product_information');?></th>
+				<th colspan="2"><?php echo lang('price_and_quantity');?></th>
 				<th class="header_right">&nbsp;</th>
 			</tr>
 		</thead>
 		<tfoot>
 			<tr>
-				<td colspan="3" class="gc_view_cart_totals">Subtotal</td>
+				<td colspan="3" class="gc_view_cart_totals"><?php echo lang('subtotal');?></td>
 				<td colspan="3" class="gc_total">
 					<?php echo format_currency($this->go_cart->subtotal()); ?>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="3" class="gc_view_cart_totals">Shipping: <?php echo $shipping['method'] ?></td>
+				<td colspan="3" class="gc_view_cart_totals"><?php echo lang('shipping');?>: <?php echo $shipping['method'] ?></td>
 				<td colspan="3" class="gc_total"><?php echo format_currency($shipping['price']) ?></td>
 			<tr>
 		<?php if($this->go_cart->coupon_discount() > 0)  :?> 
 			<tr>
-				<td colspan="3" class="gc_view_cart_totals">Coupon Discount</td>
+				<td colspan="3" class="gc_view_cart_totals"><?php echo lang('coupon_discount');?></td>
 				<td colspan="3" class="gc_total"><?php echo format_currency(0-$this->go_cart->coupon_discount()); ?>                </td>
 			</tr>
 			<?php if($this->go_cart->order_tax() != 0) :// Only show a discount subtotal if we still have taxes to add (to show what the tax is calculated from) ?> 
 			<tr>
-				<td colspan="3" class="gc_view_cart_totals">Discounted Subtotal</td>
+				<td colspan="3" class="gc_view_cart_totals"><?php echo lang('discounted_subtotal');?></td>
 				<td colspan="3" class="gc_total"><?php echo format_currency($this->go_cart->discounted_subtotal(), 2, '.', ','); ?>                </td>
 			</tr>
 

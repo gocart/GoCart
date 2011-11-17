@@ -34,7 +34,7 @@
 					echo form_radio('amount', 'preset_amount', $checked);
 			?>
             
-			  Choose Gift Card Amount
+			  <?php echo lang('giftcard_choose_amount');?>
               
               <?php foreach($preset_values as $value)
 			  			$options[$value] = "\$$value";
@@ -56,7 +56,7 @@
 					echo form_radio('amount', 'custom_amount', $checked);
 				 ?>
 			    
-			      Custom Amount: 
+			      <?php echo lang('giftcard_custom_amount');?> 
 			        <?php echo form_input('custom_amount', set_value('custom_amount')); ?>                    </div>
             <?php endif; ?>                </td>
 	  </tr>
@@ -64,19 +64,19 @@
 		  <td colspan="2">&nbsp;</td>
 	  </tr>
 		<tr>
-		  <td width="99">To (Name):	      </td>
+		  <td width="99"><?php echo lang('giftcard_to');?></td>
 	      <td width="170"><?php echo form_input('gc_to_name', set_value('gc_to_name')); ?></td>
 	  </tr>
 		<tr>
-		  <td>To (Email):</td>
+		  <td><?php echo lang('giftcard_email');?></td>
 		  <td><?php echo form_input('gc_to_email', set_value('gc_to_email')); ?></td>
 	  </tr>
 		<tr>
-		  <td>From: </td>
+		  <td><?php echo lang('giftcard_from');?> </td>
 	      <td><?php echo form_input('gc_from', set_value('gc_from')) ?></td>
 	  </tr>
 		<tr>
-		  <td>Personal Message</td>
+		  <td><?php echo lang('giftcard_message');?></td>
 		  <td><label>
           	<?php 
 			$data = array(
@@ -91,7 +91,7 @@
 	  </tr>
 		<tr>
 		  <td>&nbsp;</td>
-		  <td><input type="submit" value="Add to Cart"/></td>
+		  <td><input type="submit" value="<?php echo lang('form_add_to_cart');?>"/></td>
 	  </tr>
 	</table>
 	

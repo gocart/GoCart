@@ -72,7 +72,7 @@ function submit_order()
 		{
 			if(typeof response != "object")
 			{
-				display_error('payment', 'There was a problem saving your payment method');
+				display_error('payment', '<?php echo lang('error_save_payment');?');
 				return;
 			}
 			
@@ -139,7 +139,7 @@ function submit_payment_method()
 	// verify a shipping method is chosen
 	if(shipping_required && $('input:radio[name=shipping_input]:checked').val()===undefined && $('input:radio[name=shipping_input]').length > 0)
 	{
-		display_error('shipping', 'Please choose a shipping method');
+		display_error('shipping', '<?php echo lang('error_choose_shipping');?>');
 		errors = true;
 	}
 		
@@ -151,7 +151,7 @@ function submit_payment_method()
 		{
 			if($('input:radio[name=payment_method]:checked').val()===undefined)
 			{
-				display_error('payment', 'Please choose a payment method');
+				display_error('payment', '<?php echo lang('error_choose_payment');?>');
 				errors = true;
 			}
 		}
@@ -191,7 +191,7 @@ function save_order()
 			{
 				if(typeof response != "object")
 				{
-					display_error('payment', 'There was a problem saving your payment method');
+					display_error('payment', '<?php echo lang('error_save_payment')');
 					return;
 				}
 
@@ -227,15 +227,15 @@ function update_summary()
 </script>
 <div class="continue_shopping">
 	<?php if(!$this->Customer_model->is_logged_in(false, false)) : ?>
-		<input type="button" onclick="window.location='<?php echo site_url('checkout/login');?>'" value="Login" />
-		<input type="button" onclick="window.location='<?php echo site_url('checkout/register');?>'" value="Register Now"/>
+		<input type="button" onclick="window.location='<?php echo site_url('checkout/login');?>'" value="<?php echo lang('form_login');?>" />
+		<input type="button" onclick="window.location='<?php echo site_url('checkout/register');?>'" value="<?php echo lang('register_now');?>"/>
 	<?php endif;?>
-	<input type="button" onclick="window.location='<?php echo base_url();?>'" value="Continue Shopping"/>
+	<input type="button" onclick="window.location='<?php echo base_url();?>'" value="<?php echo lang('continue_shopping');?>"/>
 </div>
 
 <div class="checkout_block">
 	<div id="customer_info_fields">
-		<h3>Customer Information</h3>
+		<h3><?php echo lang('customer_information');?></h3>
 		<img alt="loading" src="<?php echo base_url('images/ajax-loader.gif');?>"/>
 	</div>
 	<br style="clear:both;"/>
@@ -254,7 +254,7 @@ function update_summary()
 <div id="submit_button_container" style="display:none; text-align:center; padding-top:10px;">
 <form id="order_submit_form" action="<?php echo site_url('checkout/place_order'); ?>" method="post">
 <input type="hidden" name="process_order" value="true">
-<input style="padding:10px 15px; font-size:16px;" type="button" onclick="submit_payment_method()" value="Submit Order" />
+<input style="padding:10px 15px; font-size:16px;" type="button" onclick="submit_payment_method()" value="<?php echo lang('submit_order');?>" />
 </form>
 </div>
 

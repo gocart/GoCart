@@ -12,7 +12,7 @@ $(document).ready(function(){
 	$('.delete_address').click(function(){
 		if($('.delete_address').length > 1)
 		{
-			if(confirm('Are you sure you want to delete this address?'))
+			if(confirm('<?php echo lang('delete_address_confirmation');?>'))
 			{
 				$.post("<?php echo site_url('secure/delete_address');?>", { id: $(this).attr('rel') },
 					function(data){
@@ -24,7 +24,7 @@ $(document).ready(function(){
 		}
 		else
 		{
-			alert('You Must leave at least 1 address in the Address Manager.');
+			alert('<?php echo lang('error_must_have_address');?>');
 		}	
 	});
 	
@@ -66,47 +66,47 @@ $confirm	= array('id'=>'confirm', 'class'=>'input', 'name'=>'confirm', 'value'=>
 				<h2>Account Information</h2>
 				<div class="form_wrap">
 					<div>
-						Company<br/>
+						<?php echo lang('account_company');?><br/>
 						<?php echo form_input($company);?>
 					</div>
 				</div>
 				<div class="form_wrap">
 					<div>
-						First Name<b class="r"> *</b><br/>
+						<?php echo lang('account_firstname');?><b class="r"> *</b><br/>
 						<?php echo form_input($first);?>
 					</div>
 					<div >
-						Last Name<b class="r"> *</b><br/>
+						<?php echo lang('account_lastname');?><b class="r"> *</b><br/>
 						<?php echo form_input($last);?>
 					</div>
 				</div>
 				
 				<div class="form_wrap">
 					<div>
-						Email<b class="r"> *</b><br/>
+						<?php echo lang('account_email');?><b class="r"> *</b><br/>
 						<?php echo form_input($email);?>
 					</div>
 					<div >
-						Phone<b class="r"> *</b><br/>
+						<?php echo lang('account_phone');?><b class="r"> *</b><br/>
 						<?php echo form_input($phone);?>
 					</div>
 				</div>
 				
 				<div class="form_wrap">
 					<div>
-						<input type="checkbox" name="email_subscribe" value="1" <?php if((bool)$customer['email_subscribe']) { ?> checked="checked" <?php } ?>/> Subscribe to our email list.
+						<input type="checkbox" name="email_subscribe" value="1" <?php if((bool)$customer['email_subscribe']) { ?> checked="checked" <?php } ?>/> <?php echo lang('account_newsletter_subscribe');?>
 					</div>
 					
 				</div>
 				
 				<div class="form_wrap">
-					<div style="margin-top:20px; margin-bottom:0px; padding:0px; float:none; text-align:center;"><small>If you do not wish to change your<br/>password, leave both fields blank.</small></div>
+					<div style="margin-top:20px; margin-bottom:0px; padding:0px; float:none; text-align:center;"><small><?php echo lang('account_password_instructions');?></small></div>
 					<div>
-						Password<br/>
+						<?php echo lang('account_password');?><br/>
 						<?php echo form_password($password);?>
 					</div>
 					<div >
-						Confirm Password<br/>
+						<?php echo lang('account_confirm');?><br/>
 						<?php echo form_password($confirm);?>
 					</div>
 				</div>
@@ -118,7 +118,7 @@ $confirm	= array('id'=>'confirm', 'class'=>'input', 'name'=>'confirm', 'value'=>
 		</div>
 		<div id="address_manager">
 			<input type="button" class="edit_address right" rel="0" value="Add Address"/>
-			<h2>Address Manager</h2>
+			<h2><?php echo lang('address_manager');?></h2>
 			<script type="text/javascript">
 			$(document).ready(function(){
 				$('#address_list .my_account_address:even').addClass('address_bg');	
@@ -131,10 +131,10 @@ $confirm	= array('id'=>'confirm', 'class'=>'input', 'name'=>'confirm', 'value'=>
 			foreach($addresses as $a):?>
 				<div class="my_account_address" id="address_<?php echo $a['id'];?>">
 					<div class="address_toolbar">
-						<input type="button"class="delete_address" rel="<?php echo $a['id'];?>" value="Delete" />
-						<input type="button"class="edit_address" rel="<?php echo $a['id'];?>" value="Edit" />
+						<input type="button"class="delete_address" rel="<?php echo $a['id'];?>" value="<?php echo lang('form_delete');?>" />
+						<input type="button"class="edit_address" rel="<?php echo $a['id'];?>" value="<?php echo lang('form_edit');?>" />
 						<br>
-						<input type="radio" name="bill_chk" onclick="set_default(<?php echo $a['id'] ?>, 'bill')" <?php if($customer['default_billing_address']==$a['id']) echo 'checked="checked"'?> /> Default Billing <input type="radio" name="ship_chk" onclick="set_default(<?php echo $a['id'] ?>,'ship')" <?php if($customer['default_shipping_address']==$a['id']) echo 'checked="checked"'?>/> Default Shipping
+						<input type="radio" name="bill_chk" onclick="set_default(<?php echo $a['id'] ?>, 'bill')" <?php if($customer['default_billing_address']==$a['id']) echo 'checked="checked"'?> /> <?php echo lang('default_billing');?> <input type="radio" name="ship_chk" onclick="set_default(<?php echo $a['id'] ?>,'ship')" <?php if($customer['default_shipping_address']==$a['id']) echo 'checked="checked"'?>/> <?php echo lang('default_shipping');?>
 					</div>
 					<?php
 					$b	= $a['field_data'];
@@ -150,16 +150,16 @@ $confirm	= array('id'=>'confirm', 'class'=>'input', 'name'=>'confirm', 'value'=>
 </div>
 <br class="gc_clr"/>
 <div style="text-align:center;">
-<h2 style="padding:20px 0px 10px 0px; border-bottom:1px dashed #ccc; margin-bottom:10px;">Order History</h2>
+<h2 style="padding:20px 0px 10px 0px; border-bottom:1px dashed #ccc; margin-bottom:10px;"><?php echo lang('order_hitory');?></h2>
 <?php if($orders):
 	echo $orders_pagination;
 ?>
 <table class="cart_table" cellpadding="0" cellspacing="0" border="0">
 	<thead>
 		<tr>
-			<th class="product_info">Ordered On</th>
-			<th>Order Number</th>
-			<th>Status</th>
+			<th class="product_info"><?php echo lang('order_date');?></th>
+			<th><?php echo lang('order_number');?></th>
+			<th><?php echo lang('order_status');?></th>
 		</tr>
 	</thead>
 
@@ -184,7 +184,7 @@ $confirm	= array('id'=>'confirm', 'class'=>'input', 'name'=>'confirm', 'value'=>
 	</tbody>
 </table>
 <?php else: ?>
-	You have no orders in your account history.
+	<?php echo lang('no_order_history');?>
 <?php endif;?>
 
 <?php include('footer.php');?>
