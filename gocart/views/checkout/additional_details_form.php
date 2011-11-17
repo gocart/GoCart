@@ -5,18 +5,18 @@
 			echo '<div class="message">'.$this->session->flashdata('additional_details_message').'</div>';
 		}
 		?>
-		<h3>Additional Order Details</h3>
+		<h3><?php echo lang('additional_order_details');?></h3>
 		<?php //additional order details ?>
 		<form id="additional_details_form" method="post" action="<?php echo site_url('checkout/save_additional_details');?>">
 			<div class="form_wrap">
 				<div>
-					How did you hear about us?<br/>
+					<?php echo lang('heard_about');?><br/>
 					<?php echo form_input(array('name'=>'referral', 'class'=>'input', 'value'=>$referral));?>
 				</div>
 			</div>
 			<div class="form_wrap">
 				<div>
-					Shipping Instructions?<br/>
+					<?php echo lang('shipping_instructions');?><br/>
 					<?php echo form_textarea(array('name'=>'shipping_notes', 'class'=>'checkout_textarea', 'value'=>$shipping_notes))?>
 				</div>
 			</div>

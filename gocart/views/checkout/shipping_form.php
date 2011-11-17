@@ -1,7 +1,7 @@
 <?php if(count($shipping_methods) > 0):?>
 <div class="checkout_block">
 	<div id="shipping_section">
-		<h3>Shipping Method</h3>
+		<h3><?php echo lang('shipping_method');?></h3>
 		<div class="error" id="shipping_error_box" style="display:none"></div>
 		<div id="shipping_method_list">
 		<?php if($this->go_cart->requires_shipping()):?>
@@ -17,7 +17,7 @@
 		<?php 
 			
 		else: ?>
-			Your order does not include any items that require shipping.
+			<?php echo lang('no_shipping_needed');?>
 		<?php endif ?>
 		</div>
 	</div>

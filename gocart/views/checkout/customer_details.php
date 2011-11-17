@@ -95,7 +95,7 @@ function save_customer()
 	{
 		if(typeof response != "object") // error
 		{
-			display_error('customer', 'There was an unexpected problem communicating with the server');
+			display_error('customer', '<?php echo lang('communication_error');?>');
 			return;
 		}
 		
@@ -243,15 +243,15 @@ $s_zip		= array('id'=>'ship_zip', 'maxlength'=>'10', 'class'=>'ship input ship_r
 
 	<div id="customer_error_box" class="error" style="display:none"></div>
 	<form id="customer_info_form">
-		<h3>Customer Information</h3>
+		<h3><?php echo lang('customer_information');?></h3>
 		<div id="shipping_address">
 			<div class="form_wrap">
-				<div style="font-weight:bold">Shipping Address</div>
+				<div style="font-weight:bold"><?php echo lang('shipping_address');?></div>
 			</div>
 			<div class="form_wrap">
 				<?php if($this->Customer_model->is_logged_in(false, false)) : ?>
 				<div>
-					<input class="address_picker" type="button" value="Choose Address" rel="ship" />
+					<input class="address_picker" type="button" value="<?php echo lang('choose_address');?>" rel="ship" />
 				</div>
 				<?php endif; ?>
 			</div>
@@ -259,127 +259,127 @@ $s_zip		= array('id'=>'ship_zip', 'maxlength'=>'10', 'class'=>'ship input ship_r
 			<div class="form_wrap">
 				<input type="hidden" name="ship_address_id" id="ship_address_id" />
 				<div class="shorter">
-					Company<br/>
+					<?php echo lang('address_company');?><br/>
 					<?php echo form_input($s_company);?>
 				</div>
 				<div class="shorter">
-					First Name<b class="r"> *</b><br/>
+					<?php echo lang('address_firstname');?><b class="r"> *</b><br/>
 					<?php echo form_input($s_first);?>
 				</div>
 				<div class="shorter">
-					Last Name<b class="r"> *</b><br/>
+					<?php echo lang('address_lastname');?><b class="r"> *</b><br/>
 					<?php echo form_input($s_last);?>
 				</div>
 			</div>
 			
 			<div class="form_wrap">
 				<div class="shorter">
-					Email<b class="r"> *</b><br/>
+					<?php echo lang('address_email');?><b class="r"> *</b><br/>
 					<?php echo form_input($s_email);?>
 				</div>
 				<div class="shorter">
-					Phone<b class="r"> *</b><br/>
+					<?php echo lang('address_phone');?><b class="r"> *</b><br/>
 					<?php echo form_input($s_phone);?>
 				</div>
 			</div>
 			
 			<div class="form_wrap">
 				<div class="longer">
-					Address<b class="r"> *</b><br/>
+					<?php echo lang('address');?><b class="r"> *</b><br/>
 					<?php echo form_input($s_address1).'<br/>'.form_input($s_address2);?>
 				</div>
 			</div>
 			
 			<div class="form_wrap">
 				<div>
-					City<b class="r"> *</b><br/>
+					<?php echo lang('address_city');?><b class="r"> *</b><br/>
 					<?php echo form_input($s_city);?>
 				</div>
 				<div>
-					Zip<b class="r"> *</b><br/>
+					<?php echo lang('address_postcode');?><b class="r"> *</b><br/>
 					<?php echo form_input($s_zip);?>
 				</div>
 			</div>
 			
 			<div class="form_wrap">
 				<div>
-					Country<b class="r"> *</b><br/>
+					<?php echo lang('address_country');?><b class="r"> *</b><br/>
 					<?php echo form_dropdown('ship_country_id',$countries, @$customer['ship_address']['country_id'], 'id="ship_country_id" class="ship input ship_req"');?>
 				</div>
 				<div>
-					State / Province<b class="r"> *</b><br/>
+					<?php echo lang('address_state');?><b class="r"> *</b><br/>
 					<?php echo form_dropdown('ship_zone_id',$ship_zone_menu, @$customer['ship_address']['zone_id'], 'id="ship_zone_id" class="ship input ship_req"');?>
 				</div>
 			</div>
 			<div class="clear"></div>
 			<div class="form_wrap">
-				<input type="checkbox" id="different_address" name="ship_to_bill_address" value="yes" <?php echo set_checkbox('ship_to_bill_address', 'yes', @$customer['ship_to_bill_address']);?> onclick="toggle_billing_address_form(this.checked)"> Use this address for billing
+				<input type="checkbox" id="different_address" name="ship_to_bill_address" value="yes" <?php echo set_checkbox('ship_to_bill_address', 'yes', @$customer['ship_to_bill_address']);?> onclick="toggle_billing_address_form(this.checked)"> <?php echo lang('use_address_for_billing');?>
 			</div>
 		</div>
 		
 		<div id="billing_address">
 			<div class="form_wrap">
-				<div style="font-weight:bold">Billing Address</div>
+				<div style="font-weight:bold"><?php echo lang('billing_address')?></div>
 			</div>
 			<div class="form_wrap">
 				<?php if($this->Customer_model->is_logged_in(false, false)) : ?>
 				<div>
-					<input class="address_picker" type="button" value="Choose Address" rel="bill" />
+					<input class="address_picker" type="button" value="<?php echo lang('choose_address');?>" rel="bill" />
 				</div>
 				<?php endif; ?>
 			</div>
 			<div class="form_wrap">
 				<input type="hidden" name="bill_address_id" id="bill_address_id" />
 				<div class="shorter">
-					Company<br/>
+					<?php echo lang('address_company');?><br/>
 					<?php echo form_input($b_company);?>
 				</div>
 				<div class="shorter">
-					First Name<b class="r"> *</b><br/>
+					<?php echo lang('address_firstname');?><b class="r"> *</b><br/>
 					<?php echo form_input($b_first);?>
 				</div>
 				<div class="shorter">
-					Last Name<b class="r"> *</b><br/>
+					<?php echo lang('address_lastname');?><b class="r"> *</b><br/>
 					<?php echo form_input($b_last);?>
 				</div>
 			</div>
 				
 			<div class="form_wrap">
 				<div class="shorter">
-					Email<b class="r"> *</b><br/>
+					<?php echo lang('address_email');?><b class="r"> *</b><br/>
 					<?php echo form_input($b_email);?>
 				</div>
 				<div class="shorter">
-					Phone<b class="r"> *</b><br/>
+					<?php echo lang('address_phone');?><b class="r"> *</b><br/>
 					<?php echo form_input($b_phone);?>
 				</div>
 			</div>
 			
 			<div class="form_wrap">
 				<div class="longer">
-					Address<b class="r"> *</b><br/>
+					<?php echo lang('address');?><b class="r"> *</b><br/>
 					<?php echo form_input($b_address1).'<br/>'.form_input($b_address2);?>
 				</div>
 			</div>
 				
 			<div class="form_wrap">
 				<div>
-					City<b class="r"> *</b><br/>
+					<?php echo lang('address_city');?><b class="r"> *</b><br/>
 					<?php echo form_input($b_city);?>
 				</div>
 	
 				<div>
-					Zip<b class="r"> *</b><br/>
+					<?php echo lang('address_postcode');?><b class="r"> *</b><br/>
 					<?php echo form_input($b_zip);?>
 				</div>
 			</div>
 			<div class="form_wrap">
 				<div>
-					Country<b class="r"> *</b><br/>
+					<?php echo lang('address_country');?><b class="r"> *</b><br/>
 					<?php echo form_dropdown('bill_country_id',$countries, @$customer['bill_address']['country_id'], 'id="bill_country_id" class="bill input bill_req"');?>
 				</div>
 				<div>
-					State / Province<b class="r"> *</b><br/>
+					<?php echo lang('address_state');?><b class="r"> *</b><br/>
 					<?php echo form_dropdown('bill_zone_id',$bill_zone_menu, @$customer['bill_address']['zone_id'], 'id="bill_zone_id" class="bill input bill_req"');?>
 				</div>
 			</div>
@@ -391,7 +391,7 @@ $s_zip		= array('id'=>'ship_zip', 'maxlength'=>'10', 'class'=>'ship input ship_r
 	<br style="clear:both;"/>
 	<table style="margin-top:10px;">
 		<tr>
-			<td><input type="button" value="Continue" onclick="save_customer()"/></td>
+			<td><input type="button" value="<?php echo lang('form_continue');?>" onclick="save_customer()"/></td>
 			<td><img id="save_customer_loader" alt="loading" src="<?php echo base_url('images/ajax-loader.gif');?>" style="display:none;"/></td>
 		</tr>
 	</table>
@@ -401,7 +401,7 @@ $s_zip		= array('id'=>'ship_zip', 'maxlength'=>'10', 'class'=>'ship input ship_r
 <?php if($this->Customer_model->is_logged_in(false, false)) : ?>
 <div id="stored_addresses" style="display:none;">
 	<div id="address_manager">
-		<h3 style="text-align:center;">Your Addresses</h3>
+		<h3 style="text-align:center;"><?php echo lang('your_addresses');?></h3>
 		<script type="text/javascript">
 		$(document).ready(function(){
 			$('#address_list .my_account_address:even').addClass('address_bg');
@@ -414,7 +414,7 @@ $s_zip		= array('id'=>'ship_zip', 'maxlength'=>'10', 'class'=>'ship input ship_r
 		foreach($customer_addresses as $a):?>
 			<div class="my_account_address" id="address_<?php echo $a['id'];?>">
 				<div class="address_toolbar">
-					<input type="button" class="choose_address" onclick="populate_address(<?php echo $a['id'];?>); $.colorbox.close()" value="Choose" />
+					<input type="button" class="choose_address" onclick="populate_address(<?php echo $a['id'];?>); $.colorbox.close()" value="<?php echo lang('form_choose');?>" />
 				</div>
 				<?php
 				$b	= $a['field_data'];
