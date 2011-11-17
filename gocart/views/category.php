@@ -25,12 +25,12 @@
 			
 			<div class="category_box">
 				<div class="thumbnail">
-					<a href="<?php echo base_url($subcategory->slug); ?>">
+					<a href="<?php echo site_url($subcategory->slug); ?>">
 						<img src="<?php echo (!empty($subcategory->image))?base_url('uploads/images/thumbnails/'.$subcategory->image):base_url('images/nopicture.png').'" alt="no image available';?>"/>
 					</a>
 				</div>
 				<div class="product_name">
-					<a href="<?php echo base_url($subcategory->slug); ?>"><?php echo $subcategory->name;?></a>
+					<a href="<?php echo site_url($subcategory->slug); ?>"><?php echo $subcategory->name;?></a>
 				</div>
 				<?php if($subcategory->excerpt != ''): ?>
 				<div class="excerpt"><?php echo $subcategory->excerpt; ?></div>
