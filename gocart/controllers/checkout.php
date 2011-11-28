@@ -494,7 +494,7 @@ class Checkout extends CI_Controller {
 		
 		$this->email->send();
 		
-		$data['page_title'] = 'Thanks for shopping with '.$this->config->item('company_name');
+		$data['page_title'] =  lang('thank_you').$this->config->item('company_name');
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		// show final confirmation page
 		$this->load->view('order_placed', $data);

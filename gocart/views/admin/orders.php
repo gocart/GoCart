@@ -1,11 +1,4 @@
-<?php require('header.php'); ?>
-<script type="text/javascript">
-function areYouSure(order)
-{
-	return confirm('Are you sure you want to order #'+order+'?');
-}
-</script>
-<?php
+<?php require('header.php'); 
 	
 	//set "code" for searches
 	if(!$code)
@@ -52,7 +45,7 @@ function areYouSure(order)
 	
 if ($term)
 {
-	echo '<p id="searched_for"><div style="width:70%;float:left;"><strong>You searched returned '.$total.' results</strong></div><div style="width:29% float:right; text-align:right;"><a href="'.base_url().$this->config->item('admin_folder').'/orders" class="button">View All Orders</a></div></p>';
+	echo '<p id="searched_for"><div style="width:70%;float:left;"><strong>'.lang('search_returned').' '.$total.' '.lang('returned_results').'</strong></div><div style="width:29% float:right; text-align:right;"><a href="'.base_url().$this->config->item('admin_folder').'/orders" class="button">'.lang('all_orders').'</a></div></p>';
 	
 }
 ?>
@@ -74,12 +67,12 @@ if ($term)
     <thead>
 		<tr>
 			<th class="gc_cell_left"><input type="checkbox" id="gc_check_all" /></th>
-			<th><a href="<?php echo sort_url('order_number', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>">Order</a></th>
-			<th><a href="<?php echo sort_url('bill_lastname', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>">Bill To</a></th>
-			<th><a href="<?php echo sort_url('ship_lastname', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>">Ship To</a></th>
-			<th><a href="<?php echo sort_url('ordered_on', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>">Ordered On</a></th>
-			<th><a href="<?php echo sort_url('status', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>">Status</a></th>
-			<th><a href="<?php echo sort_url('notes', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>">Notes</a></th>
+			<th><a href="<?php echo sort_url('order_number', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>"><?php echo lang('order')?></a></th>
+			<th><a href="<?php echo sort_url('bill_lastname', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>"><?php echo lang('bill_to')?></a></th>
+			<th><a href="<?php echo sort_url('ship_lastname', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>"><?php echo lang('ship_to')?></a></th>
+			<th><a href="<?php echo sort_url('ordered_on', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>"><?php echo lang('ordered_on')?></a></th>
+			<th><a href="<?php echo sort_url('status', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>"><?php echo lang('status')?></a></th>
+			<th><a href="<?php echo sort_url('notes', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>"><?php echo lang('notes')?></a></th>
 			<th class="gc_cell_right"></th>
 	    </tr>
 		<?php echo $pagination; ?>
@@ -91,21 +84,21 @@ if ($term)
 		<tr>
 			<td colspan="8" class="gc_table_tools">
 				<div class="gc_order_delete">
-					<a onclick="submit_form();" class="button">Delete</a>
+					<a onclick="submit_form();" class="button"><?php echo lang('form_delete')?></a>
 				</div>
 				<div class="gc_order_search">
-					From <input id="start_top"  value="" class="gc_tf1" type="text" /> 
+					<?php echo lang('form_from')?> <input id="start_top"  value="" class="gc_tf1" type="text" /> 
 						<input id="start_top_alt" type="hidden" name="start_date" />
-					to <input id="end_top" value="" class="gc_tf1" type="text" />
+					<?php echo lang('form_to')?> <input id="end_top" value="" class="gc_tf1" type="text" />
 						<input id="end_top_alt" type="hidden" name="end_date" />
-					Term <input id="top" type="text" class="gc_tf1" name="term" value="" /> 
-					<span class="button_set"><a href="#" onclick="do_search('top'); return false;">Search</a>
-					<a href="#" onclick="do_export('top'); return false;">XML Export</a></span>
+					<?php echo lang('form_term')?> <input id="top" type="text" class="gc_tf1" name="term" value="" /> 
+					<span class="button_set"><a href="#" onclick="do_search('top'); return false;"><?php echo lang('form_search')?></a>
+					<a href="#" onclick="do_export('top'); return false;"><?php echo lang('xml_export')?></a></span>
 					</span>
 				</div>
 			</td>
 		</tr>
-	<?php echo (count($orders) < 1)?'<tr><td style="text-align:center;" colspan="8">There are currently no orders.</td></tr>':''?>
+	<?php echo (count($orders) < 1)?'<tr><td style="text-align:center;" colspan="8">'.lang('no_orders') .'</td></tr>':''?>
     <?php foreach($orders as $order): ?>
 	<tr>
 		<td><input name="order[]" type="checkbox" value="<?php echo $order->id; ?>" class="gc_check"/></td>
@@ -123,28 +116,28 @@ if ($term)
 				
 				echo form_dropdown('status', $this->config->item('order_statuses'), $order->status, 'id="status_form_'.$order->id.'"');
 				?>
-				<a class="button" onClick="save_status(<?php echo $order->id; ?>)">Save</a>
+				<a class="button" onClick="save_status(<?php echo $order->id; ?>)"><?php echo lang('form_save')?></a>
 			</div>
 		</td>
 		<td><div class="MainTableNotes"><?php echo $order->notes; ?></div></td>
 		<td class="gc_cell_right list_buttons">
-			<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/view/'.$order->id);?>">View</a>
+			<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/view/'.$order->id);?>"><?php echo lang('form_view')?></a>
 		</td>
 	</tr>
     <?php endforeach; ?>
 		<tr>
 			<td colspan="8" class="gc_table_tools">
 				<div class="gc_order_delete">
-					<a onclick="submit_form();" class="button">Delete</a>
+					<a onclick="submit_form();" class="button"><?php echo lang('form_delete')?></a>
 				</div>
 				<div class="gc_order_search">
-					From <input id="start_bottom"  value="" class="gc_tf1" type="text" /> 
+					<?php echo lang('form_from')?> <input id="start_bottom"  value="" class="gc_tf1" type="text" /> 
 						<input id="start_bottom_alt" type="hidden" name="start_date" />
-					to <input id="end_bottom" value="" class="gc_tf1" type="text" />
+					<?php echo lang('form_to')?> <input id="end_bottom" value="" class="gc_tf1" type="text" />
 						<input id="end_bottom_alt" type="hidden" name="end_date" />
-					Term <input id="top" type="text" class="gc_tf1" name="term" value="" /> 
-					<span class="button_set"><a href="#" onclick="do_search('bottom'); return false;">Search</a>
-					<a href="#" onclick="do_export('bottom'); return false;">XML Export</a></span>
+					<?php echo lang('form_term')?> <input id="top" type="text" class="gc_tf1" name="term" value="" /> 
+					<span class="button_set"><a href="#" onclick="do_search('bottom'); return false;"><?php echo lang('form_search')?></a>
+					<a href="#" onclick="do_export('bottom'); return false;"><?php echo lang('xml_export')?></a></span>
 					</span>
 				</div>
 			</td>
@@ -193,14 +186,14 @@ function submit_form()
 {
 	if($(".gc_check:checked").length > 0)
 	{
-		if(confirm('Are you sure you want to delete the selected orders.'))
+		if(confirm('<?php echo lang('order_delete') ?>'))
 		{
 			$('#delete_form').submit();
 		}
 	}
 	else
 	{
-		alert('You did not select any orders to delete.');
+		alert('<?php echo lang('no_orders_sel') ?>');
 	}
 }
 
