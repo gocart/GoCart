@@ -9,7 +9,7 @@
 <table>
 	<tr>
 		<td>
-			<h3>Payment Method</h3>
+			<h3><?php echo lang('payment_method')?></h3>
 		
 			
 		<?php foreach ($payment_methods as $method=>$info):?>
@@ -43,7 +43,7 @@
 			<h3><?php echo $info['name']; ?></h3>
 			<?php echo $info['form'];?>
 			<input type="hidden" name="module" value="<?echo $method; ?>"/>
-			<input type="submit" name="submit" value="Submit Payment Method" />
+			<input type="submit" name="submit" value="<?php echo lang('submit_payment_method');?>" />
 		</div>
 	<?php echo form_close(); ?>
 	<?php endforeach;?>

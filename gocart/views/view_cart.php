@@ -14,35 +14,35 @@ if (top.location != location) {
 	<table class="cart_table" cellpadding="0" cellspacing="0" border="0">
 		<thead>
 			<tr>
-				<th style="width:10%;">SKU</th>
-				<th style="width:20%;">Name</th>
-				<th style="width:10%;">Price</th>
-				<th>Description</th>
-				<th style="text-align:center; width:10%;">Quantity</th>
-				<th style="width:8%;">Totals</th>
+				<th style="width:10%;"><?php echo lang('sku');?></th>
+				<th style="width:20%;"><?php echo lang('name');?></th>
+				<th style="width:10%;"><?php echo lang('price');?></th>
+				<th><?php echo lang('description');?></th>
+				<th style="text-align:center; width:10%;"><?php echo lang('quantity');?></th>
+				<th style="width:8%;"><?php echo lang('totals');?></th>
 			</tr>
 		</thead>
 		<tfoot>
 			<tr class="tfoot_top"><td colspan="6"></td></tr>
 			 <?php if($this->go_cart->group_discount() > 0)  : ?> 
 	       	<tr>
-				<td colspan="5" >Group Discount</td>
+				<td colspan="5"><?php echo lang('group_discount');?></td>
 				<td><?php echo format_currency(0-$this->go_cart->group_discount()); ?>                </td>
 			</tr>
 			<?php endif; ?>
             <tr>
-				<td colspan="5" >Subtotal</td>
+				<td colspan="5"><?php echo lang('subtotal');?></td>
 				<td>
                 <?php echo format_currency($this->go_cart->subtotal()); ?>                </td>
 			</tr>
            <?php if($this->go_cart->coupon_discount() > 0)  : ?> 
         	<tr>
-				<td colspan="5" >Coupon Discount</td>
+				<td colspan="5"><?php echo lang('coupon_discount');?></td>
 				<td><?php echo format_currency(0-$this->go_cart->coupon_discount()); ?>                </td>
 			</tr>
 				 <?php if($this->go_cart->order_tax() != 0) : // Only show a discount subtotal if we still have taxes to add (to show what the tax is calculated from) ?> 
 			<tr>
-				<td colspan="5" >Discounted Subtotal</td>
+				<td colspan="5"><?php echo lang('discounted_subtotal');?></td>
 				<td><?php echo format_currency($this->go_cart->discounted_subtotal()); ?>                </td>
 			</tr>
 
@@ -67,13 +67,13 @@ if (top.location != location) {
             // Show shipping cost if added before taxes
 			if($this->config->item('tax_shipping') && $this->go_cart->shipping_cost()>0) : ?>
 				<tr>
-			<td colspan="5">Shipping</td>
+			<td colspan="5"><?php echo lang('shipping');?></td>
 				<td><?php echo format_currency($this->go_cart->shipping_cost()); ?>                </td>
 			</tr>
 			<?php endif ?>
            <?php if($this->go_cart->order_tax() != 0) : ?> 
          	<tr>
-				<td colspan="5">Taxes</td>
+				<td colspan="5"><?php echo lang('taxes');?></td>
 
 				<td><?php echo format_currency($this->go_cart->order_tax()); ?>                </td>
 			</tr>
@@ -81,19 +81,19 @@ if (top.location != location) {
            <?php // Show shipping cost if added after taxes
 			if(!$this->config->item('tax_shipping') && $this->go_cart->shipping_cost()>0) : ?>
 				<tr>
-				<td colspan="5">Shipping</td>
+				<td colspan="5"><?php echo lang('shipping');?></td>
 				<td><?php echo format_currency($this->go_cart->shipping_cost()); ?>                </td>
 			</tr>
 			<?php endif ?>
            <?php if($this->go_cart->gift_card_discount() != 0) : ?> 
          	<tr>
-				<td colspan="5">Gift Card</td>
+				<td colspan="5"><?php echo lang('gift_card');?></td>
 
 				<td><?php echo format_currency(0-$this->go_cart->gift_card_discount()); ?>                </td>
 			</tr>
           <?php endif;   ?>
             <tr class="cart_total"> 
-				<td colspan="5">Cart Total</td>
+				<td colspan="5"><?php echo lang('cart_total');?></td>
 				<td><?php echo format_currency($this->go_cart->total()); ?>                </td>
 			</tr>
 			<tr class="tfoot_bottom"><td colspan="6"></td></tr>
@@ -140,16 +140,17 @@ if (top.location != location) {
 	<table>
 		<tr>
 			<td>
-				If you have a coupon, enter the code here:<br/><input type="text" name="coupon_code">
-				<input type="submit" value="Apply Coupon"/>
+				<?php echo lang('coupon_label');?><br/><input type="text" name="coupon_code">
+				<input type="submit" value="<?php echo lang('apply_coupon');?>"/>
 			</td>
 		
 	    <tr>
 	      <td>&nbsp;</td>
 	     </tr>
         <tr>
-          <td>If you have a Gift Certificate, enter the code here:<br/><input type="text" name="gc_code">
-				<input type="submit" value="Apply Gift Card"/>
+          <td>
+				<?php echo lang('gift_card_label');?><br/><input type="text" name="gc_code">
+				<input type="submit" value="<?php echo lang('apply_gift_card');?>"/>
 		   </td>
         </tr>        
   </table>
@@ -160,7 +161,7 @@ if (top.location != location) {
 		<input type="button" onclick="window.location='<?php echo site_url('checkout/login');?>'" value="Login"/>
 		<input type="button" onclick="window.location='<?php echo site_url('checkout/register');?>'" value="Register"/>
 	<?php endif; ?>
-		<input type="submit" value="Update Cart"/>
+		<input type="submit" value="<?php echo lang('form_update_cart');?>"/>
 	</span>
 	<?php if ($this->Customer_model->is_logged_in(false,false) || !$this->config->item('require_login')): ?>
 			<input style="padding:10px 15px; font-size:16px;" type="button" onclick="window.location='<?php echo site_url('checkout');?>'" value="Checkout &raquo;"/>

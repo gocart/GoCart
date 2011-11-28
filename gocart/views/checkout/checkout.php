@@ -72,7 +72,7 @@ function submit_order()
 		{
 			if(typeof response != "object")
 			{
-				display_error('payment', '<?php echo lang('error_save_payment');?');
+				display_error('payment', '<?php echo lang('error_save_payment');?>');
 				return;
 			}
 			
@@ -191,7 +191,7 @@ function save_order()
 			{
 				if(typeof response != "object")
 				{
-					display_error('payment', '<?php echo lang('error_save_payment')');
+					display_error('payment', '<?php echo lang('error_save_payment');?>');
 					return;
 				}
 

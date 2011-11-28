@@ -16,50 +16,50 @@ $phone		= array('id'=>'bill_phone', 'class'=>'bill input bill_req', 'name'=>'pho
 
 		<div class="form_wrap">
 			<div>
-				Company<br/>
+				<?php echo lang('address_company');?><br/>
 				<?php echo form_input($company);?>
 			</div>
 			<div>
-				First Name<b class="r"> *</b><br/>
+				<?php echo lang('address_firstname');?><b class="r"> *</b><br/>
 				<?php echo form_input($first);?>
 			</div>
 			<div>
-				Last Name<b class="r"> *</b><br/>
+				<?php echo lang('address_lastname');?><b class="r"> *</b><br/>
 				<?php echo form_input($last);?>
 			</div>
 		</div>
 	
 		<div class="form_wrap">
 			<div>
-				Email<b class="r"> *</b><br/>
+				<?php echo lang('address_email');?><b class="r"> *</b><br/>
 				<?php echo form_input($email);?>
 			</div>
 			<div>
-				Phone<b class="r"> *</b><br/>
+				<?php echo lang('address_phone');?><b class="r"> *</b><br/>
 				<?php echo form_input($phone);?>
 			</div>
 		</div>
 		<div class="form_wrap">
-			<input type="checkbox" name="email_subscribe" value="1" <?php echo set_radio('email_subscribe', '1', TRUE); ?>/> Subscribe to our email list.
+			<input type="checkbox" name="email_subscribe" value="1" <?php echo set_radio('email_subscribe', '1', TRUE); ?>/> <?php echo lang('account_newsletter_subscribe');?>
 		</div>
 		<div class="form_wrap">
 			<div>
-				Password<b class="r"> *</b><br/>
+				<?php echo lang('account_password');?><b class="r"> *</b><br/>
 				<input type="password" name="password" value="" />
 			</div>
 			<div>
-				Confirm<b class="r"> *</b><br/>
+				<?php echo lang('account_confirm');?><b class="r"> *</b><br/>
 				<input type="password" name="confirm" value="" />
 			</div>
 		</div>
 	
 		<div class="form_wrap">
-			<input type="submit" value="Register" />
+			<input type="submit" value="<?php echo lang('form_register');?>" />
 		</div>
 	</form>
 	
 	<div id="login_form_links">
-		<a href="<?php echo site_url('secure/login'); ?>">Go to Login</a>
+		<a href="<?php echo site_url('secure/login'); ?>"><?php echo lang('go_to_login');?></a>
 	</div>
 	
 	</div>
