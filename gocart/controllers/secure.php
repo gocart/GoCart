@@ -101,7 +101,7 @@ class Secure extends CI_Controller {
 				else
 				{
 					$this->session->set_flashdata('redirect', $redirect);
-					$this->session->set_flashdata('error', 'Authentication Failed!');
+					$this->session->set_flashdata('error', lang('login_failed'));
 					
 					redirect('secure/login');
 				}
@@ -147,7 +147,7 @@ class Secure extends CI_Controller {
 		*/
 		$data['redirect']	= $this->session->flashdata('redirect');
 		
-		$data['page_title']	= 'Account Registration';
+		$data['page_title']	= lang('account_registration');
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		
 		//default values are empty if the customer is new
@@ -250,7 +250,7 @@ class Secure extends CI_Controller {
 			
 			$this->email->send();
 			
-			$this->session->set_flashdata('message', 'Thanks for registering '.$this->input->post('firstname').'!');
+			$this->session->set_flashdata('message', sprintf( lang('registration_thanks'), $this->input->post('firstname') ) );
 			
 			//lets automatically log them in
 			$this->Customer_model->login($save['email'], $this->input->post('confirm'));
@@ -275,7 +275,7 @@ class Secure extends CI_Controller {
 		
         if ($email)
        	{
-			$this->form_validation->set_message('check_email', 'The requested email is already in use.');
+			$this->form_validation->set_message('check_email', lang('error_email'));
 			return FALSE;
 		}
 		else
@@ -286,7 +286,7 @@ class Secure extends CI_Controller {
 	
 	function forgot_password()
 	{
-		$data['page_title']	= 'Forgot Password';
+		$data['page_title']	= lang('forgot_password');
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		$submitted = $this->input->post('submitted');
 		if ($submitted)
@@ -298,11 +298,11 @@ class Secure extends CI_Controller {
 			
 			if ($reset)
 			{						
-				$this->session->set_flashdata('message', 'A new password has been generated and sent to your email.');
+				$this->session->set_flashdata('message', lang('message_new_password'));
 			}
 			else
 			{
-				$this->session->set_flashdata('message', 'There is no record of your account.');
+				$this->session->set_flashdata('error', lang('error_no_account_record'));
 			}
 			redirect('secure/forgot_password');
 		}
@@ -411,7 +411,7 @@ class Secure extends CI_Controller {
 			$this->go_cart->save_customer($this->customer);
 			$this->Customer_model->save($customer);
 			
-			$this->session->set_flashdata('message', 'Your account has been updated');
+			$this->session->set_flashdata('message', lang('message_account_updated'));
 			
 			redirect('secure/my_account');
 		}
@@ -571,7 +571,7 @@ class Secure extends CI_Controller {
 			}
 			
 			$this->Customer_model->save_address($a);
-			$this->session->set_flashdata('message', 'Your address has been saved!');
+			$this->session->set_flashdata('message', lang('message_address_saved'));
 			echo 1;
 		}
 	}
@@ -583,33 +583,5 @@ class Secure extends CI_Controller {
 		$customer = $this->go_cart->customer();
 		$this->Customer_model->delete_address($id, $customer['id']);
 		echo $id;
-	}
-	
-	function send_email_comments()
-	{
-		
-		if(!$this->input->post('submitted'))
-		{
-			$this->load->view('email_comments');
-		
-		} else {	
-			
-			$this->load->library('email');
-			
-			$config['mailtype'] = 'html';
-			
-			$this->email->initialize($config);
-	
-			$this->email->from($this->input->post('email'), $this->input->post('name'));
-			$this->email->to($this->config->item('email'));
-			
-			$this->email->subject('New comments submitted from '.$this->config->item('company_name')); 
-			$this->email->message($this->input->post('comments'));
-			
-			$this->email->send();
-			
-			// load to close the iframe
-			$this->load->view('email_comments', array('finished'=>true));
-		} 
 	}
 }

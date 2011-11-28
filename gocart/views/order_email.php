@@ -82,7 +82,7 @@ if($customer['company'] != '')
 ?>
            <?php if($this->go_cart->order_tax() != 0) : ?> 
          	<tr>
-				<td colspan="3"class="gc_view_cart_totals">Taxes</td>
+				<td colspan="3"class="gc_view_cart_totals"><?php echo lang('taxes');?></td>
 
 				<td colspan="3" class="gc_total"><?php echo format_currency($this->go_cart->order_tax()); ?>                </td>
 			</tr>
@@ -90,7 +90,7 @@ if($customer['company'] != '')
 
            <?php if($this->go_cart->gift_card_discount() != 0) : ?> 
          	<tr>
-				<td colspan="3"class="gc_view_cart_totals">Gift Card</td>
+				<td colspan="3"class="gc_view_cart_totals"><?php echo lang('gift_card');?></td>
 
 				<td colspan="3" ><?php echo format_currency($this->go_cart->gift_card_discount()); ?>                </td>
 			</tr>
@@ -98,7 +98,7 @@ if($customer['company'] != '')
             <tr class="cart_grand_total"> 
 				<td colspan="3" class="gc_view_cart_totals">
 					<div class="cart_total_line_left"></div>
-					Cart Total
+					<?php echo lang('grand_total');?>
 				</td>
 				<td colspan="3" class="gc_total">
 					<div class="cart_total_line_right"></div>

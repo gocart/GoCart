@@ -44,7 +44,7 @@ echo form_input($f_id);
 
 	<div class="form_wrap">
 		<div>
-			<?php echo lang('address_address');?><b class="r"> *</b><br/>
+			<?php echo lang('address');?><b class="r"> *</b><br/>
 			<?php echo form_input($f_address1).'<br/>'.form_input($f_address2);?>
 		</div>
 	</div>

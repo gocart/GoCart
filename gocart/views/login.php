@@ -18,7 +18,7 @@ include('header.php'); ?>
 				</table>
 				<div class="center">
 						<input name="remember" value="true" type="checkbox" /> <?php echo lang('keep_me_logged_in');?><br/>
-						<input type="hidden" value="<?= $redirect; ?>" name="redirect"/>
+						<input type="hidden" value="<?php echo $redirect; ?>" name="redirect"/>
 						<input type="hidden" value="submitted" name="submitted"/>
 						<input type="submit" value="<?php echo lang('form_login');?>" name="submit" class="gc_login_button"/>
 				</div>

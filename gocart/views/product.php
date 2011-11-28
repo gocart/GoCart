@@ -18,7 +18,7 @@
 	<div id="product_image">
 		<?php
 		//get the primary photo for the product
-		$photo	= '<img src="'.base_url('images/nopicture.png').'" alt="no picture available"/>';
+		$photo	= '<img src="'.base_url('images/nopicture.png').'" alt="'.lang('no_image_available').'"/>';
 
 		if(count($product->images) > 0 )
 		{	
@@ -69,19 +69,19 @@
 
 <div id="product_right">	
 	<div class="product_section">
-		<div class="product_sku">SKU: <?php echo $product->sku; ?></div> 
+		<div class="product_sku"><?php echo lang('sku');?>: <?php echo $product->sku; ?></div> 
 		<?php if($product->saleprice > 0):?>
-			<span class="price_slash">price: <?php echo format_currency($product->price); ?></span>
-			<span class="price_sale">SALE: <?php echo format_currency($product->saleprice); ?></span>
+			<span class="price_slash"><?php echo lang('product_price');?> <?php echo format_currency($product->price); ?></span>
+			<span class="price_sale"><?php echo lang('product_sale');?> <?php echo format_currency($product->saleprice); ?></span>
 		<?php else: ?>
-			<span class="price_reg">Price: <?php echo format_currency($product->price); ?></span>
+			<span class="price_reg"><?php echo lang('product_price');?> <?php echo format_currency($product->price); ?></span>
 		<?php endif;?>
 	</div>
 	
 	
 	<?php if(count($options) > 0): ?>
 		<div class="product_section">
-		<h2>Available Options</h2>
+		<h2><?php echo lang('available_options');?></h2>
 		<?php	
 		foreach($options as $option):
 			$required	= '';
@@ -127,7 +127,7 @@
 				
 				<?php elseif($option->type == 'droplist'):?>
 					<select name="option[<?php echo $option->id;?>]">
-						<option value="">Choose an Option</option>
+						<option value=""><?php echo lang('choose_option');?></option>
 				
 					<?php foreach ($option->values as $values):
 						$selected	= '';
@@ -179,12 +179,12 @@
 		<div style="text-align:center; overflow:hidden;">
 			<?php  if($this->config->item('allow_os_purchase') || $product->in_stock == 1) : ?>
 			<?php if($product->in_stock == 0):?>
-				<div class="red"><small>Out of Stock</small></div>
+				<div class="red"><small><?php echo lang('out_of_stock');?></small></div>
 			<?php endif;?>
 			QTY <input class="product_quantity" type="text" name="quantity" value=""/>
-			<input class="add_to_cart_btn" type="submit" value="Add To Cart" />
+			<input class="add_to_cart_btn" type="submit" value="<?php echo lang('form_add_to_cart');?>" />
 			<?php else: ?>
-			<h2 class="red">Out of Stock</h2>
+			<h2 class="red"><?php echo lang('out_of_stock');?></h2>
 			<?php endif;?>
 		</div>
 	</div>
@@ -192,8 +192,8 @@
 	</form>
 	<div class="tabs">
 		<ul>
-			<li><a href="#description_tab">Description</a></li>
-			<?php if(!empty($related)):?><li><a href="#related_tab">Related Products</a></li><?php endif;?>
+			<li><a href="#description_tab"><?php echo lang('tab_description');?></a></li>
+			<?php if(!empty($related)):?><li><a href="#related_tab"><?php echo lang('tab_related_products');?></a></li><?php endif;?>
 		</ul>
 		<div id="description_tab">
 			<?php echo $product->description; ?>
@@ -240,13 +240,13 @@
 					<?php endif; ?>
 					<div>
 						<?php if($product->saleprice > 0):?>
-							<span class="gc_price_slash">price: <?php echo $product->price; ?></span>
-							<span class="gc_price_sale">SALE: <?php echo $product->saleprice; ?></span>
+							<span class="gc_price_slash"><?php echo lang('product_price');?> <?php echo $product->price; ?></span>
+							<span class="gc_price_sale"><?php echo lang('product_sale');?> <?php echo $product->saleprice; ?></span>
 						<?php else: ?>
-							<span class="gc_price_reg">Price: <?php echo $product->price; ?></span>
+							<span class="gc_price_reg"><?php echo lang('product_price');?> <?php echo $product->price; ?></span>
 						<?php endif; ?>
 	                    <?php if($product->in_stock==0) { ?>
-							<div class="gc_stock_msg">Out of Stock</div>
+							<div class="gc_stock_msg"><?php echo lang('out_of_stock');?></div>
 						<?php } ?>
 					</div>
 				</div>
