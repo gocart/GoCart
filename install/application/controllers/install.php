@@ -71,16 +71,18 @@ class Install extends CI_Controller {
 			$config['dbdriver'] = "mysql";
 			$config['dbprefix'] = "";
 			$config['pconnect'] = FALSE;
-			$config['db_debug'] = TRUE;
+			$config['db_debug'] = FALSE;
 			$config['cache_on'] = FALSE;
 			$config['cachedir'] = "";
 			$config['char_set'] = "utf8";
 			$config['dbcollat'] = "utf8_general_ci";
 			$config['active_r'] = TRUE; 
 			
-			$db = $this->load->database($config, true);
+			// Unset any existing DB information
+			unset($this->db);		
+			$this->load->database($config);
 			
-			if($db)
+			if (is_resource($this->db->conn_id) OR is_object($this->db->conn_id))
 			{	
 				$this->load->model('Install_model');
 				
@@ -89,11 +91,11 @@ class Install extends CI_Controller {
 				
 				foreach($query as $q)
 				{
-					$db->query($q);
+					$this->db->query($q);
 				}
 
 				//set up the admin user
-				$db->insert($this->input->post('prefix').'admin', array('access'=>'Admin', 'email'=>$this->input->post('admin_email'), 'password'=>sha1($this->input->post('admin_password') ) ) );
+				$this->db->insert($this->input->post('prefix').'admin', array('access'=>'Admin', 'email'=>$this->input->post('admin_email'), 'password'=>sha1($this->input->post('admin_password') ) ) );
 
 				//setup the database config file
 				$settings					= array();
