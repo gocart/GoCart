@@ -117,7 +117,7 @@ $confirm	= array('id'=>'confirm', 'class'=>'input', 'name'=>'confirm', 'value'=>
 			</form>
 		</div>
 		<div id="address_manager">
-			<input type="button" class="edit_address right" rel="0" value="Add Address"/>
+			<input type="button" class="edit_address right" rel="0" value="<?php echo lang('add_address');?>"/>
 			<h2><?php echo lang('address_manager');?></h2>
 			<script type="text/javascript">
 			$(document).ready(function(){
@@ -150,7 +150,7 @@ $confirm	= array('id'=>'confirm', 'class'=>'input', 'name'=>'confirm', 'value'=>
 </div>
 <br class="gc_clr"/>
 <div style="text-align:center;">
-<h2 style="padding:20px 0px 10px 0px; border-bottom:1px dashed #ccc; margin-bottom:10px;"><?php echo lang('order_hitory');?></h2>
+<h2 style="padding:20px 0px 10px 0px; border-bottom:1px dashed #ccc; margin-bottom:10px;"><?php echo lang('order_history');?></h2>
 <?php if($orders):
 	echo $orders_pagination;
 ?>

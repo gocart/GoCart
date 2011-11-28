@@ -75,7 +75,7 @@ class Cart extends CI_Controller {
 	function search($code=false, $page = 0)
 	{
 		$this->load->model('Search_model');
-		$data['page_title']			= 'Search';
+		$data['page_title']			= lang('search');
 		$data['gift_cards_enabled']	= $this->gift_cards_enabled;
 		//check to see if we have a search term
 		if(!$code)
@@ -295,7 +295,6 @@ class Cart extends CI_Controller {
 	
 	function giftcard()
 	{
-		
 		if(!$this->gift_cards_enabled) redirect('/');
 		
 		// Load giftcard settings
@@ -308,20 +307,20 @@ class Cart extends CI_Controller {
 		
 		if($data['allow_custom_amount'])
 		{
-			$this->form_validation->set_rules('custom_amount', 'Custom Amount', 'numeric');
+			$this->form_validation->set_rules('custom_amount', 'lang:custom_amount', 'numeric');
 		}
 		
-		$this->form_validation->set_rules('amount', 'Amount', 'required');
-		$this->form_validation->set_rules('preset_amount', 'Preset Amount', 'numeric');
-		$this->form_validation->set_rules('gc_to_name', 'Recipient Name', 'trim|required');
-		$this->form_validation->set_rules('gc_to_email', 'Recipient Email', 'trim|required|valid_email');
-		$this->form_validation->set_rules('gc_from', 'Sender Name', 'trim|required');
-		$this->form_validation->set_rules('message', 'Custom Greeting Message', 'trim|required');
+		$this->form_validation->set_rules('amount', 'lang:amount', 'required');
+		$this->form_validation->set_rules('preset_amount', 'lang:preset_amount', 'numeric');
+		$this->form_validation->set_rules('gc_to_name', 'lang:recipient_name', 'trim|required');
+		$this->form_validation->set_rules('gc_to_email', 'lang:recipient_email', 'trim|required|valid_email');
+		$this->form_validation->set_rules('gc_from', 'lang:sender_email', 'trim|required');
+		$this->form_validation->set_rules('message', 'lang:custom_greeting', 'trim|required');
 		
 		if ($this->form_validation->run() == FALSE)
 		{
 			$data['error']				= validation_errors();
-			$data['page_title']			= "Gift Card";
+			$data['page_title']			= lang('giftcard');
 			$data['gift_cards_enabled']	= $this->gift_cards_enabled;
 			$this->load->view('giftcards', $data);
 		}
@@ -332,17 +331,17 @@ class Cart extends CI_Controller {
 			
 			$card['price'] = set_value(set_value('amount'));
 			
-			$card['id'] = -1; // just a placeholder
-			$card['sku'] = 'GiftCard';
-			$card['base_price'] = $card['price']; // price gets modified by options, show the baseline still...
-			$card['name']	= 'Gift Card';
-			$card['code']	= $this->Gift_card_model->generate_password();
-			$card['excerpt']	= 'Gift Card for a Friend<br/>To: '.set_value('gc_to_name');
-			$card['weight']	= 0;
-			$card['no_quantity'] = true; // prevent quantity change.. since it wouldn't make sense
-			$card['quantity'] = 1;
-			$card['shippable'] = false;
-			$card['is_gc'] = true; // !Important
+			$card['id']				= -1; // just a placeholder
+			$card['sku']			= lang('giftcard');
+			$card['base_price']		= $card['price']; // price gets modified by options, show the baseline still...
+			$card['name']			= lang('giftcard');
+			$card['code']			= $this->Gift_card_model->generate_password();
+			$card['excerpt']		= sprintf(lang('giftcard_excerpt'), set_value('gc_to_name'));
+			$card['weight']			= 0;
+			$card['no_quantity']	= true; // prevent quantity change.. since it wouldn't make sense
+			$card['quantity']		= 1;
+			$card['shippable']		= false;
+			$card['is_gc']			= true; // !Important
 			
 			$card['gc_info'] = array("to_name"	=> set_value('gc_to_name'),
 									 "to_email"	=> set_value('gc_to_email'),
