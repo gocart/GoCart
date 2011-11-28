@@ -15,7 +15,10 @@ $config['email']			= '<?php echo $email;?>';
 // Store currency
 $config['currency']			= 'USD';  // USD, EUR, etc
 $config['currency_symbol']  = '$';
-//$config['currency_separator'] = ',';
+
+// Shipping config units
+$config['weight_unit']	    = 'LB'; // LB, KG, etc
+$config['dimension_unit']   = 'IN'; // FT, CM, etc
 
 // site logo path (for packing slip)
 $config['site_logo']		= '/images/logo.png';

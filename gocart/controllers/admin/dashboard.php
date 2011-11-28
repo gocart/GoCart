@@ -23,7 +23,7 @@ class Dashboard extends CI_Controller {
 	
 	function index()
 	{
-		$data['page_title']	= 'Dashboard';
+		$data['page_title']	=  lang('dashboard');
 		
 		// get 5 latest orders
 		$data['orders']	= $this->Order_model->get_orders(false, '' , 'DESC', 5);

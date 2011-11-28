@@ -89,7 +89,7 @@ class Paypal_express
 		$this->CI->paypal->doExpressCheckout($this->CI->go_cart->total(), $store.' order');
 				
 		// If we get to this step at all, something went wrong	
-		return 'There was an error processing your payment through PayPal';
+		return lang('paypal_error');
 			
 	}
 	

@@ -48,9 +48,9 @@ function buttons()
 		<h2><?php echo  $page_title; ?></h2>
 		
 		<span>
-			<a style="float:right;" href="<?php echo site_url($this->config->item('admin_folder').'/login/logout');?>">Logout</a>
-			<a style="float:right;" href="<?php echo site_url();?>">Front End</a>
-			<a style="float:right;" href="<?php echo site_url($this->config->item('admin_folder').'/dashboard');?>">Dashboard</a>
+			<a style="float:right;" href="<?php echo site_url($this->config->item('admin_folder').'/login/logout');?>"><?php echo lang('log_out') ?></a>
+			<a style="float:right;" href="<?php echo site_url();?>"><?php echo lang('front_end') ?></a>
+			<a style="float:right;" href="<?php echo site_url($this->config->item('admin_folder').'/dashboard');?>"><?php echo lang('dashboard') ?></a>
 		</span>
 	</div>
 	<div id="container">
@@ -60,14 +60,14 @@ function buttons()
 			$admin_url = site_url($this->config->item('admin_folder')).'/';?>
 			
 			<div class="menu shadow">
-				<div class="menu_title">Sales</div>
-				<a href="<?php echo $admin_url;?>orders">Orders</a>
+				<div class="menu_title"><?php echo lang('sales') ?></div>
+				<a href="<?php echo $admin_url;?>orders"><?php echo lang('orders') ?></a>
 				<?php if($this->auth->check_access('Admin')) : ?>
-				<a href="<?php echo $admin_url;?>customers">Customers</a>
-				<a href="<?php echo $admin_url;?>customers/groups">Groups</a>
-				<a href="<?php echo $admin_url;?>reports">Reports</a>
-				<a href="<?php echo $admin_url;?>coupons">Coupons</a>
-				<a href="<?php echo $admin_url;?>giftcards">Giftcards</a>
+				<a href="<?php echo $admin_url;?>customers"><?php echo lang('customers') ?></a>
+				<a href="<?php echo $admin_url;?>customers/groups"><?php echo lang('groups') ?></a>
+				<a href="<?php echo $admin_url;?>reports"><?php echo lang('reports') ?></a>
+				<a href="<?php echo $admin_url;?>coupons"><?php echo lang('coupons') ?></a>
+				<a href="<?php echo $admin_url;?>giftcards"><?php echo lang('giftcards') ?></a>
 				<?php endif; ?>
 			</div>
 			<?php
@@ -75,23 +75,23 @@ function buttons()
 			if($this->auth->check_access('Admin')) : 
 			?>
 			<div class="menu shadow">
-				<div class="menu_title">Catalog</div>
-				<a href="<?php echo $admin_url;?>categories">Categories</a>
-				<a href="<?php echo $admin_url;?>products">Products</a>
+				<div class="menu_title"><?php echo lang('catalog') ?></div>
+				<a href="<?php echo $admin_url;?>categories"><?php echo lang('categories') ?></a>
+				<a href="<?php echo $admin_url;?>products"><?php echo lang('products') ?></a>
 			</div>
 			
 			<div class="menu shadow">
-				<div class="menu_title">Content</div>
-				<a href="<?php echo $admin_url;?>banners">Banners</a>
-				<a href="<?php echo $admin_url;?>boxes">Boxes</a>
-				<a href="<?php echo $admin_url;?>pages">Pages</a>
+				<div class="menu_title"><?php echo lang('content') ?></div>
+				<a href="<?php echo $admin_url;?>banners"><?php echo lang('banners') ?></a>
+				<a href="<?php echo $admin_url;?>boxes"><?php echo lang('boxes') ?></a>
+				<a href="<?php echo $admin_url;?>pages"><?php echo lang('pages') ?></a>
 			</div>
 	
 			<div class="menu shadow">
-				<div class="menu_title">Administrative</div>
-				<a href="<?php echo $admin_url;?>settings">Settings</a>
-				<a href="<?php echo $admin_url;?>locations">Locations</a>
-				<a href="<?php echo $admin_url;?>admin">Administrators</a>
+				<div class="menu_title"><?php echo lang('administrative') ?></div>
+				<a href="<?php echo $admin_url;?>settings"><?php echo lang('settings') ?></a>
+				<a href="<?php echo $admin_url;?>locations"><?php echo lang('locations') ?></a>
+				<a href="<?php echo $admin_url;?>admin"><?php echo lang('administrators') ?></a>
 			</div>
 			<?php endif; ?>
 			
@@ -118,18 +118,18 @@ function buttons()
 			<?php if (!empty($message)): ?>
 			<div class="ui-state-highlight ui-corner-all" style="padding:10px; margin-bottom:10px;"> 
 				<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-				<strong>Note:</strong> <?php echo $message; ?></p>
+				<strong><?php echo lang('note') ?>:</strong> <?php echo $message; ?></p>
 			</div>
 			<?php endif; ?>
 		
 			<?php if (!empty($error)): ?>
 			<div class="ui-state-error ui-corner-all" style="padding:10px; margin-bottom:10px;"> 
 				<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
-				<strong>Alert:</strong> <?php echo $error; ?></p>
+				<strong><?php echo lang('alert') ?>:</strong> <?php echo $error; ?></p>
 			</div>
 			<?php endif; ?>
 			
 			<div id="js_error_container" class="ui-state-error ui-corner-all" style="display:none; padding:10px; margin-bottom:10px;"> 
 				<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
-				<strong>Alert:</strong> <span id="js_error"></span> </p>
+				<strong><?php echo lang('alert') ?>:</strong> <span id="js_error"></span> </p>
 			</div>

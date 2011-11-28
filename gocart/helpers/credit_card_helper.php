@@ -81,7 +81,7 @@ function card_expiry_valid($month, $year) {
 * @return string The stripped down card number.
 */
 function card_number_clean($number) {
-    return ereg_replace("[^0-9]", "", $number);
+    return preg_replace("[^0-9]", "", $number);
 }
 
 
