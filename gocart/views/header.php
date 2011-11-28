@@ -137,7 +137,7 @@ if(isset($additional_header_info))
 			}
 			?>
 			</a>
-		<li>
+		</li>
 			
 		</ul>
 	</div>
