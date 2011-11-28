@@ -52,9 +52,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * @param string The card number to truncate.
 * @return string The truncated card number.
 */
-function truncate_card($card_num) {
-    $padsize = (strlen($card_num) < 7 ? 0 : strlen($card_num) - 7);
-    return substr($card_num, 0, 4) . str_repeat('X', $padsize). substr($card_num, -3);
+function truncate_card($card_num)
+{
+	$padsize = (strlen($card_num) < 7 ? 0 : strlen($card_num) - 7);
+	return substr($card_num, 0, 4) . str_repeat('X', $padsize). substr($card_num, -3);
 }
 
 
@@ -68,9 +69,10 @@ function truncate_card($card_num) {
 * @param integer The expiry year printed on the card.
 * @return boolean Returns true if the card is still valid, false if it has expired.
 */
-function card_expiry_valid($month, $year) {
-    $expiry_date = mktime(0, 0, 0, ($month + 1), 1, (int) $year);
-    return ($expiry_date > time());
+function card_expiry_valid($month, $year)
+{
+	$expiry_date = mktime(0, 0, 0, ($month + 1), 1, (int) $year);
+	return ($expiry_date > time());
 }
 
 
@@ -80,8 +82,10 @@ function card_expiry_valid($month, $year) {
 * @param string The card number to clean up.
 * @return string The stripped down card number.
 */
-function card_number_clean($number) {
-    return ereg_replace("[^0-9]", "", $number);
+function card_number_clean($number)
+{
+	//updated 11-28-2011 to remove the depreciated ereg function
+	return preg_replace('#[^\d]#', "", $number);
 }
 
 
@@ -93,25 +97,27 @@ function card_number_clean($number) {
 * @return boolean True if valid according to the Luhn algorith, false otherwise.
 */
 function card_number_valid ($card_number) {
-    $card_number = strrev(card_number_clean($card_number));
-    $sum = 0;
+	$card_number = strrev(card_number_clean($card_number));
+	$sum = 0;
     
-    for ($i = 0; $i < strlen($card_number); $i++) {
-      $digit = substr($card_number, $i, 1);
-    
-        // Double every second digit
-        if ($i % 2 == 1) {
-          $digit *= 2;
-        }
-        
-        // Add digits of 2-digit numbers together
-        if ($digit > 9)    {
-          $digit = ($digit % 10) + floor($digit / 10);
-        }
-        
-        $sum += $digit;
-    }
-    
-    // If the total has no remainder it's OK
-    return ($sum % 10 == 0);
+	for ($i = 0; $i < strlen($card_number); $i++)
+	{
+		$digit = substr($card_number, $i, 1);
+
+		// Double every second digit
+		if ($i % 2 == 1) {
+			$digit *= 2;
+		}
+
+		// Add digits of 2-digit numbers together
+		if ($digit > 9)
+		{
+			$digit = ($digit % 10) + floor($digit / 10);
+		}
+
+		$sum += $digit;
+	}
+
+	// If the total has no remainder it's OK
+	return ($sum % 10 == 0);
 }
