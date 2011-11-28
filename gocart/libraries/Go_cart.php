@@ -37,7 +37,8 @@ class go_cart {
 	
 	var $gift_cards_enabled = false;
 	
-	function __construct() {
+	function __construct() 
+	{
 		$this->CI =& get_instance();
 		$this->CI->load->model('Coupon_model');
 		$this->CI->load->model('Gift_card_model');
@@ -87,7 +88,8 @@ class go_cart {
 		
 		
 		// We want to preserve the cart items and properties, but reset total values when recalculating
-		if( ! $totals_only) {
+		if( ! $totals_only) 
+		{
 		
 			// product items will live in here
 			$this->_cart_contents['items'] = array();
@@ -350,7 +352,8 @@ class go_cart {
 			  //    To start, it needs to look like:
 			  //     applied_coupons[ coupon code index ][ product key index] = array list of discounts,repeated to product quantity
 			
-			for($x=0;$x<$this->_cart_contents['items'][$cartkey]['quantity'];$x++) {
+			for($x=0;$x<$this->_cart_contents['items'][$cartkey]['quantity'];$x++) 
+			{
 				$this->_cart_contents['applied_coupons'][$coupon_code][$cartkey][] = $discount_amount;
 			}
 			
@@ -432,24 +435,24 @@ class go_cart {
 					
 					if(!$is_applied) {
 						// message coupon added but not applied
-						return array('message'=>'Your coupon does not apply to any products in your cart');
+						return array('message'=>lang('coupon_not_apply'));
 					} else {
 						// message coupon applied
-						return array('message'=>'Your coupon has been applied to your products.');
+						return array('message'=>lang('coupon_applied'));
 					}
 					
 				} else {
 					// message coupon no longer valid
-					return array('error'=>'Sorry, but the coupon you entered is not valid at this time.');
+					return array('error'=>lang('coupon_invalid'));
 				}
 				
 			} else {
 				// message coupon already applied
-				return array('error'=>'That coupon code has already been applied to your items.');				
+				return array('error'=>lang('coupon_already_applied'));				
 			}
 		} else {
 			// invalid code error message
-			return array('error'=>'There was no coupon with that code. Check to make sure you entered it correctly.');
+			return array('error'=>lang('invalid_coupon_code'));
 		}	
 	}
 	
@@ -574,18 +577,18 @@ class go_cart {
 						$this->_cart_contents['gift_card_balance'] += $this->_cart_contents['gc_list'][$gc_code]['balance'];
 						
 						// message coupon applied
-						return array('message'=>'You should see your card balance displayed.');
+						return array('message'=>lang('giftcard_balance_displayed'));
 					} else {
 						// invalid card (expired or zero balance)
-						return array('error'=>'Sorry, but the gift card you entered is expired or has a zero balance.');
+						return array('error'=>lang('giftcard_zero_balance'));
 					}
 				} else {
 					 // invalid card code
-					 return array('error'=>'The gift card code you entered does not exist.');
+					 return array('error'=>lang('giftcard_not_exist'));
 				}
 			} else {
 				// already applied
-				return array('message'=>'Your gift card is already applied');
+				return array('message'=>lang('giftcard_already_applied'));
 			}
 		}
 	}
@@ -1295,10 +1298,10 @@ class go_cart {
 	 * @access	public
 	 * @return	null
 	 */
-	function destroy($keep_login_session=true)
+	function destroy($keep_customer_data=true)
 	{	
 		// reset the cart values
-		$this->_init_properties(false,$keep_login_session);		
+		$this->_init_properties(false,$keep_customer_data);		
 		// save the updated cart to our session
 		$this->_save_cart(false);
 	}

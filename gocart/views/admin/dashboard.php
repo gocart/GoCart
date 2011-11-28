@@ -1,15 +1,15 @@
 <?php include('header.php'); ?>
 
-<h3>Most Recent Orders</h3>
+<h3><?php echo lang('recent_orders') ?></h3>
 <table class="gc_table" cellspacing="0" cellpadding="0">
     <thead>
 		<tr>
-			<th class="gc_cell_left">Order</th>
-			<th>Bill To</th>
-			<th>Ship To</th>
-			<th>Ordered On</th>
-			<th>Status</th>
-			<th class="gc_cell_right">Notes</th>
+			<th class="gc_cell_left"><?php echo lang('order') ?></th>
+			<th><?php echo lang('bill_to') ?></th>
+			<th><?php echo lang('ship_to') ?></th>
+			<th><?php echo lang('ordered_on') ?></th>
+			<th><?php echo lang('status') ?></th>
+			<th class="gc_cell_right"><?php echo lang('notes') ?></th>
 	    </tr>
 	</thead>
 
@@ -32,15 +32,15 @@
 <br /><br />
 
 
-<h3>Most Recent Registered Customers</h3>
+<h3><?php echo lang('recent_customers') ?></h3>
 <table class="gc_table" cellspacing="0" cellpadding="0">
 	<thead>
 		<tr>
 			<?php /*<th>ID</th> uncomment this if you want it*/ ?>
-			<th class="gc_cell_left">First Name</th>
-			<th>Last Name</th>
-			<th>Email</th>
-			<th class="gc_cell_right">Active</th>
+			<th class="gc_cell_left"><?php echo lang('account_firstname') ?></th>
+			<th><?php echo lang('account_lastname') ?></th>
+			<th><?php echo lang('account_email') ?></th>
+			<th class="gc_cell_right"><?php echo lang('active') ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -53,11 +53,11 @@
 			<td>
 				<?php if($customer->active == 1)
 				{
-					echo 'Yes';
+					echo lang('yes');
 				}
 				else
 				{
-					echo 'No';
+					echo lang('no');
 				}
 				?>
 			</td>

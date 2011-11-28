@@ -132,11 +132,11 @@ class fedex
 		$request['RequestedShipment']['PackageDetail'] = 'INDIVIDUAL_PACKAGES';
 		$request['RequestedShipment']['PackagingType'] = $package;
 		$request['RequestedShipment']['RequestedPackageLineItems'] = array('0' => array('Weight' => array('Value' => $weight,
-																							'Units' => 'LB'),
+																							'Units' => $this->CI->config->item('weight_unit')),
 																							'Dimensions' => array('Length' => $pkg_length,
 																								'Width' => $pkg_width,
 																								'Height' => $pkg_height,
-																								'Units' => 'IN')));
+																								'Units' => $this->CI->config->item('dimension_unit'))));
 		
 		// send request
 		$response = $client ->getRates($request);
@@ -249,12 +249,12 @@ class fedex
 
 		}
 		
-		$form	= '<table><tr><td>Key: </td><td>'.form_input('key', $key, 'class="gc_tf1"') .'</td></tr>
-					<tr><td>Ship Account: </td><td>'.form_input('shipaccount', $shipaccount, 'class="gc_tf1"') .'</td></tr>
-					<tr><td>Meter: </td><td>'.form_input('meter', $meter, 'class="gc_tf1"') .'</td></tr>
-					<tr><td>Password: </td><td>'.form_input('password', $password, 'class="gc_tf1"') .'</td></tr>';
+		$form	= '<table><tr><td>'.lang('fedex_key').': </td><td>'.form_input('key', $key, 'class="gc_tf1"') .'</td></tr>
+					<tr><td>'.lang('fedex_account').': </td><td>'.form_input('shipaccount', $shipaccount, 'class="gc_tf1"') .'</td></tr>
+					<tr><td>'.lang('fedex_meter').': </td><td>'.form_input('meter', $meter, 'class="gc_tf1"') .'</td></tr>
+					<tr><td>'.lang('password').': </td><td>'.form_input('password', $password, 'class="gc_tf1"') .'</td></tr>';
 		
-		$form	.= '<tr><td valign="top">Services To Offer: </td><td>';
+		$form	.= '<tr><td valign="top">'.lang('fedex_services').': </td><td>';
 		
 		foreach($this->service_list as $id=>$opt)
 		{
