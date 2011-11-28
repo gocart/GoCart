@@ -1,4 +1,26 @@
+Version 1.1.5
+-------------
+	Release date: pending
+	
+	Bug Fixes
+	
+	Other
+		
+		- Updated to CodeIgniter 2.1
+
+Version 1.1.4
+-------------
+	Release date: November 8, 2011
+	
+	Bug Fixes
+		
+		- Added missing state from Mexico per Oliver (thanks!).
+		- Updated TinyMCE to support some foreign characters.
+		- Updated URL to TinyMCE init file (was causing TinyMCE to not display due to JS error)
+		- Updated rtrim to index.php for better support on windows.
+
 Version 1.1.3
+-------------
 	Release date: Nov 8, 2011
 	
 	Bug Fixes
@@ -6,6 +28,7 @@ Version 1.1.3
 		- This is the same bug fix from 1.1.1 for SSL. It wasn't properly fixed in 1.1.1
 
 Version 1.1.2
+-------------
 	Release date: Nov 7, 2011
 	
 	Bug Fixes
@@ -13,6 +36,7 @@ Version 1.1.2
 		- Fixed a bug in the order_model related to quantity and item reporting.
 
 Version 1.1.1
+-------------
 	Release date: Nov 7, 2011
 	
 	Bug Fixes

@@ -112,27 +112,27 @@ if(isset($additional_header_info))
 		?>
 		
 		<?php if($this->Customer_model->is_logged_in(false, false)):?>
-			<li class="bold begin_user_menu"><a href="<?php echo site_url('secure/logout');?>">Logout</a></li>
-			<li class="bold"><a href="<?php echo  site_url('secure/my_account');?>">My Account</a></li>
+			<li class="bold begin_user_menu"><a href="<?php echo site_url('secure/logout');?>"><?php echo lang('logout');?></a></li>
+			<li class="bold"><a href="<?php echo  site_url('secure/my_account');?>"><?php echo lang('my_account')?></a></li>
 		<?php else: ?>
-			<li class="bold begin_user_menu"><a href="<?php echo site_url('secure/login');?>">Login</a></li>
+			<li class="bold begin_user_menu"><a href="<?php echo site_url('secure/login');?>"><?php echo lang('login');?></a></li>
 		<?php endif; ?>
 		<li class="bold">
 			<a href="<?php echo site_url('cart/view_cart');?>">
 			<?php
 			if ($this->go_cart->total_items()==0)
 			{
-				echo 'Your cart is empty';
+				echo lang('empty_cart');
 			}
 			else
 			{
 				if($this->go_cart->total_items() > 1)
 				{
-					echo 'There are '. $this->go_cart->total_items(). ' items in your cart';
+					echo sprintf (lang('multiple_items'), $this->go_cart->total_items());
 				}
 				else
 				{
-					echo 'There is '. $this->go_cart->total_items() .' item in your cart';
+					echo sprintf (lang('single_item'), $this->go_cart->total_items());
 				}
 			}
 			?>
@@ -151,7 +151,7 @@ if(isset($additional_header_info))
 		<div id="search_form" class="right">
 			<?php echo form_open('cart/search');?>
 				<input type="text" name="term"/>
-				<button type="submit">Search</button>
+				<button type="submit"><?php echo lang('form_search');?></button>
 			</form>
 		</div>
 		
@@ -206,11 +206,9 @@ if(isset($additional_header_info))
 		
 		
 		
-		if($gift_cards_enabled)
-		{
-			echo '<li><a href="'.site_url('cart/giftcard').'">Gift Card</a></li>';
-		}
-		?>
+		if($gift_cards_enabled):?>
+			<li><a href="<?php echo site_url('cart/giftcard');?>"><?php echo lang('giftcard');?></a></li>
+		<?php endif;?>
 		</ul>
 		
 		<br class="clear" />

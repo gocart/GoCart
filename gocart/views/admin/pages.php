@@ -35,9 +35,7 @@ function areyousure()
 					<?php echo $dash.' '.$page->title; ?>
 				</td>
 				<td class="gc_cell_right list_buttons">
-					<a href="<?php echo  base_url(); ?><?php echo $GLOBALS['admin_folder'];?>/pages/delete/<?php echo  $page->id; ?>" onclick="return areyousure();">Delete</a>
-
-					
+					<a href="<?php echo site_url($GLOBALS['admin_folder'].'/pages/delete/'.$page->id); ?>" onclick="return areyousure();">Delete</a>
 					
 					<?php if(empty($page->content)): ?>
 						<a href="<?php echo site_url($GLOBALS['admin_folder'].'/pages/link_form/'.$page->id); ?>">Edit</a>

@@ -64,7 +64,7 @@ $autoload['libraries'] = array('database', 'session', 'auth');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'file', 'string', 'utility', 'html');
+$autoload['helper'] = array('url', 'file', 'string', 'utility', 'html', 'language');
 
 
 /*
@@ -96,7 +96,7 @@ $autoload['config'] = array('gocart');
 |
 */
 
-$autoload['language'] = array();
+$autoload['language'] = array('common');
 
 
 /*

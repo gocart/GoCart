@@ -7,12 +7,12 @@ var cart_total = <?php echo $this->go_cart->total(); ?>;
 		<thead>
 			<thead>
 				<tr>
-					<th style="width:10%;">SKU</th>
-					<th style="width:20%;">Name</th>
-					<th style="width:10%;">Price</th>
-					<th>Description</th>
-					<th style="text-align:center; width:10%;">Quantity</th>
-					<th style="width:8%;">Totals</th>
+					<th style="width:10%;"><?php echo lang('sku');?></th>
+					<th style="width:20%;"><?php echo lang('name');?></th>
+					<th style="width:10%;"><?php echo lang('price');?></th>
+					<th><?php echo lang('description');?></th>
+					<th style="text-align:center; width:10%;"><?php echo lang('quantity');?></th>
+					<th style="width:8%;"><?php echo lang('totals');?></th>
 				</tr>
 			</thead>
 		</thead>
@@ -26,24 +26,24 @@ var cart_total = <?php echo $this->go_cart->total(); ?>;
 			?>
 			<?php if($this->go_cart->group_discount() > 0)  : ?> 
         	<tr>
-				<td colspan="5">Group Discount</td>
+				<td colspan="5"><?php echo lang('group_discount');?></td>
 				<td><?php echo format_currency(0-$this->go_cart->group_discount()); ?>                </td>
 			</tr>
 			<?php endif; ?>
 			<tr>
-		    	<td colspan="5">Subtotal</td>
+		    	<td colspan="5"><?php echo lang('subtotal');?></td>
 				<td id="gc_subtotal_price"><?php echo format_currency($this->go_cart->subtotal()); ?></td>
 			</tr>
 				
 				
 			<?php if($this->go_cart->coupon_discount() > 0) {?>
 		    <tr>
-		    	<td colspan="5">Coupon Discount</td>
+		    	<td colspan="5"><?php echo lang('coupon_discount');?></td>
 				<td id="gc_coupon_discount">-<?php echo format_currency($this->go_cart->coupon_discount());?></td>
 			</tr>
 				<?php if($this->go_cart->order_tax() != 0) { // Only show a discount subtotal if we still have taxes to add (to show what the tax is calculated from)?> 
 				<tr>
-		    		<td colspan="5" >Discounted Subtotal</td>
+		    		<td colspan="5"><?php echo lang('discounted_subtotal');?></td>
 					<td id="gc_coupon_discount"><?php echo format_currency($this->go_cart->discounted_subtotal());?></td>
 				</tr>
 				<?php
@@ -71,20 +71,20 @@ var cart_total = <?php echo $this->go_cart->total(); ?>;
 			 // Show shipping cost if added before taxes
 			if($this->config->item('tax_shipping') && $this->go_cart->shipping_cost()>0) : ?>
 				<tr>
-				<td colspan="5">Shipping</td>
+				<td colspan="5"><?php echo lang('shipping');?></td>
 				<td id="gc_tax_price"><?php echo format_currency($this->go_cart->shipping_cost()); ?></td>
 			</tr>
 			<?php endif;
 			if($this->go_cart->order_tax() > 0) :  ?>
 		    <tr>
-		    	<td colspan="5" colspan="3">Tax</td>
+		    	<td colspan="5" colspan="3"><?php echo lang('tax');?></td>
 				<td id="gc_tax_price"><?php echo format_currency($this->go_cart->order_tax());?></td>
 			</tr>
 			<?php endif; 
 			// Show shipping cost if added after taxes
 			if(!$this->config->item('tax_shipping') && $this->go_cart->shipping_cost()>0) : ?>
 				<tr>
-				<td colspan="5">Shipping</td>
+				<td colspan="5"><?php echo lang('shipping');?></td>
 				<td id="gc_tax_price"><?php echo format_currency($this->go_cart->shipping_cost()); ?></td>
 			</tr>
 			<?php endif ?>
@@ -95,7 +95,7 @@ var cart_total = <?php echo $this->go_cart->total(); ?>;
 			**************************************************************/
 			if($this->go_cart->gift_card_discount() > 0) : ?>
 			<tr>
-				<td colspan="5">Gift Card</td>
+				<td colspan="5"><?php echo lang('giftcard');?></td>
 				<td id="gc_gift_discount">-<?php echo format_currency($this->go_cart->gift_card_discount()); ?></td>
 			</tr>
 			<?php endif; ?>
@@ -106,7 +106,7 @@ var cart_total = <?php echo $this->go_cart->total(); ?>;
 			**************************************************************/
 			?>
 			<tr class="cart_total">
-				<td colspan="5" class="gc_view_cart_totals"><div class="cart_total_line_left"></div>Grand Total</td>
+				<td colspan="5" class="gc_view_cart_totals"><div class="cart_total_line_left"></div><?php echo lang('grand_total');?></td>
 				<td id="gc_total_price" class="gc_total"><div class="cart_total_line_right"></div><?php echo format_currency($this->go_cart->total()); ?></td>
 			</tr>
 			

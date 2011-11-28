@@ -18,55 +18,55 @@ echo form_input($f_id);
 
 	<div class="form_wrap">
 		<div>
-			Company<br/>
+			<?php echo lang('address_company');?><br/>
 			<?php echo form_input($f_company);?>
 		</div>
 		<div>
-			First Name<b class="r"> *</b><br/>
+			<?php echo lang('address_firstname');?><b class="r"> *</b><br/>
 			<?php echo form_input($f_first);?>
 		</div>
 		<div>
-			Last Name<b class="r"> *</b><br/>
+			<?php echo lang('address_lastname');?><b class="r"> *</b><br/>
 			<?php echo form_input($f_last);?>
 		</div>
 	</div>
 
 	<div class="form_wrap">
 		<div>
-			Email<b class="r"> *</b><br/>
+			<?php echo lang('address_email');?><b class="r"> *</b><br/>
 			<?php echo form_input($f_email);?>
 		</div>
 		<div>
-			Phone<b class="r"> *</b><br/>
+			<?php echo lang('address_phone');?><b class="r"> *</b><br/>
 			<?php echo form_input($f_phone);?>
 		</div>
 	</div>
 
 	<div class="form_wrap">
 		<div>
-			Address<b class="r"> *</b><br/>
+			<?php echo lang('address_address');?><b class="r"> *</b><br/>
 			<?php echo form_input($f_address1).'<br/>'.form_input($f_address2);?>
 		</div>
 	</div>
 
 	<div class="form_wrap">
 		<div>
-			City<b class="r"> *</b><br/>
+			<?php echo lang('address_city');?><b class="r"> *</b><br/>
 			<?php echo form_input($f_city);?>
 		</div>
 		<div>
-			Zip / Post Code<b class="r"> *</b><br/>
+			<?php echo lang('address_postcode');?><b class="r"> *</b><br/>
 			<?php echo form_input($f_zip);?>
 		</div>
 	</div>
 		
 	<div class="form_wrap">
 		<div>
-			Country<br/>
+			<?php echo lang('address_country');?><br/>
 			<?php echo form_dropdown('country_id', $countries_menu, set_value('country_id', $country_id), 'style="width:200px; display:block;" id="f_country_id" class="input"');?>
 		</div>
 		<div>
-			State<br/>
+			<?php echo lang('address_state');?><br/>
 			<?php echo form_dropdown('zone_id', $zones_menu, set_value('zone_id', $zone_id), 'style="width:200px; display:block;" id="f_zone_id" class="input"');?>
 		</div>
 	</div>

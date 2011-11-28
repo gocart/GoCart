@@ -2,7 +2,7 @@
 
 	<div id="no_payment_necessary" style="display:none">
 
-		Your amount due is $0.00. There is no payment necessary.
+		<?php echo lang('no_payment_needed');?>
 	
 	</div>
 
@@ -17,7 +17,7 @@
 			<tr>
 				<td style="width:30%;">
 					<div id="payments">
-						<h3>Choose Payment Method</h3>
+						<h3><?php echo lang('choose_payment_method');?></h3>
 						<?php foreach ($payment_methods as $method=>$info):?>
 							<input type="radio" id="payment_<?php echo $method;?>" name="payment_method" value="<?php echo $method;?>" onchange="set_payment(this.value)" /><label for="payment_<?php echo $method;?>"><?php echo $info['name'];?></label><br/>
 						<?php endforeach;?>

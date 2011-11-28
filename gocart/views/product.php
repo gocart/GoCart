@@ -180,7 +180,7 @@
 			<?php  if($this->config->item('allow_os_purchase') || $product->in_stock == 1) : ?>
 			<?php if($product->in_stock == 0):?>
 				<div class="red"><small>Out of Stock</small></div>
-			<?endif;?>
+			<?php endif;?>
 			QTY <input class="product_quantity" type="text" name="quantity" value=""/>
 			<input class="add_to_cart_btn" type="submit" value="Add To Cart" />
 			<?php else: ?>
