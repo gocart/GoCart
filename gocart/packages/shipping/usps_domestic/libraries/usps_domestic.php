@@ -294,7 +294,7 @@ class usps_domestic
 		else
 		{
 			$container	= $post['container'];
-			$service 	= explode(',',$post['service']);
+			$service 	= $post['service'];
 			$username	= $post['username'];
 			$password	= $post['password'];
 			$mode		= $post['mode'];
