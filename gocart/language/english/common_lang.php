@@ -52,7 +52,6 @@ $lang['form_save']			= 'Save';
 $lang['form_from']			= 'From';
 $lang['form_to']			= 'to';
 
-
 $lang['search']				= 'Search';
 $lang['amount']				= 'Amount';
 $lang['custom_amount']		= 'Custom Amount';
@@ -67,6 +66,7 @@ $lang['products']				= 'Products';
 $lang['out_of_stock']			= 'Out of Stock';
 $lang['no_products']			= 'There are currently no available products in this category.';
 $lang['no_image_available']		= 'No Image Available';
+$lang['product_reg']			= 'reg:';
 $lang['product_price']			= 'Price:';
 $lang['product_sale']			= 'SALE:';
 $lang['available_options']		= 'Available Options';
@@ -254,6 +254,23 @@ $lang['log_out']						= 'Log Out';
 $lang['front_end']						= 'Front End';
 $lang['dashboard']						= 'Dashboard';
 
+//admin management
+$lang['firstname']						= 'First Name';
+$lang['lastname']						= 'Last Name';
+$lang['access']							= 'Access';
+$lang['add_new_admin']					= 'Add New Admin';
+$lang['confirm_delete_admin']			= 'Are you sure you want to delete this admin?';
+
+//banner management
+$lang['tab_banners']					= 'Banners';
+$lang['label_banner_title']				= 'Title';
+$lang['label_banner_link']				= 'Link';
+$lang['label_banner_enable_on']			= 'Enable On';
+$lang['label_banner_disable_on']		= 'Disable On';
+$lang['label_banner_new_window']		= 'New Window';
+$lang['label_banner_image']				= 'Image';
+$lang['label_banner_current_file']		= 'Current File';
+
 //dashboard & shared
 $lang['recent_orders']					= 'Most Recent Orders';
 $lang['order']							= 'Order';
@@ -263,6 +280,7 @@ $lang['ordered_on']						= 'Ordered On';
 $lang['status']							= 'Status';
 $lang['notes']							= 'Notes';
 $lang['recent_customers']				= 'Most Recent Registered Customers';
+$lang['information']					= 'Information';
 
 //orders 
 $lang['search_returned']				= 'Your searched returned'; //... results (below)
@@ -293,7 +311,3 @@ $lang['fedex_account']					= 'Ship Account';
 $lang['fedex_meter']					= 'Meter';
 $lang['fedex_pw']						= 'Password';
 $lang['fedex_services']					= 'Services To Offer';
-
-
-
-

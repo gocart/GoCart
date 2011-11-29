@@ -2,18 +2,18 @@
 <?php echo form_open($this->config->item('admin_folder').'/admin/form/'.$id); ?>
 
 <div class="button_set">
-	<input type="submit" value="Save Admin"/>
+	<input type="submit" value="<?php echo lang('form_save');?>"/>
 </div>
 
 <div id="gc_tabs">
 	
 	<ul>
-		<li><a href="#gc_admin_info">Information</a></li>
+		<li><a href="#gc_admin_info"><?php echo lang('information');?></a></li>
 	</ul>
 	
 	<div id="gc_admin_info">
 		<div class="gc_field2">
-		<label>First Name</label>
+		<label><?php echo lang('firstname');?></label>
 		<?php
 		$data	= array('id'=>'firstname', 'name'=>'firstname', 'value'=>set_value('firstname', $firstname), 'class'=>'gc_tf1');
 		echo form_input($data);
@@ -21,7 +21,7 @@
 		</div>
 		
 		<div class="gc_field2">
-		<label>Last Name</label>
+		<label><?php echo lang('lastname');?></label>
 		<?php
 		$data	= array('id'=>'lastname', 'name'=>'lastname', 'value'=>set_value('lastname', $lastname), 'class'=>'gc_tf1');
 		echo form_input($data);
@@ -29,7 +29,7 @@
 		</div>
 
 		<div class="gc_field2">
-		<label>Email</label>
+		<label><?php echo lang('email');?></label>
 		<?php
 		$data	= array('id'=>'email', 'name'=>'email', 'value'=>set_value('email', $email), 'class'=>'gc_tf1');
 		echo form_input($data);
@@ -37,7 +37,7 @@
 		</div>
 
 		<div class="gc_field2">
-		<label>Access</label>
+		<label><?php echo lang('access');?></label>
 		<?php
 		$options = array(	'Admin'		=> 'Admin',
 							'Orders'	=> 'Orders'
@@ -47,7 +47,7 @@
 		</div>
 
 		<div class="gc_field2">
-		<label>Password</label>
+		<label><?php echo lang('account_password');?></label>
 		<?php
 		$data	= array('id'=>'password', 'name'=>'password', 'class'=>'gc_tf1');
 		echo form_password($data);
@@ -55,7 +55,7 @@
 		</div>
 
 		<div class="gc_field2">
-		<label>Confirm Password</label>
+		<label><?php echo lang('account_confirm');?></label>
 		<?php
 		$data	= array('id'=>'confirm', 'name'=>'confirm', 'class'=>'gc_tf1');
 		echo form_password($data);
