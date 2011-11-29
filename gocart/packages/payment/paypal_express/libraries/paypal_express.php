@@ -11,8 +11,8 @@ class Paypal_express
 	{
 		$this->CI =& get_instance();
 		$this->CI->load->library('session');
-		$this->CI->load->library('payment/paypal_express/paypal');
-		$this->CI->load->library('payment/paypal_express/httprequest');
+		$this->CI->load->library('paypal');
+		$this->CI->load->library('httprequest');
 	}
 	
 	/*
@@ -35,7 +35,7 @@ class Paypal_express
 			
 			//retrieve form contents
 			ob_start();
-			include(APPPATH."libraries/payment/paypal_express/forms/checkout.php");
+			include(APPPATH."packages/payment/paypal_express/libraries/forms/checkout.php");
 			$form['form'] = ob_get_contents();
 			ob_end_clean(); 
 		} else return array();
@@ -89,7 +89,7 @@ class Paypal_express
 		$this->CI->paypal->doExpressCheckout($this->CI->go_cart->total(), $store.' order');
 				
 		// If we get to this step at all, something went wrong	
-		return lang('paypal_error');
+		return 'There was an error processing your payment through PayPal';
 			
 	}
 	
@@ -109,7 +109,7 @@ class Paypal_express
 		}
 		//retrieve form contents
 		ob_start();
-		include(APPPATH."libraries/payment/paypal_express/forms/admin_form.php");
+		include(APPPATH."packages/payment/paypal_express/libraries/forms/admin_form.php");
 		$form = ob_get_contents();
 		ob_end_clean(); 
 		

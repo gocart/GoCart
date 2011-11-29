@@ -12,7 +12,7 @@ class Authorize_net
 		$this->CI =& get_instance();
 		$this->CI->load->helper("credit_card");
 		$this->CI->load->library('session');
-		$this->CI->load->library('payment/authorize_net/authorize_net_lib');
+		$this->CI->load->library('authorize_net_lib');
 		
 	}
 	
@@ -40,7 +40,7 @@ class Authorize_net
 			
 			//retrieve cc form
 			ob_start();
-			include(APPPATH."libraries/payment/authorize_net/forms/customer_card.php");
+			include(APPPATH."packages/payment/authorize_net/libraries/forms/customer_card.php");
 			$form['form'] = ob_get_contents();
 			ob_end_clean();
 			
@@ -52,24 +52,24 @@ class Authorize_net
 	function checkout_check()
 	{
 		
-		$error_msg = lang('please_fix_errors').'<BR><UL>';
+		$error_msg = "Please fix the following errors:<BR><UL>";
 		$error_list = "";
 		
 		//Verify name field
 		if( empty($_POST["x_first_name"]) || empty($_POST["x_last_name"])) 
-			$error_list .= '<LI>'.lang('enter_card_name').'</LI>';
+			$error_list .= "<LI>Please enter your first and last name as it appears on the card</LI>";
 		
 		//Verify date
 		if( !card_expiry_valid($_POST["x_exp_date_mm"], $_POST["x_exp_date_yy"]) )
-			$error_list .= '<LI>'.lang('invalid_card_exp').'</LI>';
+			$error_list .= "<LI>The expiration date does not appear to be valid</LI>";
 			
 		//Verify card number
 		if( empty($_POST["x_card_num"]) || !card_number_valid($_POST["x_card_num"]) )
-			$error_list .= '<LI>'.lang('invalid_card_num').'</LI>';
+			$error_list .= "<LI>The card number you entered is not a valid credit card number</LI>";
 		
 		//Verify security code
 		if( empty($_POST["x_card_code"])) 
-			$error_list .= '<LI>'.lang('enter_card_code').'</LI>';
+			$error_list .= "<LI>Please enter the three digit security code on the reverse side of the card</LI>";
 		
 		
 		// We need to store the credit card information temporarily
@@ -190,7 +190,7 @@ class Authorize_net
 		else 
 		{
             // payment declined, return our user to the form with an error.
-			return lang('transaction_declined');                        
+			return "Transaction Declined. Please check your card information and try again.";                        
         }
    
 	}
@@ -213,7 +213,7 @@ class Authorize_net
 		
 		//retrieve form contents
 		ob_start();
-		include(APPPATH."libraries/payment/authorize_net/forms/admin_form.php");
+		include(APPPATH."packages/payment/authorize_net/libraries/forms/admin_form.php");
 		$form = ob_get_contents();
 		ob_end_clean(); 
 		
@@ -229,14 +229,14 @@ class Authorize_net
 		{
 			if(empty($_POST["authorize_net_test_x_login"]) || empty($_POST["authorize_net_test_x_tran_key"]) ) 
 			{
-				$error = lang('enter_test_mode_credentials');
+				$error = "<DIV>You must enter login values for TEST mode</DIV>";
 			}
 		} 
 		else 
 		{
 			if(empty($_POST["authorize_net_live_x_login"]) || empty($_POST["authorize_net_live_x_tran_key"]) ) 
 			{
-				$error = lang('enter_live_mode_credentials');
+				$error = "<DIV>You must enter login values for LIVE mode</DIV>";
 			}
 		}
 		
