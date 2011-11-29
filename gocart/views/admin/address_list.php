@@ -4,8 +4,8 @@
 			foreach($address_list as $a):?>
 				<div class="gc_photo" id="address_<?php echo $a['id'];?>">
 					<div class="list_buttons">
-						<input type="button" class="delete_address" rel="<?php echo $a['id'];?>" value="Delete"/>
-						<input type="button" class="edit_address" rel="<?php echo $a['id'];?>" value="Edit"/>
+						<input type="button" class="delete_address" rel="<?php echo $a['id'];?>" value="<?php echo lang('delete');?>"/>
+						<input type="button" class="edit_address" rel="<?php echo $a['id'];?>" value="<?php echo lang('edit');?>"/>
 					</div>
 					<?php
 					$b	= $a['field_data'];
