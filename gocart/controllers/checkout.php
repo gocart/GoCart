@@ -100,8 +100,9 @@ class Checkout extends CI_Controller {
 		$shipping_methods	= array();
 		foreach ($this->Settings_model->get_settings('shipping_modules') as $shipping_method=>$order)
 		{
+			$this->load->add_package_path(APPPATH.'packages/shipping/'.$shipping_method.'/');
 			//eventually, we will sort by order, but I'm not concerned with that at the moment
-			$this->load->library('shipping/'.$shipping_method.'/'.$shipping_method);
+			$this->load->library($shipping_method);
 			
 			$shipping_methods	= array_merge($shipping_methods, $this->$shipping_method->rates());
 		}
@@ -130,7 +131,8 @@ class Checkout extends CI_Controller {
 		
 		foreach ($this->Settings_model->get_settings('payment_modules') as $payment_method=>$order)
 		{
-			$this->load->library('payment/'.$payment_method.'/'.$payment_method);
+			$this->load->add_package_path(APPPATH.'packages/payment/'.$payment_method.'/');
+			$this->load->library($payment_method);
 			
 			$payment_form = $this->$payment_method->checkout_form();
 			if(!empty($payment_form))
@@ -358,7 +360,8 @@ class Checkout extends CI_Controller {
 		
 		if($module)
 		{	
-			$this->load->library('payment/'.$module.'/'.$module);
+			$this->load->add_package_path(APPPATH.'packages/payment/'.$module.'/');
+			$this->load->library($module);
 			
 			$check	= $this->$module->checkout_check();
 			if(!$check)
@@ -423,7 +426,8 @@ class Checkout extends CI_Controller {
 		if($this->go_cart->total() > 0 && ! isset($payment['confirmed'])) {
 			
 			//lost the payment module
-			$this->load->library('payment/'.$payment['module'].'/'.$payment['module']);
+			$this->load->add_package_path(APPPATH.'packages/payment/'.$payment['module'].'/');
+			$this->load->library($payment['module']);
 			
 			//run the payment
 			$error_status	= $this->$payment['module']->process_payment();
@@ -494,7 +498,7 @@ class Checkout extends CI_Controller {
 		
 		$this->email->send();
 		
-		$data['page_title'] =  lang('thank_you').$this->config->item('company_name');
+		$data['page_title'] = 'Thanks for shopping with '.$this->config->item('company_name');
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		// show final confirmation page
 		$this->load->view('order_placed', $data);

@@ -21,9 +21,12 @@ class Shipping extends CI_Controller {
 	
 	function install($module)
 	{
+		//setup the third_party package
+		$this->load->add_package_path(APPPATH.'packages/shipping/'.$module.'/');
+		
 		$enabled_modules	= $this->Settings_model->get_settings('shipping_modules');
 		
-		$this->load->library('shipping/'.$module.'/'.$module);
+		$this->load->library($module);
 		
 		if(!array_key_exists($module, $enabled_modules))
 		{
@@ -48,7 +51,9 @@ class Shipping extends CI_Controller {
 	
 	function settings($module)
 	{
-		$this->load->library('shipping/'.$module.'/'.$module);
+		$this->load->add_package_path(APPPATH.'packages/shipping/'.$module.'/');
+		$this->load->library($module);
+		
 		//ok, in order for the most flexibility, and in case someone wants to use javascript or something
 		//the form gets pulled directly from the library.
 	
