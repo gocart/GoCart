@@ -107,10 +107,10 @@
 				<div>
 				<div class="price_container">
 					<?php if($product->saleprice > 0):?>
-						<span class="price_slash">reg: <?php echo format_currency($product->price); ?></span>
-						<span class="price_sale">SALE: <?php echo format_currency($product->saleprice); ?></span>
+						<span class="price_slash"><?php echo lang('product_reg');?> <?php echo format_currency($product->price); ?></span>
+						<span class="price_sale"><?php echo lang('product_sale');?> <?php echo format_currency($product->saleprice); ?></span>
 					<?php else: ?>
-						<span class="price_reg">Price: <?php echo format_currency($product->price); ?></span>
+						<span class="price_reg"><?php echo lang('product_price');?> <?php echo format_currency($product->price); ?></span>
 					<?php endif; ?>
 				</div>
                     <?php if($product->in_stock==0) { ?>
