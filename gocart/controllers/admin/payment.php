@@ -22,9 +22,11 @@ class Payment extends CI_Controller {
 	
 	function install($module)
 	{
+		$this->load->add_package_path(APPPATH.'packages/payment/'.$module.'/');
+		
 		$enabled_modules	= $this->Settings_model->get_settings('payment_modules');
 		
-		$this->load->library('payment/'.$module.'/'.$module);
+		$this->load->library($module);
 		
 		if(!array_key_exists($module, $enabled_modules))
 		{
@@ -49,7 +51,9 @@ class Payment extends CI_Controller {
 	
 	function settings($module)
 	{
-		$this->load->library('payment/'.$module.'/'.$module);
+		$this->load->add_package_path(APPPATH.'packages/payment/'.$module.'/');
+		$this->load->library($module);
+		
 		//ok, in order for the most flexibility, and in case someone wants to use javascript or something
 		//the form gets pulled directly from the library.
 	

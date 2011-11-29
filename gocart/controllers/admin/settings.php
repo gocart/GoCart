@@ -25,7 +25,7 @@ class Settings extends CI_Controller {
 		
 		$data['payment_modules']	= array();
 		//create a list of available payment modules
-		if ($handle = opendir(APPPATH.'/libraries/payment/')) {
+		if ($handle = opendir(APPPATH.'packages/payment/')) {
 			while (false !== ($file = readdir($handle)))
 			{
 				//now we eliminate the periods from the list.
@@ -50,7 +50,7 @@ class Settings extends CI_Controller {
 		
 		$data['shipping_modules']	= array();
 		//create a list of available shipping modules
-		if ($handle = opendir(APPPATH.'/libraries/shipping/')) {
+		if ($handle = opendir(APPPATH.'packages/shipping/')) {
 			while (false !== ($file = readdir($handle)))
 			{
 				//now we eliminate anything with periods
