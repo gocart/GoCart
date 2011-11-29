@@ -270,6 +270,22 @@ $lang['label_banner_disable_on']		= 'Disable On';
 $lang['label_banner_new_window']		= 'New Window';
 $lang['label_banner_image']				= 'Image';
 $lang['label_banner_current_file']		= 'Current File';
+$lang['confirm_delete_banner']			= 'Are you sure you want to delete this banner?';
+$lang['add_new_banner']					= 'Add New Banner';
+$lang['message_no_banners']				= 'There are currently no banners';
+
+//box management
+$lang['tab_boxes']						= 'Homepage Boxes';
+$lang['label_box_title']				= 'Title';
+$lang['label_box_link']					= 'Link';
+$lang['label_box_enable_on']			= 'Enable On';
+$lang['label_box_disable_on']			= 'Disable On';
+$lang['label_box_new_window']			= 'New Window';
+$lang['label_box_image']				= 'Image';
+$lang['label_box_current_file']			= 'Current File';
+$lang['confirm_delete_box']				= 'Are you sure you want to delete this box?';
+$lang['add_new_box']					= 'Add New Box';
+$lang['message_no_boxes']				= 'There are currently no boxes';
 
 //dashboard & shared
 $lang['recent_orders']					= 'Most Recent Orders';
