@@ -11,8 +11,8 @@ class Authorize_net
 	{
 		$this->CI =& get_instance();
 		$this->CI->load->helper("credit_card");
-		$this->CI->load->library('session');
 		$this->CI->load->library('authorize_net_lib');
+		$this->CI->lang->load('authorize_net');
 		
 	}
 	
@@ -38,38 +38,33 @@ class Authorize_net
 		{
 			$form['name']	= $this->method_name;
 			
-			//retrieve cc form
-			ob_start();
-			include(APPPATH."packages/payment/authorize_net/libraries/forms/customer_card.php");
-			$form['form'] = ob_get_contents();
-			ob_end_clean();
+			return $this->CI->load->view('customer_card', array('settings'=>$se), true);
 			
 		} else return array();
 		
-		return $form;
 	}
 	
 	function checkout_check()
 	{
 		
-		$error_msg = "Please fix the following errors:<BR><UL>";
+		$error_msg = lang('please_fix_errors').'<BR><UL>';
 		$error_list = "";
 		
 		//Verify name field
 		if( empty($_POST["x_first_name"]) || empty($_POST["x_last_name"])) 
-			$error_list .= "<LI>Please enter your first and last name as it appears on the card</LI>";
+			$error_list .= '<LI>'.lang('enter_card_name').'</LI>';
 		
 		//Verify date
 		if( !card_expiry_valid($_POST["x_exp_date_mm"], $_POST["x_exp_date_yy"]) )
-			$error_list .= "<LI>The expiration date does not appear to be valid</LI>";
+			$error_list .= '<LI>'.lang('invalid_card_exp').'</LI>';
 			
 		//Verify card number
 		if( empty($_POST["x_card_num"]) || !card_number_valid($_POST["x_card_num"]) )
-			$error_list .= "<LI>The card number you entered is not a valid credit card number</LI>";
+			$error_list .= '<LI>'.lang('invalid_card_num').'</LI>';
 		
 		//Verify security code
 		if( empty($_POST["x_card_code"])) 
-			$error_list .= "<LI>Please enter the three digit security code on the reverse side of the card</LI>";
+			$error_list .= '<LI>'.lang('enter_card_code').'</LI>';
 		
 		
 		// We need to store the credit card information temporarily
@@ -113,11 +108,11 @@ class Authorize_net
 		// -These will be user-editable
 		$config['authorize_net_test_mode'] = 'TRUE'; // Set this to FALSE for live processing
 
-		$config['authorize_net_live_x_login'] = 'LIVE LOGIN ID';
-		$config['authorize_net_live_x_tran_key'] = 'LIVE TRANS KEY';		
+		$config['authorize_net_live_x_login'] = '';
+		$config['authorize_net_live_x_tran_key'] = '';		
 		
-		$config['authorize_net_test_x_login'] = 'TEST LOGIN ID';
-		$config['authorize_net_test_x_tran_key'] = 'TEST LOGIN TRANS KEY';
+		$config['authorize_net_test_x_login'] = '';
+		$config['authorize_net_test_x_tran_key'] = '';
 		
 		
 		// Lets setup some other values so we dont have to do it everytime we process a transaction
@@ -190,7 +185,7 @@ class Authorize_net
 		else 
 		{
             // payment declined, return our user to the form with an error.
-			return "Transaction Declined. Please check your card information and try again.";                        
+			return lang('transaction_declined');                        
         }
    
 	}
@@ -203,21 +198,13 @@ class Authorize_net
 		if(!$post)
 		{
 			$settings	= $this->CI->Settings_model->get_settings('Authorize_net');
-			$enabled	= $settings['enabled'];
 		}
 		else
 		{
 			$settings = $post;
-			$enabled	= $settings['enabled'];
 		}
 		
-		//retrieve form contents
-		ob_start();
-		include(APPPATH."packages/payment/authorize_net/libraries/forms/admin_form.php");
-		$form = ob_get_contents();
-		ob_end_clean(); 
-		
-		return $form;
+		return $this->CI->load->view('admin_form', array('settings'=>$settings), true);
 	}
 	
 	
@@ -229,14 +216,14 @@ class Authorize_net
 		{
 			if(empty($_POST["authorize_net_test_x_login"]) || empty($_POST["authorize_net_test_x_tran_key"]) ) 
 			{
-				$error = "<DIV>You must enter login values for TEST mode</DIV>";
+				$error = lang('enter_test_mode_credentials');
 			}
 		} 
 		else 
 		{
 			if(empty($_POST["authorize_net_live_x_login"]) || empty($_POST["authorize_net_live_x_tran_key"]) ) 
 			{
-				$error = "<DIV>You must enter login values for LIVE mode</DIV>";
+				$error = lang('enter_live_mode_credentials');
 			}
 		}
 		

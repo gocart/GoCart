@@ -5,8 +5,8 @@ class pp_gate extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		
-		$this->load->library(array('payment/paypal_express/paypal', 'payment/paypal_express/httprequest', 'go_cart'));
+		$this->load->add_package_path(APPPATH.'packages/payment/paypal_express/');
+		$this->load->library(array('paypal', 'httprequest', 'go_cart'));
 		$this->load->helper('form_helper');
 	}
 	
