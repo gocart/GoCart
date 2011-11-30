@@ -6,7 +6,7 @@
 
 
 <?php if(isset($meta)):?>
-	<?php echo $meta;?>
+	<meta name="Description" content="<?php echo $meta;?>" />
 <?php else:?>
 <meta name="Keywords" content="Shopping Cart, eCommerce, Code Igniter">
 <meta name="Description" content="Go Cart is an open source shopping cart built on the Code Igniter framework">
