@@ -1,6 +1,6 @@
 Version 1.2
 -------------
-	Release date: pending
+	Release date: PENDING (Warning, incomplete work in this version!! Not production ready!!)
 	
 	Bug Fixes
 		
@@ -9,11 +9,15 @@ Version 1.2
 	Features
 		
 		- Added language support and extended internationalization capabilities
-		- Added support for BrainTree and BeanStream payment gateways
+		- Converted payment and shipping libraries into application package modules
+		- Added support for BrainTree and Bean Stream payment gateways
+		- Added support for Sage Pay payment gateway (Thanks to swicks)
 		
 	Other
 		
 		- Updated to CodeIgniter 2.1
+		- Changed the database password and prefix fields to unrequired in the Installer, for those of you who want to shoot yourself in the feet
+		
 
 Version 1.1.4
 -------------

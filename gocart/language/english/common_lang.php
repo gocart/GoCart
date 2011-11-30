@@ -8,12 +8,8 @@ Common Language
 ******************************************/
 
 
-
-
 /*******************
-    
     Site front end
-  
  *******************/
 
 //common terms
@@ -143,24 +139,6 @@ $lang['shipping_instructions']		= 'Shipping Instructions?';
 //checkout confirmation
 $lang['thank_you']					= 'Thanks for shopping with '; // terminates with company/site name, defined in gocart config as 'company_name'
 
-//authorize.net library messages
-$lang['please_fix_errors']			= 'Please fix the following errors:';
-$lang['enter_card_name']			= 'Please enter your first and last name as it appears on the card';
-$lang['invalid_card_exp']			= 'The expiration date does not appear to be valid';
-$lang['invalid_card_num']			= 'The card number you entered is not a valid credit card number';
-$lang['enter_card_code']			= 'Please enter the three digit security code on the reverse side of the card';
-$lang['transaction_declined']		= 'Transaction Declined. Please check your card information and try again.';
-$lang['enter_test_mode_credentials']	= 'You must enter login values for TEST mode';
-$lang['enter_live_mode_credentials']	= 'You must enter login values for LIVE mode';
-$lang['all_required_fields']		= 'Please complete all required fields.';
-$lang['card_number']				= 'Card Number';
-$lang['expires_on']					= 'Expires On';
-$lang['cvv_code']					= 'CVV Code';
-
-//paypal library messages
-$lang['paypal_error']				= 'There was an error processing your payment through PayPal';
-$lang['paypal_desc']				= 'Using this method, you will be directed to the Paypal website to verify your payment. Once your payment is authorized, you will be directed back to our website and your order will be complete.';
-
 
 //giftcards
 $lang['giftcard']					= 'Gift Card';
@@ -223,9 +201,7 @@ $lang['giftcard_already_applied']		= 'Your gift card is already applied';
 
 
 /******************
-
 	Admin section
-	
 *******************/
 
 
@@ -307,19 +283,6 @@ $lang['no_orders']						= 'There are currently no orders.';
 $lang['order_delete']					= 'Are you sure you want to delete the selected orders?';
 $lang['no_orders_sel']					= 'You did not select any orders to delete.';
 
-
-//auth.net admin
-$lang['test_mode']					= 'Test Mode';
-$lang['live_mode']					= 'Live Mode';
-$lang['tm_login']					= 'Test Mode Login ID';
-$lang['tm_key']						= 'Test Mode Transaction Key';
-$lang['lm_login']					= 'Live Mode Login ID';
-$lang['lm_key']						= 'Live Mode Transaction Key';
-
-//paypal admin
-$lang['pp_username']				= 'Paypal Username';
-$lang['pp_password']				= 'Paypal Password';
-$lang['pp_key']						= 'Paypal API Signature';
 
 //fedex module
 $lang['fedex_key']						= 'Key';
