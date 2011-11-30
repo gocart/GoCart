@@ -38,8 +38,8 @@ class Install extends CI_Controller {
 		$this->form_validation->set_rules('hostname', 'Hostname', 'required');
 		$this->form_validation->set_rules('database', 'Database Name', 'required');
 		$this->form_validation->set_rules('username', 'Username', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'trim');
-		$this->form_validation->set_rules('prefix', 'Database Prefix', 'trim');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('prefix', 'Database Prefix', 'required');
 		
 		$this->form_validation->set_rules('admin_email', 'Admin Email', 'required|valid_email');
 		$this->form_validation->set_rules('admin_password', 'Admin Password', 'required|min_length[5]');

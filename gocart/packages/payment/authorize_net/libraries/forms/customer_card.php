@@ -5,7 +5,7 @@
 The JavaScript Source!! http://javascript.internet.com
 Created by: David Leppek :: https://www.azcode.com/Mod10
 
-Basically, the alorithm takes each digit, from right to left and muliplies each second
+Basically, the alorithum takes each digit, from right to left and muliplies each second
 digit by two. If the multiple is two-digits long (i.e.: 6 * 2 = 12) the two digits of
 the multiple are then added together for a new number (1 + 2 = 3). You then add up the 
 string of numbers, both unaltered and new values and get a total sum. This sum is then
@@ -89,7 +89,7 @@ payment_method.authorize_net = function()
 	{
 		$('#card_num').addClass('require_fail');
 		errors = true;
-		display_error('payment', '<?php echo lang('invalid_card_num') ?>') ;
+		display_error('payment', 'Credit card does not appear to be a valid number');
 	}
 	// validate other fields
 	$('.pmt_required').each(function(){
@@ -97,7 +97,7 @@ payment_method.authorize_net = function()
 		{
 			$(this).addClass('require_fail');
 			errors = true;
-			display_error('payment', '<?php echo lang('all_required_fields') ?>');
+			display_error('payment', 'Please complete all required fields.');
 		}
 	});
 	
@@ -117,21 +117,21 @@ payment_method.authorize_net = function()
 
 	<div class="form_wrap">
 		<div>
-			<?php echo lang('address_firstname') ?><b class="r"> *</b><br/>
+			First Name<b class="r"> *</b><br/>
 			<input name="x_first_name" type="text" class="pmt_required textfield input" value="<?php echo @$cc_data["x_first_name"] ?>" size="30" />
 		</div>
 		<div>
-			<?php echo lang('address_lastname') ?><b class="r"> *</b><br/>
+			Last Name<b class="r"> *</b><br/>
 			<input name="x_last_name" type="text" class="pmt_required textfield input" value="<?php echo @$cc_data["x_last_name"] ?>" size="30" />
 		</div>
 	</div>
 	<div class="form_wrap">
 		<div>
-			<?php echo lang('card_number') ?><b class="r"> *</b><br/>
+			Card Number<b class="r"> *</b><br/>
 			<input id="card_num" name="x_card_num" type="text" class="pmt_required textfield input" value="<?php echo @$cc_data["x_card_num"] ?>" size="30">
 		</div>
 		<div>
-			<?php echo lang('expires_on') ?><b class="r"> *</b><br/>
+			Expires on<b class="r"> *</b><br/>
 			<?php
 			
 			$months = array(1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9,10=>10,11=>11,12=>12);
@@ -147,7 +147,7 @@ payment_method.authorize_net = function()
 			?>
 		</div>
 		<div>
-			<?php echo lang('cvv_code') ?><b class="r"> *</b><br/>
+			CVV Code<b class="r"> *</b><br/>
 			<input style="width:30px;"name="x_card_code" type="text" class="pmt_required textfield input" id="x_card_code" maxlength="3" value="<?php echo @$cc_data["x_card_code"] ?>" />
 		</div>
 	</div>

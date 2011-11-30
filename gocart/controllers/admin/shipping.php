@@ -23,9 +23,10 @@ class Shipping extends CI_Controller {
 	{
 		//setup the third_party package
 		$this->load->add_package_path(APPPATH.'packages/shipping/'.$module.'/');
-		$this->load->library($module);
 		
 		$enabled_modules	= $this->Settings_model->get_settings('shipping_modules');
+		
+		$this->load->library($module);
 		
 		if(!array_key_exists($module, $enabled_modules))
 		{

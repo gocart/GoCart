@@ -13,7 +13,6 @@ class Paypal_express
 		$this->CI->load->library('session');
 		$this->CI->load->library('paypal');
 		$this->CI->load->library('httprequest');
-		$this->CI->lang->load('paypal_express');
 	}
 	
 	/*
@@ -34,10 +33,14 @@ class Paypal_express
 		{
 			$form['name']	= $this->method_name;
 			
-			return $this->CI->load->view('checkout', array(), true);
-			
+			//retrieve form contents
+			ob_start();
+			include(APPPATH."packages/payment/paypal_express/libraries/forms/checkout.php");
+			$form['form'] = ob_get_contents();
+			ob_end_clean(); 
 		} else return array();
 		
+		return $form;
 	}
 	
 	
@@ -56,18 +59,16 @@ class Paypal_express
 	function install()
 	{
 		
-		$config['username'] = '';
-		$config['password'] = '';; 
-		$config['signature'] = '';
-		$config['currency'] = 'USD'; // default
+		$config['username'] = "Paypal username";
+		$config['password'] = "Paypal password"; 
+		$config['signature'] = "Paypal API signature";
+		$config['currency'] = "USD";
 		
+		$config['return_url'] = "pp_gate/pp_return/";
+		$config['cancel_url'] = "pp_gate/pp_cancel/";
 		$config['SANDBOX'] = true;
 		
 		$config['enabled'] = "0";
-		
-		//not normally user configurable
-		$config['return_url'] = "pp_gate/pp_return/";
-		$config['cancel_url'] = "pp_gate/pp_cancel/";
 
 		$this->CI->Settings_model->save_settings('paypal_express', $config);
 	}
@@ -88,7 +89,7 @@ class Paypal_express
 		$this->CI->paypal->doExpressCheckout($this->CI->go_cart->total(), $store.' order');
 				
 		// If we get to this step at all, something went wrong	
-		return lang('paypal_error');
+		return 'There was an error processing your payment through PayPal';
 			
 	}
 	
@@ -99,13 +100,20 @@ class Paypal_express
 		if(!$post)
 		{
 			$settings	= $this->CI->Settings_model->get_settings('paypal_express');
+			$enabled	= $settings['enabled'];
 		}
 		else
 		{
 			$settings = $post;
+			$enabled	= $settings['enabled'];
 		}
 		//retrieve form contents
-		return $this->CI->load->view('admin_form', array('settings'=>$settings), true);
+		ob_start();
+		include(APPPATH."packages/payment/paypal_express/libraries/forms/admin_form.php");
+		$form = ob_get_contents();
+		ob_end_clean(); 
+		
+		return $form;
 	}
 	
 	function check()
@@ -130,4 +138,3 @@ class Paypal_express
 		}
 	}
 }
-
