@@ -1,4 +1,4 @@
-<div style="font-size:11px;margin-bottom:20px;"><strong>Note:</strong> <em>Note Fields that are left blank or contain non-numeric will be removed.</em></div>
+<div style="font-size:11px;margin-bottom:20px;"><?php echo lang('notice') ?></div>
 		<style type="text/css">
 		.tablerate_input {
 			width:50px;
@@ -41,14 +41,14 @@
 				if($('#add_name_input').val().length==0) return;
 				
 				form_contents = "<div id='template-div'>\
-								<strong><span id='TBLID_name'>TBLNAME</span> Rates</strong>\
-								(<a href='javascript:void(0)' onclick=\"remove_table('tbl_TBLID')\">Remove this table</a>)\
-								(<a href=\"javascript:void(0)\" onclick=\"rename_table('TBLID')\">Rename this table</a>) <table><tr>\
+								<strong><span id='TBLID_name'>TBLNAME</span> <?php echo lang('rates') ?></strong>\
+								(<a href='javascript:void(0)' onclick=\"remove_table('tbl_TBLID')\"><?php echo lang('btn_tbl_remove') ?></a>)\
+								(<a href=\"javascript:void(0)\" onclick=\"rename_table('TBLID')\"><?php echo lang('btn_rename') ?></a>) <table><tr>\
 								<div id=\"rename_TBLID\" style=\"display:none\">\
 								<input type=\"text\" id=\"input_TBLID\" value=\"TBLNAME\" class=\"gc_tf1\">\
 								<input type=\"button\" value=\"Change\" onclick=\"apply_rename('TBLID', 'TBLID')\" />\
 								<input type=\"button\" value=\"Cancel\" onclick=\"cancel_rename('TBLID')\" /></div>\
-								<table><tr><td>By Country</td><td colspan=\"2\">\
+								<table><tr><td><?php echo lang('by_country') ?></td><td colspan=\"2\">\
 									<select name=\"location[TBLID]\">\
 									<option value=''> N/A </option>\
 									<?php 
@@ -59,13 +59,13 @@
 									?>\
 									</select></td></tr>\
 								<tr><td>Method: </td><td colspan='2'><select name='method[TBLID]'>\
-								<option value='price'>Price</option><option value='weight'>Weight</option></select></td></tr>\
-								<tr><td colspan='3'>Rates: </td></tr>\
-								<tr id='TBLID_0'><td>From: <input class='gc_tf1 tablerate_input' type='text' name='from[TBLID][]' value=''/></td>\
-								<td>Rate: <input class='gc_tf1 tablerate_input' type='text' name='rate[TBLID][]' value=''/></td>\
-								<td style='font-size:11px;'><a href=\"javascript:tablerate_remove('TBLID_0');\">(remove)</a>\
-								 <a href=\"javascript:tablerate_add_above('TBLID',0)\">(add above)</a> \
-								 <a href=\"javascript:tablerate_add_below('TBLID',0)\">(add below)</a></td>\
+								<option value='price'>Price</option><option value='weight'><?php echo lang('weight') ?>:</option></select></td></tr>\
+								<tr><td colspan='3'><?php echo lang('rates') ?>: </td></tr>\
+								<tr id='TBLID_0'><td><?php echo lang('from') ?>: <input class='gc_tf1 tablerate_input' type='text' name='from[TBLID][]' value=''/></td>\
+								<td><?php echo lang('rate') ?>: <input class='gc_tf1 tablerate_input' type='text' name='rate[TBLID][]' value=''/></td>\
+								<td style='font-size:11px;'><a href=\"javascript:tablerate_remove('TBLID_0');\">(<?php echo lang('btn_remove') ?>)</a>\
+								 <a href=\"javascript:tablerate_add_above('TBLID',0)\">(<?php echo lang('btn_above') ?>)</a> \
+								 <a href=\"javascript:tablerate_add_below('TBLID',0)\">(<?php echo lang('btn_below') ?>)</a></td>\
 								</table></div>";
 				
 				tbl_name = $('#add_name_input').val();
@@ -87,7 +87,7 @@
 			{
 				if($('#tabs').tabs('length') == 1) 
 				{
-					alert('You must leave at least one table');
+					alert('<?php echo lang('tbl_err') ?>');
 					return;
 				}
 				
@@ -115,12 +115,12 @@
 			{
 
 				eval('next = tablecounts.'+table+' + 1; tablecounts.'+table+' = tablecounts.'+table+' +1;');
-				$('#'+table+'_'+row).after('<tr id="'+table+'_'+next+'"><td>From: <input class="gc_tf1 tablerate_input" type="text" name="from['+table+'][]" value=""/></td><td>Rate: <input class="gc_tf1 tablerate_input" type="text" name="rate['+table+'][]" value=""/></td><td style="font-size:11px;"><a href="javascript:tablerate_remove(\''+table+'_'+next+'\');">(remove)</a> <a href="javascript:tablerate_add_above(\''+table+'\','+next+')">(add above)</a> <a href="javascript:tablerate_add_below(\''+table+'\','+next+')">(add below)</a></td>');
+				$('#'+table+'_'+row).after('<tr id="'+table+'_'+next+'"><td><?php echo lang('from') ?>: <input class="gc_tf1 tablerate_input" type="text" name="from['+table+'][]" value=""/></td><td><?php echo lang('rate') ?>: <input class="gc_tf1 tablerate_input" type="text" name="rate['+table+'][]" value=""/></td><td style="font-size:11px;"><a href="javascript:tablerate_remove(\''+table+'_'+next+'\');">(<?php echo lang('btn_remove') ?>)</a> <a href="javascript:tablerate_add_above(\''+table+'\','+next+')">(<?php echo lang('btn_above') ?>)</a> <a href="javascript:tablerate_add_below(\''+table+'\','+next+')">(<?php echo lang('btn_below') ?>)</a></td>');
 			}
 			function tablerate_add_above(table, row)
 			{
 				eval('next = tablecounts.'+table+' + 1; tablecounts.'+table+' = tablecounts.'+table+' +1;');
-				$('#'+table+'_'+row).before('<tr id="'+table+'_'+next+'"><td>From: <input class="gc_tf1 tablerate_input" type="text" name="from['+table+'][]" value=""/></td><td>Rate: <input class="gc_tf1 tablerate_input" type="text" name="rate['+table+'][]" value="" /></td><td style="font-size:11px;"><a href="javascript:tablerate_remove(\''+table+'_'+next+'\');">(remove)</a> <a href="javascript:tablerate_add_above(\''+table+'\','+next+')">(add above)</a> <a href="javascript:tablerate_add_below(\''+table+'\','+next+')">(add below)</a></td>');
+				$('#'+table+'_'+row).before('<tr id="'+table+'_'+next+'"><td><?php echo lang('from') ?>: <input class="gc_tf1 tablerate_input" type="text" name="from['+table+'][]" value=""/></td><td><?php echo lang('rate') ?>: <input class="gc_tf1 tablerate_input" type="text" name="rate['+table+'][]" value="" /></td><td style="font-size:11px;"><a href="javascript:tablerate_remove(\''+table+'_'+next+'\');">(<?php echo lang('btn_remove') ?>)</a> <a href="javascript:tablerate_add_above(\''+table+'\','+next+')">(<?php echo lang('btn_above') ?>)</a> <a href="javascript:tablerate_add_below(\''+table+'\','+next+')">(<?php echo lang('btn_below') ?>)</a></td>');
 			}
 			
 			
@@ -168,7 +168,7 @@
 		</script>
 		
 		<div id="enabler">
-		Table Rate Module Status: 
+		<?php echo lang('enabled') ?> 
 		<select name="enabled">
 			
 			<?php 
@@ -183,12 +183,12 @@
 				$disable	= ' selected="selected"';
 			}
 			?>
-			<option value="1" <?php echo $enable ?>>Enabled</option>
-			<option value="0" <?php echo $disable ?>>Disabled</option>
+			<option value="1" <?php echo $enable ?>><?php echo lang('enabled') ?></option>
+			<option value="0" <?php echo $disable ?>><?php echo lang('disabled') ?></option>
 			</select>
 		</div>
 		
-		<div id='add_name'> Add New Table <input type="text" id="add_name_input" class="gc_tf1" /> <input type="button" value="Add" onclick='add_table()' /></div>		
+		<div id='add_name'> <?php echo lang('add_tbl') ?> <input type="text" id="add_name_input" class="gc_tf1" /> <input type="button" value="Add" onclick='add_table()' /></div>		
 <div id="tabs">
 		
 		<ul id='name_list'>
@@ -200,17 +200,17 @@
 				$disp_name = str_replace('_', ' ', $name);
 		?>
 		<div id='tbl_<?php echo $name ?>' >
-			<strong><span id='<?php echo $name ?>_name'><?php echo $disp_name ?></span> Rates</strong> (<a href="javascript:void(0)" onclick="remove_table('tbl_<?php echo $name ?>')">Remove this table</a>) (<a href="javascript:void(0)" onclick="rename_table('<?php echo $name ?>')">Rename this table</a>) 
+			<strong><span id='<?php echo $name ?>_name'><?php echo $disp_name ?></span> <?php echo lang('rates') ?></strong> (<a href="javascript:void(0)" onclick="remove_table('tbl_<?php echo $name ?>')"><?php echo lang('btn_tbl_remove') ?></a>) (<a href="javascript:void(0)" onclick="rename_table('<?php echo $name ?>')"><?php echo lang('btn_rename') ?></a>) 
 			<table><tr>
 			
 			<div id="rename_<?php echo $name ?>" style="display:none">
 			
 			<input type="text" id="input_<?php echo $name ?>" value="<?php echo $disp_name ?>" class="gc_tf1"> <input type="button" value="Change" onclick="apply_rename('<?php echo $name ?>', '<?php echo $name ?>')" /> <input type="button" value="Cancel" onclick="cancel_rename('<?php echo $name ?>')" /></div>
 			
-			<td>By Country</td>
+			<td><?php echo lang('by_country') ?></td>
 			<td colspan="2">
 				<select name="location[<?php echo $name ?>]">
-				<option value=''> N/A </option>
+				<option value=''> <?php echo lang('na') ?> </option>
 				<?php 
 				foreach($countries as $cid=>$c_name)
 				{	
@@ -227,9 +227,12 @@
 			</td>
 			</tr>
 			
-			<td>Method: </td><td colspan="2">
+			<td><?php echo lang('method') ?>: </td><td colspan="2">
 			<select name="method[<?php echo $name ?>]">
 			<?php 
+			$weight = '';
+			$price = '';
+			
 			//set which option is selected
 			if($settings['method'][$name] == 'weight')
 			{
@@ -240,10 +243,10 @@
 				$price	= ' selected="selected"';
 			}
 			?>
-			<option value="price" <?php echo $price ?>>Price</option>
-			<option value="weight" <?php echo $weight ?>>Weight</option>
+			<option value="price" <?php echo $price ?>><?php echo lang('price') ?></option>
+			<option value="weight" <?php echo $weight ?>><?php echo lang('weight') ?></option>
 			</select></td></tr>
-			<tr><td colspan="3">Rates: </td></tr>
+			<tr><td colspan="3"><?php echo lang('rates') ?>: </td></tr>
 			<?php 
 			$count	= 0;
 			
@@ -251,9 +254,9 @@
 			{
 			?>	
 				<tr id="<?php echo $name ?>_<?php echo $count ?>">
-				<td>From: <input class="gc_tf1 <?php echo $name ?>_from tablerate_input" type="text" name="from[<?php echo $name ?>][]" value="<?php echo $from ?>"/></td>
-				<td>Rate: <input class="gc_tf1 <?php echo $name ?>_rate tablerate_input" type="text" name="rate[<?php echo $name?>][]" value="<?php echo $rate ?>" /></td>
-				<td style="font-size:11px;"><a href="javascript:tablerate_remove('<?php echo $name ?>_<?php echo $count ?>');">(remove)</a> <a href="javascript:tablerate_add_above('<?php echo $name ?>',<?php echo $count ?>)">(add above)</a> <a href="javascript:tablerate_add_below('<?php echo $name ?>',<?php echo $count ?>)">(add below)</a>
+				<td><?php echo lang('from') ?>: <input class="gc_tf1 <?php echo $name ?>_from tablerate_input" type="text" name="from[<?php echo $name ?>][]" value="<?php echo $from ?>"/></td>
+				<td><?php echo lang('rate') ?>: <input class="gc_tf1 <?php echo $name ?>_rate tablerate_input" type="text" name="rate[<?php echo $name?>][]" value="<?php echo $rate ?>" /></td>
+				<td style="font-size:11px;"><a href="javascript:tablerate_remove('<?php echo $name ?>_<?php echo $count ?>');">(<?php echo lang('btn_remove') ?>)</a> <a href="javascript:tablerate_add_above('<?php echo $name ?>',<?php echo $count ?>)">(<?php echo lang('btn_above') ?>)</a> <a href="javascript:tablerate_add_below('<?php echo $name ?>',<?php echo $count ?>)">(<?php echo lang('btn_below') ?>)</a>
 				</td>
 				</tr>
 			<?php 

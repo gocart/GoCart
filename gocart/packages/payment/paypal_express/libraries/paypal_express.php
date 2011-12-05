@@ -32,9 +32,11 @@ class Paypal_express
 		$form			= array();
 		if($enabled)
 		{
-			$form['name']	= $this->method_name;
+			$form['name'] = $this->method_name;
 			
-			return $this->CI->load->view('checkout', array(), true);
+			$form['form'] = $this->CI->load->view('pp_checkout', array(), true);
+			
+			return $form;
 			
 		} else return array();
 		
