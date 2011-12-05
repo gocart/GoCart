@@ -8,8 +8,7 @@ class tablerate
 	function tablerate()
 	{
 		$this->CI =& get_instance();
-		$this->CI->load->model(array('Settings_model', 'location_model'));
-		$this->CI->load->library('session');
+		$this->CI->lang->load('tablerate');
 	}
 	
 	function rates()
@@ -42,7 +41,7 @@ class tablerate
 		$order_weight	= $this->get_order_weight();
 		$order_price = $this->get_order_price();
 		
-		$countries = $this->CI->location_model->get_countries();
+		$countries = $this->CI->Location_model->get_countries();
 		
 		$rates = array();
 		
@@ -104,13 +103,13 @@ class tablerate
 					,'10'	=> '15.00'
 					,'0'	=> '5.00');
 		
-		$table	= array('Table_Rate' => $rates);
+		$table	= array('Example' => $rates);
 		
 		//note that the code here is plural, these are the rates
 		$this->CI->Settings_model->save_settings('tablerates', array('rates' => serialize($table)));
 		$this->CI->Settings_model->save_settings('tablerate', array('enabled'=>'0', 
-																	'method'=>serialize(array('Table_Rate'=>'price')),
-																	'location'=>serialize(array('Table_Rate'=>'')) //location is by country ID
+																	'method'=>serialize(array('Example'=>'price')),
+																	'location'=>serialize(array('Example'=>'')) //location is by country ID
 																	 ));
 	}
 	
@@ -142,34 +141,29 @@ class tablerate
 			$rates	= $this->organize_post_rates($post['rates']);
 		}
 		
-		$countries		= $this->CI->location_model->get_countries_menu();
-		
-		//set weight and price to blank by default
-		$weight	= '';
-		$price	= '';
+		$countries		= $this->CI->Location_model->get_countries_menu();
 		
 		// fetch form contents
-		ob_start();
-			include('form.php');
-			$form = ob_get_contents();
-		ob_end_clean();
+		$data = array('settings'=>$settings,
+					  'rates'	=>$rates,
+					  'countries' =>$countries );
 		
+		return $this->CI->load->view('admin_form', $data, true);
 		
-		return $form;
 	}
 	
 	function check()
 	{	
 		if(empty($_POST))
 		{
-			return '<div>Nothing was sent</div>';
+			return '<div>'.lang('empty_post').'</div>';
 		}
 		
 		foreach($_POST['from'] as $table=>$list)
 		{
 			if(empty($list))
 			{
-				return '<div>You must enter at least 1 rate per table in order to proceed.</div>';
+				return '<div>'.lang('post_err').'</div>';
 			}
 		}
 		

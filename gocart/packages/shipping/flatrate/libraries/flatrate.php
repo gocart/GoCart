@@ -7,7 +7,7 @@ class flatrate
 	function __construct()
 	{
 		$this->CI =& get_instance();
-		$this->CI->load->model('Settings_model');
+		$this->CI->lang->load('flatrate');
 	}
 	
 	function rates()
@@ -47,17 +47,15 @@ class flatrate
 		{
 			$settings	= $this->CI->Settings_model->get_settings('flatrate');
 			$rate		= $settings['rate'];
-			$enabled	= $settings['enabled'];
 		}
 		else
 		{
 			$rate		= $post['rate'];
-			$enabled	= $post['enabled'];
 		}
 		
-		$form	= '<table><tr><td>Rate: </td><td><input type="text" name="rate" value="'.$rate.'"  class="gc_tf1"/></td></tr>
-		<tr><td>Enabled: </td><td><select name="enabled">';
-		if($enabled == 1)
+		$form	= '<table><tr><td>'.lang('rate').':</td><td><input type="text" name="rate" value="'.$rate.'"  class="gc_tf1"/></td></tr>
+		<tr><td>'.lang('enabled').': </td><td><select name="enabled">';
+		if($settings['enabled'] == 1)
 		{
 			$enable		= ' selected="selected"';
 			$disable	= '';
@@ -67,8 +65,8 @@ class flatrate
 			$enable		= '';
 			$disable	= ' selected="selected"';
 		}
-		$form	.= '<option value="1"'.$enable.'>Enabled</option>
-		<option value="0"'.$disable.'>Disabled</option>';
+		$form	.= '<option value="1"'.$enable.'>'.lang('enabled').'</option>
+					<option value="0"'.$disable.'>'.lang('disabled').'</option>';
 		$form	.= '</select></td></tr>
 		</table>';
 		return $form;
@@ -80,7 +78,7 @@ class flatrate
 		
 		if(!is_numeric($_POST['rate']))
 		{
-			$error	.= '<div>The rate must be a numerical value.</div>';
+			$error	.= '<div>'.lang('val_err').'</div>';
 		}		
 		
 		//count the errors
