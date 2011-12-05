@@ -8,8 +8,12 @@ Common Language
 ******************************************/
 
 
+
+
 /*******************
+    
     Site front end
+  
  *******************/
 
 //common terms
@@ -139,6 +143,24 @@ $lang['shipping_instructions']		= 'Shipping Instructions?';
 //checkout confirmation
 $lang['thank_you']					= 'Thanks for shopping with '; // terminates with company/site name, defined in gocart config as 'company_name'
 
+//authorize.net library messages
+$lang['please_fix_errors']			= 'Please fix the following errors:';
+$lang['enter_card_name']			= 'Please enter your first and last name as it appears on the card';
+$lang['invalid_card_exp']			= 'The expiration date does not appear to be valid';
+$lang['invalid_card_num']			= 'The card number you entered is not a valid credit card number';
+$lang['enter_card_code']			= 'Please enter the three digit security code on the reverse side of the card';
+$lang['transaction_declined']		= 'Transaction Declined. Please check your card information and try again.';
+$lang['enter_test_mode_credentials']	= 'You must enter login values for TEST mode';
+$lang['enter_live_mode_credentials']	= 'You must enter login values for LIVE mode';
+$lang['all_required_fields']		= 'Please complete all required fields.';
+$lang['card_number']				= 'Card Number';
+$lang['expires_on']					= 'Expires On';
+$lang['cvv_code']					= 'CVV Code';
+
+//paypal library messages
+$lang['paypal_error']				= 'There was an error processing your payment through PayPal';
+$lang['paypal_desc']				= 'Using this method, you will be directed to the Paypal website to verify your payment. Once your payment is authorized, you will be directed back to our website and your order will be complete.';
+
 
 //giftcards
 $lang['giftcard']					= 'Gift Card';
@@ -200,93 +222,3 @@ $lang['giftcard_not_exist']				= 'The gift card code you entered does not exist.
 $lang['giftcard_already_applied']		= 'Your gift card is already applied';
 
 
-/******************
-	Admin section
-*******************/
-
-
-//header
-$lang['sales']							= 'Sales';
-$lang['orders']							= 'Orders';
-$lang['customers']						= 'Customers';
-$lang['groups']							= 'Groups';
-$lang['reports']						= 'Reports';
-$lang['coupons']						= 'Coupons';
-$lang['giftcards']						= 'Gift Cards';
-$lang['catalog']						= 'Catalog';
-$lang['categories']						= 'Categories';
-$lang['products']						= 'Products';
-$lang['content']						= 'Content';
-$lang['banners']						= 'Banners';
-$lang['boxes']							= 'Boxes';
-$lang['pages']							= 'Pages';
-$lang['administrative']					= 'Administrative';
-$lang['settings']						= 'Settings';
-$lang['locations']						= 'Locations';
-$lang['administrators']					= 'Administrators';
-$lang['note']							= 'Note';
-$lang['alert']							= 'Alert';
-$lang['log_out']						= 'Log Out';
-$lang['front_end']						= 'Front End';
-$lang['dashboard']						= 'Dashboard';
-
-//admin management
-$lang['firstname']						= 'First Name';
-$lang['lastname']						= 'Last Name';
-$lang['access']							= 'Access';
-$lang['add_new_admin']					= 'Add New Admin';
-$lang['confirm_delete_admin']			= 'Are you sure you want to delete this admin?';
-
-//banner management
-$lang['tab_banners']					= 'Banners';
-$lang['label_banner_title']				= 'Title';
-$lang['label_banner_link']				= 'Link';
-$lang['label_banner_enable_on']			= 'Enable On';
-$lang['label_banner_disable_on']		= 'Disable On';
-$lang['label_banner_new_window']		= 'New Window';
-$lang['label_banner_image']				= 'Image';
-$lang['label_banner_current_file']		= 'Current File';
-$lang['confirm_delete_banner']			= 'Are you sure you want to delete this banner?';
-$lang['add_new_banner']					= 'Add New Banner';
-$lang['message_no_banners']				= 'There are currently no banners';
-
-//box management
-$lang['tab_boxes']						= 'Homepage Boxes';
-$lang['label_box_title']				= 'Title';
-$lang['label_box_link']					= 'Link';
-$lang['label_box_enable_on']			= 'Enable On';
-$lang['label_box_disable_on']			= 'Disable On';
-$lang['label_box_new_window']			= 'New Window';
-$lang['label_box_image']				= 'Image';
-$lang['label_box_current_file']			= 'Current File';
-$lang['confirm_delete_box']				= 'Are you sure you want to delete this box?';
-$lang['add_new_box']					= 'Add New Box';
-$lang['message_no_boxes']				= 'There are currently no boxes';
-
-//dashboard & shared
-$lang['recent_orders']					= 'Most Recent Orders';
-$lang['order']							= 'Order';
-$lang['bill_to']						= 'Bill To';
-$lang['ship_to']						= 'Ship To';
-$lang['ordered_on']						= 'Ordered On';
-$lang['status']							= 'Status';
-$lang['notes']							= 'Notes';
-$lang['recent_customers']				= 'Most Recent Registered Customers';
-$lang['information']					= 'Information';
-
-//orders 
-$lang['search_returned']				= 'Your searched returned'; //... results (below)
-$lang['returned_results']				= 'results'; // end of above
-$lang['view_orders']					= 'View All Orders';
-$lang['xml_export']						= 'XML Export';
-$lang['no_orders']						= 'There are currently no orders.';
-$lang['order_delete']					= 'Are you sure you want to delete the selected orders?';
-$lang['no_orders_sel']					= 'You did not select any orders to delete.';
-
-
-//fedex module
-$lang['fedex_key']						= 'Key';
-$lang['fedex_account']					= 'Ship Account';
-$lang['fedex_meter']					= 'Meter';
-$lang['fedex_pw']						= 'Password';
-$lang['fedex_services']					= 'Services To Offer';
