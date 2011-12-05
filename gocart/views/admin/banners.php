@@ -51,13 +51,13 @@ function areyousure()
 <table class="gc_table" cellspacing="0" cellpadding="0">
 	<thead>
 		<tr>
-			<th class="gc_cell_left"><?php echo lang('label_banner_title');?></th>
-			<th><?php echo lang('label_banner_enable_on');?></th>
-			<th><?php echo lang('label_banner_disable_on');?></th>
+			<th class="gc_cell_left"><?php echo lang('title');?></th>
+			<th><?php echo lang('enable_on');?></th>
+			<th><?php echo lang('disable_on');?></th>
 			<th class="gc_cell_right"></th>
 		</tr>
 	</thead>
-	<?php echo (count($banners) < 1)?'<tr><td style="text-align:center;" colspan="3">'.lang('message_no_banners').'</td></tr>':''?>
+	<?php echo (count($banners) < 1)?'<tr><td style="text-align:center;" colspan="3">'.lang('no_banners').'</td></tr>':''?>
 	<?php if ($banners): ?>
 	<tbody id="banners_sortable">
 	<?php
@@ -103,8 +103,8 @@ function areyousure()
 			<td><?php echo $enable;?></td>
 			<td><?php echo $disable;?></td>
 			<td class="gc_cell_right list_buttons">
-				<a href="<?php echo  site_url($this->config->item('admin_folder').'/banners/delete/'.$banner->id);?>" onclick="return areyousure();"><?php echo lang('form_delete');?></a>
-				<a href="<?php echo  site_url($this->config->item('admin_folder').'/banners/form/'.$banner->id);?>"><?php echo lang('form_edit');?></a>
+				<a href="<?php echo  site_url($this->config->item('admin_folder').'/banners/delete/'.$banner->id);?>" onclick="return areyousure();"><?php echo lang('delete');?></a>
+				<a href="<?php echo  site_url($this->config->item('admin_folder').'/banners/form/'.$banner->id);?>"><?php echo lang('edit');?></a>
 			</td>
 		</tr>
 	<?php endforeach; ?>

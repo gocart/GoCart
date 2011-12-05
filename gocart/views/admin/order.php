@@ -1,15 +1,15 @@
 <?php include('header.php'); ?>
 
 <div class="button_set">
-	 <a title="Send Email Notification" id="notify" href="<?php echo site_url($this->config->item('admin_folder').'/orders/send_notification/'.$order->id); ?>">Send Notification Email</a> <a href="<?php echo site_url('admin/orders/packing_slip/'.$order->id);?>" target="_blank">Packing Slip</a>
+	 <a title="<?php echo lang('send_email_notification');?>" id="notify" href="<?php echo site_url($this->config->item('admin_folder').'/orders/send_notification/'.$order->id); ?>"><?php echo lang('send_email_notification');?></a> <a href="<?php echo site_url('admin/orders/packing_slip/'.$order->id);?>" target="_blank"><?php echo lang('packing_slip');?></a>
 </div>
 <?php echo form_open($this->config->item('admin_folder').'/orders/view/'.$order->id);?>
 <table class="order_table" cellspacing="0" cellpadding="0">
 	<thead>
 		<tr>
-			<th class="gc_cell_left">Account Info</th>
-			<th>Billing Address</th>
-			<th class="gc_cell_right">Shipping Address</th>
+			<th class="gc_cell_left"><?php echo lang('account_info');?></th>
+			<th><?php echo lang('billing_address');?></th>
+			<th class="gc_cell_right"><?php echo lang('shipping_address');?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -46,27 +46,27 @@
 		
 		
 		<tr>
-			<td class="title">Order Details</td>
-			<td class="title">Payment Method</td>
-			<td class="title">Shipping Method/Instructions</td>
+			<td class="title"><?php echo lang('order_details');?></td>
+			<td class="title"><?php echo lang('payment_method');?></td>
+			<td class="title"><?php echo lang('shipping_details');?></td>
 		</tr>
 		<tr>
 			<td>
 				<table cellpadding="0" cellspacing="0">
 					<?php if(!empty($order->referral)):?>
 					<tr>
-						<td><strong>Referral: </strong></td>
+						<td><strong><?php echo lang('referral');?> </strong></td>
 						<td><?php echo $order->referral;?></td>
 					</tr>
 					<?php endif;?>
 					<?php if(!empty($order->is_gift)):?>
 					<tr>
-						<td colspan="2"><strong>This is a gift.</strong></td>
+						<td colspan="2"><strong><?php echo lang('is_gift');?></strong></td>
 					</tr>
 					<?php endif;?>
 					<?php if(!empty($order->gift_message)):?>
 					<tr>
-						<td><strong>Gift Note: </strong></td>
+						<td><strong><?php echo lang('gift_note');?></strong></td>
 						<td><?php echo $order->gift_message;?></td>
 					</tr>
 					<?php endif;?>
@@ -84,9 +84,9 @@
 		
 		
 		<tr>
-			<td class="title">Admin Notes</td>
+			<td class="title"><?php echo lang('admin_notes');?></td>
 			<td class="title"></td>
-			<td class="title">Status</td>
+			<td class="title"><?php echo lang('status');?></td>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -96,7 +96,7 @@
 				<?php
 				echo form_dropdown('status', $this->config->item('order_statuses'), $order->status);
 				?><br/>
-				<input type="submit" class="button" value="Update Order"/>
+				<input type="submit" class="button" value="<?php echo lang('update_order');?>"/>
 			</td>
 		</tr>
 	</tbody>
@@ -108,11 +108,11 @@
 <table class="gc_table" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<thead>
 		<tr>
-			<th class="gc_cell_left">Name</th>
-			<th>Description</th>
-			<th>Price</th>
-			<th style="width:70px;">Quantity</th>
-			<th class="gc_cell_right" style="width:130px;">Total</th>
+			<th class="gc_cell_left"><?php echo lang('name');?></th>
+			<th><?php echo lang('description');?></th>
+			<th><?php echo lang('price');?></th>
+			<th style="width:70px;"><?php echo lang('quantity');?></th>
+			<th class="gc_cell_right" style="width:130px;"><?php echo lang('total');?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -120,7 +120,7 @@
 		<tr>
 			<td>
 				<?php echo $product['name'];?>
-				<?php echo (trim($product['sku']) != '')?'<br/><small>sku: '.$product['sku'].'</small>':'';?>
+				<?php echo (trim($product['sku']) != '')?'<br/><small>'.lang('sku').': '.$product['sku'].'</small>':'';?>
 				
 			</td>
 			<td>
@@ -162,14 +162,14 @@
 		
 		<?php if($order->coupon_discount > 0):?>
 		<tr>
-			<td><strong>Coupon Discount</strong></td>
+			<td><strong><?php echo lang('coupon_discount');?></strong></td>
 			<td colspan="3"></td>
 			<td><?php echo format_currency(0-$order->coupon_discount); ?></td>
 		</tr>
 		<?php endif;?>
 		
 		<tr>
-			<td><strong>Subtotal</strong></td>
+			<td><strong><?php echo lang('subtotal');?></strong></td>
 			<td colspan="3"></td>
 			<td><?php echo format_currency($order->subtotal); ?></td>
 		</tr>
@@ -189,28 +189,26 @@
 		<?php endforeach;
 		}
 		?>
-
-		
 		<tr>
-			<td><strong>Shipping</strong></td>
+			<td><strong><?php echo lang('shipping');?></strong></td>
 			<td colspan="3"><?php echo $order->shipping_method; ?></td>
 			<td><?php echo format_currency($order->shipping); ?></td>
 		</tr>
 		
 		<tr>
-			<td><strong>Tax</strong></td>
+			<td><strong><?php echo lang('tax');?></strong></td>
 			<td colspan="3"></td>
 			<td><?php echo format_currency($order->tax); ?></td>
 		</tr>
 		<?php if($order->gift_card_discount > 0):?>
 		<tr>
-			<td><strong>Gift Card Discount</strong></td>
+			<td><strong><?php echo lang('giftcard_discount');?></strong></td>
 			<td colspan="3"></td>
 			<td><?php echo format_currency(0-$order->gift_card_discount); ?></td>
 		</tr>
 		<?php endif;?>
 		<tr>
-			<td><strong>Total</strong></td>
+			<td><strong><?php echo lang('total');?></strong></td>
 			<td colspan="3"></td>
 			<td><strong><?php echo format_currency($order->total); ?></strong></td>
 		</tr>
@@ -224,4 +222,4 @@ $('#notify').colorbox({
 					iframe: true
 			});
 </script>
-<?php include('footer.php'); ?>
+<?php include('footer.php');

@@ -1,6 +1,6 @@
 <?php
 
-class Reports extends CI_Controller {
+class Reports extends Admin_Controller {
 
 	//this is used when editing or adding a customer
 	var $customer_id	= false;	
@@ -9,14 +9,14 @@ class Reports extends CI_Controller {
 	{		
 		parent::__construct();
 		remove_ssl();
-		$this->load->library('Auth');
+
 		$this->auth->check_access('Admin', true);
-		//this adds the redirect url to our flash data, incase they are not logged in
-		$this->auth->is_logged_in(uri_string());
 		
 		$this->load->model('Order_model');
 		$this->load->model('Search_model');
 		$this->load->helper(array('formatting', 'utility'));
+		
+		$this->lang->load('report');
 	}
 	
 	function index()
@@ -27,7 +27,7 @@ class Reports extends CI_Controller {
 		{
 			$data['orders'][] = $this->Order_model->get_items($o->id);
 		}
-		$data['page_title']	= 'Reports';
+		$data['page_title']	= lang('reports');
 		$this->load->view($this->config->item('admin_folder').'/reports', $data);
 	}
 	

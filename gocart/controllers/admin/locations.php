@@ -1,23 +1,20 @@
 <?php
 
-class Locations extends CI_Controller {	
+class Locations extends Admin_Controller {	
 	
 	function __construct()
 	{		
 		parent::__construct();
 		remove_ssl();
 		
-		$this->load->library('Auth');
 		$this->auth->check_access('Admin', true);
 		$this->load->model('Location_model');
-		
-		//this adds the redirect url to our flash data, incase they are not logged in
-		$this->auth->is_logged_in(uri_string());
+		$this->lang->load('location');
 	}
 	
 	function index()
 	{
-		$data['page_title']	= 'Countries';
+		$data['page_title']	= lang('countries');
 		$data['locations']	= $this->Location_model->get_countries();
 		
 		$this->load->view($this->config->item('admin_folder').'/countries', $data);
@@ -37,7 +34,7 @@ class Locations extends CI_Controller {
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 	
 		
-		$data['page_title']		= 'Add Country';
+		$data['page_title']		= lang('country_form');
 		
 		//default values are empty if the product is new
 		$data['id']					= '';
@@ -55,23 +52,20 @@ class Locations extends CI_Controller {
 			//if the country does not exist, redirect them to the country list with an error
 			if (!$country)
 			{
-				$this->session->set_flashdata('message', 'The requested country could not be found.');
+				$this->session->set_flashdata('error', lang('error_country_not_found'));
 				redirect($this->config->item('admin_folder').'/locations');
 			}
-			
-			//set title to edit if we have an ID
-			$data['page_title']	= 'Edit Country';
 			
 			$data	= array_merge($data, $country);
 		}
 		
-		$this->form_validation->set_rules('name', 'Name', 'trim|required');
-		$this->form_validation->set_rules('iso_code_2', 'ISO Code 2', 'trim|required');
-		$this->form_validation->set_rules('iso_code_3', 'ISO Code 3', 'trim|required');
-		$this->form_validation->set_rules('address_format', 'Address Format', 'trim');
-		$this->form_validation->set_rules('postcode_required', 'Post Code Required', 'trim');
-		$this->form_validation->set_rules('tax', 'Tax', 'trim|numeric');
-		$this->form_validation->set_rules('status', 'Status', 'trim');		
+		$this->form_validation->set_rules('name', 'lang:name', 'trim|required');
+		$this->form_validation->set_rules('iso_code_2', 'lang:iso_code_2', 'trim|required');
+		$this->form_validation->set_rules('iso_code_3', 'lang:iso_code_3', 'trim|required');
+		$this->form_validation->set_rules('address_format', 'lang:address_format', 'trim');
+		$this->form_validation->set_rules('postcode_required', 'lang:require_postcode', 'trim');
+		$this->form_validation->set_rules('tax', 'lang:tax', 'trim|numeric');
+		$this->form_validation->set_rules('status', 'lang:status', 'trim');		
 	
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -90,15 +84,7 @@ class Locations extends CI_Controller {
 
 			$promo_id = $this->Location_model->save_country($save);
 			
-			// We're done
-			if (!$id)
-			{
-				$this->session->set_flashdata('message', 'The "'.$this->input->post('name').'" Country has been added.');
-			}
-			else
-			{
-				$this->session->set_flashdata('message', 'Information for the "'.$this->input->post('name').'" Country has been updated.');
-			}
+			$this->session->set_flashdata('message', lang('message_saved_country'));
 			
 			//go back to the product list
 			redirect($this->config->item('admin_folder').'/locations');
@@ -114,21 +100,21 @@ class Locations extends CI_Controller {
 			//if the promo does not exist, redirect them to the customer list with an error
 			if (!$location)
 			{
-				$this->session->set_flashdata('message', 'The requested Coutnry could not be found.');
+				$this->session->set_flashdata('error', lang('error_country_not_found'));
 				redirect($this->config->item('admin_folder').'/locations');
 			}
 			else
 			{
 				$this->Location_model->delete_country($id);
 				
-				$this->session->set_flashdata('message', 'The "'.$location->name.'" Country has been deleted from the system.');
+				$this->session->set_flashdata('message', lang('message_deleted_country'));
 				redirect($this->config->item('admin_folder').'/locations');
 			}
 		}
 		else
 		{
 			//if they do not provide an id send them to the promo list page with an error
-			$this->session->set_flashdata('message', 'The requested Country could not be found.');
+			$this->session->set_flashdata('error', lang('error_country_not_found'));
 			redirect($this->config->item('admin_folder').'/locations');
 		}
 	}
@@ -141,21 +127,21 @@ class Locations extends CI_Controller {
 			//if the promo does not exist, redirect them to the customer list with an error
 			if (!$location)
 			{
-				$this->session->set_flashdata('message', 'The requested zone could not be found.');
+				$this->session->set_flashdata('error', lang('error_zone_not_found'));
 				redirect($this->config->item('admin_folder').'/locations');
 			}
 			else
 			{
 				$this->Location_model->delete_zone($id);
 				
-				$this->session->set_flashdata('message', 'The "'.$location->name.'" Zone has been deleted from the system.');
+				$this->session->set_flashdata('message', lang('message_deleted_zone'));
 				redirect($this->config->item('admin_folder').'/locations/zones/'.$location->country_id);
 			}
 		}
 		else
 		{
 			//if they do not provide an id send them to the promo list page with an error
-			$this->session->set_flashdata('message', 'The requested Zone could not be found.');
+			$this->session->set_flashdata('error', lang('error_zone_not_found'));
 			redirect($this->config->item('admin_folder').'/locations');
 		}
 	}
@@ -166,12 +152,12 @@ class Locations extends CI_Controller {
 		$data['country']	= $this->Location_model->get_country($country_id);
 		if(!$data['country'])
 		{
-			$this->session->set_flashdata('error', 'The requested Country could not be found.');
+			$this->session->set_flashdata('error', lang('error_zone_not_found'));
 			redirect($this->config->item('admin_folder').'/locations');
 		}
 		$data['zones']	= $this->Location_model->get_zones($country_id);
 		
-		$data['page_title']	= $data['country']->name. ' Zones';
+		$data['page_title']	= sprintf(lang('country_zones'), $data['country']->name);
 
 		$this->load->view($this->config->item('admin_folder').'/country_zones', $data);
 	}
@@ -184,7 +170,7 @@ class Locations extends CI_Controller {
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 	
 		$data['countries']		= $this->Location_model->get_countries();
-		$data['page_title']		= 'Add Zone';
+		$data['page_title']		= lang('zone_form');
 		
 		//default values are empty if the product is new
 		$data['id']			= '';
@@ -201,20 +187,18 @@ class Locations extends CI_Controller {
 			//if the country does not exist, redirect them to the country list with an error
 			if (!$zone)
 			{
-				$this->session->set_flashdata('message', 'The requested zone could not be found.');
+				$this->session->set_flashdata('error', lang('error_zone_not_found'));
 				redirect($this->config->item('admin_folder').'/locations');
 			}
-			//set title to edit if we have an ID
-			$data['page_title']	= 'Edit Zone';
 			
 			$data	= array_merge($data, $zone);
 		}
 		
 		$this->form_validation->set_rules('country_id', 'Country ID', 'trim|required');
-		$this->form_validation->set_rules('name', 'Name', 'trim|required');
-		$this->form_validation->set_rules('code', 'Code', 'trim|required');
-		$this->form_validation->set_rules('tax', 'Tax', 'trim|numeric');
-		$this->form_validation->set_rules('status', 'Status', 'trim');		
+		$this->form_validation->set_rules('name', 'lang:name', 'trim|required');
+		$this->form_validation->set_rules('code', 'lang:code', 'trim|required');
+		$this->form_validation->set_rules('tax', 'lang:tax', 'trim|numeric');
+		$this->form_validation->set_rules('status', 'lang:status', 'trim');		
 	
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -231,16 +215,7 @@ class Locations extends CI_Controller {
 
 			$this->Location_model->save_zone($save);
 			
-			// We're done
-			if (!$id)
-			{
-				$this->session->set_flashdata('message', 'The "'.$this->input->post('name').'" zone has been added.');
-			}
-			else
-			{
-				$this->session->set_flashdata('message', 'Information for the "'.$this->input->post('name').'" zone has been updated.');
-			}
-			
+			$this->session->set_flashdata('message', lang('message_zone_saved'));
 			//go back to the product list
 			redirect($this->config->item('admin_folder').'/locations/zones/'.$save['country_id']);
 		}
@@ -263,7 +238,7 @@ class Locations extends CI_Controller {
 		$data['zone']			= $this->Location_model->get_zone($id);
 		$data['areas']			= $this->Location_model->get_zone_areas($id);
 		
-		$data['page_title']		= 'Zone Areas for '.$data['zone']->name;
+		$data['page_title']		= sprintf(lang('zone_areas_for'), $data['zone']->name);
 		
 		$this->load->view($this->config->item('admin_folder').'/country_zone_areas', $data);
 	}
@@ -276,21 +251,21 @@ class Locations extends CI_Controller {
 			//if the promo does not exist, redirect them to the customer list with an error
 			if (!$location)
 			{
-				$this->session->set_flashdata('message', 'The requested Zone Area could not be found.');
+				$this->session->set_flashdata('error', lang('error_zone_area_not_found'));
 				redirect($this->config->item('admin_folder').'/locations');
 			}
 			else
 			{
 				$this->Location_model->delete_zone_area($id);
 				
-				$this->session->set_flashdata('message', 'The "'.$location->code.'" Zone Area has been deleted from the system.');
+				$this->session->set_flashdata('message', lang('message_deleted_zone_area'));
 				redirect($this->config->item('admin_folder').'/locations/zone_areas/'.$location->zone_id);
 			}
 		}
 		else
 		{
 			//if they do not provide an id send them to the promo list page with an error
-			$this->session->set_flashdata('message', 'The requested Zone Area could not be found.');
+			$this->session->set_flashdata('error', lang('error_zone_area_not_found'));
 			redirect($this->config->item('admin_folder').'/locations/');
 		}
 	}
@@ -303,7 +278,7 @@ class Locations extends CI_Controller {
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
 		$zone					= $this->Location_model->get_zone($zone_id);
-		$data['page_title']		= 'Add Zone Area to '.$zone->name;
+		$data['page_title']		= sprintf(lang('zone_area_form'), $zone->name);
 
 		//default values are empty if the product is new
 		$data['id']			= '';
@@ -318,17 +293,15 @@ class Locations extends CI_Controller {
 			//if the country does not exist, redirect them to the country list with an error
 			if (!$area)
 			{
-				$this->session->set_flashdata('message', 'The requested zone area could not be found.');
+				$this->session->set_flashdata('error', lang('error_zone_area_not_found'));
 				redirect($this->config->item('admin_folder').'/locations/zone_areas/'.$zone_id);
 			}
-			//set title to edit if we have an ID
-			$data['page_title']	= 'Edit Zone Area';
 
 			$data	= array_merge($data, $area);
 		}
 
-		$this->form_validation->set_rules('code', 'Code', 'trim|required');
-		$this->form_validation->set_rules('tax', 'Tax', 'trim|numeric');
+		$this->form_validation->set_rules('code', 'lang:code', 'trim|required');
+		$this->form_validation->set_rules('tax', 'lang:tax', 'trim|numeric');
 
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -343,15 +316,7 @@ class Locations extends CI_Controller {
 
 			$this->Location_model->save_zone_area($save);
 
-			// We're done
-			if (!$area_id)
-			{
-				$this->session->set_flashdata('message', 'The "'.$this->input->post('code').'" zone area has been added.');
-			}
-			else
-			{
-				$this->session->set_flashdata('message', 'Information for the "'.$this->input->post('code').'" zone area has been updated.');
-			}
+			$this->session->set_flashdata('message', lang('message_saved_zone_area'));
 
 			//go back to the product list
 			redirect($this->config->item('admin_folder').'/locations/zone_areas/'.$save['zone_id']);

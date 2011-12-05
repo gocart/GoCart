@@ -2,7 +2,7 @@
 <?php echo form_open($this->config->item('admin_folder').'/admin/form/'.$id); ?>
 
 <div class="button_set">
-	<input type="submit" value="<?php echo lang('form_save');?>"/>
+	<input type="submit" value="<?php echo lang('save');?>"/>
 </div>
 
 <div id="gc_tabs">
@@ -47,7 +47,7 @@
 		</div>
 
 		<div class="gc_field2">
-		<label><?php echo lang('account_password');?></label>
+		<label><?php echo lang('password');?></label>
 		<?php
 		$data	= array('id'=>'password', 'name'=>'password', 'class'=>'gc_tf1');
 		echo form_password($data);
@@ -55,7 +55,7 @@
 		</div>
 
 		<div class="gc_field2">
-		<label><?php echo lang('account_confirm');?></label>
+		<label><?php echo lang('confirm_password');?></label>
 		<?php
 		$data	= array('id'=>'confirm', 'name'=>'confirm', 'class'=>'gc_tf1');
 		echo form_password($data);

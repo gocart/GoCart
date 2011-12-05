@@ -9,6 +9,7 @@ class Login extends CI_Controller {
 		force_ssl();
 		
 		$this->load->library('Auth');
+		$this->lang->load('login');
 	}
 
 	function index()
@@ -45,7 +46,7 @@ class Login extends CI_Controller {
 			{
 				//this adds the redirect back to flash data if they provide an incorrect credentials
 				$this->session->set_flashdata('redirect', $redirect);
-				$this->session->set_flashdata('message', 'Authentication Failed');
+				$this->session->set_flashdata('error', lang('error_authentication_failed'));
 				redirect($this->config->item('admin_folder').'/login');
 			}
 		}
@@ -57,7 +58,7 @@ class Login extends CI_Controller {
 		$this->auth->logout();
 		
 		//when someone logs out, automatically redirect them to the login page.
-		$this->session->set_flashdata('message', 'You have been logged out.');
+		$this->session->set_flashdata('message', lang('message_logged_out'));
 		redirect($this->config->item('admin_folder').'/login');
 	}
 

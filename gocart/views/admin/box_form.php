@@ -22,37 +22,37 @@ $new_window		= array('id'=>'new_window', 'name'=>'new_window', 'value'=>1, 'chec
 	</ul>
 	<div id="gc_box_info">
 		<div class="gc_field2">
-			<label for="title"><?php echo lang('label_box_title');?> </label>
+			<label for="title"><?php echo lang('title');?> </label>
 			<?php echo form_input($title); ?>
 		</div>
 
 		<div class="gc_field2">
-			<label for="link"><?php echo lang('label_box_link');?> </label>
+			<label for="link"><?php echo lang('link');?> </label>
 			<?php echo form_input($link); ?>
 		</div>
 
 		<div class="gc_field2">
-			<label for="enable_on"><?php echo lang('label_box_enable_on');?> </label>
+			<label for="enable_on"><?php echo lang('enable_on');?> </label>
 			<?php echo form_input($enable_on); ?>
 			<input type="hidden" name="enable_on_alt" id="enable_on_alt" value="<?php echo set_value('enable_on', $enable_on) ?>" />
 		</div>
 
 		<div class="gc_field2">
-			<label for="disable_on"><?php echo lang('label_box_disable_on');?> </label>
+			<label for="disable_on"><?php echo lang('disable_on');?> </label>
 			<?php echo form_input($disable_on); ?>
 			<input type="hidden" name="disable_on_alt" id="disable_on_alt" value="<?php echo set_value('disable_on', $disable_on) ?>" />
 		</div>
 
 		<div class="gc_field2">
-			<?php echo form_checkbox($new_window); ?> <label><?php echo lang('label_box_new_window');?></label>
+			<?php echo form_checkbox($new_window); ?> <label><?php echo lang('new_window');?></label>
 		</div>
 
 		<div class="gc_field2">
-			<label for="image"><?php echo lang('label_box_image');?> </label>
+			<label for="image"><?php echo lang('image');?> </label>
 			<?php echo form_upload($f_image); ?>
 
 			<?php if($id && $image != ''):?>
-			<div style="text-align:center; pboxding:5px; border:1px solid #ccc;"><img src="<?php echo base_url('uploads/'.$image);?>" alt="current"/><br/><?php echo lang('label_box_current_file');?></div>
+			<div style="text-align:center; pboxding:5px; border:1px solid #ccc;"><img src="<?php echo base_url('uploads/'.$image);?>" alt="current"/><br/><?php echo lang('current_file');?></div>
 			<?php endif;?>
 		</div>
 		

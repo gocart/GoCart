@@ -64,7 +64,7 @@ function set_canned_message(id)
 
 </script>
 <div style="text-align:left">
-<form id="msg_form" action="<?php echo site_url($this->config->item('admin_folder').'/orders/send_notification');?>" method="post">
+<form id="msg_form" action="<?php echo site_url($this->config->item('admin_folder').'/orders/send_notification');?>" method="post" />
 <input type="hidden" name="send" value="true">
 <?php if(!empty($errors)) : ?>
 <div id="err_box" class="error">
@@ -73,12 +73,12 @@ function set_canned_message(id)
 <?php endif; ?>
 <table cellspacing="10">
 <tr>
-	<th align="left">Message Templates</th>
+	<th align="left"><?php echo lang('message_templates');?></th>
 </tr>
 <tr>
 	<td>
 		<select id="canned_messages" onchange="set_canned_message(this.value)">
-			<option>- Select Canned Message -</option>
+			<option><?php echo lang('select_canned_message');?></option>
 			<?php foreach($msg_templates as $msg)
 			{
 				echo '<option value="'.$msg['id'].'">'.$msg['name'].'</option>';
@@ -88,40 +88,40 @@ function set_canned_message(id)
 	</td>
 </tr>
 <tr>
-	<th align="left">Recipient</th>
+	<th align="left"><?php echo lang('recipient');?></th>
 </tr>
 <tr>
 	<td><select name="recipient" onchange="update_name()" id="recipient_name">
 		<?php 
 			if(!empty($order->email))
 			{
-				echo '<option value="'.$order->email.'">Account Main Email ('.$order->email.')';
+				echo '<option value="'.$order->email.'">'.lang('account_main_email').' ('.$order->email.')';
 			}
 			if(!empty($order->ship_email))
 			{
-				echo '<option value="'.$order->ship_email.'">Shipping Email ('.$order->ship_email.')';
+				echo '<option value="'.$order->ship_email.'">'.lang('shipping_email').' ('.$order->ship_email.')';
 			}
 			if($order->bill_email != $order->ship_email)
 			{
-				echo '<option value="'.$order->bill_email.'">Billing Email ('.$order->bill_email.')';
+				echo '<option value="'.$order->bill_email.'">'.lang('billing_email').' ('.$order->bill_email.')';
 			}
 		?>
 	</select></td>
 </tr>
 <tr>
-	<th align="left">Subject</th>
+	<th align="left"><?php echo lang('subject');?></th>
 </tr>
 <tr>
 	<td><input type="text" name="subject" size="40" id="msg_subject" class="gc_tf1"/></td>
 </tr>
 <tr>
-	<th align="left">Message</th>
+	<th align="left"><?php echo lang('message');?></th>
 </tr>
 <tr>
 	<td><textarea id="content_editor" name="content" ></textarea></td>
 </tr>
 <tr>
-	<td><a onclick="$('#msg_form').trigger('submit');" class="button">Send Message</a></td>
+	<td><a onclick="$('#msg_form').trigger('submit');" class="button"><?php echo lang('send_message');?></a></td>
 </tr>
 
 </table>
@@ -129,4 +129,4 @@ function set_canned_message(id)
 </div>
 <?php endif; ?>
 
-<?php include('footer.php');?>
+<?php include('footer.php');

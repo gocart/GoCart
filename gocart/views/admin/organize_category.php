@@ -40,15 +40,15 @@ function save_sortable()
 //]]>
 </script>
 
-<p>Drag and drop the products in the order you would like them to appear.</p>
+<p><?php echo lang('drag_and_drop');?></p>
 
 <table class="gc_table" cellspacing="0" cellpadding="0">
 	<thead>
 		<tr>
-			<th class="gc_cell_left" style="width:60px;">SKU</th>
-			<th>Name</th>
-			<th style="width:60px;">Price</th>
-			<th class="gc_cell_right" style="width:60px;">Sale</th>
+			<th class="gc_cell_left" style="width:60px;"><?php echo lang('sku');?></th>
+			<th><?php echo lang('name');?></th>
+			<th style="width:60px;"><?php echo lang('price');?></th>
+			<th class="gc_cell_right" style="width:60px;"><?php echo lang('sale');?></th>
 		</tr>
 	</thead>
 	<tbody id="category_contents">

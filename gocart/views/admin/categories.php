@@ -2,24 +2,24 @@
 <script type="text/javascript">
 function areyousure()
 {
-	return confirm('Are you sure you want to delete this category?');
+	return confirm('<?php echo lang('confirm_delete_category');?>');
 }
 </script>
 
 <div class="button_set">
-	<a class="button" href="<?php echo site_url($this->config->item('admin_folder').'/categories/form'); ?> ">Add New Category</a>
+	<a class="button" href="<?php echo site_url($this->config->item('admin_folder').'/categories/form'); ?>"><?php echo lang('add_new_category');?></a>
 </div>
 
 <table class="gc_table" cellspacing="0" cellpadding="0">
     <thead>
 		<tr>
-			<th class="gc_cell_left">ID</th>
-			<th>Name</th>
+			<th class="gc_cell_left"><?php echo lang('category_id');?></th>
+			<th><?php echo lang('name')?></th>
 			<th class="gc_cell_right"></th>
 		</tr>
 	</thead>
 	<tbody>
-		<?php echo (count($categories) < 1)?'<tr><td style="text-align:center;" colspan="3">There are currently no categories.</td></tr>':''?>
+		<?php echo (count($categories) < 1)?'<tr><td style="text-align:center;" colspan="3">'.lang('message_no_categories').'</td></tr>':''?>
 		<?php
 		define('ADMIN_FOLDER', $this->config->item('admin_folder'));
 		function list_categories($cats, $sub='') {
@@ -29,11 +29,11 @@ function areyousure()
 				<td class="gc_cell_left" style="width:16px;"><?php echo  $cat['category']->id; ?></td>
 				<td><?php echo  $sub.$cat['category']->name; ?></td>
 				<td class="gc_cell_right list_buttons">
-					<a href="<?php echo  site_url(ADMIN_FOLDER.'/categories/delete/'.$cat['category']->id);?>" onclick="return areyousure();">Delete</a>
+					<a href="<?php echo  site_url(ADMIN_FOLDER.'/categories/delete/'.$cat['category']->id);?>" onclick="return areyousure();"><?php echo lang('delete');?></a>
 
-					<a href="<?php echo  site_url(ADMIN_FOLDER.'/categories/form/'.$cat['category']->id);?>" class="ui-state-default ui-corner-all">Edit</a>
+					<a href="<?php echo  site_url(ADMIN_FOLDER.'/categories/form/'.$cat['category']->id);?>" class="ui-state-default ui-corner-all"><?php echo lang('edit');?></a>
 
-					<a href="<?php echo  site_url(ADMIN_FOLDER.'/categories/organize/'.$cat['category']->id);?>">Organize</a>
+					<a href="<?php echo  site_url(ADMIN_FOLDER.'/categories/organize/'.$cat['category']->id);?>"><?php echo lang('organize');?></a>
 				</td>
 			</tr>
 			<?php

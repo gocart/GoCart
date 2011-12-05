@@ -1,18 +1,18 @@
 <?php
 
 $m	= Array(
-'January'
-,'February'
-,'March'
-,'April'
-,'May'
-,'June'
-,'July'
-,'August'
-,'September'
-,'October'
-,'November'
-,'December'
+lang('january')
+,lang('february')
+,lang('march')
+,lang('april')
+,lang('may')
+,lang('june')
+,lang('july')
+,lang('august')
+,lang('september')
+,lang('october')
+,lang('november')
+,lang('december')
 );
 
 foreach($orders as $year=>$months):?>
@@ -21,13 +21,13 @@ foreach($orders as $year=>$months):?>
 	<thead>
 		<tr>
 			<?php /*<th>ID</th> uncomment this if you want it*/ ?>
-			<th class="gc_cell_left">Months of <?php echo $year?></th>
-			<th>Coupon Discounts</th>
-			<th>Gift Card Discounts</th>
-			<th>Products</th>
-			<th>Shipping</th>
-			<th>Tax</th>
-			<th class="gc_cell_right">Grand Total</th>
+			<th class="gc_cell_left"><?php echo sprintf(lang('months_of', $year));?></th>
+			<th><?php echo lang('coupon_discounts');?></th>
+			<th><?php echo lang('giftcard_discounts');?></th>
+			<th><?php echo lang('products');?></th>
+			<th><?php echo lang('shipping');?></th>
+			<th><?php echo lang('tax');?></th>
+			<th class="gc_cell_right"><?php echo lang('grand_total');?></th>
 		</tr>
 	</thead>
 	<tbody>

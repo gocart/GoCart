@@ -1,23 +1,23 @@
 <?php
 
-class Products extends CI_Controller {	
+class Products extends Admin_Controller {	
 	
 	function __construct()
 	{		
 		parent::__construct();
 		remove_ssl();
-		$this->load->library('Auth');
+
 		$this->auth->check_access('Admin', true);
-		//this adds the redirect url to our flash data, incase they are not logged in
-		$this->auth->is_logged_in(uri_string());
 		
 		$this->load->model('Product_model');
 		$this->load->helper('form');
+		
+		$this->lang->load('product');
 	}
 
 	function index()
 	{
-		$data['page_title']	= 'Products';
+		$data['page_title']	= lang('products');
 		$data['products']	= $this->Product_model->get_products();
 
 		$this->load->view($this->config->item('admin_folder').'/products', $data);
@@ -33,7 +33,7 @@ class Products extends CI_Controller {
 			$this->Product_model->save($product);
 		}
 		
-		$this->session->set_flashdata('message', 'Your products have been updated');
+		$this->session->set_flashdata('message', lang('message_bulk_update'));
 		redirect($this->config->item('admin_folder').'/products');
 	}
 	
@@ -47,7 +47,7 @@ class Products extends CI_Controller {
 		$data['categories']		= $this->Category_model->get_categories_tierd();
 		$data['product_list']	= $this->Product_model->get_products();
 
-		$data['page_title']		= 'Add Product';
+		$data['page_title']		= lang('product_form');
 
 		//default values are empty if the product is new
 		$data['id']					= '';
@@ -77,19 +77,12 @@ class Products extends CI_Controller {
 			//if the product does not exist, redirect them to the product list with an error
 			if (!$product)
 			{
-				$this->session->set_flashdata('error', 'The requested product could not be found.');
+				$this->session->set_flashdata('error', lang('error_not_found'));
 				redirect($this->config->item('admin_folder').'/products');
 			}
 
 			//helps us with the slug generation
 			$this->product_name	= $this->input->post('slug', $product->slug);
-			
-			
-			//if we're duplicating the product, then this should not be set
-			if(!$duplicate)
-			{
-				$data['page_title']	= 'Edit Product';
-			}
 			
 			//set values to db values
 			$data['id']					= $id;
@@ -128,17 +121,17 @@ class Products extends CI_Controller {
 		$this->form_validation->set_rules('caption', 'Caption');
 		$this->form_validation->set_rules('primary_photo', 'Primary');
 
-		$this->form_validation->set_rules('sku', 'SKU', 'trim');
-		$this->form_validation->set_rules('seo_title', 'SEO Title', 'trim');
-		$this->form_validation->set_rules('meta', 'Meta Data', 'trim');
-		$this->form_validation->set_rules('name', 'Name', 'trim|required|max_length[64]');
-		$this->form_validation->set_rules('slug', 'slug', 'trim');
-		$this->form_validation->set_rules('description', 'Description', 'trim');
-		$this->form_validation->set_rules('excerpt', 'Excerpt', 'trim');
-		$this->form_validation->set_rules('price', 'Price', 'trim|numeric');
-		$this->form_validation->set_rules('saleprice', 'Sale Price', 'trim|numeric');
-		$this->form_validation->set_rules('weight', 'Weight', 'trim|numeric');
-		$this->form_validation->set_rules('in_stock', 'In Stock', 'trim|numeric');
+		$this->form_validation->set_rules('sku', 'lang:sku', 'trim');
+		$this->form_validation->set_rules('seo_title', 'lang:seo_title', 'trim');
+		$this->form_validation->set_rules('meta', 'lang:meta_data', 'trim');
+		$this->form_validation->set_rules('name', 'lang:name', 'trim|required|max_length[64]');
+		$this->form_validation->set_rules('slug', 'lang:slug', 'trim');
+		$this->form_validation->set_rules('description', 'lang:description', 'trim');
+		$this->form_validation->set_rules('excerpt', 'lang:excerpt', 'trim');
+		$this->form_validation->set_rules('price', 'lang:price', 'trim|numeric');
+		$this->form_validation->set_rules('saleprice', 'lang:saleprice', 'trim|numeric');
+		$this->form_validation->set_rules('weight', 'lang:weight', 'trim|numeric');
+		$this->form_validation->set_rules('in_stock', 'lang:in_stock', 'trim|numeric');
 
 		/*
 		if we've posted already, get the photo stuff and organize it
@@ -261,14 +254,7 @@ class Products extends CI_Controller {
 			
 			$this->Routes_model->save($route);
 			
-			if (!$id)
-			{
-				$this->session->set_flashdata('message', 'The "'.$this->input->post('name').'" product has been added.');
-			}
-			else
-			{
-				$this->session->set_flashdata('message', 'Information for the "'.$this->input->post('name').'" product has been updated.');
-			}
+			$this->session->set_flashdata('message', lang('message_saved_product'));
 
 			//go back to the product list
 			redirect($this->config->item('admin_folder').'/products');
@@ -303,13 +289,13 @@ class Products extends CI_Controller {
 			/*
 			
 			I find that ImageMagick is more efficient that GD2 but not everyone has it
-			if your server has ImageMagick then change out the line
+			if your server has ImageMagick then you can change out the line
 			
 			$config['image_library'] = 'gd2';
 			
 			with
 			
-			$config['library_path']		= '/usr/bin/convert';
+			$config['library_path']		= '/usr/bin/convert'; //make sure you use the correct path to ImageMagic
 			$config['image_library']	= 'ImageMagick';
 			*/			
 			
@@ -364,7 +350,7 @@ class Products extends CI_Controller {
 			//if the product does not exist, redirect them to the customer list with an error
 			if (!$product)
 			{
-				$this->session->set_flashdata('message', 'The requested product could not be found.');
+				$this->session->set_flashdata('error', lang('error_not_found'));
 				redirect($this->config->item('admin_folder').'/products');
 			}
 			else
@@ -375,16 +361,16 @@ class Products extends CI_Controller {
 				$this->Routes_model->remove('('.$product->slug.')');
 
 				//if the product is legit, delete them
-				$delete	= $this->Product_model->delete_product($id);
+				$this->Product_model->delete_product($id);
 
-				$this->session->set_flashdata('message', 'The "'.$product->name.'" product has been deleted from the system.');
+				$this->session->set_flashdata('message', lang('message_deleted_product'));
 				redirect($this->config->item('admin_folder').'/products');
 			}
 		}
 		else
 		{
 			//if they do not provide an id send them to the product list page with an error
-			$this->session->set_flashdata('message', 'The requested product could not be found.');
+			$this->session->set_flashdata('error', lang('error_not_found'));
 			redirect($this->config->item('admin_folder').'/products');
 		}
 	}

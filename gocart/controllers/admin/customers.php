@@ -1,6 +1,6 @@
 <?php
 
-class Customers extends CI_Controller {
+class Customers extends Admin_Controller {
 
 	//this is used when editing or adding a customer
 	var $customer_id	= false;	
@@ -8,11 +8,10 @@ class Customers extends CI_Controller {
 	function __construct()
 	{		
 		parent::__construct();
-		$this->load->library('Auth');
+
 		$this->load->model(array('Customer_model', 'Location_model'));
 		$this->load->helper('formatting_helper');
-		//this adds the redirect url to our flash data, incase they are not logged in
-		$this->auth->is_logged_in(uri_string());
+		$this->lang->load('customer');
 	}
 	
 	function index($field='lastname', $by='ASC', $page=0)
@@ -20,7 +19,7 @@ class Customers extends CI_Controller {
 		//we're going to use flash data and redirect() after form submissions to stop people from refreshing and duplicating submissions
 		//$this->session->set_flashdata('message', 'this is our message');
 		
-		$data['page_title']	= 'Customers';
+		$data['page_title']	= lang('customers');
 		$data['customers']	= $this->Customer_model->get_customers(50,$page, $field, $by);
 		
 		$this->load->library('pagination');
@@ -58,22 +57,21 @@ class Customers extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		
-		$data['page_title']		= 'Add Customer';
+		$data['page_title']		= lang('customer_form');
 		
 		//default values are empty if the customer is new
-		$data['id']		= '';
-		$data['group_id'] = '';
-		$data['firstname']	= '';
-		$data['lastname']	= '';
-		$data['email']		= '';
-		$data['phone']		= '';
-		$data['company']	= '';
-		$data['email_subscribe'] = '';
-		$data['active']		= false;
+		$data['id']					= '';
+		$data['group_id']			= '';
+		$data['firstname']			= '';
+		$data['lastname']			= '';
+		$data['email']				= '';
+		$data['phone']				= '';
+		$data['company']			= '';
+		$data['email_subscribe']	= '';
+		$data['active']				= false;
 				
 		// get group list
 		$groups = $this->Customer_model->get_groups();
-		$group_list[0]='';
 		foreach($groups as $group)
 		{
 			$group_list[$group->id] = $group->name;
@@ -89,40 +87,37 @@ class Customers extends CI_Controller {
 			//if the customer does not exist, redirect them to the customer list with an error
 			if (!$customer)
 			{
-				$this->session->set_flashdata('message', 'The requested customer could not be found.');
+				$this->session->set_flashdata('error', lang('error_not_found'));
 				redirect($this->config->item('admin_folder').'/customers');
 			}
 			
-			//set title to edit if we have an ID
-			$data['page_title']	= 'Edit Customer';
-			
 			//set values to db values
-			$data['id']		= $customer->id;
-			$data['group_id'] = $customer->group_id;
-			$data['firstname']	= $customer->firstname;
-			$data['lastname']	= $customer->lastname;
-			$data['email']		= $customer->email;
-			$data['phone']		= $customer->phone;
-			$data['company']	= $customer->company;
-			$data['active']		= $customer->active;
-			$data['email_subscribe'] = $customer->email_subscribe;
+			$data['id']					= $customer->id;
+			$data['group_id']			= $customer->group_id;
+			$data['firstname']			= $customer->firstname;
+			$data['lastname']			= $customer->lastname;
+			$data['email']				= $customer->email;
+			$data['phone']				= $customer->phone;
+			$data['company']			= $customer->company;
+			$data['active']				= $customer->active;
+			$data['email_subscribe']	= $customer->email_subscribe;
 			
 		}
 		
-		$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[128]|callback_check_email');
-		$this->form_validation->set_rules('phone', 'Phone', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('company', 'Company', 'trim|max_length[128]');
-		$this->form_validation->set_rules('active', 'Active');
-		$this->form_validation->set_rules('group_id', 'numeric');
-		$this->form_validation->set_rules('email_subscribe', 'numeric|max_length[1]');
+		$this->form_validation->set_rules('firstname', 'lang:firstname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('lastname', 'lang:lastname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('email', 'lang:email', 'trim|required|valid_email|max_length[128]|callback_check_email');
+		$this->form_validation->set_rules('phone', 'lang:phone', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('company', 'lang:company', 'trim|max_length[128]');
+		$this->form_validation->set_rules('active', 'lang:active');
+		$this->form_validation->set_rules('group_id', 'group_id', 'numeric');
+		$this->form_validation->set_rules('email_subscribe', 'email_subscribe', 'numeric|max_length[1]');
 		
 		//if this is a new account require a password, or if they have entered either a password or a password confirmation
 		if ($this->input->post('password') != '' || $this->input->post('confirm') != '' || !$id)
 		{
-			$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|sha1');
-			$this->form_validation->set_rules('confirm', 'Confirm Password', 'required|matches[password]');
+			$this->form_validation->set_rules('password', 'lang:password', 'required|min_length[6]|sha1');
+			$this->form_validation->set_rules('confirm', 'lang:confirm_password', 'required|matches[password]');
 		}
 		
 				
@@ -150,14 +145,7 @@ class Customers extends CI_Controller {
 			
 			$this->Customer_model->save($save);
 			
-			if (!$id)
-			{
-				$this->session->set_flashdata('message', $this->input->post('firstname').' '.$this->input->post('lastname').' has been added.');
-			}
-			else
-			{
-				$this->session->set_flashdata('message', $this->input->post('firstname').' '.$this->input->post('lastname').'\'s information has been updated.');
-			}
+			$this->session->set_flashdata('message', lang('message_saved_customer'));
 			
 			//go back to the customer list
 			redirect($this->config->item('admin_folder').'/customers');
@@ -171,14 +159,13 @@ class Customers extends CI_Controller {
 		//if the customer does not exist, redirect them to the customer list with an error
 		if (!$data['customer'])
 		{
-			$this->session->set_flashdata('message', 'The requested customer could not be found.');
+			$this->session->set_flashdata('error', lang('error_not_found'));
 			redirect($this->config->item('admin_folder').'/customers');
 		}
 		
 		$data['addresses'] = $this->Customer_model->get_address_list($id);
 		
-		//set title to edit if we have an ID
-		$data['page_title']	= $data['customer']->lastname.', '.$data['customer']->firstname.' Addresses';
+		$data['page_title']	= sprintf(lang('addresses_for'), $data['customer']->firstname.' '.$data['customer']->lastname);
 		
 		$this->load->view($this->config->item('admin_folder').'/customer_addresses', $data);
 	}
@@ -191,7 +178,7 @@ class Customers extends CI_Controller {
 			//if the customer does not exist, redirect them to the customer list with an error
 			if (!$customer)
 			{
-				$this->session->set_flashdata('message', 'The requested customer could not be found.');
+				$this->session->set_flashdata('error', lang('error_not_found'));
 				redirect($this->config->item('admin_folder').'/customers');
 			}
 			else
@@ -199,14 +186,14 @@ class Customers extends CI_Controller {
 				//if the customer is legit, delete them
 				$delete	= $this->Customer_model->delete($id);
 				
-				$this->session->set_flashdata('message', $customer->firstname.' '.$customer->lastname.' has been deleted from the system.');
+				$this->session->set_flashdata('message', lang('message_customer_deleted'));
 				redirect($this->config->item('admin_folder').'/customers');
 			}
 		}
 		else
 		{
 			//if they do not provide an id send them to the customer list page with an error
-			$this->session->set_flashdata('message', 'The requested customer could not be found.');
+			$this->session->set_flashdata('error', lang('error_not_found'));
 			redirect($this->config->item('admin_folder').'/customers');
 		}
 	}
@@ -217,7 +204,7 @@ class Customers extends CI_Controller {
 		$email = $this->Customer_model->check_email($str, $this->customer_id);
         	if ($email)
         	{
-			$this->form_validation->set_message('check_email', 'The requested email is already in use.');
+			$this->form_validation->set_message('check_email', lang('error_email_in_use'));
 			return FALSE;
 		}
 		else
@@ -249,23 +236,16 @@ class Customers extends CI_Controller {
 			$sub_list .= $subscriber['email'].",\n";
 		}
 		
-		// start output
-		header('Content-Type: "text/csv"');
-		header('Content-Disposition: attachment; filename="email_subscribers_list.csv"');
-		header('Expires: 0');
-		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-		header("Content-Transfer-Encoding: binary");
-		header('Pragma: public');
+		$data['sub_list']	= $sub_list;
 		
-		echo $sub_list;
+		$this->load->view($this->config->item('admin_folder').'/customer_subscriber_list', $data);
 	}	
 	
-	////  customer groups
-	
+	//  customer groups
 	function groups()
 	{
-		$data['groups'] = $this->Customer_model->get_groups();
-		$data['page_title'] = 'Customer Groups';
+		$data['groups']		= $this->Customer_model->get_groups();
+		$data['page_title']	= lang('customer_groups');
 		
 		$this->load->view($this->config->item('admin_folder').'/customer_groups', $data);
 	}
@@ -275,7 +255,7 @@ class Customers extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		
-		$data['page_title']		= 'Add Customer Group';
+		$data['page_title']		= lang('customer_group_form');
 		
 		//default values are empty if the customer is new
 		$data['id']				= '';
@@ -291,13 +271,11 @@ class Customers extends CI_Controller {
 			$data['name']   		= $group->name;
 			$data['discount']		= $group->discount;
 			$data['discount_type'] 	= $group->discount_type;
-			
-			$data['page_title'] = 'Edit Customer Group';
 		}
 		
-		$this->form_validation->set_rules('name', 'Group Name', 'trim|required|max_length[50]');
-		$this->form_validation->set_rules('discount', 'Discount', 'trim|required|numeric');
-		$this->form_validation->set_rules('discount_type', 'Discount Type', 'trim|required');
+		$this->form_validation->set_rules('name', 'lang:group_name', 'trim|required|max_length[50]');
+		$this->form_validation->set_rules('discount', 'lang:discount', 'trim|required|numeric');
+		$this->form_validation->set_rules('discount_type', 'lang:discount_type', 'trim|required');
 
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -311,26 +289,16 @@ class Customers extends CI_Controller {
 				$save['id'] = $id;
 			}
 			
-			$save['name'] 		= set_value('name');
-			$save['discount'] 	= set_value('discount');
-			$save['discount_type'] = set_value('discount_type');
+			$save['name'] 			= set_value('name');
+			$save['discount'] 		= set_value('discount');
+			$save['discount_type']	= set_value('discount_type');
 			
 			$this->Customer_model->save_group($save);
-			
-			if (!$id)
-			{
-				$this->session->set_flashdata('message', 'The group "'.set_value('name').'" has been added.');
-			}
-			else
-			{
-				$this->session->set_flashdata('message', 'The group "'.set_value('name').'" has been updated.');
-			}
+			$this->session->set_flashdata('message', lang('message_saved_group'));
 			
 			//go back to the customer group list
 			redirect($this->config->item('admin_folder').'/customers/groups');
-		
 		}
-		
 	}
 	
 	
@@ -347,7 +315,10 @@ class Customers extends CI_Controller {
 	function delete_group($id)
 	{
 		
-		if(empty($id)) return;
+		if(empty($id))
+		{
+			return;
+		}
 		
 		$this->Customer_model->delete_group($id);
 		
@@ -379,13 +350,12 @@ class Customers extends CI_Controller {
 		
 		$data['customer_id']	= $customer_id;
 		
-		$data['page_title']		= 'Add Address';
+		$data['page_title']		= lang('address_form');
 		//get the countries list for the dropdown
 		$data['countries_menu']	= $this->Location_model->get_countries_menu();
 		
 		if($id)
 		{
-			$data['page_title']	= 'Edit Address';
 			$address			= $this->Customer_model->get_address($id);
 			
 			//fully escape the address
@@ -402,17 +372,17 @@ class Customers extends CI_Controller {
 			$data['zones_menu']	= $this->Location_model->get_zones_menu(array_shift(array_keys($data['countries_menu'])));
 		}
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('company', 'Company', 'trim|max_length[128]');
-		$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[128]');
-		$this->form_validation->set_rules('phone', 'Phone', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('address1', 'Address', 'trim|required|max_length[128]');
-		$this->form_validation->set_rules('address2', 'Address', 'trim|max_length[128]');
-		$this->form_validation->set_rules('city', 'City', 'trim|required');
-		$this->form_validation->set_rules('country_id', 'Country', 'trim|required');
-		$this->form_validation->set_rules('zone_id', 'State', 'trim|required');
-		$this->form_validation->set_rules('zip', 'Zip', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('company', 'lang:company', 'trim|max_length[128]');
+		$this->form_validation->set_rules('firstname', 'lang:firstname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('lastname', 'lang:lastname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('email', 'lang:email', 'trim|required|valid_email|max_length[128]');
+		$this->form_validation->set_rules('phone', 'lang:phone', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('address1', 'lang:address', 'trim|required|max_length[128]');
+		$this->form_validation->set_rules('address2', 'lang:address', 'trim|max_length[128]');
+		$this->form_validation->set_rules('city', 'lang:city', 'trim|required');
+		$this->form_validation->set_rules('country_id', 'lang:country', 'trim|required');
+		$this->form_validation->set_rules('zone_id', 'lang:state', 'trim|required');
+		$this->form_validation->set_rules('zip', 'lang:postcode', 'trim|required|max_length[32]');
 		
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -445,7 +415,7 @@ class Customers extends CI_Controller {
 			$a['field_data']['country_code']	= $country->iso_code_2; // some shipping libraries require the code 
 			
 			$this->Customer_model->save_address($a);
-			$this->session->set_flashdata('message', 'Your address has been saved!');
+			$this->session->set_flashdata('message', lang('message_saved_address'));
 			
 			redirect($this->config->item('admin_folder').'/customers/addresses/'.$customer_id);
 		}
@@ -460,7 +430,7 @@ class Customers extends CI_Controller {
 			//if the customer does not exist, redirect them to the customer list with an error
 			if (!$address)
 			{
-				$this->session->set_flashdata('message', 'The requested address could not be found.');
+				$this->session->set_flashdata('error', lang('error_address_not_found'));
 				
 				if($customer_id)
 				{
@@ -475,9 +445,9 @@ class Customers extends CI_Controller {
 			else
 			{
 				//if the customer is legit, delete them
-				$delete	= $this->Customer_model->delete_address($id, $customer_id);
+				$delete	= $this->Customer_model->delete_address($id, $customer_id);				
+				$this->session->set_flashdata('message', lang('message_address_deleted'));
 				
-				$this->session->set_flashdata('message', 'An address has been deleted from the system.');
 				if($customer_id)
 				{
 					redirect($this->config->item('admin_folder').'/customers/addresses/'.$customer_id);
@@ -491,7 +461,7 @@ class Customers extends CI_Controller {
 		else
 		{
 			//if they do not provide an id send them to the customer list page with an error
-			$this->session->set_flashdata('message', 'The requested address could not be found.');
+			$this->session->set_flashdata('error', lang('error_address_not_found'));
 			
 			if($customer_id)
 			{

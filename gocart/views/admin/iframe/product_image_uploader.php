@@ -13,7 +13,7 @@
 </script>
 
 <?php echo form_open_multipart($this->config->item('admin_folder').'/products/product_image_upload');?>
-<?php echo form_upload(array('name'=>'userfile', 'id'=>'userfile'));?><input type="submit" value="upload" />
+<?php echo form_upload(array('name'=>'userfile', 'id'=>'userfile'));?><input type="submit" value="<?php echo lang('upload');?>" />
 </form>
 
-<?php include('footer.php');?>
+<?php include('footer.php');

@@ -1,5 +1,5 @@
 <?php
-class Pages extends CI_Controller
+class Pages extends Admin_Controller
 {
 	
 	function __construct()
@@ -7,17 +7,15 @@ class Pages extends CI_Controller
 		parent::__construct();
 		
 		remove_ssl();
-		$this->load->library('Auth');
 
-		$this->auth->is_logged_in(uri_string());
 		$this->auth->check_access('Admin', true);
-		
 		$this->load->model('Page_model');
+		$this->lang->load('page');
 	}
 		
 	function index()
 	{
-		$data['page_title']	= 'Page Administration';
+		$data['page_title']	= lang('pages');
 		$data['pages']		= $this->Page_model->get_pages();
 		
 		
@@ -44,20 +42,18 @@ class Pages extends CI_Controller
 		$data['seo_title']	= '';
 		$data['meta']		= '';
 		
-		$data['page_title']	= 'Add Page';
+		$data['page_title']	= lang('page_form');
 		$data['pages']		= $this->Page_model->get_pages();
 		
 		if($id)
 		{
-			//set the page title to edit page
-			$data['page_title']	= 'Edit Page';
 			
 			$page			= $this->Page_model->get_page($id);
 
 			if(!$page)
 			{
 				//page does not exist
-				$this->session->set_flashdata('message', 'The requested page could not be found.');
+				$this->session->set_flashdata('error', lang('error_page_not_found'));
 				redirect($this->config->item('admin_folder').'/pages');
 			}
 			
@@ -74,14 +70,14 @@ class Pages extends CI_Controller
 			$data['slug']			= $page->slug;
 		}
 		
-		$this->form_validation->set_rules('title', 'Title', 'trim|required');
-		$this->form_validation->set_rules('menu_title', 'Menu Title', 'trim');
-		$this->form_validation->set_rules('slug', 'slug', 'trim');
-		$this->form_validation->set_rules('seo_title', 'SEO Title', 'trim');
-		$this->form_validation->set_rules('meta', 'Meta', 'trim');
-		$this->form_validation->set_rules('sequence', 'sequence', 'trim|integer');
-		$this->form_validation->set_rules('parent_id', 'parent_id', 'trim|integer');
-		$this->form_validation->set_rules('content', 'Content', 'trim');
+		$this->form_validation->set_rules('title', 'lang:title', 'trim|required');
+		$this->form_validation->set_rules('menu_title', 'lang:menu_title', 'trim');
+		$this->form_validation->set_rules('slug', 'lang:slug', 'trim');
+		$this->form_validation->set_rules('seo_title', 'lang:seo_title', 'trim');
+		$this->form_validation->set_rules('meta', 'lang:meta', 'trim');
+		$this->form_validation->set_rules('sequence', 'lang:sequence', 'trim|integer');
+		$this->form_validation->set_rules('parent_id', 'lang:parent_id', 'trim|integer');
+		$this->form_validation->set_rules('content', 'lang:content', 'trim');
 		
 		// Validate the form
 		if($this->form_validation->run() == false)
@@ -144,15 +140,7 @@ class Pages extends CI_Controller
 			
 			$this->Routes_model->save($route);
 			
-			//set the message accordingly
-			if (!$id)
-			{
-				$this->session->set_flashdata('message', 'The "'.$this->input->post('title').'" page has been added.');
-			}
-			else
-			{
-				$this->session->set_flashdata('message', 'Information for the "'.$this->input->post('title').'" page has been updated.');
-			}
+			$this->session->set_flashdata('message', lang('message_saved_page'));
 			
 			//go back to the page list
 			redirect($this->config->item('admin_folder').'/pages');
@@ -175,19 +163,16 @@ class Pages extends CI_Controller
 		$data['parent_id']	= 0;
 
 		
-		$data['page_title']	= 'Add Link';
+		$data['page_title']	= lang('link_form');
 		$data['pages']		= $this->Page_model->get_pages();
 		if($id)
 		{
-			//set the page title to edit page
-			$data['page_title']	= 'Edit Link';
-			
 			$page			= $this->Page_model->get_page($id);
 
 			if(!$page)
 			{
 				//page does not exist
-				$this->session->set_flashdata('message', 'The requested link could not be found.');
+				$this->session->set_flashdata('error', lang('error_link_not_found'));
 				redirect($this->config->item('admin_folder').'/pages');
 			}
 			
@@ -201,11 +186,11 @@ class Pages extends CI_Controller
 			$data['sequence']	= $page->sequence;
 		}
 		
-		$this->form_validation->set_rules('title', 'Title', 'trim|required');
-		$this->form_validation->set_rules('url', 'URL', 'trim|required');
-		$this->form_validation->set_rules('sequence', 'sequence', 'trim|integer');
-		$this->form_validation->set_rules('new_window', 'New Window', 'trim|integer');
-		$this->form_validation->set_rules('parent_id', 'Parent', 'trim|integer');
+		$this->form_validation->set_rules('title', 'lang:title', 'trim|required');
+		$this->form_validation->set_rules('url', 'lang:url', 'trim|required');
+		$this->form_validation->set_rules('sequence', 'lang:sequence', 'trim|integer');
+		$this->form_validation->set_rules('new_window', 'lang:new_window', 'trim|integer');
+		$this->form_validation->set_rules('parent_id', 'lang:parent_id', 'trim|integer');
 		
 		// Validate the form
 		if($this->form_validation->run() == false)
@@ -226,15 +211,7 @@ class Pages extends CI_Controller
 			//save the page
 			$this->Page_model->save($save);
 			
-			//set the message accordingly
-			if (!$id)
-			{
-				$this->session->set_flashdata('message', 'The "'.$this->input->post('title').'" link has been added.');
-			}
-			else
-			{
-				$this->session->set_flashdata('message', 'Information for the "'.$this->input->post('title').'" link has been updated.');
-			}
+			$this->session->set_flashdata('message', lang('message_saved_link'));
 			
 			//go back to the page list
 			redirect($this->config->item('admin_folder').'/pages');
@@ -255,11 +232,11 @@ class Pages extends CI_Controller
 			
 			$this->Routes_model->delete($page->route_id);
 			$this->Page_model->delete_page($id);
-			$this->session->set_flashdata('message', 'The page has been deleted.');
+			$this->session->set_flashdata('message', lang('message_deleted_page'));
 		}
 		else
 		{
-			$this->session->set_flashdata('error', 'The requested page could not be found.');
+			$this->session->set_flashdata('error', lang('error_page_not_found'));
 		}
 		
 		redirect($this->config->item('admin_folder').'/pages');

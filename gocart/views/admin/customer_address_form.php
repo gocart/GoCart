@@ -12,66 +12,66 @@ $f_zip		= array('id'=>'f_zip', 'maxlength'=>'10', 'class'=>'bill input','class'=
 <?php echo form_open('/'.$this->config->item('admin_folder').'/customers/address_form/'.$customer_id.'/'.$id);?>
 
 <div class="button_set">
-	<input type="submit" value="Save Address" />
+	<input type="submit" value="<?php echo lang('save');?>" />
 </div>
 
 <div id="gc_tabs">
 	<ul>
-		<li><a href="#gc_address">Address Information</a></li>
+		<li><a href="#gc_address"><?php echo lang('address_information');?></a></li>
 	</ul>
 <div id="gc_address" style="overflow:auto">
 	<div class="field_wrap">
 		<div>
-			Company<br/>
+			<?php echo lang('company');?><br/>
 			<?php echo form_input($f_company);?>
 		</div>
 		<div>
-			First Name<br/>
+			<?php echo lang('firstname');?><br/>
 			<?php echo form_input($f_first);?>
 		</div>
 		<div>
-			Last Name<br/>
+			<?php echo lang('lastname');?><br/>
 			<?php echo form_input($f_last);?>
 		</div>
 	</div>
 
 	<div class="field_wrap">
 		<div>
-			Email<br/>
+			<?php echo lang('email');?><br/>
 			<?php echo form_input($f_email);?>
 		</div>
 		<div>
-			Phone<br/>
+			<?php echo lang('phone');?><br/>
 			<?php echo form_input($f_phone);?>
 		</div>
 	</div>
 
 	<div class="field_wrap">
-		Address<br/>
+		<?php echo lang('address');?><br/>
 		<?php echo form_input($f_address1).'<br/>'.form_input($f_address2);?>
 	</div>
 
 	<div class="field_wrap">
 		<div>
-			City<br/>
+			<?php echo lang('city');?><br/>
 			<?php echo form_input($f_city);?>
 		</div>
 		<div>
-			Post Code<br/>
+			<?php echo lang('postcode');?><br/>
 			<?php echo form_input($f_zip);?>
 		</div>
 	</div>
 
 	<div class="field_wrap">
 		<div>
-			Country<br/>
+			<?php echo lang('country');?><br/>
 			<?php echo form_dropdown('country_id', $countries_menu, set_value('country_id', $country_id), 'style="width:200px; display:block;" id="f_country_id" class="input"');?>
 		</div>
 	</div>
 
 	<div class="field_wrap">
 		<div>
-			State<br/>
+			<?php echo lang('state');?><br/>
 			<?php echo form_dropdown('zone_id', $zones_menu, set_value('zone_id', $zone_id), 'style="width:200px; display:block;" id="f_zone_id" class="input"');?>
 		</div>
 	</div>
