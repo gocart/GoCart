@@ -74,7 +74,7 @@ if(isset($additional_header_info))
 			}
 			
 
-			foreach($pages as $page): if($page->id != 143)://this is the "homepage" page. By skipping it, we're skipping anything under it.?>
+			foreach($pages as $page):?>
 
 				<li>
 				<?php if(empty($page->content)):?>
@@ -100,7 +100,7 @@ if(isset($additional_header_info))
 				}?>
 				</li>
 			<?php	
-			endif; endforeach;
+			endforeach;
 			if($first)
 			{
 				echo '</ul>';
