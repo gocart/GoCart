@@ -1,6 +1,6 @@
 <?php
 
-class Giftcards extends CI_Controller {
+class Giftcards extends Admin_Controller {
 	
 	function __construct()
 	{
@@ -8,21 +8,18 @@ class Giftcards extends CI_Controller {
 		
 		force_ssl();
 		
-		$this->load->library('Auth');
 		$this->load->model('Settings_model');
 		$this->load->model('Gift_card_model');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
-		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
-		//this adds the redirect url to our flash data, incase they are not logged in
-		$this->auth->is_logged_in(uri_string());
+		$this->lang->load('giftcard');
 	}
 	
 	function index()
 	{
 		
-		$data['page_title'] = "Gift Cards List";
+		$data['page_title'] = lang('giftcards');
 		$data['cards'] = $this->Gift_card_model->get_all_new();
 		
 		$gc_settings = $this->Settings_model->get_settings('gift_cards');
@@ -41,13 +38,13 @@ class Giftcards extends CI_Controller {
 	
 	function form()
 	{
-		$this->form_validation->set_rules('to_email', 'Recipient Email Address', 'trim|required');
-		$this->form_validation->set_rules('to_name', 'Recipient Name', 'trim|required');
-		$this->form_validation->set_rules('from', 'Sender Name', 'trim|required');
-		$this->form_validation->set_rules('personal_message', 'Personal Message', 'trim');
-		$this->form_validation->set_rules('beginning_amount', 'Amount', 'trim|required|numeric');
+		$this->form_validation->set_rules('to_email', 'lang:recipient_email', 'trim|required');
+		$this->form_validation->set_rules('to_name', 'lang:recipient_name', 'trim|required');
+		$this->form_validation->set_rules('from', 'lang:sender_name', 'trim|required');
+		$this->form_validation->set_rules('personal_message', 'lang:personal_message', 'trim');
+		$this->form_validation->set_rules('beginning_amount', 'lang:amount', 'trim|required|numeric');
 		
-		$data['page_title'] = "Add Gift Card";
+		$data['page_title'] = lang('add_giftcard');
 		
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -96,7 +93,7 @@ class Giftcards extends CI_Controller {
 				$this->email->send();
 			}
 			
-			$this->session->set_flashdata('message', 'Gift Card saved');
+			$this->session->set_flashdata('message', lang('message_saved_giftcard'));
 			
 			redirect($this->config->item('admin_folder').'/giftcards');
 		}
@@ -107,7 +104,7 @@ class Giftcards extends CI_Controller {
 	{
 		$this->Gift_card_model->activate($code);
 		$this->Gift_card_model->send_notification($code);
-		$this->session->set_flashdata('message', 'Gift Card Activated');
+		$this->session->set_flashdata('message', lang('message_activated_giftcard'));
 		redirect($this->config->item('admin_folder').'/giftcards');
 	}
 	
@@ -115,7 +112,7 @@ class Giftcards extends CI_Controller {
 	{
 		$this->Gift_card_model->delete($id);
 		
-		$this->session->set_flashdata('message', 'Gift Card Deleted');
+		$this->session->set_flashdata('message', lang('message_deleted_giftcard'));
 		redirect($this->config->item('admin_folder').'/giftcards');
 	}
 	
@@ -144,10 +141,10 @@ class Giftcards extends CI_Controller {
 		$data['predefined_card_amounts']	= $gc_settings['predefined_card_amounts'];
 		$data['allow_custom_amount'] 		= $gc_settings['allow_custom_amount'];
 		
-		$this->form_validation->set_rules('predefined_card_amounts', 'Predefined Card Amounts', 'trim');
-		$this->form_validation->set_rules('allow_custom_amount', 'Allow Custom Amounts', 'trim');
+		$this->form_validation->set_rules('predefined_card_amounts', 'lang:predefined_card_amounts', 'trim');
+		$this->form_validation->set_rules('allow_custom_amount', 'lang:allow_custom_amounts', 'trim');
 		
-		$data['page_title']	= 'Gift Card Settings';
+		$data['page_title']	= lang('giftcard_settings');
 		
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -161,7 +158,7 @@ class Giftcards extends CI_Controller {
 			
 			$this->Settings_model->save_settings('gift_cards', $save);
 			
-			$this->session->set_flashdata('message', 'Gift Card settings saved');
+			$this->session->set_flashdata('message', lang('message_saved_settings'));
 			
 			redirect($this->config->item('admin_folder').'/giftcards');
 			

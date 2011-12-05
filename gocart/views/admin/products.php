@@ -2,28 +2,28 @@
 <script type="text/javascript">
 function areyousure()
 {
-	return confirm('Are you sure you want to delete this product?');
+	return confirm('<?php echo lang('confirm_delete_product');?>');
 }
 </script>
 <div class="button_set">
-	<a href="#" onclick="$('#bulk_form').submit(); return false;">Bulk Save</a>
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/products/form');?>">Add New Product</a>
+	<a href="#" onclick="$('#bulk_form').submit(); return false;"><?php echo lang('bulk_save');?></a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/products/form');?>"><?php echo lang('add_new_product');?></a>
 </div>
 
 <?php echo form_open($this->config->item('admin_folder').'/products/bulk_save', array('id'=>'bulk_form'));?>
 	<table class="gc_table" cellspacing="0" cellpadding="0">
 		<thead>
 			<tr>
-				<th class="gc_cell_left">SKU</th>
-				<th>Name</th>
-				<th style="width:60px;">Price</th>
-				<th style="width:60px;">Sale</th>
-				<th style="width:60px;">Availability</th>
+				<th class="gc_cell_left"><?php echo lang('sku');?></th>
+				<th><?php echo lang('name');?></th>
+				<th style="width:60px;"><?php echo lang('price');?></th>
+				<th style="width:60px;"><?php echo lang('saleprice');?></th>
+				<th style="width:60px;"><?php echo lang('availability');?></th>
 				<th class="gc_cell_right"></th>
 			</tr>
 		</thead>
 		<tbody>
-		<?php echo (count($products) < 1)?'<tr><td style="text-align:center;" colspan="6">There are currently no products.</td></tr>':''?>
+		<?php echo (count($products) < 1)?'<tr><td style="text-align:center;" colspan="6">'.lang('no_products').'</td></tr>':''?>
 	<?php foreach ($products as $product):?>
 			<tr class="gc_row">
 				<td><?php echo form_input(array('name'=>'product['.$product->id.'][sku]','value'=>form_decode($product->sku), 'class'=>'gc_tf3'));?></td>
@@ -33,17 +33,17 @@ function areyousure()
 				<td>
 					<?php
 					 	$options = array(
-			                  '1'  => 'In Stock',
-			                  '0'    => 'Out of Stock'
+			                  '1'	=> lang('in_stock'),
+			                  '0'	=> lang('out_of_stock')
 			                );
 
 						echo form_dropdown('product['.$product->id.'][in_stock]', $options, set_value('in_stock',$product->in_stock));
 					?>
 				</td>
 				<td class="gc_cell_right list_buttons">
-					<a href="<?php echo  site_url($this->config->item('admin_folder').'/products/delete/'.$product->id);?>" onclick="return areyousure();">Delete</a>
-					<a href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$product->id);?>">Edit</a>
-					<a href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$product->id.'/1');?>">Copy</a>
+					<a href="<?php echo  site_url($this->config->item('admin_folder').'/products/delete/'.$product->id);?>" onclick="return areyousure();"><?php echo lang('delete');?></a>
+					<a href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$product->id);?>"><?php echo lang('edit');?></a>
+					<a href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$product->id.'/1');?>"><?php echo lang('copy');?></a>
 				</td>
 			</tr>
 	<?php endforeach; ?>
@@ -51,7 +51,7 @@ function areyousure()
 	</table>
 </form>
 <div class="button_set">
-	<a href="#" onclick="$('#bulk_form').submit(); return false;">Bulk Save</a>
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/products/form');?>">Add New Product</a>
+	<a href="#" onclick="$('#bulk_form').submit(); return false;"><?php echo lang('bulk_save');?></a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/products/form');?>"><?php echo lang('add_new_product');?></a>
 </div>
 <?php include('footer.php'); ?>

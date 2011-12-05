@@ -2,9 +2,9 @@
 	<thead>
 		<tr>
 			<?php /*<th>ID</th> uncomment this if you want it*/ ?>
-			<th class="gc_cell_left">SKU</th>
-			<th>Name</th>
-			<th class="gc_cell_right">Quantity</th>
+			<th class="gc_cell_left"><?php echo lang('sku');?></th>
+			<th><?php echo lang('name');?></th>
+			<th class="gc_cell_right"><?php echo lang('quantity');?></th>
 		</tr>
 	</thead>
 	<tbody>

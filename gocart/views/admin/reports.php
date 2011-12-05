@@ -1,9 +1,9 @@
 <?php require('header.php'); ?>
-<h2 style="margin:0px 0px 8px 0px; padding:0px;">Best Sellers</h2>
+<h2 style="margin:0px 0px 8px 0px; padding:0px;"><?php echo lang('best_sellers');?></h2>
 <div id="best_sellers_form" style="margin-bottom:10px">
-	From <input class="gc_tf1" type="text"  id="best_sellers_start"/>
+	<?php echo lang('from');?> <input class="gc_tf1" type="text"  id="best_sellers_start"/>
 		 <input type="hidden" name="best_sellers_start" id="best_sellers_start_alt" /> 
-	to <input class="gc_tf1" type="text" id="best_sellers_end"/>
+	<?php echo lang('to');?> <input class="gc_tf1" type="text" id="best_sellers_end"/>
 		<input type="hidden" name="best_sellers_end" id="best_sellers_end_alt" /> 
 	<input type="button" value="Get Best Sellers" onclick="get_best_sellers()"/>
 </div>
@@ -12,7 +12,7 @@
 	
 </div>
 
-<h2 style="margin:30px 0px 8px 0px; padding:0px;">Sales</h2>
+<h2 style="margin:30px 0px 8px 0px; padding:0px;"><?php echo lang('sales');?></h2>
 <div id="sales_container">
 	
 </div>

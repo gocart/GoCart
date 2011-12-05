@@ -45,7 +45,7 @@
 	
 if ($term)
 {
-	echo '<p id="searched_for"><div style="width:70%;float:left;"><strong>'.lang('search_returned').' '.$total.' '.lang('returned_results').'</strong></div><div style="width:29% float:right; text-align:right;"><a href="'.base_url().$this->config->item('admin_folder').'/orders" class="button">'.lang('all_orders').'</a></div></p>';
+	echo '<p id="searched_for"><div style="width:70%;float:left;"><strong>'.sprintf(lang('search_returned'), intval($total)).'</strong></div><div style="width:29% float:right; text-align:right;"><a href="'.base_url().$this->config->item('admin_folder').'/orders" class="button">'.lang('all_orders').'</a></div></p>';
 	
 }
 ?>
@@ -87,12 +87,12 @@ if ($term)
 					<a onclick="submit_form();" class="button"><?php echo lang('form_delete')?></a>
 				</div>
 				<div class="gc_order_search">
-					<?php echo lang('form_from')?> <input id="start_top"  value="" class="gc_tf1" type="text" /> 
+					<?php echo lang('from')?> <input id="start_top"  value="" class="gc_tf1" type="text" /> 
 						<input id="start_top_alt" type="hidden" name="start_date" />
-					<?php echo lang('form_to')?> <input id="end_top" value="" class="gc_tf1" type="text" />
+					<?php echo lang('to')?> <input id="end_top" value="" class="gc_tf1" type="text" />
 						<input id="end_top_alt" type="hidden" name="end_date" />
-					<?php echo lang('form_term')?> <input id="top" type="text" class="gc_tf1" name="term" value="" /> 
-					<span class="button_set"><a href="#" onclick="do_search('top'); return false;"><?php echo lang('form_search')?></a>
+					<?php echo lang('term')?> <input id="top" type="text" class="gc_tf1" name="term" value="" /> 
+					<span class="button_set"><a href="#" onclick="do_search('top'); return false;"><?php echo lang('search')?></a>
 					<a href="#" onclick="do_export('top'); return false;"><?php echo lang('xml_export')?></a></span>
 					</span>
 				</div>
@@ -131,12 +131,12 @@ if ($term)
 					<a onclick="submit_form();" class="button"><?php echo lang('form_delete')?></a>
 				</div>
 				<div class="gc_order_search">
-					<?php echo lang('form_from')?> <input id="start_bottom"  value="" class="gc_tf1" type="text" /> 
+					<?php echo lang('from')?> <input id="start_bottom"  value="" class="gc_tf1" type="text" /> 
 						<input id="start_bottom_alt" type="hidden" name="start_date" />
-					<?php echo lang('form_to')?> <input id="end_bottom" value="" class="gc_tf1" type="text" />
+					<?php echo lang('to')?> <input id="end_bottom" value="" class="gc_tf1" type="text" />
 						<input id="end_bottom_alt" type="hidden" name="end_date" />
-					<?php echo lang('form_term')?> <input id="top" type="text" class="gc_tf1" name="term" value="" /> 
-					<span class="button_set"><a href="#" onclick="do_search('bottom'); return false;"><?php echo lang('form_search')?></a>
+					<?php echo lang('term')?> <input id="top" type="text" class="gc_tf1" name="term" value="" /> 
+					<span class="button_set"><a href="#" onclick="do_search('bottom'); return false;"><?php echo lang('search')?></a>
 					<a href="#" onclick="do_export('bottom'); return false;"><?php echo lang('xml_export')?></a></span>
 					</span>
 				</div>
@@ -186,14 +186,14 @@ function submit_form()
 {
 	if($(".gc_check:checked").length > 0)
 	{
-		if(confirm('<?php echo lang('order_delete') ?>'))
+		if(confirm('<?php echo lang('confirm_order_delete') ?>'))
 		{
 			$('#delete_form').submit();
 		}
 	}
 	else
 	{
-		alert('<?php echo lang('no_orders_sel') ?>');
+		alert('<?php echo lang('error_no_orders_selected') ?>');
 	}
 }
 

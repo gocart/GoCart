@@ -48,9 +48,9 @@ function buttons()
 		<h2><?php echo  $page_title; ?></h2>
 		
 		<span>
-			<a style="float:right;" href="<?php echo site_url($this->config->item('admin_folder').'/login/logout');?>"><?php echo lang('log_out') ?></a>
-			<a style="float:right;" href="<?php echo site_url();?>"><?php echo lang('front_end') ?></a>
-			<a style="float:right;" href="<?php echo site_url($this->config->item('admin_folder').'/dashboard');?>"><?php echo lang('dashboard') ?></a>
+			<a style="float:right;" href="<?php echo site_url($this->config->item('admin_folder').'/login/logout');?>"><?php echo lang('common_log_out') ?></a>
+			<a style="float:right;" href="<?php echo site_url();?>"><?php echo lang('common_front_end') ?></a>
+			<a style="float:right;" href="<?php echo site_url($this->config->item('admin_folder').'/dashboard');?>"><?php echo lang('common_dashboard') ?></a>
 		</span>
 	</div>
 	<div id="container">
@@ -60,14 +60,14 @@ function buttons()
 			$admin_url = site_url($this->config->item('admin_folder')).'/';?>
 			
 			<div class="menu shadow">
-				<div class="menu_title"><?php echo lang('sales') ?></div>
-				<a href="<?php echo $admin_url;?>orders"><?php echo lang('orders') ?></a>
+				<div class="menu_title"><?php echo lang('common_sales') ?></div>
+				<a href="<?php echo $admin_url;?>orders"><?php echo lang('common_orders') ?></a>
 				<?php if($this->auth->check_access('Admin')) : ?>
-				<a href="<?php echo $admin_url;?>customers"><?php echo lang('customers') ?></a>
-				<a href="<?php echo $admin_url;?>customers/groups"><?php echo lang('groups') ?></a>
-				<a href="<?php echo $admin_url;?>reports"><?php echo lang('reports') ?></a>
-				<a href="<?php echo $admin_url;?>coupons"><?php echo lang('coupons') ?></a>
-				<a href="<?php echo $admin_url;?>giftcards"><?php echo lang('giftcards') ?></a>
+				<a href="<?php echo $admin_url;?>customers"><?php echo lang('common_customers') ?></a>
+				<a href="<?php echo $admin_url;?>customers/groups"><?php echo lang('common_groups') ?></a>
+				<a href="<?php echo $admin_url;?>reports"><?php echo lang('common_reports') ?></a>
+				<a href="<?php echo $admin_url;?>coupons"><?php echo lang('common_coupons') ?></a>
+				<a href="<?php echo $admin_url;?>giftcards"><?php echo lang('common_giftcards') ?></a>
 				<?php endif; ?>
 			</div>
 			<?php
@@ -75,23 +75,23 @@ function buttons()
 			if($this->auth->check_access('Admin')) : 
 			?>
 			<div class="menu shadow">
-				<div class="menu_title"><?php echo lang('catalog') ?></div>
-				<a href="<?php echo $admin_url;?>categories"><?php echo lang('categories') ?></a>
-				<a href="<?php echo $admin_url;?>products"><?php echo lang('products') ?></a>
+				<div class="menu_title"><?php echo lang('common_catalog') ?></div>
+				<a href="<?php echo $admin_url;?>categories"><?php echo lang('common_categories') ?></a>
+				<a href="<?php echo $admin_url;?>products"><?php echo lang('common_products') ?></a>
 			</div>
 			
 			<div class="menu shadow">
-				<div class="menu_title"><?php echo lang('content') ?></div>
-				<a href="<?php echo $admin_url;?>banners"><?php echo lang('banners') ?></a>
-				<a href="<?php echo $admin_url;?>boxes"><?php echo lang('boxes') ?></a>
-				<a href="<?php echo $admin_url;?>pages"><?php echo lang('pages') ?></a>
+				<div class="menu_title"><?php echo lang('common_content') ?></div>
+				<a href="<?php echo $admin_url;?>banners"><?php echo lang('common_banners') ?></a>
+				<a href="<?php echo $admin_url;?>boxes"><?php echo lang('common_boxes') ?></a>
+				<a href="<?php echo $admin_url;?>pages"><?php echo lang('common_pages') ?></a>
 			</div>
 	
 			<div class="menu shadow">
-				<div class="menu_title"><?php echo lang('administrative') ?></div>
-				<a href="<?php echo $admin_url;?>settings"><?php echo lang('settings') ?></a>
-				<a href="<?php echo $admin_url;?>locations"><?php echo lang('locations') ?></a>
-				<a href="<?php echo $admin_url;?>admin"><?php echo lang('administrators') ?></a>
+				<div class="menu_title"><?php echo lang('common_administrative') ?></div>
+				<a href="<?php echo $admin_url;?>settings"><?php echo lang('common_settings') ?></a>
+				<a href="<?php echo $admin_url;?>locations"><?php echo lang('common_locations') ?></a>
+				<a href="<?php echo $admin_url;?>admin"><?php echo lang('common_administrators') ?></a>
 			</div>
 			<?php endif; ?>
 			
@@ -118,18 +118,18 @@ function buttons()
 			<?php if (!empty($message)): ?>
 			<div class="ui-state-highlight ui-corner-all" style="padding:10px; margin-bottom:10px;"> 
 				<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-				<strong><?php echo lang('note') ?>:</strong> <?php echo $message; ?></p>
+				<strong><?php echo lang('common_note') ?>:</strong> <?php echo $message; ?></p>
 			</div>
 			<?php endif; ?>
 		
 			<?php if (!empty($error)): ?>
 			<div class="ui-state-error ui-corner-all" style="padding:10px; margin-bottom:10px;"> 
 				<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
-				<strong><?php echo lang('alert') ?>:</strong> <?php echo $error; ?></p>
+				<strong><?php echo lang('common_alert') ?>:</strong> <?php echo $error; ?></p>
 			</div>
 			<?php endif; ?>
 			
 			<div id="js_error_container" class="ui-state-error ui-corner-all" style="display:none; padding:10px; margin-bottom:10px;"> 
 				<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
-				<strong><?php echo lang('alert') ?>:</strong> <span id="js_error"></span> </p>
+				<strong><?php echo lang('common_alert') ?>:</strong> <span id="js_error"></span> </p>
 			</div>

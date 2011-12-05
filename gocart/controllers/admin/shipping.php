@@ -1,17 +1,15 @@
 <?php
 
-class Shipping extends CI_Controller {
+class Shipping extends Admin_Controller {
 	
 	function __construct()
 	{
 		parent::__construct();
 		force_ssl();
-		$this->load->library('Auth');
+
 		$this->auth->check_access('Admin', true);
-		//$this->load->helper('Shipping');
 		$this->load->model('Settings_model');
-		//this adds the redirect url to our flash data, incase they are not logged in
-		$this->auth->is_logged_in(uri_string());
+		$this->lang->load('settings');
 	}
 	
 	function index()
@@ -61,7 +59,7 @@ class Shipping extends CI_Controller {
 			$check	= $this->$module->check();
 			if(!$check)
 			{
-				$this->session->set_flashdata('message', $module.' settings have been updated');
+				$this->session->set_flashdata('message', sprintf(lang('settings_updated'), $module));
 				redirect($this->config->item('admin_folder').'/shipping');
 			}
 			else
@@ -81,7 +79,7 @@ class Shipping extends CI_Controller {
 			$data['form']		= $this->$module->form();
 		}
 		$data['module']		= $module;
-		$data['page_title']	= '"'.$module.'" Shipping Settings';
+		$data['page_title']	= sprintf(lang('shipping_settings'), $module);
 		$this->load->view($this->config->item('admin_folder').'/shipping_module_settings', $data);
 	}
 }

@@ -2,37 +2,37 @@
 <script type="text/javascript">
 function areyousure()
 {
-	return confirm('Are you sure you want to delete this gift card?');
+	return confirm('<?php echo lang('confirm_delete_giftcard');?>');
 }
 </script>
 
 <div class="button_set">
 <?php if ($gift_cards['enabled']):?>
 
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/form'); ?>">Add New Gift Card</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/form'); ?>"><?php echo lang('add_new_giftcad')?></a>
 	
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/settings'); ?>">Settings</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/settings'); ?>"><?php echo lang('settings');?></a>
 	
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/disable'); ?>">Disable Giftcards</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/disable'); ?>"><?php echo lang('disable_giftcards');?></a>
 	
 <?php else: ?>
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/enable'); ?>">Enable Giftcards</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/enable'); ?>"><?php echo lang('enable_giftcards');?></a>
 <?php endif; ?>
 </div>
 <table class="gc_table" cellspacing="0" cellpadding="0">
 	<thead>
 		<tr>
-			<th class="gc_cell_left">Code</th>
-			<th>To</th>
-			<th>From</th>
-			<th>Total</th>
-			<th>Used</th>
-			<th>Remaining</th>
+			<th class="gc_cell_left"><?php echo lang('code');?></th>
+			<th><?php echo lang('to');?></th>
+			<th><?php echo lang('from');?></th>
+			<th><?php echo lang('total');?></th>
+			<th><?php echo lang('used');?></th>
+			<th><?php echo lang('remaining');?></th>
 			<th class="gc_cell_right"></th>
 		</tr>
 	</thead>
 	<tbody>
-		<?php echo (count($cards) < 1)?'<tr><td style="text-align:center;" colspan="7">There are currently no giftcards.</td></tr>':''?>
+		<?php echo (count($cards) < 1)?'<tr><td style="text-align:center;" colspan="7">'.lang('no_giftcards').'</td></tr>':''?>
 <?php foreach ($cards as $card):?>
 		<tr>
 			<td><?php echo  $card['code']; ?></td>
@@ -42,7 +42,7 @@ function areyousure()
 			<td><?php echo (float) $card['amount_used']; ?></td>
 			<td><?php echo (float) $card['beginning_amount'] - (float) $card['amount_used']; ?></td>
 			<td class="list_buttons">
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/delete/'.$card['id']); ?>" onclick="return areyousure();">Delete</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/delete/'.$card['id']); ?>" onclick="return areyousure();"><?php echo lang('delete');?></a>
 	  </tr>
 <?php endforeach; ?>
 	</tbody>

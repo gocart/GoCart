@@ -3,14 +3,14 @@
 <?php echo form_open($this->config->item('admin_folder').'/pages/form/'.$id); ?>
 
 <div class="button_set">
-	<input type="submit" value="Save Page"/>
+	<input type="submit" value="<?php echo lang('save');?>"/>
 </div>
 
 <div id="gc_tabs">
 	<ul>
-		<li><a href="#gc_page_content">Content</a></li>
-		<li><a href="#gc_page_attributes">Attributes</a></li>
-		<li><a href="#gc_product_seo">SEO</a></li>
+		<li><a href="#gc_page_content"><?php echo lang('content');?></a></li>
+		<li><a href="#gc_page_attributes"><?php echo lang('attributes');?></a></li>
+		<li><a href="#gc_product_seo"><?php echo lang('seo');?></a></li>
 	</ul>
 	<div id="gc_page_content">
 			<div class="gc_field">
@@ -33,14 +33,14 @@
 	</div>
 	<div id="gc_page_attributes">
 		<div class="gc_field2">
-		<label for="menu_title">Menu Title: </label>
+		<label for="menu_title"><?php echo lang('menu_title');?></label>
 		<?php
 		$data	= array('id'=>'menu_title', 'name'=>'menu_title', 'value'=>set_value('menu_title', $menu_title), 'class'=>'gc_tf1');
 		echo form_input($data);
 		?>
 		</div>
 		<div class="gc_field2">
-		<label for="slug">Slug: </label>
+		<label for="slug"><?php echo lang('slug');?></label>
 		<?php
 		$data	= array('id'=>'slug', 'name'=>'slug', 'value'=>set_value('slug', $slug), 'class'=>'gc_tf1');
 		echo form_input($data);
@@ -48,7 +48,7 @@
 		</div>
 		<div class="gc_field2">
 	
-		<label for="sequence">Parent Page: </label>
+		<label for="sequence"><?php echo lang('parent');?></label>
 		<?php
 		$options	= array();
 		$options[0]	= 'Top Level';
@@ -71,7 +71,7 @@
 		?>
 		</div>
 		<div class="gc_field2">
-		<label for="sequence">Sequence: </label>
+		<label for="sequence"><?php echo lang('sequence');?></label>
 		<?php
 		$data	= array('id'=>'sequence', 'name'=>'sequence', 'value'=>set_value('sequence', $sequence), 'class'=>'gc_tf1');
 		echo form_input($data);
@@ -80,7 +80,7 @@
 	</div>
 	<div id="gc_product_seo">
 		<div class="gc_field2">
-		<label for="code">SEO title: </label>
+		<label for="code"><?php echo lang('seo_title');?></label>
 		<?php
 		$data	= array('id'=>'seo_title', 'name'=>'seo_title', 'value'=>set_value('seo_title', $seo_title), 'class'=>'gc_tf1');
 		echo form_input($data);
@@ -88,7 +88,7 @@
 		</div>
 		
 		<div class="gc_field">
-		<label>Meta Data: </label>
+		<label><?php echo lang('meta');?></label>
 		<?php
 		$data	= array('id'=>'meta', 'name'=>'meta', 'value'=>set_value('meta', html_entity_decode($meta)), 'class'=>'gc_tf1');
 		echo form_textarea($data);

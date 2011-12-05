@@ -2,7 +2,7 @@
 <script type="text/javascript">
 function areyousure()
 {
-	return confirm('<?php echo lang('confirm_delete_admin');?>');
+	return confirm('<?php echo lang('confirm_delete');?>');
 }
 </script>
 
@@ -32,9 +32,9 @@ function areyousure()
 				$current_admin	= $this->session->userdata('admin');
 				$margin			= 30;
 				if ($current_admin['id'] != $admin->id): ?>
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/admin/delete/'.$admin->id); ?>" onclick="return areyousure();"><?php echo lang('form_delete');?></a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/admin/delete/'.$admin->id); ?>" onclick="return areyousure();"><?php echo lang('delete');?></a>
 				<?php endif; ?>
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/admin/form/'.$admin->id);?>"><?php echo lang('form_edit');?></a>	
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/admin/form/'.$admin->id);?>"><?php echo lang('edit');?></a>	
 			</td>
 		</tr>
 <?php endforeach; ?>

@@ -1,31 +1,30 @@
 <?php
-class Boxes extends CI_Controller
+class Boxes extends Admin_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-		
 		remove_ssl();
-		
-		$this->load->library('auth');
+
 		$this->auth->check_access('Admin', true);
-		
+
+		$this->lang->load('boxes');
 		$this->load->model('Box_model');
 		$this->load->helper('date');
-		$this->auth->is_logged_in(uri_string());
 	}
 		
 	function index()
 	{
 		$data['boxes']		= $this->Box_model->get_boxes();
-		$data['page_title']	= 'Boxes';
+		$data['page_title']	= lang('boxes');
 		
 		$this->load->view($this->config->item('admin_folder').'/boxes', $data);
 	}
 	
 	function delete($id)
 	{
-		$this->session->set_flashdata('message', $this->Box_model->delete($id));
+		$this->Box_model->delete($id);
+		$this->session->set_flashdata('message', lang('message_delete_box'));
 		redirect($this->config->item('admin_folder').'/boxes');
 	}
 	
@@ -63,21 +62,20 @@ class Boxes extends CI_Controller
 							,'new_window'=>false	
 						);
 		
-		$data['page_title']	= 'New Ad';
+		$data['page_title']	= lang('box_form');
 		if($id)
 		{
 			$data				= (array) $this->Box_model->get_box($id);
 
 			$data['new_window']	= (bool) $data['new_window'];
-			$data['page_title']	= 'Edit Ad';
 		}
 		
-		$this->form_validation->set_rules('title', 'Title', 'trim|required|full_decode');
-		$this->form_validation->set_rules('enable_on', 'Enable On', 'trim');
-		$this->form_validation->set_rules('disable_on', 'Disable On', 'trim');
-		$this->form_validation->set_rules('image', 'image', 'trim');
-		$this->form_validation->set_rules('link', 'Link', 'trim');
-		$this->form_validation->set_rules('new_window', 'New Window', 'trim');
+		$this->form_validation->set_rules('title', 'lang:title', 'trim|required|full_decode');
+		$this->form_validation->set_rules('enable_on', 'lang:enable_on', 'trim');
+		$this->form_validation->set_rules('disable_on', 'lang:disable_on', 'trim');
+		$this->form_validation->set_rules('image', 'lang:image', 'trim');
+		$this->form_validation->set_rules('link', 'lang:link', 'trim');
+		$this->form_validation->set_rules('new_window', 'lang:new_window', 'trim');
 		
 		if ($this->form_validation->run() == false)
 		{
@@ -132,9 +130,8 @@ class Boxes extends CI_Controller
 			}
 			
 			$this->Box_model->save($save);
-			$message	= 'The "'.$this->input->post('title').'" box has been saved.';
 			
-			$this->session->set_flashdata('message', $message);
+			$this->session->set_flashdata('message', lang('message_box_saved'));
 			
 			redirect($this->config->item('admin_folder').'/boxes');
 		}	

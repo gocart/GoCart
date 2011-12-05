@@ -10,11 +10,11 @@
 			<td style="width:20%; vertical-align:top;" class="packing">
 				<h2 style="margin:0px">*<?php echo $order->order_number;?>*</h2>
 				<?php if(!empty($order->is_gift)):?>
-					<h1 style="margin:0px; font-size:4em;">IS GIFT</h1>
+					<h1 style="margin:0px; font-size:4em;"><?php echo lang('packing_is_gift');?></h1>
 				<?php endif;?>
 			</td>
 			<td style="width:40%; vertical-align:top;">
-				<strong>Bill To Address</strong><br/>
+				<strong><?php echo lang('bill_to_address');?></strong><br/>
 				 <?php echo (!empty($order->bill_company))?$order->bill_company.'<br/>':'';?>
 				<?php echo $order->bill_firstname.' '.$order->bill_lastname;?> <br/>
 				<?php echo $order->bill_address1;?><br>
@@ -27,7 +27,7 @@
 
 			</td>
 			<td style="width:40%; vertical-align:top;" class="packing">
-				<strong>Ship To Address</strong><br/>		
+				<strong><?php echo lang('ship_to_address');?></strong><br/>		
 				<?php echo (!empty($order->ship_company))?$order->ship_company.'<br/>':'';?>
 				<?php echo $order->ship_firstname.' '.$order->ship_lastname;?> <br/>
 				<?php echo $order->ship_address1;?><br>
@@ -45,11 +45,11 @@
 		<tr>
 			<td style="border-top:1px solid #000;"></td>
 			<td style="border-top:1px solid #000;">
-				<strong>Payment Method:</strong>
+				<strong><?php echo lang('payment_method');?></strong>
 				<?php echo $order->payment_info; ?>
 			</td>
 			<td style="border-top:1px solid #000;">
-				<strong>Shipping Method:</strong>
+				<strong><?php echo lang('shipping_details');?></strong>
 				<?php echo $order->shipping_method; ?>
 			</td>
 		</tr>
@@ -57,7 +57,7 @@
 		<?php if(!empty($order->gift_message)):?>
 		<tr>
 			<td colspan="3" style="border-top:1px solid #000;">
-				<strong>Gift Note: </strong>
+				<strong><?php echo lang('gift_note');?></strong>
 				<?php echo $order->gift_message;?>
 			</td>
 		</tr>
@@ -66,7 +66,7 @@
 		<?php if(!empty($order->shipping_notes)):?>
 			<tr>
 				<td colspan="3" style="border-top:1px solid #000;">
-					<strong>Special Instructions: </strong><br/><?php echo $order->shipping_notes;?>
+					<strong><?php echo lang('shipping_notes');?></strong><br/><?php echo $order->shipping_notes;?>
 				</td>
 			</tr>
 		<?php endif;?>
@@ -76,13 +76,13 @@
 		<thead>
 			<tr>
 				<th width="5%" class="packing">
-					Qty
+					<?php echo lang('qty');?>
 				</th>
 				<th width="20%" class="packing">
-					Item Name
+					<?php echo lang('name');?>
 				</th>
 				<th class="packing" >
-					Description
+					<?php echo lang('description');?>
 				</th>
 			</tr>
 		</thead>

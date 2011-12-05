@@ -1,19 +1,17 @@
 <?php
 
-class Orders extends CI_Controller {	
+class Orders extends Admin_Controller {	
 
 	function __construct()
 	{		
 		parent::__construct();
-		$this->load->library('Auth');
+
 		remove_ssl();
-		//this adds the redirect url to our flash data, incase they are not logged in
-		$this->auth->is_logged_in(uri_string());
-		
 		$this->load->model('Order_model');
 		$this->load->model('Search_model');
 		$this->load->model('location_model');
 		$this->load->helper(array('formatting', 'utility'));
+		$this->lang->load('order');
 	}
 	
 	function index($sort_by='order_number',$sortorder='desc', $code=0, $page=0, $rows=15)
@@ -21,7 +19,7 @@ class Orders extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->helper('date');
 		$data['message']	= $this->session->flashdata('message');
-		$data['page_title']	= 'Orders';
+		$data['page_title']	= lang('orders');
 		$data['code']		= $code;
 		$term				= false;
 		
@@ -84,8 +82,8 @@ class Orders extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('Gift_card_model');
 			
-		$this->form_validation->set_rules('notes', 'Notes');
-		$this->form_validation->set_rules('status', 'Status', 'required');
+		$this->form_validation->set_rules('notes', 'lang:notes');
+		$this->form_validation->set_rules('status', 'lang:status', 'required');
 		if ($this->form_validation->run() == TRUE)
 		{
 			$save			= array();
@@ -93,12 +91,12 @@ class Orders extends CI_Controller {
 			$save['notes']	= $this->input->post('notes');
 			$save['status']	= $this->input->post('status');
 			
-			$data['message']	='The order has been updated!';
+			$data['message']	= lang('message_order_updated');
 			
 			$this->Order_model->save_order($save);
 		}
 		//get the order information, this way if something was posted before the new one gets queried here
-		$data['page_title']	= 'View Order';
+		$data['page_title']	= lang('view_order');
 		$data['order']		= $this->Order_model->get_order($id);
 		
 		// we need to see if any items are gift cards, so we can generate an activation link
@@ -108,9 +106,9 @@ class Orders extends CI_Controller {
 			{
 				if($this->Gift_card_model->is_active($product['code']))
 				{
-					$data['order']->contents[$orderkey]['gc_status'] = '[ Gift Card is Active ]';
+					$data['order']->contents[$orderkey]['gc_status'] = '[ '.lang('giftcard_is_active').' ]';
 				} else {
-					$data['order']->contents[$orderkey]['gc_status'] = ' [ <a href="'. base_url() . $this->config->item('admin_folder').'/giftcards/activate/'. $product['code'].'">Activate</a> ]';
+					$data['order']->contents[$orderkey]['gc_status'] = ' [ <a href="'. base_url() . $this->config->item('admin_folder').'/giftcards/activate/'. $product['code'].'">'.lang('activate').'</a> ]';
 				}
 			}
 		}
@@ -207,11 +205,11 @@ class Orders extends CI_Controller {
 	   		{
 	   			$this->Order_model->delete($order);
 	   		}
-			$this->session->set_flashdata('message', 'The selected orders have been deleted.');
+			$this->session->set_flashdata('message', lang('message_orders_deleted'));
 		}
 		else
 		{
-			$this->session->set_flashdata('error', 'You did not select any orders to delete.');
+			$this->session->set_flashdata('error', lang('error_no_orders_selected'));
 		}
    		//redirect as to change the url
 		redirect($this->config->item('admin_folder').'/orders');	

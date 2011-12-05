@@ -10,31 +10,31 @@ echo form_open($this->config->item('admin_folder').'/customers/edit_group/'.$id)
 ?>
 
 <div class="button_set">
-   <input type="submit" value="Save Group" />
+   <input type="submit" value="<?php echo lang('save');?>" />
 </div>
 	
 <div id="gc_tabs">
 	<ul>
-		<li><a href="#gc_coupon_attributes">Attributes</a></li>
+		<li><a href="#gc_coupon_attributes"><?php echo lang('attributes');?></a></li>
 	</ul>	
 	<div id="attributes">
 		<h2></h2>
 			<table>
 				<tr>
-					<td>Group  Name: </td>
+					<td><?php echo lang('group_name');?> </td>
 					<td>
 	                <?php echo $f_id; 
 	                	  echo $f_name; ?>
 	                 </td>
 				</tr>
 				<tr>
-					<td>Price Adjust: </td>
+					<td><?php echo lang('discount');?> </td>
 					<td>
 					<?php echo $f_discount ?>
 					</td>
 				</tr>
 				<tr>
-				  <td>Adjust Type</td>
+				  <td><?php echo lang('discount_type');?></td>
 				  <td>
 				  	<?php echo $f_discount_type  ?>
 				  </td>

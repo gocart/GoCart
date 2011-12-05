@@ -4,7 +4,7 @@
 <table class="gc_table" style="margin-bottom:10px" cellspacing="0" cellpadding="0">
 	<thead>
 		<tr>
-			<th class="gc_cell_left">Shipping Modules</th>
+			<th class="gc_cell_left"><?php echo lang('shipping_modules');?></th>
 			<th class="gc_cell_right"></th>
 		</tr>
 	</thead>
@@ -14,10 +14,10 @@
 			<td><?php echo $module; ?></td>
 			<td class="gc_cell_right list_buttons">
 			<?php if($enabled): ?>
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/shipping/uninstall/'.$module);?>" onclick="return areyousure();">Uninstall</a>
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/shipping/settings/'.$module);?>">Settings</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/shipping/uninstall/'.$module);?>" onclick="return areyousure();"><?php echo lang('uninstall');?></a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/shipping/settings/'.$module);?>"><?php echo lang('settings');?></a>
 			<?php else: ?>
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/shipping/install/'.$module);?>">Install</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/shipping/install/'.$module);?>"><?php echo lang('install');?></a>
 			<?php endif; ?>
 			</td>
 		</tr>
@@ -30,7 +30,7 @@
 <table class="gc_table" cellspacing="0" cellpadding="0" style="margin-bottom:10px">
 	<thead>
 		<tr>
-			<th class="gc_cell_left">Payment Modules</th>
+			<th class="gc_cell_left"><?php echo lang('payment_modules');?></th>
 			<th class="gc_cell_right"></th>
 		</tr>
 	</thead>
@@ -40,10 +40,10 @@
 			<td><?php echo $module; ?></td>
 			<td class="gc_cell_right list_buttons">
 			<?php if($enabled): ?>
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/payment/uninstall/'.$module);?>" onclick="return areyousure();">Uninstall</a>
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/payment/settings/'.$module);?>">Settings</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/payment/uninstall/'.$module);?>" onclick="return areyousure();"><?php echo lang('uninstall');?></a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/payment/settings/'.$module);?>"><?php echo lang('settings');?></a>
 			<?php else: ?>
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/payment/install/'.$module);?>">Install</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/payment/install/'.$module);?>"><?php echo lang('install');?></a>
 			<?php endif; ?>
 			</td>
 		</tr>
@@ -53,14 +53,14 @@
 <?php endif; ?>		
 
 <div class="button_set">
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/settings/canned_message_form/');?>">Add Canned Message</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/settings/canned_message_form/');?>"><?php echo lang('add_canned_message');?></a>
 </div>
 
 <?php if(count($canned_messages) > 0): ?>
 <table class="gc_table" cellspacing="0" cellpadding="0">
 	<thead>
 		<tr>
-			<th class="gc_cell_left">Canned Messages</th>
+			<th class="gc_cell_left"><?php echo lang('canned_messages');?></th>
 			<th class="gc_cell_right"> </th>
 		</tr>
 	</thead>
@@ -70,9 +70,9 @@
 			<td><?php echo $message['name']; ?></td>
 			<td class="gc_cell_right list_buttons">
 			<?php if($message['deletable'] == 1) : ?>	
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/settings/delete_message/'.$message['id']);?>" onclick="return areyousure();">Delete</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/settings/delete_message/'.$message['id']);?>" onclick="return areyousure();"><?php echo lang('delete');?></a>
 			<?php endif; ?>	
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/settings/canned_message_form/'.$message['id']);?>">Edit</a>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/settings/canned_message_form/'.$message['id']);?>"><?php echo lang('edit');?></a>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -83,7 +83,7 @@
 <script type="text/javascript">
 function areyousure()
 {
-	return confirm('Are you sure you want to do this?');
+	return confirm('<?php echo lang('confirm_are_you_sure');?>');
 }
 </script>
 <?php include('footer.php');

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>GoCart Login</title>
+<title><?php echo lang('gocart_login');?></title>
 
 <?php
 //test for http / https for non hosted files
@@ -79,24 +79,24 @@ label {
 <body>
 	<img src="<?php echo base_url('images/admin/login_logo.png');?>" id="logo"/>
 	<?php
-	if ($this->session->flashdata('message'))
+	if ($this->session->flashdata('error'))
 	{
-		echo '<div id="error">'.$this->session->flashdata('message').'</div>';
+		echo '<div id="error">'.$this->session->flashdata('error').'</div>';
 	}
 	?>
 	
 	<?php echo form_open($this->config->item('admin_folder').'/login') ?>
 	<div id="login_container">
-			<label>Email</label>
+			<label><?php echo lang('email');?></label>
 			<?php echo  form_input(array('id'=>'email', 'name'=>'email', 'class'=>'form_input')); ?>
 			
 			
-			<label>Password:</label>
+			<label><?php echo lang('password');?></label>
 			<?php echo  form_password(array('id'=>'password', 'name'=>'password', 'class'=>'form_input')); ?>
-			Keep Me Logged In:
+			<?php echo lang('stay_logged_in');?>
 			<input type="checkbox" value="true" name="remember" />
 			
-			<input type="submit" value="Login" name="submit" style=" margin:0px; padding:5px 10px; float:right;"/>
+			<input type="submit" value="<?php echo lang('login');?>" name="submit" style=" margin:0px; padding:5px 10px; float:right;"/>
 			
 			<br style="clear:both;"/>
 	</div>

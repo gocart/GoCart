@@ -4,7 +4,7 @@
 <table class="gc_table" cellspacing="0" cellpadding="0">
     <thead>
 		<tr>
-			<th class="gc_cell_left"><?php echo lang('order') ?></th>
+			<th class="gc_cell_left"><?php echo lang('order_number') ?></th>
 			<th><?php echo lang('bill_to') ?></th>
 			<th><?php echo lang('ship_to') ?></th>
 			<th><?php echo lang('ordered_on') ?></th>
@@ -37,9 +37,9 @@
 	<thead>
 		<tr>
 			<?php /*<th>ID</th> uncomment this if you want it*/ ?>
-			<th class="gc_cell_left"><?php echo lang('account_firstname') ?></th>
-			<th><?php echo lang('account_lastname') ?></th>
-			<th><?php echo lang('account_email') ?></th>
+			<th class="gc_cell_left"><?php echo lang('firstname') ?></th>
+			<th><?php echo lang('lastname') ?></th>
+			<th><?php echo lang('email') ?></th>
 			<th class="gc_cell_right"><?php echo lang('active') ?></th>
 		</tr>
 	</thead>

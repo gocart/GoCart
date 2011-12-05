@@ -3,22 +3,22 @@
 <script type="text/javascript">
 function areyousure()
 {
-	return confirm('Are you sure you want to delete this group?');
+	return confirm('<?php echo lang('confirm_delete_group');?>');
 }
 
 </script>
 
 <div class="button_set">
-	<a href="<?php echo site_url( $this->config->item('admin_folder').'/customers/edit_group'); ?>">Add New Group</a>
+	<a href="<?php echo site_url( $this->config->item('admin_folder').'/customers/edit_group'); ?>"><?php echo lang('add_new_group');?></a>
 </div>
 
 	
 	<table class="gc_table">
 	<thead>
 		<tr>
-			<th>Group Name</th>
-			<th>Discount</th>
-			<th>Discount Type</th>
+			<th><?php echo lang('group_name');?></th>
+			<th><?php echo lang('discount');?></th>
+			<th><?php echo lang('discount_type');?></th>
 			<th> </th>
 		</tr>
 	</thead>
@@ -35,22 +35,14 @@ function areyousure()
 						<?php 
 						// keep the default group from being deleted
 						if($group->id != 1) : ?>
-						<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/delete_group/'.$group->id); ?>" onclick="return areyousure();">Delete</a>
+						<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/delete_group/'.$group->id); ?>" onclick="return areyousure();"><?php echo lang('delete');?></a>
 						<?php endif; ?>
-						<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/edit_group/'.$group->id); ?>">Edit</a>
+						<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/edit_group/'.$group->id); ?>"><?php echo lang('edit');?></a>
 					</td>
 				</tr>
-		<?php	endforeach; ?>
-       <?php else :  ?>
-			
-		<tr><td> There are no groups </td></tr>
-       <?php endif; ?>
+			<?php endforeach; ?>
+		<?php endif; ?>
 		</tbody>
-		<tfoot>
-			<tr>
-				<td> </td>
-			</tr>
-		</tfoot>
 	</table>
 
 

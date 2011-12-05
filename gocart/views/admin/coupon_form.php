@@ -13,13 +13,13 @@ $("#datepicker2").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker2_al
 </div>
 <div id="gc_tabs">
 	<ul>
-		<li><a href="#gc_coupon_attributes">Attributes</a></li>
-		<li><a href="#gc_coupon_appliesto">Applies To</a></li>
+		<li><a href="#gc_coupon_attributes"><?php echo lang('attributes');?></a></li>
+		<li><a href="#gc_coupon_applies_to"><?php echo lang('applies_to')?></a></li>
 	</ul>
 	
 	<div id="gc_coupon_attributes">
 		<div class="gc_field2">
-		<label>Coupon Code: </label>
+		<label><?php echo lang('coupon_code');?></label>
 			<?php
 			$data	= array('id'=>'code', 'name'=>'code', 'value'=>set_value('code', $code), 'class'=>'gc_tf1');
 			echo form_input($data);
@@ -27,27 +27,27 @@ $("#datepicker2").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker2_al
 		</div>
 		
 		<div class="gc_field2">
-			<label>Times Used: </label>
+			<label><?php echo lang('times_used');?></label>
 			<?php
 				echo @$num_uses
 			?>
 		</div>
 		<div class="gc_field2">
-			<label for="max_uses">Max Uses: </label>
+			<label for="max_uses"><?php echo lang('max_uses');?></label>
 			<?php
 			$data	= array('id'=>'max_uses', 'name'=>'max_uses', 'value'=>set_value('max_uses', $max_uses), 'class'=>'gc_tf1');
 			echo form_input($data);
 			?>
 		</div>
 		<div class="gc_field2">
-			<label for="max_product_instances">Limit Per Order: </label>
+			<label for="max_product_instances"><?php echo lang('limit_per_order')?></label>
 			<?php
 				$data	= array('name'=>'max_product_instances', 'value'=>set_value('max_product_instances', $max_product_instances), 'class'=>'gc_tf1');
 				echo form_input($data);
 			?>
 		</div>
 		<div class="gc_field2">
-			<label for="start_date">Enable On: </label>
+			<label for="start_date"><?php echo lang('enable_on');?></label>
 			<?php
 				$data	= array('id'=>'datepicker1', 'value'=>set_value('start_date', reverse_format($start_date)), 'class'=>'gc_tf1');
 				echo form_input($data);
@@ -55,7 +55,7 @@ $("#datepicker2").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker2_al
 			<input type="hidden" name="start_date" value="<?php echo set_value('start_date', $start_date) ?>" id="datepicker1_alt" />
 		</div>
 		<div class="gc_field2">
-			<label for="end_date">Disable On: </label>
+			<label for="end_date"><?php echo lang('disable_on');?></label>
 			<?php
 				$data	= array('id'=>'datepicker2', 'value'=>set_value('end_date', reverse_format($end_date)), 'class'=>'gc_tf1');
 				echo form_input($data);
@@ -63,35 +63,35 @@ $("#datepicker2").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker2_al
 			<input type="hidden" name="end_date" value="<?php echo set_value('end_date', $end_date) ?>" id="datepicker2_alt" />
 		</div>
 		<div class="gc_field2">
-			<label for="reduction_target">Coupon Type: </label>
+			<label for="reduction_target"><?php echo lang('coupon_type');?></label>
 			<?php
 		 		$options = array(
-                  'price'  => 'Price Discount',
-				  'shipping' => 'FREE Shipping'
+                  'price'  => lang('price_discount'),
+				  'shipping' => lang('free_shipping')
                	);
 				echo form_dropdown('reduction_target', $options,  $reduction_target, 'id="gc_coupon_type"');
 			?>
 		</div>
 		<div class="gc_field2" id="gc_coupon_price_fields">
-			<label for="reduction_amount">Reduction Amount: </label>
+			<label for="reduction_amount"><?php echo lang('reduction_amount')?></label>
 			<?php
 				$data	= array('id'=>'reduction_amount', 'name'=>'reduction_amount', 'value'=>set_value('reduction_amount', $reduction_amount), 'class'=>'gc_tf1');
 				echo form_input($data);
 				
 				$options = array(
                   'percent'  => '%',
-				  'fixed' => '$'
+				  'fixed' => $this->config->item('currency_symbol')
                	);
 				echo ' '.form_dropdown('reduction_type', $options,  $reduction_type);
 			?>
 		</div>
 	</div>
 	
-	<div id="gc_coupon_appliesto">
+	<div id="gc_coupon_applies_to">
 		<?php
 	 		$options = array(
-              '1' => 'Apply Coupon to Whole Order',
-			  '0' => 'Apply Coupon to Select Products'
+              '1' => lang('apply_to_whole_order'),
+			  '0' => lang('apply_to_select_items')
            	);
 			echo form_dropdown('whole_order_coupon', $options,  set_value(0, $whole_order_coupon), 'id="gc_coupon_appliesto_fields"');
 		?>

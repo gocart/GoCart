@@ -1,6 +1,6 @@
 <?php
 
-class Coupons extends CI_Controller {	
+class Coupons extends Admin_Controller {	
 	
 	var $coupon_id;
 	
@@ -9,19 +9,15 @@ class Coupons extends CI_Controller {
 		parent::__construct();
 		
 		force_ssl();
-		
-		$this->load->library('Auth');
 		$this->auth->check_access('Admin', true);
 		$this->load->model('Coupon_model');
 		$this->load->model('Product_model');
-		
-		//this adds the redirect url to our flash data, incase they are not logged in
-		$this->auth->is_logged_in(uri_string());
+		$this->lang->load('coupon');
 	}
 	
 	function index()
 	{
-		$data['page_title']	= 'Coupons';
+		$data['page_title']	= lang('coupons');
 		$data['coupons']	= $this->Coupon_model->get_coupons();
 		
 		$this->load->view($this->config->item('admin_folder').'/coupons', $data);
@@ -37,7 +33,7 @@ class Coupons extends CI_Controller {
 		
 		$this->coupon_id	= $id;
 		
-		$data['page_title']		= 'Add Coupon';
+		$data['page_title']		= lang('coupon_form');
 		
 		//default values are empty if the product is new
 		$data['id']						= '';
@@ -60,12 +56,9 @@ class Coupons extends CI_Controller {
 			//if the product does not exist, redirect them to the product list with an error
 			if (!$coupon)
 			{
-				$this->session->set_flashdata('message', 'The requested coupon could not be found.');
+				$this->session->set_flashdata('message', lang('error_not_found'));
 				redirect($this->config->item('admin_folder').'/product');
 			}
-			
-			//set title to edit if we have an ID
-			$data['page_title']	= 'Edit Coupon';
 			
 			//set values to db values
 			$data['id']						= $coupon->id;
@@ -83,15 +76,15 @@ class Coupons extends CI_Controller {
 			$added = $this->Coupon_model->get_product_ids($id);
 		}
 		
-		$this->form_validation->set_rules('code', 'Code', 'trim|required|callback_check_code');
-		$this->form_validation->set_rules('max_uses', 'Max Uses', 'trim|numeric');
-		$this->form_validation->set_rules('max_product_instances', 'Max Instances', 'trim|numeric');
-		$this->form_validation->set_rules('whole_order_coupon', 'Whole Order Discount?');
-		$this->form_validation->set_rules('reduction_target', 'Reduction Target', 'trim|required');
-		$this->form_validation->set_rules('reduction_type', 'Reduction Type', 'trim');
-		$this->form_validation->set_rules('reduction_amount', 'Reduction Amount', 'trim|numeric');
-		$this->form_validation->set_rules('start_date', 'Start Date');
-		$this->form_validation->set_rules('end_date', 'End Date');
+		$this->form_validation->set_rules('code', 'lang:code', 'trim|required|callback_check_code');
+		$this->form_validation->set_rules('max_uses', 'lang:max_uses', 'trim|numeric');
+		$this->form_validation->set_rules('max_product_instances', 'lang:limit_per_order', 'trim|numeric');
+		$this->form_validation->set_rules('whole_order_coupon', 'lang:whole_order_discount');
+		$this->form_validation->set_rules('reduction_target', 'lang:reduction_target', 'trim|required');
+		$this->form_validation->set_rules('reduction_type', 'lang:reduction_type', 'trim');
+		$this->form_validation->set_rules('reduction_amount', 'lang:reduction_amount', 'trim|numeric');
+		$this->form_validation->set_rules('start_date', 'lang:start_date');
+		$this->form_validation->set_rules('end_date', 'lang:end_date');
 		
 		// create product list
 		$products = $this->Product_model->get_products();
@@ -161,14 +154,7 @@ class Coupons extends CI_Controller {
 			}
 			
 			// We're done
-			if (!$id)
-			{
-				$this->session->set_flashdata('message', 'The "'.$this->input->post('code').'" coupon code has been added.');
-			}
-			else
-			{
-				$this->session->set_flashdata('message', 'Information for the "'.$this->input->post('code').'" coupon code has been updated.');
-			}
+			$this->session->set_flashdata('message', lang('message_saved_coupon'));
 			
 			//go back to the product list
 			redirect($this->config->item('admin_folder').'/coupons');
@@ -181,7 +167,7 @@ class Coupons extends CI_Controller {
 		$code = $this->Coupon_model->check_code($str, $this->coupon_id);
         if ($code)
        	{
-			$this->form_validation->set_message('check_code', 'The requested code is already in use.');
+			$this->form_validation->set_message('check_code', lang('error_already_used'));
 			return FALSE;
 		}
 		else
@@ -198,24 +184,22 @@ class Coupons extends CI_Controller {
 			//if the promo does not exist, redirect them to the customer list with an error
 			if (!$coupon)
 			{
-				$this->session->set_flashdata('message', 'The requested coupon could not be found.');
+				$this->session->set_flashdata('error', lang('error_not_found'));
 				redirect($this->config->item('admin_folder').'/coupons');
 			}
 			else
 			{
 				$this->Coupon_model->delete_coupon($id);
 				
-				$this->session->set_flashdata('message', 'The "'.$coupon->code.'" coupon has been deleted from the system.');
+				$this->session->set_flashdata('message', lang('message_coupon_deleted'));
 				redirect($this->config->item('admin_folder').'/coupons');
 			}
 		}
 		else
 		{
 			//if they do not provide an id send them to the promo list page with an error
-			$this->session->set_flashdata('message', 'The requested coupon could not be found.');
+			$this->session->set_flashdata('message', lang('error_not_found'));
 			redirect($this->config->item('admin_folder').'/coupons');
 		}
 	}
 }
-
-?>
