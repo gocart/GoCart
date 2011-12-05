@@ -39,7 +39,21 @@ if(isset($_SERVER['HTTPS']))
     }); 
  
 </script>
-		
+
+
+<script type="text/javascript"> 
+var $buoop = {} 
+$buoop.ol = window.onload; 
+window.onload=function(){ 
+ try {if ($buoop.ol) $buoop.ol();}catch (e) {} 
+ var e = document.createElement("script"); 
+ e.setAttribute("type", "text/javascript"); 
+ e.setAttribute("src", "https://browser-update.org/update.js"); 
+ document.body.appendChild(e); 
+} 
+</script> 
+
+
 <?php
 //with this I can put header data in the header instead of in the body.
 if(isset($additional_header_info))
@@ -50,18 +64,6 @@ if(isset($additional_header_info))
 ?>
 </head>
 <body>
-	
-<?php if(is_ie(8)):?>
-<div class="full_wrap">
-	You are using an old browser that may not function as expected.	For a better, safer browsing experience, please upgrade your browser.<br/>
-	For your convenience, here are some links!
-	<strong><a style="color:#fff;" href="http://windows.microsoft.com/en-US/internet-explorer/downloads/ie">Internet Explorer</a> | 
-	<a style="color:#fff;" href="http://firefox.com">Firefox</a> | 
-	<a style="color:#fff;" href="http://google.com/chrome">Google Chrome</a> | 
-	<a style="color:#fff;" href="http://www.apple.com/safari/">Apple Safari</a></strong>
-</div>
-<?php endif;?>
-
 <div id="top_menu_container" class="full_wrap">
 	<div class="wide_wrap">
 		<ul id="top_menu" class="right">	
