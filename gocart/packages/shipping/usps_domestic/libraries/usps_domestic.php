@@ -1,5 +1,13 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/*
+
+	USPS Domestic.
+	
+	For use in the USA 
+	
+*/
+
 class usps_domestic
 {
 	var $CI;

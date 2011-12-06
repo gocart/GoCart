@@ -204,7 +204,7 @@ class United_parcel_service
 			$enabled	= $post['enabled'];
 		}
 		
-		$form	= '<table cellspacing=5><tr><td>'.lang('username').': </td><td><input type="text" name="ups_account_username" value="'.$username.'" class="gc_tf1"/></td></tr>
+		$form	= '<table cellspacing=5><tr><td>'.lang('account').': </td><td><input type="text" name="ups_account_username" value="'.$username.'" class="gc_tf1"/></td></tr>
 		<tr><td>'.lang('password').': </td><td><input type="text" name="ups_account_password" value="'.$password.'" class="gc_tf1"/></td></tr>
 		<tr><td>'.lang('key').': </td><td><input type="text" name="access_key" value="'.$access_key.'" class="gc_tf1"/></td></tr>
 		<tr><td valign="top">'.lang('services').': </td><td>';
