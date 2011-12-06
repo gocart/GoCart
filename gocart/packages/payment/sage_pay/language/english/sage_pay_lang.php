@@ -8,7 +8,7 @@
      *
      * @package       GoCart Sage Pay payment module
      * @subpackage    
-     * @category      Libraries
+     * @category      Packages/Payment
      * @author        swicks@devicesoftware.com
      * @version       0.2
      */
@@ -35,6 +35,10 @@ $lang['transaction_declined'] = 'Transaction Declined. Please check your card in
 
 // admin
 
+$lang['direct']         = 'Direct';
+$lang['form']           = 'Form';
+$lang['server']         = 'Server';
+
 $lang['simulator']		= 'Simulator';
 $lang['test']			= 'Test';
 $lang['live']			= 'Live';
@@ -47,7 +51,8 @@ $lang['enter_vendor']	= 'You must enter a valid Vendor Name';
 $lang['vps_protocol']	= 'VPS protocol';
 $lang['vendor_name']	= 'Vendor Name';
 $lang['supported_cards']	= 'Supported Card Types';
-$lang['system']			= 'System';
+$lang['system']            = 'System';
+$lang['mode']			= 'Mode';
 $lang['type']			= 'Type';
 $lang['currency']		= 'Currency';
 

@@ -9,7 +9,7 @@
      *
      * @package       GoCart Sage Pay payment module
      * @subpackage    
-     * @category      Libraries
+     * @category      Packages/Payment
      * @author        swicks@devicesoftware.com
      * @version       0.2
      * 
@@ -22,6 +22,10 @@
     //protocol (save hidden to keep in settings)
     echo form_hidden('vps_protocol', $settings['vps_protocol']);
 
+    //system
+    //$service_options = array('direct' => lang('direct'), 'form' => lang('form'), 'server' => lang('server'));
+    // currently only direct - form and server to follow...
+    $service_options = array('direct' => lang('direct'));
     //mode
     $mode_options = array('simulator' => lang('simulator'), 'test' => lang('test'), 'live' => lang('live'));
     //type
@@ -40,6 +44,10 @@
   <tr>
     <td width="21%"><div align="right"><?php echo lang('enabled') ?>:</div></td>
     <td width="79%"><?php echo form_dropdown('enabled', $enabled_options, $settings['enabled']); ?></td>
+  </tr>
+   <tr>
+    <td><div align="right"><?php echo lang('system') ?>:</div></td>
+    <td><? echo form_dropdown('service', $service_options, $settings['service'] ); ?></td>
   </tr>
   <tr>
     <td><div align="right"><?php echo lang('vps_protocol') ?>:</div></td>
@@ -62,7 +70,7 @@
   </tr>
   
   <tr>
-    <td><div align="right"><?php echo lang('system') ?>:</div></td>
+    <td><div align="right"><?php echo lang('mode') ?>:</div></td>
     <td><? echo form_dropdown('mode', $mode_options, $settings['mode'] ); ?></td>
   </tr>
   <tr>

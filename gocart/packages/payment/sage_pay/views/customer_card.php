@@ -8,7 +8,7 @@
      *
      * @package       GoCart Sage Pay payment module
      * @subpackage    
-     * @category      Libraries
+     * @category      Packages/Payment
      * @author        swicks@devicesoftware.com
      * @version       0.2
      */
