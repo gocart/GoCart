@@ -15,6 +15,10 @@ $lang['cvv_code']					= 'CVV Code';
 $lang['invalid_card_num']			= 'The card number you entered is not a valid credit card number';
 $lang['all_required_fields']		= 'Please complete all required fields.';
 
+
+$lang['auth_error']					= 'Authorize.Net Critical Error: ';
+
+
 //admin
 
 $lang['test_mode']					= 'Test Mode';

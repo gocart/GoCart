@@ -50,6 +50,13 @@ class Authorize_net_lib {
             $this->field_string .= "$key=" . urlencode( $value ) . "&";
         }
         $ch = curl_init($this->gateway_url);
+        
+        // turn off peer verification for test mode
+        if($this->settings['authorize_net_test_mode'] == 'TRUE')
+        {
+        	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        }
+        
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, rtrim( $this->field_string, "& " ));

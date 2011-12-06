@@ -9,7 +9,7 @@ class United_parcel_service
 	function United_parcel_service()
 	{
 		$this->CI =& get_instance();
-		$this->CI->load->model('Settings_model');
+		$this->CI->lang->load('ups');
 		
 		// standard services
 		$this->ups_services = array(
@@ -204,10 +204,10 @@ class United_parcel_service
 			$enabled	= $post['enabled'];
 		}
 		
-		$form	= '<table cellspacing=5><tr><td>Username: </td><td><input type="text" name="ups_account_username" value="'.$username.'" class="gc_tf1"/></td></tr>
-		<tr><td>Password: </td><td><input type="text" name="ups_account_password" value="'.$password.'" class="gc_tf1"/></td></tr>
-		<tr><td>Access Key: </td><td><input type="text" name="access_key" value="'.$access_key.'" class="gc_tf1"/></td></tr>
-		<tr><td valign="top">Services To Offer: </td><td>';
+		$form	= '<table cellspacing=5><tr><td>'.lang('account').': </td><td><input type="text" name="ups_account_username" value="'.$username.'" class="gc_tf1"/></td></tr>
+		<tr><td>'.lang('password').': </td><td><input type="text" name="ups_account_password" value="'.$password.'" class="gc_tf1"/></td></tr>
+		<tr><td>'.lang('key').': </td><td><input type="text" name="access_key" value="'.$access_key.'" class="gc_tf1"/></td></tr>
+		<tr><td valign="top">'.lang('services').': </td><td>';
 
             
          foreach($this->ups_services as $id=>$opt)
@@ -219,13 +219,13 @@ class United_parcel_service
 		
 		$form .='</td></tr>';
 		
-		$form .= '</td></tr><tr><td>Handling Fee: </td><td>';
+		$form .= '</td></tr><tr><td>'.lang('fee').': </td><td>';
 		
 		$form .= form_dropdown('handling_method', array('$'=>'$', '%'=>'%'), $handling_method);
 		
 		$form .= ' '. form_input('handling_amount', $handling_amount, 'class="gc_tf1"');
 		
-		$form .= '<tr><td>Enabled: </td><td><select name="enabled">';
+		$form .= '<tr><td>'.lang('enabled').': </td><td><select name="enabled">';
 		
 		$enabledtxt		= '';
 		$disabledtxt	= '';
@@ -237,8 +237,8 @@ class United_parcel_service
 		{
 			$disabledtxt	= ' selected="selected"';
 		}
-		$form	.= '<option value="1"'.$enabledtxt.'>Enabled</option>
-		<option value="0"'.$disabledtxt.'>Disabled</option>';
+		$form	.= '<option value="1"'.$enabledtxt.'>'.lang('enabled').'</option>
+		<option value="0"'.$disabledtxt.'>'.lang('disabled').'</option>';
 		$form	.= '</select></td></tr>
 		</table>';
 		return $form;

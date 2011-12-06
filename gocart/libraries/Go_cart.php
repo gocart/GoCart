@@ -40,8 +40,7 @@ class go_cart {
 	function __construct() 
 	{
 		$this->CI =& get_instance();
-		$this->CI->load->model('Coupon_model');
-		$this->CI->load->model('Gift_card_model');
+		$this->CI->load->model(array('Coupon_model' , 'Gift_card_model', 'Settings_model'));
 		
 		// Load the saved session
 		if ($this->CI->session->userdata('cart_contents') !== FALSE)

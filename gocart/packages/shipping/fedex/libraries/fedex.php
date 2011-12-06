@@ -14,45 +14,45 @@ class fedex
 		//we're going to have this information in the back end for editing eventually
 		//username password, origin zip code etc.
 		$this->CI =& get_instance();
-		$this->CI->load->model('Settings_model');
+		$this->CI->lang->load('fedex');
 		
 		//$this->server = 'https://gatewaybeta.fedex.com/GatewayDC';
 		
 		//The WSDL is not included with the sample code.
 		//Please include and reference in $path_to_wsdl variable.
-		$this->path_to_wsdl = APPPATH."packages/shipping/fedex/libraries/lib/RateService_v8.wsdl";
+		$this->path_to_wsdl = APPPATH."packages/shipping/fedex/libraries/RateService_v8.wsdl";
 		
 		// Packaging types
-		$this->package_types['FEDEX_10KG_BOX']	= '10KG Box';
-		$this->package_types['FEDEX_25KG_BOX'] 	= '25KG Box'; 
-		$this->package_types['FEDEX_BOX']		= 'Fedex Box';
-		$this->package_types['FEDEX_ENVELOPE']	= 'Fedex Envelope'; 
-		$this->package_types['FEDEX_PAK']		= 'Fedex Pak';
-		$this->package_types['FEDEX_TUBE'] 		= 'Fedex Tube';
-		$this->package_types['YOUR_PACKAGING'] 	= 'Your Packaging';
+		$this->package_types['FEDEX_10KG_BOX'] = lang('FEDEX_10KG_BOX');
+		$this->package_types['FEDEX_25KG_BOX'] = lang('FEDEX_25KG_BOX'); 
+		$this->package_types['FEDEX_BOX'] = lang('FEDEX_BOX');
+		$this->package_types['FEDEX_ENVELOPE'] = lang('FEDEX_ENVELOPE'); 
+		$this->package_types['FEDEX_PAK'] = lang('FEDEX_PAK');
+		$this->package_types['FEDEX_TUBE'] = lang('FEDEX_TUBE');
+		$this->package_types['YOUR_PACKAGING'] = lang('YOUR_PACKAGING');
 		
 	
 		// Available Services
-		$this->service_list['EUROPE_FIRST_INTERNATIONAL_PRIORITY']	= 'Fedex Europe 1st Intn\'l Priority';
-		$this->service_list['FEDEX_1_DAY_FREIGHT']	= 'Fedex 1 Day Freight'; 
-		$this->service_list['FEDEX_2_DAY']			  = 'Fedex 2 Day';
-		$this->service_list['FEDEX_2_DAY_FREIGHT']	= 'Fedex 2 Day Freight'; 
-		$this->service_list['FEDEX_3_DAY_FREIGHT']	= 'Fedex 3 Day Freight'; 
-		$this->service_list['FEDEX_EXPRESS_SAVER']	= 'Fedex Express Saver';
-		$this->service_list['FEDEX_GROUND']		  = 'Fedex Ground'; 
-		$this->service_list['FIRST_OVERNIGHT']		  = 'Fedex First Overnight';
-		$this->service_list['GROUND_HOME_DELIVERY']	= 'Fedex Ground Home Delivery'; 
-		$this->service_list['INTERNATIONAL_ECONOMY']	= 'Fedex International Economy'; 
-		$this->service_list['INTERNATIONAL_ECONOMY_FREIGHT']	= 'Fedex International Economy Freight'; 
-		$this->service_list['INTERNATIONAL_FIRST']	= 'Fedex International First'; 
-		$this->service_list['INTERNATIONAL_PRIORITY']	= 'Fedex International Priority'; 
-		$this->service_list['INTERNATIONAL_PRIORITY_FREIGHT']	= 'Fedex International Priority Freight'; 
-		$this->service_list['PRIORITY_OVERNIGHT']	= 'Fedex Priority Overnight';
-		$this->service_list['SMART_POST']	= 'Fedex Smart Post'; 
-		$this->service_list['STANDARD_OVERNIGHT']	= 'Fedex Standard Overnight'; 
-		$this->service_list['FEDEX_FREIGHT']	= 'Fedex Freight'; 
-		$this->service_list['FEDEX_NATIONAL_FREIGHT']	= 'Fedex National Freight';
-		$this->service_list['INTERNATIONAL_GROUND']	= 'Fedex International Ground';
+		$this->service_list['EUROPE_FIRST_INTERNATIONAL_PRIORITY']	= lang('EUROPE_FIRST_INTERNATIONAL_PRIORITY');
+		$this->service_list['FEDEX_1_DAY_FREIGHT']	= lang('FEDEX_1_DAY_FREIGHT'); 
+		$this->service_list['FEDEX_2_DAY']	= lang('FEDEX_2_DAY');
+		$this->service_list['FEDEX_2_DAY_FREIGHT']	= lang('FEDEX_2_DAY_FREIGHT'); 
+		$this->service_list['FEDEX_3_DAY_FREIGHT']	= lang('FEDEX_3_DAY_FREIGHT'); 
+		$this->service_list['FEDEX_EXPRESS_SAVER']	= lang('FEDEX_EXPRESS_SAVER');
+		$this->service_list['FEDEX_GROUND']	= lang('FEDEX_GROUND'); 
+		$this->service_list['FIRST_OVERNIGHT']	= lang('FIRST_OVERNIGHT');
+		$this->service_list['GROUND_HOME_DELIVERY']	= lang('GROUND_HOME_DELIVERY'); 
+		$this->service_list['INTERNATIONAL_ECONOMY']	= lang('INTERNATIONAL_ECONOMY'); 
+		$this->service_list['INTERNATIONAL_ECONOMY_FREIGHT']	= lang('INTERNATIONAL_ECONOMY_FREIGHT'); 
+		$this->service_list['INTERNATIONAL_FIRST']	= lang('INTERNATIONAL_FIRST'); 
+		$this->service_list['INTERNATIONAL_PRIORITY']	= lang('INTERNATIONAL_PRIORITY'); 
+		$this->service_list['INTERNATIONAL_PRIORITY_FREIGHT']	= lang('INTERNATIONAL_PRIORITY_FREIGHT'); 
+		$this->service_list['PRIORITY_OVERNIGHT']	= lang('PRIORITY_OVERNIGHT');
+		$this->service_list['SMART_POST']	= lang('SMART_POST'); 
+		$this->service_list['STANDARD_OVERNIGHT']	= lang('STANDARD_OVERNIGHT'); 
+		$this->service_list['FEDEX_FREIGHT']	= lang('FEDEX_FREIGHT'); 
+		$this->service_list['FEDEX_NATIONAL_FREIGHT']	= lang('FEDEX_NATIONAL_FREIGHT');
+		$this->service_list['INTERNATIONAL_GROUND']	= lang('INTERNATIONAL_GROUND');
 		
 	}
 	
@@ -96,7 +96,7 @@ class fedex
 	
 		//====== Fedex code start
 	
-		require_once('lib/fedex-common.php5');
+		require_once('fedex-common.php');
 		
 		ini_set("soap.wsdl_cache_enabled", "0");
 		
@@ -132,11 +132,11 @@ class fedex
 		$request['RequestedShipment']['PackageDetail'] = 'INDIVIDUAL_PACKAGES';
 		$request['RequestedShipment']['PackagingType'] = $package;
 		$request['RequestedShipment']['RequestedPackageLineItems'] = array('0' => array('Weight' => array('Value' => $weight,
-																							'Units' => 'LB'),
+																							'Units' => $this->config->item('weight_unit')),
 																							'Dimensions' => array('Length' => $pkg_length,
 																								'Width' => $pkg_width,
 																								'Height' => $pkg_height,
-																								'Units' => 'IN')));
+																								'Units' => $this->config->item('dimension_unit'))));
 		
 		// send request
 		$response = $client ->getRates($request);
@@ -249,12 +249,13 @@ class fedex
 
 		}
 		
-		$form	= '<table><tr><td>Key: </td><td>'.form_input('key', $key, 'class="gc_tf1"') .'</td></tr>
-					<tr><td>Ship Account: </td><td>'.form_input('shipaccount', $shipaccount, 'class="gc_tf1"') .'</td></tr>
-					<tr><td>Meter: </td><td>'.form_input('meter', $meter, 'class="gc_tf1"') .'</td></tr>
-					<tr><td>Password: </td><td>'.form_input('password', $password, 'class="gc_tf1"') .'</td></tr>';
+		$form	= '<table><tr><td>'.lang('fedex_key').': </td><td>'.form_input('key', $key, 'class="gc_tf1"') .'</td></tr>
+					<tr><td>'.lang('fedex_account').': </td><td>'.form_input('shipaccount', $shipaccount, 'class="gc_tf1"') .'</td></tr>
+					<tr><td>'.lang('fedex_meter').': </td><td>'.form_input('meter', $meter, 'class="gc_tf1"') .'</td></tr>
+					<tr><td>'.lang('password').': </td><td>'.form_input('password', $password, 'class="gc_tf1"') .'</td></tr>';
 		
-		$form	.= '<tr><td valign="top">Services To Offer: </td><td>';
+		$form	.= '<tr><td valign="top">'.lang('fedex_services').': </td><td>';
+
 		
 		foreach($this->service_list as $id=>$opt)
 		{
@@ -263,35 +264,35 @@ class fedex
 			$form .= "> $opt <br />";
 		}
 	
-		$form .= '</td></tr><tr><td>Container: </td><td>';
+		$form .= '</td></tr><tr><td>'.lang('container').':</td><td>';
 		
 		$opts = $this->package_types;
 		
 		$form .= form_dropdown('package', $opts, $package);
 		
-		$form .= '</td></tr><tr><td colspan="2">Container Dimensions (inches): </td>';
+		$form .= '</td></tr><tr><td colspan="2">'.lang('dimensions').' ('. $this->CI->config->item('dimension_unit'). '):</td>';
 		
-		$form .= '</td></tr><tr><td>Height: </td><td>';
+		$form .= '</td></tr><tr><td>'.lang('height').': </td><td>';
 		
 		$form .= ' '. form_input('height', $height, 'class="gc_tf1"');
 		
-		$form .= '</td></tr><tr><td>Width: </td><td>';
+		$form .= '</td></tr><tr><td>'.lang('width').': </td><td>';
 		
 		$form .= ' '. form_input('width', $width, 'class="gc_tf1"');
 		
-		$form .= '</td></tr><tr><td>Length: </td><td>';
+		$form .= '</td></tr><tr><td>'.lang('length').': </td><td>';
 		
 		$form .= ' '. form_input('length', $length, 'class="gc_tf1"');
 		
-		$form .= '</td></tr><tr><td>Handling Fee: </td><td>';
+		$form .= '</td></tr><tr><td>'.lang('fee').': </td><td>';
 		
 		$form .= form_dropdown('handling_method', array('$'=>'$', '%'=>'%'), $handling_method);
 		
 		$form .= ' '. form_input('handling_amount', $handling_amount, 'class="gc_tf1"');
 		
-		$form .= '</td></tr><tr><td>Module Status: </td><td>';
+		$form .= '</td></tr><tr><td>'.lang('enabled').': </td><td>';
 		
-		$opts = array('Disabled', 'Enabled');
+		$opts = array(lang('disabled'), lang('enabled'));
 		
 		$form .= form_dropdown('enabled', $opts, $enabled);
 		

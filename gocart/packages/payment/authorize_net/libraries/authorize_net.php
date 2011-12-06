@@ -30,15 +30,17 @@ class Authorize_net
 		$enabled	= $settings['enabled'];
 		
 		$form			= array();
+		$form['name']	= $this->method_name;
 		
 		// Retrieve any previously stored cc data to redisplay in case of errors
 		$cc_data = $this->CI->session->userdata('cc_data');
 		
 		if($enabled)
 		{
-			$form['name']	= $this->method_name;
 			
-			return $this->CI->load->view('customer_card', array('settings'=>$se), true);
+			$form['form'] = $this->CI->load->view('customer_card', array('cc_data'=>$cc_data), true);
+			
+			return $form;
 			
 		} else return array();
 		
