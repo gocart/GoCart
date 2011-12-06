@@ -450,7 +450,10 @@ class Checkout extends CI_Controller {
 		$data['additional_details']	= $this->go_cart->additional_details();
 		$data['hide_menu']			= true;
 		
-		
+        // run the complete payment module method once order has been saved
+        if(method_exists($this->$payment['module'], 'complete_payment'))
+            $this->$payment['module']->complete_payment($data);
+
 		// Send the user a confirmation email
 		
 		// - get the email template
