@@ -8,7 +8,7 @@
  *
  * @package       GoCart Sage Pay payment module
  * @subpackage    
- * @category      Libraries
+ * @category      Packages/Payment
  * @author        swicks@devicesoftware.com
  * @version       0.2
  */
@@ -87,10 +87,7 @@ class Sage_pay_lib {
         $rand_num = rand(0,32000)*rand(0,32000);
         $this->vendor_tx_code= $this->settings['vendor'] . "-" . $time_stamp . "-" . $rand_num;
         $this->add_field('VendorTxCode', $this->vendor_tx_code);
-        
-        // hardcoded vendor for test demo
-        $this->add_field('Vendor', 'fountainsdirect');
-        
+
         foreach( $this->fields as $key => $value ) {
             $this->field_string .= "$key=" . urlencode( $value ) . "&";
         }

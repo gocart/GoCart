@@ -8,7 +8,7 @@
  *
  * @package       GoCart Sage Pay payment module
  * @subpackage    
- * @category      Libraries
+ * @category      Packages/Payment
  * @author        swicks@devicesoftware.com
  * @version       0.2
  * @todo          integrate backend to manage payments directly through GoCart, support form, server & 3D secure, 
@@ -28,9 +28,13 @@ class Sage_pay
     //codeigniter instance
     private $CI;
 	
+    // store sagepay response data
+    private $_sagepay_response = array();
+
 	//title of the payment method
 	private $method_name;
     
+
 	/**
     * constructor
     * 
@@ -266,7 +270,11 @@ class Sage_pay
         $this->CI->sage_pay_lib->add_field('BillingAddress1', $customer['bill_address']["address1"]);
         $this->CI->sage_pay_lib->add_field('BillingAddress2',$customer['bill_address']["address2"]);
         $this->CI->sage_pay_lib->add_field('BillingCity', $customer['bill_address']["city"]);
-        $this->CI->sage_pay_lib->add_field('BillingState', $customer['bill_address']["zone"]);
+        // State is only supported in US, for all other countries leave blank
+        if($customer['bill_address']["country_id"] == "223")
+            $this->CI->sage_pay_lib->add_field('BillingState', $customer['bill_address']["zone"]);
+        else
+            $this->CI->sage_pay_lib->add_field('BillingState', "");
         $this->CI->sage_pay_lib->add_field('BillingPostCode', $customer['bill_address']["zip"]);
         $this->CI->sage_pay_lib->add_field('BillingCountry', $customer['bill_address']["country_code"]);
         $this->CI->sage_pay_lib->add_field('BillingPhone', $customer['bill_address']["phone"]);        
@@ -276,7 +284,11 @@ class Sage_pay
         $this->CI->sage_pay_lib->add_field('DeliveryAddress1', $customer['ship_address']["address1"]);
         $this->CI->sage_pay_lib->add_field('DeliveryAddress2',$customer['ship_address']["address2"]);
         $this->CI->sage_pay_lib->add_field('DeliveryCity', $customer['ship_address']["city"]);
-        $this->CI->sage_pay_lib->add_field('DeliveryState', $customer['ship_address']["zone"]);
+        // State is only supported in US, for all other countries leave blank
+        if($customer['ship_address']["country_id"] == "223")
+            $this->CI->sage_pay_lib->add_field('DeliveryState', $customer['ship_address']["zone"]);
+        else
+            $this->CI->sage_pay_lib->add_field('DeliveryState', "");
         $this->CI->sage_pay_lib->add_field('DeliveryPostCode', $customer['ship_address']["zip"]);
         $this->CI->sage_pay_lib->add_field('DeliveryCountry', $customer['ship_address']["country_code"]);
         $this->CI->sage_pay_lib->add_field('DeliveryPhone', $customer['ship_address']["phone"]);        
@@ -284,26 +296,43 @@ class Sage_pay
         
         // Send info to sagepay and receive a response
         $this->CI->sage_pay_lib->process_payment();
-        $sagepay_response = $this->CI->sage_pay_lib->get_all_responses();
-        
-        // record results in say_pay table for future processing
-        $this->CI->db->insert($this->CI->db->dbprefix . 'sage_pay', $sagepay_response);
-        
-        // Forward results
-        if($sagepay_response['Status'] != 'INVALID'){    
-            // payment success, we can destroy our tmp card data
-            $this->CI->session->unset_userdata('sp_data');
-            return false;   // false == no error
+        $this->_sagepay_response = $this->CI->sage_pay_lib->get_all_responses();
+
+        // handle response status
+        switch($this->_sagepay_response['Status']){
+            case 'OK':
+            case 'REGISTERED':
+                $this->CI->session->unset_userdata('sp_data');
+                return false;   // false == no error
+                break;
+
+            case 'MALFORMED':
+            case 'INVALID':
+            case 'ERROR':
+            case 'NOTAUTHED':
+            case 'REJECTED':
+            case '3DAUTH':
+                log_message('debug', 'Sage-pay module - Protocol:'. $this->_sagepay_response['VPSProtocol'] .' - Status:' . $this->_sagepay_response['Status']);
+                log_message('debug', 'Sage-pay module - Status Detail:'. $this->_sagepay_response['StatusDetail']);
+                return lang('transaction_declined');
+                break;
         }
-        else 
-        {
-            // payment declined, return our user to the form with an error.            
-            log_message('debug', 'Sage-pay module - Protocol:'. $sagepay_response['VPSProtocol'] .' - Status:' . $sagepay_response['Status']);
-            log_message('debug', 'Sage-pay module - Status Detail:'. $sagepay_response['StatusDetail']);
-            return lang('transaction_declined');                        
-        }                
 	}
-	
+     /**
+    * final method to run after the order has been saved.
+    * allows you to save order_id etc. back to the payment module
+    *
+    * @param array $data
+    */
+    public function complete_payment($data){
+
+        // add order id for admin to process payments
+        $this->_sagepay_response['order_id'] = $data['order_id'];
+
+        // record results in say_pay table for future processing
+        $this->CI->db->insert($this->CI->db->dbprefix . 'sage_pay', $this->_sagepay_response);
+    }
+
     /**
     * Admin form settings
     * 
