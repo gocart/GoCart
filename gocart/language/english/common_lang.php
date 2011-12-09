@@ -44,11 +44,9 @@ $lang['form_continue']		= 'Continue';
 $lang['form_choose']		= 'Choose';
 $lang['form_edit']			= 'Edit';
 $lang['form_delete']		= 'Delete';
-$lang['form_term']			= 'Term';
 $lang['form_search']		= 'Search';
 $lang['form_view']			= 'View';
 $lang['form_save']			= 'Save';
-//dates
 $lang['form_from']			= 'From';
 $lang['form_to']			= 'to';
 
@@ -139,7 +137,6 @@ $lang['additional_details']			= 'Additional Details';
 $lang['heard_about']				= 'How did you hear about us?';
 $lang['shipping_instructions']		= 'Shipping Instructions?';
 
-
 //checkout confirmation
 $lang['thank_you']					= 'Thanks for shopping with '; // terminates with company/site name, defined in gocart config as 'company_name'
 
@@ -156,11 +153,6 @@ $lang['all_required_fields']		= 'Please complete all required fields.';
 $lang['card_number']				= 'Card Number';
 $lang['expires_on']					= 'Expires On';
 $lang['cvv_code']					= 'CVV Code';
-
-//paypal library messages
-$lang['paypal_error']				= 'There was an error processing your payment through PayPal';
-$lang['paypal_desc']				= 'Using this method, you will be directed to the Paypal website to verify your payment. Once your payment is authorized, you will be directed back to our website and your order will be complete.';
-
 
 //giftcards
 $lang['giftcard']					= 'Gift Card';
