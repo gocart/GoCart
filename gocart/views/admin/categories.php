@@ -19,7 +19,7 @@ function areyousure()
 		</tr>
 	</thead>
 	<tbody>
-		<?php echo (count($categories) < 1)?'<tr><td style="text-align:center;" colspan="3">'.lang('message_no_categories').'</td></tr>':''?>
+		<?php echo (count($categories) < 1)?'<tr><td style="text-align:center;" colspan="3">'.lang('no_categories').'</td></tr>':''?>
 		<?php
 		define('ADMIN_FOLDER', $this->config->item('admin_folder'));
 		function list_categories($cats, $sub='') {
