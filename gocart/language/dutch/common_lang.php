@@ -44,11 +44,9 @@ $lang['form_continue']		= 'Volgende';
 $lang['form_choose']		= 'Kies';
 $lang['form_edit']			= 'Bewerken';
 $lang['form_delete']		= 'Verwijderen';
-$lang['form_term']			= 'Term';
 $lang['form_search']		= 'Zoeken';
 $lang['form_view']			= 'Bekijken';
 $lang['form_save']			= 'Opslaan';
-//dates
 $lang['form_from']			= 'Van';
 $lang['form_to']			= 'naar';
 
@@ -139,7 +137,6 @@ $lang['additional_details']			= 'Extra gegevens';
 $lang['heard_about']				= 'Hoe leerde u ons kennen?';
 $lang['shipping_instructions']		= 'Verzendinstructies?';
 
-
 //checkout confirmation
 $lang['thank_you']					= 'Dankuwel voor uw aankoop bij '; // terminates with company/site name, defined in gocart config as 'company_name'
 
@@ -156,11 +153,6 @@ $lang['all_required_fields']		= 'Vul alle vereiste velden in.';
 $lang['card_number']				= 'Kaartnummer';
 $lang['expires_on']					= 'Vervaldatum';
 $lang['cvv_code']					= 'Beveiligingscode (CCV)';
-
-//paypal library messages
-$lang['paypal_error']				= 'Er is een probleem opgetreden tijdens het verwerken van uw betaling via Paypal';
-$lang['paypal_desc']				= 'Bij deze methode wordt u doorverbonden met de Paypal website om uw betaling te controleren.  Nadat de betaling aanvaard is, wordt u teruggebracht naar onze website om uw bestelling te bevestigen.';
-
 
 //giftcards
 $lang['giftcard']					= 'Cadeaubon';
