@@ -23,6 +23,10 @@ $config['dimension_unit']   = 'IN'; // FT, CM, etc
 // site logo path (for packing slip)
 $config['site_logo']		= '/images/logo.png';
 
+// digital product file upload file path
+//   (This should be above your web root)
+$config['digital_downloads_path'] = '/path/to/file';
+
 //change the name of the admin controller folder 
 $config['admin_folder']		= 'admin';
 

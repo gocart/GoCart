@@ -62,6 +62,8 @@ class Products extends Admin_Controller {
 		$data['in_stock'] 			= '';
 		$data['seo_title']			= '';
 		$data['meta']				= '';
+		$data['shippable']			= '';
+		$data['enabled']			= '';
 		$data['related_products']	= array();
 		$data['product_categories']	= array();
 		$data['images']				= array();
@@ -97,6 +99,8 @@ class Products extends Admin_Controller {
 			$data['saleprice']			= $product->saleprice;
 			$data['weight']				= $product->weight;
 			$data['in_stock'] 			= $product->in_stock;
+			$data['shippable']			= $product->shippable;
+			$data['enabled']			= $product->enabled;
 			
 			//make sure we haven't submitted the form yet before we pull in the images/related products from the database
 			if(!$this->input->post('submit'))
@@ -132,6 +136,8 @@ class Products extends Admin_Controller {
 		$this->form_validation->set_rules('saleprice', 'lang:saleprice', 'trim|numeric');
 		$this->form_validation->set_rules('weight', 'lang:weight', 'trim|numeric');
 		$this->form_validation->set_rules('in_stock', 'lang:in_stock', 'trim|numeric');
+		$this->form_validation->set_rules('shippable', 'lang:shippable', 'trim|numeric');
+		$this->form_validation->set_rules('shippable', 'lang:enabled', 'trim|numeric');
 
 		/*
 		if we've posted already, get the photo stuff and organize it
@@ -198,6 +204,8 @@ class Products extends Admin_Controller {
 			$save['saleprice']			= floatval($this->input->post('saleprice'));
 			$save['weight']				= floatval($this->input->post('weight'));
 			$save['in_stock']			= $this->input->post('in_stock');
+			$save['shippable']			= $this->input->post('shippable');
+			$save['enabled']			= $this->input->post('enabled');
 			$post_images				= $this->input->post('images');
 			
 			$save['slug']				= $slug;
@@ -274,7 +282,7 @@ class Products extends Admin_Controller {
 		$data['error']	= false;
 		
 		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= $this->config->item('size_limit');
+		//$config['max_size']	= $this->config->item('size_limit');
 		$config['upload_path'] = 'uploads/images/full';
 		$config['encrypt_name'] = true;
 		$config['remove_spaces'] = true;
