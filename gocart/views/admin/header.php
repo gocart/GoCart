@@ -78,6 +78,7 @@ function buttons()
 				<div class="menu_title"><?php echo lang('common_catalog') ?></div>
 				<a href="<?php echo $admin_url;?>categories"><?php echo lang('common_categories') ?></a>
 				<a href="<?php echo $admin_url;?>products"><?php echo lang('common_products') ?></a>
+				<a href="<?php echo $admin_url;?>digital_products"><?php echo lang('common_digital_products') ?></a>
 			</div>
 			
 			<div class="menu shadow">

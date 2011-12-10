@@ -269,13 +269,35 @@ function delete_product_option(id)
 		<label for="slug"><?php echo lang('in_stock');?> </label>
 		<?php
 		 	$options = array(
-                  '1'  => 'In Stock',
-                  '0'    => 'Out of Stock'
+                  '1'  => lang('in_stock'),
+                  '0'    => lang('out_of_stock')
                 );
 
 			echo form_dropdown('in_stock', $options, set_value('in_stock',$in_stock));
 		?>
 		</div>		
+		<div class="gc_field2">
+		<label for="slug"><?php echo lang('shippable');?> </label>
+		<?php
+		 	$options = array(
+                  '1'  => lang('yes'),
+                  '0'    => lang('no')
+                );
+
+			echo form_dropdown('shippable', $options, set_value('shippable',$shippable));
+		?>
+		</div>
+		<div class="gc_field2">
+		<label for="slug"><?php echo lang('enabled');?> </label>
+		<?php
+		 	$options = array(
+                  '1'  => lang('enabled'),
+                  '0'    => lang('disabled')
+                );
+
+			echo form_dropdown('enabled', $options, set_value('enabled',$enabled));
+		?>
+		</div>
 		<div class="gc_field">
 		<label><?php echo lang('excerpt');?></label>
 		<?php
