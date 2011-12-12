@@ -12,7 +12,13 @@ class Auth
 		$this->CI =& get_instance();
 		$this->CI->load->database();
 		$this->CI->load->library('encrypt');
-		$this->CI->load->library('session');
+		
+		$admin_session_config = array(
+		    'sess_cookie_name' => 'admin_session_config',
+		    'sess_expiration' => 0
+		);
+		$this->CI->load->library('session', $admin_session_config, 'admin_session');
+		
 		$this->CI->load->helper('url');
 	}
 	
@@ -24,7 +30,7 @@ class Auth
 		the system will act accordingly.
 		*/
 		
-		$admin = $this->CI->session->userdata('admin');
+		$admin = $this->CI->admin_session->userdata('admin');
 		
 		$this->CI->db->select('access');
 		$this->CI->db->where('id', $admin['id']);
@@ -73,18 +79,18 @@ class Auth
 	function is_logged_in($redirect = false, $default_redirect = true)
 	{
 	
-		//var_dump($this->CI->session->userdata('session_id'));
+		//var_dump($this->CI->admin_session->userdata('session_id'));
 
 		//$redirect allows us to choose where a customer will get redirected to after they login
 		//$default_redirect points is to the login page, if you do not want this, you can set it to false and then redirect wherever you wish.
 
-		$admin = $this->CI->session->userdata('admin');
+		$admin = $this->CI->admin_session->userdata('admin');
 		
 		if (!$admin)
 		{
 			if ($redirect)
 			{
-				$this->CI->session->set_flashdata('redirect', $redirect);
+				$this->CI->admin_session->set_flashdata('redirect', $redirect);
 			}
 				
 			if ($default_redirect)
@@ -104,7 +110,7 @@ class Auth
 				$this->logout();
 				if($redirect)
 				{
-					$this->CI->session->set_flashdata('redirect', $redirect);
+					$this->CI->admin_session->set_flashdata('redirect', $redirect);
 				}
 
 				if($default_redirect)
@@ -121,7 +127,7 @@ class Auth
 				if($admin['expire'])
 				{
 					$admin['expire'] = time()+$this->session_expire;
-					$this->CI->session->set_userdata(array('admin'=>$admin));
+					$this->CI->admin_session->set_userdata(array('admin'=>$admin));
 				}
 
 			}
@@ -160,7 +166,7 @@ class Auth
 				$admin['admin']['expire'] = false;
 			}
 
-			$this->CI->session->set_userdata($admin);
+			$this->CI->admin_session->set_userdata($admin);
 			return true;
 		}
 		else
@@ -174,8 +180,8 @@ class Auth
 	*/
 	function logout()
 	{
-		$this->CI->session->unset_userdata('admin');
-		$this->CI->session->sess_destroy();
+		$this->CI->admin_session->unset_userdata('admin');
+		$this->CI->admin_session->sess_destroy();
 	}
 
 	/*
