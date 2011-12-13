@@ -204,6 +204,7 @@ function delete_product_option(id)
 		<li><a href="#gc_product_info"><?php echo lang('description');?></a></li>
 		<li><a href="#gc_product_attributes"><?php echo lang('attributes');?></a></li>
 		<li><a href="#gc_product_categories"><?php echo lang('categories');?></a></li>
+		<li><a href="#gc_product_downloads"><?php echo lang('digital_content');?></a></li>
 		<li><a href="#gc_product_seo"><?php echo lang('seo');?></a></li>
 		<li><a href="#gc_product_options"><?php echo lang('options');?></a></li>
 		<li><a href="#gc_product_related"><?php echo lang('related_products');?></a></li>
@@ -342,6 +343,33 @@ function delete_product_option(id)
 				?>
 			</tbody>
 		</table>
+	</div>
+	
+	<div id="gc_product_downloads">
+		<?php echo lang('digital_proudcts_desc') ?>
+		<table class="gc_table" cellspacing="0" cellpadding="0">
+				<thead>
+					<tr>
+						<th class="gc_cell_left"><?php echo lang('filename');?></th>
+						<th><?php echo lang('title');?></th>
+						<th style="width:70px;"><?php echo lang('size');?></th>
+						
+						<th class="gc_cell_right"></th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php echo (count($file_list) < 1)?'<tr><td style="text-align:center;" colspan="6">'.lang('no_files').'</td></tr>':''?>
+				<?php foreach ($file_list as $file):?>
+					<tr>
+						<td class="gc_cell_left"><?php echo $file->filename ?></td>
+						<td><?php echo $file->title ?></td>
+						<td><?php echo $file->size ?></td>
+						<td><?php echo form_checkbox('downloads[]', $file->id, in_array($file->id, $product_files)); ?></td>
+					</tr>
+				<?php endforeach; ?>
+				</tbody>
+		</table>
+
 	</div>
 	
 	<div id="gc_product_seo">
