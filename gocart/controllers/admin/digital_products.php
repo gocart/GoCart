@@ -26,7 +26,7 @@ Class Digital_Products extends Admin_Controller {
 		
 		if($id)
 		{
-			$data				= $this->digital_product_model->get_file_info($id);
+			$data				= (array)$this->digital_product_model->get_file_info($id);
 			$data['page_title'] = 'Edit File';
 		} else {
 			$data				= $this->digital_product_model->new_file();
@@ -64,6 +64,8 @@ Class Digital_Products extends Admin_Controller {
 				
 				$save['filename']	= $upload_data['file_name'];
 				$save['size']		= $upload_data['file_size'];
+			} else {
+				$save['id']			= $id;
 			}
 				
 			$save['title']			= set_value('title');

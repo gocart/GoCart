@@ -41,11 +41,13 @@ class Products extends Admin_Controller {
 	{
 		$this->product_id	= $id;
 		$this->load->library('form_validation');
-		$this->load->model(array('Option_model', 'Category_model'));
+		$this->load->model(array('Option_model', 'Category_model', 'Digital_Product_model'));
+		$this->lang->load('digital_product');
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
 		$data['categories']		= $this->Category_model->get_categories_tierd();
 		$data['product_list']	= $this->Product_model->get_products();
+		$data['file_list']		= $this->Digital_Product_model->get_list();
 
 		$data['page_title']		= lang('product_form');
 
@@ -67,12 +69,20 @@ class Products extends Admin_Controller {
 		$data['related_products']	= array();
 		$data['product_categories']	= array();
 		$data['images']				= array();
+		$data['product_files']		= array();
 
 		//create the photos array for later use
 		$data['photos']		= array();
 
 		if ($id)
 		{	
+			// get the existing file associations and create a format we can read from the form to set the checkboxes
+			$pr_files 		= $this->Digital_Product_model->get_associations_by_product($id);
+			foreach($pr_files as $f)
+			{
+				$data['product_files'][]  = $f->file_id;
+			}
+			
 			$data['product_options']	= $this->Option_model->get_product_options($id);
 			$product					= $this->Product_model->get_product($id);
 
@@ -158,6 +168,7 @@ class Products extends Admin_Controller {
 			$data['related_products']	= $this->input->post('related_products');
 			$data['product_categories']	= $this->input->post('categories');
 			$data['images']				= $this->input->post('images');
+			$data['product_files']		= $this->input->post('downloads');
 		}
 		
 		if ($this->form_validation->run() == FALSE)
@@ -242,7 +253,7 @@ class Products extends Admin_Controller {
 			//save categories
 			$categories			= $this->input->post('categories');
 			
-			
+			// format options
 			$options	= array();
 			if($this->input->post('option'))
 			{
@@ -252,8 +263,23 @@ class Products extends Admin_Controller {
 				}
 
 			}	
-
+			
+			// save product 
 			$product_id	= $this->Product_model->save($save, $options, $categories);
+			
+			// add file associations
+			
+			// clear existsing
+			$this->Digital_Product_model->disassociate(false, $product_id);
+			// save new
+			$downloads = $this->input->post('downloads');
+			if(is_array($downloads))
+			{
+				foreach($downloads as $d)
+				{
+					$this->Digital_Product_model->associate($d, $product_id);
+				}
+			}			
 
 			//save the route
 			$route['id']	= $route_id;

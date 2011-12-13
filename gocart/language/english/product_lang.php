@@ -34,6 +34,8 @@ $lang['out_of_stock']				= 'Out of Stock';
 $lang['shippable']					= 'Shippable';
 $lang['copy']						= 'Copy';
 $lang['upload']						= 'Upload';
+$lang['digital_content']			= 'Digital Content';
+$lang['digital_proudcts_desc']		= 'Downloadable content to associate with product purchase';
 
 //option form elements
 $lang['checklist']					= 'Check list';

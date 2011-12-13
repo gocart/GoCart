@@ -12,7 +12,10 @@ Class Product_model extends CI_Model
 		
 		// check for possible group discount 
 		$customer = $this->session->userdata('customer');
-		if(isset($customer['group_discount_formula'])) $this->group_discount_formula = $customer['group_discount_formula'];
+		if(isset($customer['group_discount_formula'])) 
+		{
+			$this->group_discount_formula = $customer['group_discount_formula'];
+		}
 	}
 
 	function get_products($category_id = false, $limit = false, $offset = false)
