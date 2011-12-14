@@ -33,6 +33,7 @@ Class Digital_Products extends Admin_Controller {
 			$data['page_title'] = 'Upload File';
 		}
 		
+		$this->form_validation->set_rules('max_downloads', 'lang:max_downloads', 'numeric');
 		$this->form_validation->set_rules('title', 'lang:title', 'trim|required');
 		$this->form_validation->set_rules('description', 'lang:desc', 'trim');
 		
@@ -67,7 +68,8 @@ Class Digital_Products extends Admin_Controller {
 			} else {
 				$save['id']			= $id;
 			}
-				
+			
+			$save['max_downloads']	= set_value('max_downloads');				
 			$save['title']			= set_value('title');
 			$save['description']	= set_value('description');
 			

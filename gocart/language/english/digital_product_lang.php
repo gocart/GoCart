@@ -10,7 +10,7 @@ $lang['upload_file']	= 'Upload File';
 
 $lang['file_label']	= 'Choose File';
 $lang['desc']		= 'Description';
-
+$lang['max_downloads'] = 'Maximum downloads per purchase (0 for unlimited)';
 $lang['filename']	= 'File Name';
 $lang['title']		= 'Title';
 $lang['size']		= 'File Size';
@@ -18,3 +18,5 @@ $lang['avail']		= 'Available';
 $lang['no_files']	= 'There are no files';
 
 $lang['attributes']	= 'Attributes';
+
+$lang['missing_file_msg'] = 'Oops! This file is unavailable for download at the moment. We\'ll try to have this fixed ASAP.';
