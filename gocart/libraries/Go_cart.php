@@ -164,7 +164,7 @@ class go_cart {
 		
 		
 		//record the quantity
-		$quantity	= $item['quantity'];
+		$quantity	= ($item['shippable']==1) ? $item['quantity'] : 1;
 		
 		//remove quantity from the row ID hash this will enable us to add
 		//the same item twice without having it appear twice due to quantity differences
@@ -252,8 +252,13 @@ class go_cart {
 			return false;
 		}
 		
-		// update cart quantity
-		$this->_cart_contents['items'][$cartkey]['quantity'] = ceil($quantity);
+		// update cart quantity, non-shippable items restricted to 1
+		if($this->_cart_contents['items'][$cartkey]['shippable']==1)
+		{
+			$this->_cart_contents['items'][$cartkey]['quantity'] = ceil($quantity);
+		} else {
+			$this->_cart_contents['items'][$cartkey]['quantity'] = 1;
+		}
 		
 		// Update associated coupon discount data
 		if(isset($this->_cart_contents['items'][$cartkey]['coupon_code']))

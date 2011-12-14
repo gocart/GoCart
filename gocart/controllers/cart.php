@@ -23,7 +23,7 @@ class Cart extends CI_Controller {
 		remove_ssl();
 		
 		$this->load->library('Go_cart');
-		$this->load->model(array('Page_model', 'Product_model', 'Gift_card_model', 'Option_model', 'Order_model', 'Settings_model'));
+		$this->load->model(array('Page_model', 'Product_model', 'Digital_Product_model', 'Gift_card_model', 'Option_model', 'Order_model', 'Settings_model'));
 		$this->load->helper(array('form_helper', 'formatting_helper'));
 		
 		//fill in our variables
@@ -164,12 +164,30 @@ class Cart extends CI_Controller {
 		//get the product
 		$data['product']	= $this->Product_model->get_product($id);
 		
-		if(!$data['product'])
+		if(!$data['product'] || $data['product']->enabled==0)
 		{
 			show_404();
 		}
 
+		// load the digital language stuff
+		$this->lang->load('digital_product');
+		
 		$data['options']	= $this->Option_model->get_product_options($data['product']->id);
+		
+		// get any attached files
+		$file_list			= $this->Digital_Product_model->get_associations_by_product($id);
+		foreach($file_list as $asc)
+		{
+			$file = $this->Digital_Product_model->get_file_info($asc->file_id);
+			
+			$data['file_list'][] = $file;
+			
+			// if a file is attached but missing, we can't sell the product
+			if( ! $this->Digital_Product_model->verify_content($file->filename))
+			{
+				$data['missing_file_flag'] = true;
+			}
+		}
 			
 		$related			= (array)json_decode($data['product']->related_products);
 		$data['related']	= array();
@@ -185,8 +203,6 @@ class Cart extends CI_Controller {
 			
 		}
 		$data['posted_options']	= $this->session->flashdata('option_values');
-	
-		
 
 		$data['page_title']			= $data['product']->name;
 		$data['meta']				= $data['product']->meta;

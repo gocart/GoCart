@@ -127,8 +127,17 @@ if (top.location != location) {
 					}
 					?></td>
 				<td style="text-align:center;">
-					<input type="text" style="width:30px;"name="cartkey[<?php echo $cartkey;?>]" value="<?php echo $product['quantity'];?>" size="3"/>		 
-                    </td>
+					<?php 
+						// Non shippable products are restricted to 1
+						if($product['shippable']==1)
+						{
+							$qty = $product['quantity'];
+						} else {
+							$qty = 1;
+						}
+					?>
+					<input type="text" style="width:30px;"name="cartkey[<?php echo $cartkey;?>]" value="<?php echo $qty;?>" size="3"/>		 
+                </td>
 				<td><?php echo format_currency($product['price']*$product['quantity']); ?>				</td>
 			</tr>
 				

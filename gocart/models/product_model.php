@@ -23,9 +23,11 @@ Class Product_model extends CI_Model
 		//if we are provided a category_id, then get products according to category
 		if ($category_id)
 		{
-			$this->db->order_by('sequence', 'ASC');
-			$result	= $this->db->get_where('category_products', array('category_id'=>$category_id), $limit, $offset);
-			$result	= $result->result();
+			$result = $this->db->select('category_products.*')->from('category_products')->join('products', 'category_products.product_id=products.id')->where(array('category_id'=>$category_id, 'enabled'=>1))->limit($limit)->offset($offset)->get()->result();
+			
+			//$this->db->order_by('sequence', 'ASC');
+			//$result	= $this->db->get_where('category_products', array('enabled'=>1,'category_id'=>$category_id), $limit, $offset);
+			//$result	= $result->result();
 
 			$contents	= array();
 			$count		= 0;
@@ -58,8 +60,7 @@ Class Product_model extends CI_Model
 
 	function count_products($id)
 	{
-		$this->db->where('category_id', $id);
-		return $this->db->count_all_results('category_products');
+		$this->db->select('product_id')->from('category_products')->join('products', 'category_products.product_id=products.id')->where(array('category_id'=>$id, 'enabled'=>1))->count_all_results();
 	}
 
 	function get_product($id, $sub=true)

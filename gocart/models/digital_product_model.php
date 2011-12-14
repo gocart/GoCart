@@ -13,6 +13,7 @@ Class Digital_Product_Model extends CI_Model {
 		return array(
 					'id'=>'',
 					'filename'=>'',
+					'max_downloads'=>'',
 					'title'=>'',
 					'description'=>'',
 					'size'=>''
@@ -22,6 +23,7 @@ Class Digital_Product_Model extends CI_Model {
 	// Get files list
 	function get_list()
 	{
+		
 		$list = $this->db->get('digital_products')->result();
 		
 		foreach($list as &$file)

@@ -37,6 +37,7 @@ function areyousure()
 				<td class="gc_cell_right list_buttons">
 					<a href="<?php echo  site_url($this->config->item('admin_folder').'/digital_products/delete/'.$file->id);?>" onclick="return areyousure();"><?php echo lang('delete');?></a>
 					<a href="<?php echo  site_url($this->config->item('admin_folder').'/digital_products/form/'.$file->id);?>"><?php echo lang('edit');?></a>
+				</td>
 			</tr>
 		<?php endforeach; ?>
 		</tbody>
