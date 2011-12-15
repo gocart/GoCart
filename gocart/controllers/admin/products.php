@@ -65,6 +65,7 @@ class Products extends Admin_Controller {
 		$data['seo_title']			= '';
 		$data['meta']				= '';
 		$data['shippable']			= '';
+		$data['fixed_quantity']		= '';
 		$data['enabled']			= '';
 		$data['related_products']	= array();
 		$data['product_categories']	= array();
@@ -110,6 +111,7 @@ class Products extends Admin_Controller {
 			$data['weight']				= $product->weight;
 			$data['in_stock'] 			= $product->in_stock;
 			$data['shippable']			= $product->shippable;
+			$data['fixed_quantity']		= $product->fixed_quantity;
 			$data['enabled']			= $product->enabled;
 			
 			//make sure we haven't submitted the form yet before we pull in the images/related products from the database
@@ -147,7 +149,8 @@ class Products extends Admin_Controller {
 		$this->form_validation->set_rules('weight', 'lang:weight', 'trim|numeric');
 		$this->form_validation->set_rules('in_stock', 'lang:in_stock', 'trim|numeric');
 		$this->form_validation->set_rules('shippable', 'lang:shippable', 'trim|numeric');
-		$this->form_validation->set_rules('shippable', 'lang:enabled', 'trim|numeric');
+		$this->form_validation->set_rules('fixed_quantity', 'lang:fixed_quantity', 'trim|numeric');
+		$this->form_validation->set_rules('enabled', 'lang:enabled', 'trim|numeric');
 
 		/*
 		if we've posted already, get the photo stuff and organize it

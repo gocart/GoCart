@@ -122,23 +122,5 @@ class Gift_card_model extends CI_Model
 		return (bool) $row->activated;
 	}
 	
-	// use a run-of-the-mill pw generator as a code generator
-	function generate_password($length=16) {
-		$vowels = '0123';
-		$consonants = '456789ABCDEF';
-	 
-		$password = '';
-		$alt = time() % 2;
-		for ($i = 0; $i < $length; $i++) {
-			if ($alt == 1) {
-				$password .= $consonants[(rand() % strlen($consonants))];
-				$alt = 0;
-			} else {
-				$password .= $vowels[(rand() % strlen($vowels))];
-				$alt = 1;
-			}
-		}
-		return $password;
-	}
 
 }

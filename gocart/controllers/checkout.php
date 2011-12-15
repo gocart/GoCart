@@ -425,7 +425,7 @@ class Checkout extends CI_Controller {
 		// Is payment bypassed? (total is zero, or processed flag is set)
 		if($this->go_cart->total() > 0 && ! isset($payment['confirmed'])) {
 			
-			//lost the payment module
+			//load the payment module
 			$this->load->add_package_path(APPPATH.'packages/payment/'.$payment['module'].'/');
 			$this->load->library($payment['module']);
 			
@@ -448,6 +448,9 @@ class Checkout extends CI_Controller {
 		$data['payment']			= $this->go_cart->payment_method();
 		$data['customer']			= $this->go_cart->customer();
 		$data['additional_details']	= $this->go_cart->additional_details();
+		
+		$order_downloads 			= $this->go_cart->get_order_downloads();
+		
 		$data['hide_menu']			= true;
 		
         // run the complete payment module method once order has been saved
@@ -459,6 +462,22 @@ class Checkout extends CI_Controller {
 		// - get the email template
 		$this->load->model('messages_model');
 		$row = $this->messages_model->get_message(7);
+		
+		$download_section = '';
+		if( ! empty($order_downloads))
+		{
+			// get the download link segment to insert into our confirmations
+			$downlod_msg_record = $this->messages_model->get_message(8);
+			
+			if(!empty($data['customer']['id']))
+			{
+				// they can access their downloads by logging in
+				$download_section = str_replace('{download_link}', base_url().'my_downloads',$downlod_msg_record['content']);
+			} else {
+				// non regs will receive a code
+				$download_section = str_replace('{download_link}', base_url().'my_downloads/'.$order_downloads['code'], $downlod_msg_record['content']);
+			}
+		}
 		
 		$row['content'] = html_entity_decode($row['content']);
 		
@@ -477,6 +496,9 @@ class Checkout extends CI_Controller {
 			
 		// {order_summary}
 		$row['content'] = str_replace('{order_summary}', $this->load->view('order_email', $data, true), $row['content']);
+		
+		// {download_section}
+		$row['content'] = str_replace('{download_section}', $download_section, $row['content']);
 			
 		$this->load->library('email');
 		
@@ -493,6 +515,7 @@ class Checkout extends CI_Controller {
 		{
 			$this->email->to($data['customer']['ship_address']['email']);
 		}
+		
 		//email the admin
 		$this->email->bcc($this->config->item('email'));
 		
@@ -503,6 +526,8 @@ class Checkout extends CI_Controller {
 		
 		$data['page_title'] = 'Thanks for shopping with '.$this->config->item('company_name');
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
+		$data['download_section']	= $download_section;
+		
 		// show final confirmation page
 		$this->load->view('order_placed', $data);
 		

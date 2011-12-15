@@ -7,6 +7,10 @@
 </script>
 <h3><?php echo lang('order_number');?>: <?php echo $order_id;?></h3>
 
+<?php
+		// content defined in canned messages
+	 echo $download_section ?>
+
 <div class="customer_info_box">
 	<h3><?php echo lang('account_information');?></h3>
 	<strong><?php echo (!empty($customer['company']))?$customer['company'].'<br>':'';?>
@@ -169,5 +173,4 @@ $bill = $customer['bill_address'];
 	<tr class="cart_spacer"><td colspan="7"></td></tr>
 	</tbody>
 	</table>
-
 <?php include('footer.php');

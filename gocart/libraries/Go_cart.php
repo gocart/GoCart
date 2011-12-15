@@ -1,11 +1,13 @@
 <?php  
 
 
-/* Gocart Cart Library
+/* 
+*  Gocart Cart Library
 *  Based on cart.php included with Codeigniter
 */
 
-/*  Coupon Support
+/*  
+*	Coupon Support
 *    This cart accepts coupons, Two main types:
 		- Whole order discount 
 		- Individual product discounts
@@ -40,7 +42,7 @@ class go_cart {
 	function __construct() 
 	{
 		$this->CI =& get_instance();
-		$this->CI->load->model(array('Coupon_model' , 'Gift_card_model', 'Settings_model'));
+		$this->CI->load->model(array('Coupon_model' , 'Gift_card_model', 'Settings_model', 'Digital_Product_model'));
 		
 		// Load the saved session
 		if ($this->CI->session->userdata('cart_contents') !== FALSE)
@@ -164,7 +166,7 @@ class go_cart {
 		
 		
 		//record the quantity
-		$quantity	= ($item['shippable']==1) ? $item['quantity'] : 1;
+		$quantity	= ($item['fixed_quantity']==0) ? $item['quantity'] : 1;
 		
 		//remove quantity from the row ID hash this will enable us to add
 		//the same item twice without having it appear twice due to quantity differences
@@ -252,8 +254,8 @@ class go_cart {
 			return false;
 		}
 		
-		// update cart quantity, non-shippable items restricted to 1
-		if($this->_cart_contents['items'][$cartkey]['shippable']==1)
+		// update cart, fixed quantity items restricted to 1
+		if($this->_cart_contents['items'][$cartkey]['fixed_quantity']==0)
 		{
 			$this->_cart_contents['items'][$cartkey]['quantity'] = ceil($quantity);
 		} else {
@@ -683,26 +685,24 @@ class go_cart {
 					eval('$this_price=$val["price"]'. $this->_cart_contents['customer']['group_discount_formula'] .';');
 					
 					// add to the total group discount
-					$this->_cart_contents['group_discount'] +=  ($val['price'] - $this_price) * $val['quantity'];
+					$this->_cart_contents['group_discount'] 	+=  ($val['price'] - $this_price) * $val['quantity'];
 				} else {
 					// or use the regular price
 					$this_price = $val['price'];
 				}
 				
-				// Deal with non shippable vs shippable items
-				if ( $val['shippable']==0 )
+				// Deal with shippable items taxes
+				if ( $val['shippable']== 1 )
 				{
-					// digital product (non-taxable)
-					$total 											+= $this_price;
-				} else {
 					// shippable items (taxable)
-					$total 											+= ($this_price * $val['quantity']);
 					$taxable 										+= ($this_price * $val['quantity']);
 					// shipping insurable value & weight
 					$this->_cart_contents['order_insurable_value']  += $this_price;
 					$this->_cart_contents['order_weight'] 			+= $val['weight']*$val['quantity'];
 					$this->_cart_contents['requires_shipping'] 		= true;
 				}
+				
+				$total 			+= ($this_price * $val['quantity']);
 				
 				// set product subtotal (NOT accounting for coupon discount yet)
 				$val['subtotal'] = ($this_price * $val['quantity']);
@@ -916,6 +916,17 @@ class go_cart {
 		return $response;
 	}
 	
+	// save / get order download list
+	function save_order_downloads($list)
+	{
+		$this->_cart_contents['downloads'] = $list;
+	}
+	
+	function get_order_downloads()
+	{
+		return $this->_cart_contents['downloads'];
+	}
+	
 	//save additional settings
 	function set_additional_details($data)
 	{
@@ -984,8 +995,22 @@ class go_cart {
 		//prepare our data for being inserted into the database
 		$save	= array();
 		
+		// Is this a non shippable order? 
+		$none_shippable = true;
+		foreach ($this->_cart_contents['items'] as $item)
+		{
+			if($item['shippable']==1)
+			{
+				$none_shippable = false;
+			}
+		}
 		//default status comes from the config file
-		$save['status']				= $this->CI->config->item('order_status');
+		if($none_shippable)
+		{
+			$save['status']				= $this->CI->config->item('nonship_status');
+		} else {
+			$save['status']				= $this->CI->config->item('order_status');
+		}
 		
 		//if the id exists, then add it to the array $save array and remove it from the customer
 		if(isset($this->_cart_contents['customer']['id']) && $this->_cart_contents['customer']['id'] != '')
@@ -1082,38 +1107,49 @@ class go_cart {
 	
 		// dont do anything else if the order failed to save
 		if(!$order_id) return false;
-		
-		if($this->gift_cards_enabled) {
+
+						
+		// Process any per-item operations
+		foreach ($this->_cart_contents['items'] as $item)
+		{
 			
-			$this->CI->load->model('Gift_card_model');
-			
-			// save purchased gift cards
-			foreach ($this->_cart_contents['items'] as $item)
+			// Process Gift Card purchase				
+			if($this->gift_cards_enabled && isset($item['gc_info'])) 
 			{
-				if(isset($item['gc_info'])) 
-				{
-					$gc_data = array();
-					$gc_data['order_number'] = $order_id;
-					$gc_data['beginning_amount'] = $item['price'];
-					$gc_data['code'] = $item['code'];
-					$gc_data= array_merge($gc_data, $item['gc_info']);
-					
-					$this->CI->Gift_card_model->save_card($gc_data);
-					
-					//send the recipient a message
-					$this->CI->Gift_card_model->send_notification($gc_data);
-					
-				}
+				$gc_data = array();
+				$gc_data['order_number'] = $order_id;
+				$gc_data['beginning_amount'] = $item['price'];
+				$gc_data['code'] = $item['code'];
+				$gc_data= array_merge($gc_data, $item['gc_info']);
+				
+				$this->CI->Gift_card_model->save_card($gc_data);
+				
+				//send the recipient a message
+				$this->CI->Gift_card_model->send_notification($gc_data);	
 			}
+
 			
-			
-			// update the balance of any gift cards used to purchase the order
-			if(isset($this->_cart_contents['gc_list']))
+			// Process Downloadable Product
+			$download_package = array();
+			if(!empty($item['file_list']))
 			{
-				$this->CI->Gift_card_model->update_used_card_balances($this->_cart_contents['gc_list']);
+				// compile a list of all the items that can be downloaded for this order
+				$download_package[] = $item['file_list'];
 			}
-			
+			if(!empty($download_package))
+			{
+				// create the record, send the email
+				$this->CI->Digital_Product_model->add_download_package($download_package, $order_id);
+			}
 		}
+			
+			
+
+		// update the balance of any gift cards used to purchase the order
+		if($this->gift_cards_enabled && isset($this->_cart_contents['gc_list']))
+		{
+			$this->CI->Gift_card_model->update_used_card_balances($this->_cart_contents['gc_list']);
+		}			
 		
 		// touch any used product coupons (increment usage)
 		if(isset($this->_cart_contents['applied_coupons']))
@@ -1133,6 +1169,8 @@ class go_cart {
 		{
 			$this->CI->Coupon_model->touch_coupon($this->_cart_contents['whole_order_discount_cp']);
 		}
+		
+		
 		
 		return $order_id;
 	}

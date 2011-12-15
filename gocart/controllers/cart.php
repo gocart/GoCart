@@ -313,6 +313,8 @@ class Cart extends CI_Controller {
 	{
 		if(!$this->gift_cards_enabled) redirect('/');
 		
+		$this->load->helper('utility_helper');
+		
 		// Load giftcard settings
 		$gc_settings = $this->Settings_model->get_settings("gift_cards");
 				
@@ -351,7 +353,7 @@ class Cart extends CI_Controller {
 			$card['sku']			= lang('giftcard');
 			$card['base_price']		= $card['price']; // price gets modified by options, show the baseline still...
 			$card['name']			= lang('giftcard');
-			$card['code']			= $this->Gift_card_model->generate_password();
+			$card['code']			= generate_code(); // from the utility helper
 			$card['excerpt']		= sprintf(lang('giftcard_excerpt'), set_value('gc_to_name'));
 			$card['weight']			= 0;
 			$card['no_quantity']	= true; // prevent quantity change.. since it wouldn't make sense

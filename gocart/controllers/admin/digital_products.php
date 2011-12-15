@@ -48,7 +48,7 @@ Class Digital_Products extends Admin_Controller {
 				$data['file_name'] = false;
 				$data['error']	= false;
 				
-				$config['allowed_types'] = 'exe|zip|rar|pdf';
+				$config['allowed_types'] = $this->config->item('digital_products_types');
 				$config['upload_path'] = $this->config->item('digital_products_path');
 				$config['remove_spaces'] = true;
 		
