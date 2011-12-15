@@ -1,5 +1,8 @@
 
 <H3><?php echo lang('order_number')?>: <?php echo $order_id ?></H3>
+
+{download_section}
+
 <div class="confirm_customer">
 <?php
 if($customer['company'] != '')

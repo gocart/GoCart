@@ -27,6 +27,9 @@ $config['site_logo']		= '/images/logo.png';
 //   (This should be above your web root)
 $config['digital_downloads_path'] = '/path/to/file';
 
+// allowed file types for digital products
+$config['digital_products_types']	= 'zip|rar|pdf';
+
 //change the name of the admin controller folder 
 $config['admin_folder']		= 'admin';
 
@@ -41,6 +44,9 @@ $config['require_login']		= false;
 
 //default order status
 $config['order_status']			= 'Pending';
+
+// default Status for non-shippable orders (downloads)
+$config['nonship_status'] = 'Delivered';
 
 $config['order_statuses']	= array(
 	'Pending'  				=> 'Pending',

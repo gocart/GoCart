@@ -242,7 +242,6 @@ Class Product_model extends CI_Model
 	// Build a cart-ready product array
 	function get_cart_ready_product($id, $quantity=false)
 	{
-		
 		$db_product			= $this->get_product($id);
 		if( ! $db_product)
 		{
@@ -266,21 +265,21 @@ Class Product_model extends CI_Model
 		$product['excerpt']		= $db_product->excerpt;
 		$product['weight']		= $db_product->weight;
 		$product['shippable'] 	= $db_product->shippable;
+		$product['fixed_quantity'] = $db_product->fixed_quantity;
 		$product['in_stock'] 	= $db_product->in_stock;
 		$product['options']		= array();
 		
-		// Some products have n/a quantity, such as downloadables
-		if($db_product->shippable==1) 
-		{		
-			// no negs || non-shippable products qty is n/a
-			if (!$quantity || $quantity <= 0)
-			{
-				$product['quantity'] = 1;
-			} else {
-				$product['quantity']		= $quantity;
-			}
+		// Some products have n/a quantity, such as downloadables	
+		if (!$quantity || $quantity <= 0 || $db_product->fixed_quantity==1)
+		{
+			$product['quantity'] = 1;
+		} else {
+			$product['quantity'] = $quantity;
+		}
+
 		
-		} // end qty segment
+		// attach list of associated downloadables
+		$product['file_list']	= $this->Digital_Product_model->get_associations_by_product($id);
 		
 		return $product;
 	}

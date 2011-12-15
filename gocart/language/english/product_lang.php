@@ -32,6 +32,7 @@ $lang['no_products']				= 'There are currently no products.';
 $lang['in_stock']					= 'In Stock';
 $lang['out_of_stock']				= 'Out of Stock';
 $lang['shippable']					= 'Shippable';
+$lang['fixed_quantity']				= 'Fixed Quantity';
 $lang['copy']						= 'Copy';
 $lang['upload']						= 'Upload';
 $lang['digital_content']			= 'Digital Content';

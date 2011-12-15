@@ -129,4 +129,57 @@ Class Digital_Product_Model extends CI_Model {
 		$this->db->where('id', $id)->delete('digital_products');
 		$this->disassociate($id);
 	}
+	
+	// Accepts an array of file lists for products purchased
+	//  and sets up the list of available downloads for the customer
+	//  uses customer id if available, also creates a package code
+	//  that can be sent to non registered customers
+	function add_download_package($package, $order_id)
+	{
+		$this->load->helper('utility_helper');
+		
+		// get customer stuff
+		$customer = $this->go_cart->customer();
+		if(!empty($customer['id']))
+		{
+			$new_package['customer_id'] = $customer['id'];
+		} else {
+			$new_package['customer_id'] = 0;
+		}
+		
+		$new_package['order_id'] = $order_id;
+		$new_package['code']	= generate_code();
+		
+		// save master package record
+		$this->db->insert('download_packages',$new_package);
+		
+		$package_id = $this->db->insert_id();
+		
+		// save the db data here
+		$files_list = array();
+		
+		// use this to prevent inserting duplicates
+		// in case a file is shared across products
+		$ids = array();
+		
+		// build files records list
+		foreach($package as $product_list)
+		{
+			foreach($product_list as $f)
+			{
+				if(!isset($ids[$f->file_id]))
+				{
+					$file['package_id'] = $package_id;
+					$file['file_id'] = $f->file_id;
+					
+					$files_list[] = $file;
+				}
+			}
+		}
+		
+		$this->db->insert_batch('download_package_files', $files_list);
+		
+		// save the master record to include links in the order email
+		$this->go_cart->save_order_downloads($new_package);
+	}
 }

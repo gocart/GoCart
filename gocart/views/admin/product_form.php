@@ -289,6 +289,17 @@ function delete_product_option(id)
 		?>
 		</div>
 		<div class="gc_field2">
+		<label for="slug"><?php echo lang('fixed_quantity');?> </label>
+		<?php
+		 	$options = array(
+                  '1'  => lang('yes'),
+                  '0'    => lang('no')
+                );
+
+			echo form_dropdown('fixed_quantity', $options, set_value('fixed_quantity',$fixed_quantity));
+		?>
+		</div>
+		<div class="gc_field2">
 		<label for="slug"><?php echo lang('enabled');?> </label>
 		<?php
 		 	$options = array(

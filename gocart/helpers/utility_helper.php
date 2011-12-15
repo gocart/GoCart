@@ -1,5 +1,24 @@
 <?php
 
+function generate_code($length=16)
+{
+	$vowels = '0123';
+	$consonants = '456789ABCDEF';
+ 
+	$password = '';
+	$alt = time() % 2;
+	for ($i = 0; $i < $length; $i++) {
+		if ($alt == 1) {
+			$password .= $consonants[(rand() % strlen($consonants))];
+			$alt = 0;
+		} else {
+			$password .= $vowels[(rand() % strlen($vowels))];
+			$alt = 1;
+		}
+	}
+	return $password;
+}
+
 function sort2d ($array, $index, $order='asc', $natsort=FALSE, $case_sensitive=FALSE) 
 {
     if(is_array($array) && count($array)>0) 

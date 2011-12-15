@@ -215,7 +215,7 @@
 			<?php if($product->in_stock == 0):?>
 				<div class="red"><small><?php echo lang('out_of_stock');?></small></div>
 			<?php endif;
-				if($product->shippable) : 
+				if(! $product->fixed_quantity) : 
 			?>
 			QTY <input class="product_quantity" type="text" name="quantity" value=""/>
 			<?php endif; ?>
