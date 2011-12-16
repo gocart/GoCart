@@ -31,7 +31,7 @@ class Banners extends Admin_Controller
 	
 	function delete($id)
 	{
-		$this->Banner_model->delete($id)
+		$this->Banner_model->delete($id);
 		
 		$this->session->set_flashdata('message', lang('message_delete_banner'));
 		redirect($this->config->item('admin_folder').'/banners');
