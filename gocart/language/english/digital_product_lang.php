@@ -17,6 +17,13 @@ $lang['size']		= 'File Size';
 $lang['avail']		= 'Available';
 $lang['no_files']	= 'There are no files';
 
+$lang['download_limit'] = 'Downloads Remaining';
+$lang['no_downloads']	= 'You have no downloads available.';
+$lang['no_max']		= 'N/A';
+$lang['max_exceeded'] = 'Max downloads reached';
+
+$lang['download_btn'] = 'Download';
+	
 $lang['attributes']	= 'Attributes';
 
 $lang['missing_file_msg'] = 'Oops! This file is unavailable for download at the moment. We\'ll try to have this fixed ASAP.';

@@ -20,6 +20,7 @@ Common Language
 $lang['login']				= 'Login';
 $lang['logout']				= 'Logout';
 $lang['my_account']			= 'My Account';
+$lang['my_downloads']		= 'My Downloads';
 $lang['enabled']			= 'Enabled';
 $lang['disabled']			= 'Disabled';
 $lang['mode']				= 'Mode';

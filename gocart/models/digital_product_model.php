@@ -5,6 +5,7 @@ Class Digital_Product_Model extends CI_Model {
 	function __construct()
 	{
 		parent::__construct();
+		$this->lang->load('digital_product');
 	}
 	
 	// Return blank record array
@@ -171,6 +172,7 @@ Class Digital_Product_Model extends CI_Model {
 				{
 					$file['package_id'] = $package_id;
 					$file['file_id'] = $f->file_id;
+					$file['link'] = md5($file->file_id . time() . $customer['id']); // create a unique download key for each file
 					
 					$files_list[] = $file;
 				}
@@ -182,4 +184,63 @@ Class Digital_Product_Model extends CI_Model {
 		// save the master record to include links in the order email
 		$this->go_cart->save_order_downloads($new_package);
 	}
+	
+	// Retrieve user's download packages
+	//  send back an array indexed by order number
+	function get_user_downloads($customer_id)
+	{
+		$result = $this->db->where('customer_id', $customer_id)->get('download_packages')->result();
+		
+		$downloads = array();
+		foreach($result as $r)
+		{
+			$downloads[$r->order_id] = $this->get_package_files($r->id); 
+		}
+		
+		return $downloads;
+	}
+	
+	// Retrieve non-member download by code
+	//   format array exactly as by user
+	function get_downloads_by_code($code)
+	{
+		$row =  $this->db->where('code', $code)->get('download_packages')->row();
+		
+		if($row)
+		{
+			return array(	
+							$row->order_id => $this->get_package_files($row->id)
+						);
+		}
+	}
+	
+	// get the files in a package
+	function get_package_files($package_id)
+	{
+		
+		return $this->db->select('*')
+						->from('download_package_files as a')
+						->join('digital_products as b', 'a.file_id=b.id')
+						->where('package_id', $package_id)
+						->get()
+						->result();
+	}
+	
+	// get file info for download by the link code
+	//  increment the download counter
+	function get_file_info_by_link($link)
+	{
+		
+		$record = $this->db->from('digital_products as a')
+						->join('download_package_files as b', 'a.id=b.file_id')
+						->where('link', $link)
+						->get()
+						->row();
+						
+		$this->db->where('link', $link)->update('download_package_files', array('downloads'=> $record->downloads + 1 ));
+		
+		return $record;
+		
+	}
+	
 }

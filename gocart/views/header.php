@@ -116,6 +116,7 @@ if(isset($additional_header_info))
 		<?php if($this->Customer_model->is_logged_in(false, false)):?>
 			<li class="bold begin_user_menu"><a href="<?php echo site_url('secure/logout');?>"><?php echo lang('logout');?></a></li>
 			<li class="bold"><a href="<?php echo  site_url('secure/my_account');?>"><?php echo lang('my_account')?></a></li>
+			<li class="bold"><a href="<?php echo  site_url('secure/my_downloads');?>"><?php echo lang('my_downloads')?></a></li>
 		<?php else: ?>
 			<li class="bold begin_user_menu"><a href="<?php echo site_url('secure/login');?>"><?php echo lang('login');?></a></li>
 		<?php endif; ?>
