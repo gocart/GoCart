@@ -7,7 +7,7 @@
 	
 	function force_download($path, $filename, $alt_name='')
 	{
-		if (!is_file($path.$filename))
+		if (!is_file($path.'/'.$filename))
 		{
 			show_404();
 		}
@@ -58,11 +58,11 @@
 			header("Content-Transfer-Encoding: binary");
 			header('Expires: 0');
 			header('Pragma: no-cache');
-			header("Content-Length: ".filesize($path.$filename));
+			header("Content-Length: ".filesize($path.'/'.$filename));
 		}
 	
-		$fp=fopen($path.$filename,"r");
-		print fread($fp,filesize($path.$filename));
+		$fp=fopen($path.'/'.$filename,"r");
+		print fread($fp,filesize($path.'/'.$filename));
 		fclose($fp);
 		exit();
 		
