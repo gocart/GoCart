@@ -1,7 +1,7 @@
 <?php
 class Inventory_model extends CI_Model {
 
-	function product_inventory ($pid) 
+	function product_inventory($pid) 
 	{
 		$q = $this->db
 				->select('*')
@@ -10,15 +10,17 @@ class Inventory_model extends CI_Model {
 				->order_by('date', 'desc')
 				->get();
 	
-		if( $q->num_rows() ) 
+		if($q->num_rows()) 
 		{
 			return $q->result();
-		} else {
+		}
+		else
+		{
 			return FALSE;
 		}
 	}
 	
-	function add_inventory ($pid, $qty, $cost) 
+	function add_inventory($pid, $qty, $cost) 
 	{
 		if( $qty && $cost ) 
 		{
@@ -27,28 +29,31 @@ class Inventory_model extends CI_Model {
 			// Reset this flag, it's not used when inventory is enabled
 			$this->db->where('id', $pid)->update('products', array('in_stock'=> '1'));
 			return TRUE;
-		} else {
+		}
+		else
+		{
 			return FALSE;
 		}
 	}
 	
-	function product_cost ($pid) {
-		$Cost = 0;
+	function product_cost($pid)
+	{
+		$cost = 0;
 		$q = $this->db
 				->select('SUM(cost) / COUNT(cost) AS avg', FALSE)
 				->from('inventory')
 				->where('pid', $pid)
 				->get();
 		
-		if( $q->num_rows() ) 
+		if($q->num_rows()) 
 		{
 			$row = $q->row();
-			$Cost = $row->avg;
+			$cost = $row->avg;
 		}
-		return $Cost;
+		return $cost;
 	}
 	
-	function sum_sold ($pid) 
+	function sum_sold($pid) 
 	{
 		$q = $this->db
 				->select('SUM(quantity) sum', FALSE)
@@ -56,17 +61,19 @@ class Inventory_model extends CI_Model {
 				->where('product_id', $pid)
 				->get();
 		
-		if( $q->num_rows() ) 
+		if($q->num_rows()) 
 		{
 			$result = $q->result();
-			$Sold = $result[0]->sum;
-			return $Sold ? $Sold : 0;
-		} else {
+			$sold = $result[0]->sum;
+			return $sold ? $sold : 0;
+		}
+		else
+		{
 			return FALSE;
 		}
 	}
 	
-	function sum_inventory ($pid) 
+	function sum_inventory($pid) 
 	{
 		$q = $this->db
 				->select('SUM(qty) sum', FALSE)
@@ -77,18 +84,20 @@ class Inventory_model extends CI_Model {
 		if( $q->num_rows() ) 
 		{
 			$result = $q->result();
-			$SUM = $result[0]->sum;
-			return $SUM ? $SUM : 0;
-		} else {
+			$sum = $result[0]->sum;
+			return $sum ? $sum : 0;
+		}
+		else
+		{
 			return FALSE;
 		}
 	}
 	
-	function available_qty ($pid) 
+	function available_qty($pid) 
 	{
-		$InventoryLevel = $this->sum_inventory($pid);
-		$SalesLevel = $this->sum_sold($pid);
+		$inventory_level = $this->sum_inventory($pid);
+		$sales_level = $this->sum_sold($pid);
 	
-		return ($InventoryLevel - $SalesLevel);
+		return ($inventory_level - $sales_level);
 	}
 }
