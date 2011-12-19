@@ -173,21 +173,6 @@ class Cart extends CI_Controller {
 		$this->lang->load('digital_product');
 		
 		$data['options']	= $this->Option_model->get_product_options($data['product']->id);
-		
-		// get any attached files
-		$file_list			= $this->Digital_Product_model->get_associations_by_product($id);
-		foreach($file_list as $asc)
-		{
-			$file = $this->Digital_Product_model->get_file_info($asc->file_id);
-			
-			$data['file_list'][] = $file;
-			
-			// if a file is attached but missing, we can't sell the product
-			if( ! $this->Digital_Product_model->verify_content($file->filename))
-			{
-				$data['missing_file_flag'] = true;
-			}
-		}
 			
 		$related			= (array)json_decode($data['product']->related_products);
 		$data['related']	= array();
