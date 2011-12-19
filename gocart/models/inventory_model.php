@@ -25,7 +25,7 @@ class Inventory_model extends CI_Model {
 			$this->db->set('date','NOW()', FALSE);
 			$this->db->insert('inventory', array('qty' => $qty, 'cost' => $cost, 'pid' => $pid ) );
 			// Reset this flag, it's not used when inventory is enabled
-			$this->db->where('id', $pid)->update('products', array('in_stock', '1'));
+			$this->db->where('id', $pid)->update('products', array('in_stock'=> '1'));
 			return TRUE;
 		} else {
 			return FALSE;
