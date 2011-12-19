@@ -78,32 +78,6 @@
 		<?php endif;?>
 	</div>
 	
-	
-	<?php if(!empty($file_list)) :?>
-		<div class="product_section">
-			<strong>Product Downloads:</strong>
-				<table class="cart_table" cellspacing="0" cellpadding="0">
-					<thead>
-						<tr>
-							<th class="gc_cell_left"><?php echo lang('filename');?></th>
-							<th><?php echo lang('title');?></th>
-							<th style="width:60px;"><?php echo lang('size');?></th>
-						</tr>
-					</thead>
-					<tbody>
-					<?php foreach ($file_list as $file):?>
-						<tr>
-							<td class="gc_cell_left"><?php echo $file->filename ?></td>
-							<td><?php echo $file->title ?></td>
-							<td><?php echo $file->size ?> K</td>
-						</tr>
-					<?php endforeach; ?>
-					</tbody>
-			</table>
-		</div>
-	<?php endif; ?>
-	
-	
 	<?php if(count($options) > 0): ?>
 		<div class="product_section">
 		<h2><?php echo lang('available_options');?></h2>
@@ -201,15 +175,6 @@
 	</div>
 	<?php endif; ?>
 	<div class="product_section">	
-	
-		<?php 
-			// don't allow purchase of files that are in the db and activated but physically missing
-			if(@$missing_file_flag) : ?>
-			<div class="ui-state-error ui-corner-all" style="padding:10px; margin-bottom:10px; width:95%; float: right"> 
-				<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
-				<strong><?php echo lang('common_alert') ?>:</strong> <?php echo lang('missing_file_msg') ?></p>
-			</div>
-		<?php else : ?>
 		<div style="text-align:center; overflow:hidden;">
 			<?php if(!$this->config->item('allow_os_purchase') && ($product->in_stock == 0 || $this->Inventory_model->available_qty($product->id)==0)) : ?>
 				<h2 class="red"><?php echo lang('out_of_stock');?></h2>				
@@ -223,7 +188,6 @@
 				<input class="add_to_cart_btn" type="submit" value="<?php echo lang('form_add_to_cart');?>" /> 
 			<?php endif;?>
 		</div>
-		<?php endif; ?>
 	</div>
 		
 	</form>
