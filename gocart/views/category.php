@@ -113,7 +113,7 @@
 						<span class="price_reg"><?php echo lang('product_price');?> <?php echo format_currency($product->price); ?></span>
 					<?php endif; ?>
 				</div>
-                    <?php if($product->in_stock==0) { ?>
+                    <?php if($product->in_stock==0 || $this->Inventory_model->available_qty($product->id)==0) { ?>
 						<div class="stock_msg"><?php echo lang('out_of_stock');?></div>
 					<?php } ?>
 				</div>

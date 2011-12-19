@@ -265,6 +265,7 @@ Class Product_model extends CI_Model
 		$product['excerpt']		= $db_product->excerpt;
 		$product['weight']		= $db_product->weight;
 		$product['shippable'] 	= $db_product->shippable;
+		$product['taxable']		= $db_product->taxable;
 		$product['fixed_quantity'] = $db_product->fixed_quantity;
 		$product['in_stock'] 	= $db_product->in_stock;
 		$product['options']		= array();

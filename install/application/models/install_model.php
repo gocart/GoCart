@@ -4574,12 +4574,15 @@ class Install_model extends CI_Model {
 		  `saleprice` float(10,2) NOT NULL default '0.00',
 		  `free_shipping` tinyint(1) NOT NULL default '0',
 		  `shippable` tinyint(1) NOT NULL default '1',
+		  `taxable` tinyint(1) NOT NULL DEFAULT '1',
+  		  `fixed_quantity` tinyint(1) NOT NULL DEFAULT '0',
 		  `weight` varchar(10) collate utf8_general_ci NOT NULL default '0',
 		  `in_stock` tinyint(1) NOT NULL default '1',
 		  `related_products` text collate utf8_general_ci,
 		  `images` text collate utf8_general_ci,
 		  `seo_title` text collate utf8_general_ci,
 		  `meta` text collate utf8_general_ci,
+		  `enabled` tinyint(1) NOT NULL default 1,
 		  PRIMARY KEY  (`id`)
 		) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
@@ -4634,6 +4637,53 @@ class Install_model extends CI_Model {
 					VALUES	(181,'gift_cards','predefined_card_amounts','10,20,25,50,100'),
 							(182,'gift_cards','enabled','1'),
 							(183,'gift_cards','allow_custom_amount','1');";
+							
+							
+							
+		$query[] = "CREATE TABLE `".$prefix."digital_products` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `filename` varchar(100) NOT NULL,
+		  `max_downloads` int(11) NOT NULL,
+		  `title` varchar(100) NOT NULL,
+		  `description` text NOT NULL,
+		  `size` varchar(20) NOT NULL,
+		  PRIMARY KEY (`id`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=0 ;";
+		
+		
+		
+		$query[] = "CREATE TABLE `".$prefix."download_packages` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `order_id` varchar(60) NOT NULL,
+		  `customer_id` int(11) NOT NULL,
+		  `code` varchar(16) NOT NULL,
+		  PRIMARY KEY (`id`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=0;";
+		
+		
+		$query[] = "CREATE TABLE `".$prefix."download_package_files` (
+		  `package_id` int(11) NOT NULL,
+		  `file_id` int(11) NOT NULL,
+		  `downloads` int(11) NOT NULL,
+		  `link` varchar(32) NOT NULL,
+		  KEY `package_id` (`package_id`),
+		  KEY `package_id_2` (`package_id`)
+		) ENGINE=MyISAM DEFAULT CHARSET=latin1;";
+		
+		
+		$query[] = "CREATE TABLE `".$prefix."products_files` (
+		  `product_id` int(11) NOT NULL,
+		  `file_id` int(11) NOT NULL,
+		  KEY `product_id` (`product_id`)
+		) ENGINE=MyISAM DEFAULT CHARSET=latin1;";
+
+		$query[] = "CREATE TABLE `".$prefix."inventory` (
+			`id` int unsigned not null auto_increment primary key,
+			`pid` int unsigned not null,
+			`qty` int unsigned not null,
+			`cost` decimal(10,2) not null,
+			`date` datetime not null
+			) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 		
 		return $query;
 	}

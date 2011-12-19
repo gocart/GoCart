@@ -691,15 +691,19 @@ class go_cart {
 					$this_price = $val['price'];
 				}
 				
-				// Deal with shippable items taxes
+				// Deal with shippable 
 				if ( $val['shippable']== 1 )
 				{
-					// shippable items (taxable)
-					$taxable 										+= ($this_price * $val['quantity']);
 					// shipping insurable value & weight
 					$this->_cart_contents['order_insurable_value']  += $this_price;
 					$this->_cart_contents['order_weight'] 			+= $val['weight']*$val['quantity'];
 					$this->_cart_contents['requires_shipping'] 		= true;
+				}
+				
+				// charge tax?
+				if($val['taxable'] == 1)
+				{
+					$taxable 		+= ($this_price * $val['quantity']);
 				}
 				
 				$total 			+= ($this_price * $val['quantity']);

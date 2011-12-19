@@ -2,6 +2,8 @@
 
 class Products extends Admin_Controller {	
 	
+	private $use_inventory = false;
+	
 	function __construct()
 	{		
 		parent::__construct();
@@ -11,8 +13,13 @@ class Products extends Admin_Controller {
 		
 		$this->load->model('Product_model');
 		$this->load->helper('form');
-		
 		$this->lang->load('product');
+		
+		if($this->config->item('inventory_enabled'))
+		{
+			$this->use_inventory = true;
+			$this->load->model('Inventory_model');
+		}
 	}
 
 	function index()
@@ -27,10 +34,20 @@ class Products extends Admin_Controller {
 	{
 		$products	= $this->input->post('product');
 		
+		if($this->use_inventory)
+		{
+			$inventory = $this->input->post('inv');
+		}
+		
 		foreach($products as $id=>$product)
 		{
 			$product['id']	= $id;
 			$this->Product_model->save($product);
+			
+			if($this->use_inventory && !empty($inventory[$id]['qty']) && !empty($inventory[$id]['cost']))
+			{
+				$this->Inventory_model->add_inventory($id, $inventory[$id]['qty'], $inventory[$id]['cost']);
+			}
 		}
 		
 		$this->session->set_flashdata('message', lang('message_bulk_update'));
@@ -65,6 +82,7 @@ class Products extends Admin_Controller {
 		$data['seo_title']			= '';
 		$data['meta']				= '';
 		$data['shippable']			= '';
+		$data['taxable']			= '';
 		$data['fixed_quantity']		= '';
 		$data['enabled']			= '';
 		$data['related_products']	= array();
@@ -84,16 +102,24 @@ class Products extends Admin_Controller {
 				$data['product_files'][]  = $f->file_id;
 			}
 			
+			// get product & options data
 			$data['product_options']	= $this->Option_model->get_product_options($id);
 			$product					= $this->Product_model->get_product($id);
-
+			
 			//if the product does not exist, redirect them to the product list with an error
 			if (!$product)
 			{
 				$this->session->set_flashdata('error', lang('error_not_found'));
 				redirect($this->config->item('admin_folder').'/products');
 			}
-
+			
+			// get inventory data
+			if($this->use_inventory)
+			{
+				$data['Inventories'] = $this->Inventory_model->product_inventory($id);
+				$data['AvailableQTY'] = $this->Inventory_model->available_qty($id);
+			}
+			
 			//helps us with the slug generation
 			$this->product_name	= $this->input->post('slug', $product->slug);
 			
@@ -111,6 +137,7 @@ class Products extends Admin_Controller {
 			$data['weight']				= $product->weight;
 			$data['in_stock'] 			= $product->in_stock;
 			$data['shippable']			= $product->shippable;
+			$data['taxable']			= $product->taxable;
 			$data['fixed_quantity']		= $product->fixed_quantity;
 			$data['enabled']			= $product->enabled;
 			
@@ -149,6 +176,7 @@ class Products extends Admin_Controller {
 		$this->form_validation->set_rules('weight', 'lang:weight', 'trim|numeric');
 		$this->form_validation->set_rules('in_stock', 'lang:in_stock', 'trim|numeric');
 		$this->form_validation->set_rules('shippable', 'lang:shippable', 'trim|numeric');
+		$this->form_validation->set_rules('taxable', 'lang:taxable', 'trim|numeric');
 		$this->form_validation->set_rules('fixed_quantity', 'lang:fixed_quantity', 'trim|numeric');
 		$this->form_validation->set_rules('enabled', 'lang:enabled', 'trim|numeric');
 
@@ -172,6 +200,7 @@ class Products extends Admin_Controller {
 			$data['product_categories']	= $this->input->post('categories');
 			$data['images']				= $this->input->post('images');
 			$data['product_files']		= $this->input->post('downloads');
+			
 		}
 		
 		if ($this->form_validation->run() == FALSE)
@@ -219,6 +248,7 @@ class Products extends Admin_Controller {
 			$save['weight']				= floatval($this->input->post('weight'));
 			$save['in_stock']			= $this->input->post('in_stock');
 			$save['shippable']			= $this->input->post('shippable');
+			$save['taxable']			= $this->input->post('taxable');
 			$save['enabled']			= $this->input->post('enabled');
 			$post_images				= $this->input->post('images');
 			
@@ -270,8 +300,13 @@ class Products extends Admin_Controller {
 			// save product 
 			$product_id	= $this->Product_model->save($save, $options, $categories);
 			
-			// add file associations
+			// save inventory
+			if($this->use_inventory)
+			{
+				$this->Inventory_model->add_inventory($product_id, $this->input->post('iqty'), $this->input->post('icost'));
+			}
 			
+			// add file associations
 			// clear existsing
 			$this->Digital_Product_model->disassociate(false, $product_id);
 			// save new
