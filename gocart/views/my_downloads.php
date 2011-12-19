@@ -30,16 +30,22 @@ if(!empty($downloads)) : ?>
 					<td><?php echo $file->title; ?></td>
 					<td width="10%"><?php echo $file->size; ?></td>
 					<td width="10%"><?php 
+							$max_exc = false;
 							if($file->max_downloads==0) 
 							{
 								echo lang('no_max');
-							} else if($file->max_downloads == $file->downloads) {
+							} else if($file->max_downloads <= $file->downloads) {
+								$max_exc = true;
 								echo lang('max_exceeded');
 							} else {
 								echo $file->max_downloads - $file->downloads;
 							}
 					  ?> </td>
-					<td align="right" width="10%"><a class="button" href="<?php echo site_url('secure/download/'.$file->link) ?>"><?php echo lang('download_btn') ?></a></td>
+					<td align="right" width="10%">
+						<?php  if(!$max_exc) : ?>
+						<a class="button" href="<?php echo site_url('secure/download/'.$file->link) ?>"><?php echo lang('download_btn') ?></a>
+						<?php endif; ?>
+					</td>
 				</tr>
 				
 			<?php endforeach; // end foreach d ?>

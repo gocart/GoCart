@@ -56,6 +56,9 @@ $config['order_statuses']	= array(
 	'Cancelled'				=> 'Cancelled'
 );
 
+// enable inventory control ?
+$config['inventory_enabled']	= true;
+
 // allow customers to purchase inventory flagged as out of stock?
 $config['allow_os_purchase'] 	= true;
 

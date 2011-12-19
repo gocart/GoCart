@@ -23,7 +23,7 @@ class Cart extends CI_Controller {
 		remove_ssl();
 		
 		$this->load->library('Go_cart');
-		$this->load->model(array('Page_model', 'Product_model', 'Digital_Product_model', 'Gift_card_model', 'Option_model', 'Order_model', 'Settings_model'));
+		$this->load->model(array('Page_model', 'Product_model', 'Digital_Product_model', 'Gift_card_model', 'Option_model', 'Order_model', 'Settings_model', 'Inventory_model'));
 		$this->load->helper(array('form_helper', 'formatting_helper'));
 		
 		//fill in our variables

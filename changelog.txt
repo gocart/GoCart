@@ -9,8 +9,10 @@ Version 1.2
 	Features
 		
 		- Added language support and extended internationalization capabilities
-		- Converted payment and shipping libraries into application packages
 		- Added support for Sage Pay payment gateway (Thanks to swicks)
+		- Added support for digital products
+		- Added inventory support
+		- Converted payment and shipping libraries into application packages
 		
 	Other
 		

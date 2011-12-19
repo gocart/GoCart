@@ -237,10 +237,13 @@ Class Digital_Product_Model extends CI_Model {
 						->get()
 						->row();
 						
-		$this->db->where('link', $link)->update('download_package_files', array('downloads'=> $record->downloads + 1 ));
-		
 		return $record;
 		
 	}
 	
+	
+	function touch_download($link)
+	{
+		$this->db->where('link', $link)->set('downloads','downloads+1', false)->update('download_package_files');
+	}
 }

@@ -32,11 +32,18 @@ $lang['no_products']				= 'There are currently no products.';
 $lang['in_stock']					= 'In Stock';
 $lang['out_of_stock']				= 'Out of Stock';
 $lang['shippable']					= 'Shippable';
+$lang['taxable']					= 'Taxable';
 $lang['fixed_quantity']				= 'Fixed Quantity';
 $lang['copy']						= 'Copy';
 $lang['upload']						= 'Upload';
 $lang['digital_content']			= 'Digital Content';
 $lang['digital_proudcts_desc']		= 'Downloadable content to associate with product purchase';
+$lang['inventory']					= 'Inventory';
+$lang['avbl_qty']					= 'Available Quantity';
+$lang['cost_per_item']				= 'Cost per item';
+$lang['no_inv']						= 'Product doesn\'t have any inventory yet!';
+$lang['add_inventory']				= 'Add Quantity';
+$lang['item_cost']					= 'Item Cost';
 
 //option form elements
 $lang['checklist']					= 'Check list';

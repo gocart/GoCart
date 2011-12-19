@@ -440,19 +440,29 @@ class Secure extends CI_Controller {
 		$this->load->view('my_downloads', $data);
 	}
 	
+	
 	function download($link)
 	{
 		$filedata = $this->Digital_Product_model->get_file_info_by_link($link);
 		
+		// missing file (bad link)
 		if(!$filedata)
 		{
-			die('what?');
-			//show_404();
+			show_404();
+		}
+		
+		// validate download counter
+		if($filedata->downloads >= $filedata->max_downloads)
+		{
+			show_404();
 		}
 		
 		// Deliver file
 		$this->load->helper('download_helper');
 		force_download($this->config->item('digital_products_path'), $filedata->filename);
+		
+		// increment downloads counter
+		$this->Digital_Product_model->touch_download($link);
 	}
 	
 	
