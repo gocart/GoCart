@@ -452,17 +452,17 @@ class Secure extends CI_Controller {
 		}
 		
 		// validate download counter
-		if($filedata->downloads >= $filedata->max_downloads)
+		if(intval($filedata->downloads) >= intval($filedata->max_downloads))
 		{
 			show_404();
 		}
 		
-		// Deliver file
-		$this->load->helper('download_helper');
-		force_download($this->config->item('digital_products_path'), $filedata->filename);
-		
 		// increment downloads counter
 		$this->Digital_Product_model->touch_download($link);
+		
+		// Deliver file
+		$this->load->helper('download');
+		force_download('uploads/digital_products/', $filedata->filename);
 	}
 	
 	

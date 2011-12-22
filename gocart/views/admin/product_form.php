@@ -203,9 +203,6 @@ function delete_product_option(id)
 	<ul>
 		<li><a href="#gc_product_info"><?php echo lang('description');?></a></li>
 		<li><a href="#gc_product_attributes"><?php echo lang('attributes');?></a></li>
-		<?php if($this->config->item('inventory_enabled')) : ?>
-		<li><a href="#gc_product_inventory"><?php echo lang('inventory');?></a></li>
-		<?php endif; ?>
 		<li><a href="#gc_product_categories"><?php echo lang('categories');?></a></li>
 		<li><a href="#gc_product_downloads"><?php echo lang('digital_content');?></a></li>
 		<li><a href="#gc_product_seo"><?php echo lang('seo');?></a></li>
@@ -269,60 +266,55 @@ function delete_product_option(id)
 		echo form_input($data);
 		?>
 		</div>
-		<?php if( ! $this->config->item('inventory_enabled')) : ?>
         <div class="gc_field2">
-		<label for="slug"><?php echo lang('in_stock');?> </label>
+		<label for="slug"><?php echo lang('track_stock');?> </label>
 		<?php
-		 	$options = array(
-                  '1'  => lang('in_stock'),
-                  '0'    => lang('out_of_stock')
-                );
-
-			echo form_dropdown('in_stock', $options, set_value('in_stock',$in_stock));
+		 	$options = array(	 '1'	=> lang('track_stock')
+								,'0'	=> lang('do_not_track_stock')
+								);
+			echo form_dropdown('track_stock', $options, set_value('track_stock',$track_stock), 'id="track_stock"');
 		?>
 		</div>
-		<?php endif; ?>	
+		<div class="gc_field2">
+		<label for="quantity"><?php echo lang('quantity');?> </label>
+		<?php
+		$data	= array('id'=>'quantity', 'name'=>'quantity', 'value'=>set_value('quantity', $quantity), 'class'=>'gc_tf1');
+		echo form_input($data);
+		?><small><?php echo lang('quantity_in_stock_note');?></small>
+		</div>
 		<div class="gc_field2">
 		<label for="slug"><?php echo lang('shippable');?> </label>
 		<?php
-		 	$options = array(
-                  '1'  => lang('yes'),
-                  '0'    => lang('no')
-                );
-
+		$options = array(	 '1'	=> lang('yes')
+							,'0'	=> lang('no')
+							);
 			echo form_dropdown('shippable', $options, set_value('shippable',$shippable));
-		?>
-		</div>
-		<div class="gc_field2">
-		<label for="slug"><?php echo lang('taxable');?> </label>
-		<?php
-		 	$options = array(
-                  '1'  => lang('yes'),
-                  '0'    => lang('no')
-                );
-
-			echo form_dropdown('taxable', $options, set_value('taxable',$taxable));
 		?>
 		</div>
 		<div class="gc_field2">
 		<label for="slug"><?php echo lang('fixed_quantity');?> </label>
 		<?php
-		 	$options = array(
-                  '1'  => lang('yes'),
-                  '0'    => lang('no')
-                );
-
+		 	$options = array(	 '1'	=> lang('yes')
+								,'0'	=> lang('no')
+								);
 			echo form_dropdown('fixed_quantity', $options, set_value('fixed_quantity',$fixed_quantity));
+		?> <small><?php echo lang('fixed_quantity_note');?></small>
+		</div>
+		<div class="gc_field2">
+		<label for="slug"><?php echo lang('taxable');?> </label>
+		<?php
+		$options = array(	 '1'	=> lang('yes')
+							,'0'	=> lang('no')
+							);
+			echo form_dropdown('taxable', $options, set_value('taxable',$taxable));
 		?>
 		</div>
 		<div class="gc_field2">
 		<label for="slug"><?php echo lang('enabled');?> </label>
 		<?php
-		 	$options = array(
-                  '1'  => lang('enabled'),
-                  '0'    => lang('disabled')
-                );
-
+		 	$options = array(	 '1'	=> lang('yes')
+								,'0'	=> lang('no')
+								);
 			echo form_dropdown('enabled', $options, set_value('enabled',$enabled));
 		?>
 		</div>
@@ -336,54 +328,6 @@ function delete_product_option(id)
       
 		</div>
 	</div>
-	<?php if($this->config->item('inventory_enabled')) : ?>
-	
-	<div id="gc_product_inventory">
-		<?php if ( isset($AvailableQTY) ): ?>
-		<p class="strong"><?php echo lang('avbl_qty') .': ' . $AvailableQTY; ?></p>
-		<?php endif; ?>
-		<div class="gc_field2">
-		<?php
-		$data = array( 'id' => 'inventory_qty', 'name' => 'iqty', 'class'=>'gc_tf2' );
-		echo form_label('Inventory QTY', 'inventory_qty' );
-		echo form_input($data);
-		?>
-		</div>
-		<div class="gc_field2">
-		<?php
-		$data = array( 'id' => 'inventory_cost', 'name' => 'icost', 'class'=>'gc_tf2' );
-		echo form_label('Cost per item', 'inventory_cost' );
-		echo form_input($data);
-		?>
-		</div>
-		<div class="gc_field">
-		<table class="gc_table" cellspacing="0" cellpadding="0">
-		<thead>
-		<tr>
-		<th class="gc_cell_left"><?php echo lang('quantity') ?></th>
-		<th><?php echo lang('cost_per_item') ?></th>
-		<th class="gc_cell_right"><?php echo lang('date') ?></th>
-		</tr>
-		</thead>
-		<tbody>
-		<?php if ( isset($Inventories) && $Inventories !== FALSE ): ?>
-		<?php foreach( $Inventories as $Inventory ): ?>
-		<tr>
-		<td><?php echo $Inventory->qty; ?></td>
-		<td><?php echo $Inventory->cost; ?></td>
-		<td><?php echo $Inventory->date; ?></td>
-		</tr>
-		<?php endforeach; ?>
-		<?php else: ?>
-		<tr>
-		<td colspan="3"><?php echo lang('no_inv') ?></td>
-		</tr>
-		<?php endif; ?>
-		</tbody>
-		</table>
-		</div>
-	</div>
-	<?php endif; ?>
 		 
 	<div id="gc_product_categories">
 		<table class="gc_table" cellspacing="0" cellpadding="0">

@@ -24,18 +24,23 @@ Class Digital_Products extends Admin_Controller {
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
+		$data	= array(	 'id'				=>''
+							,'filename'			=>''
+							,'max_downloads'	=>''
+							,'title'			=>''
+							,'version'			=>''
+							,'size'				=>''
+							);
 		if($id)
 		{
-			$data				= (array)$this->digital_product_model->get_file_info($id);
-			$data['page_title'] = 'Edit File';
-		} else {
-			$data				= $this->digital_product_model->new_file();
-			$data['page_title'] = 'Upload File';
+			$data	= array_merge($data, (array)$this->digital_product_model->get_file_info($id));
 		}
+		
+		$data['page_title']		= lang('digital_products_form');
 		
 		$this->form_validation->set_rules('max_downloads', 'lang:max_downloads', 'numeric');
 		$this->form_validation->set_rules('title', 'lang:title', 'trim|required');
-		$this->form_validation->set_rules('description', 'lang:desc', 'trim');
+		$this->form_validation->set_rules('version', 'lang:version', 'trim');
 		
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -48,8 +53,8 @@ Class Digital_Products extends Admin_Controller {
 				$data['file_name'] = false;
 				$data['error']	= false;
 				
-				$config['allowed_types'] = $this->config->item('digital_products_types');
-				$config['upload_path'] = $this->config->item('digital_products_path');
+				$config['allowed_types'] = '*';
+				$config['upload_path'] = 'uploads/digital_products';//$this->config->item('digital_products_path');
 				$config['remove_spaces'] = true;
 		
 				$this->load->library('upload', $config);
@@ -71,14 +76,13 @@ Class Digital_Products extends Admin_Controller {
 			
 			$save['max_downloads']	= set_value('max_downloads');				
 			$save['title']			= set_value('title');
-			$save['description']	= set_value('description');
+			$save['version']		= set_value('version');
 			
 			$this->digital_product_model->save($save);
 			
 			redirect($this->config->item('admin_folder').'/digital_products');
 		}
 	}
-	
 	
 	function delete($id)
 	{

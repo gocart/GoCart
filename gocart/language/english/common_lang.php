@@ -28,6 +28,7 @@ $lang['currency']			= 'Currency';
 $lang['active']				= 'Active';
 $lang['yes']				= 'Yes';
 $lang['no']					= 'No';
+$lang['download_link']		= 'Click here to access your downloads!';
 
 $lang['empty_cart']			= 'Your cart is empty';
 $lang['single_item']		= 'There is %d item in your cart';
@@ -213,5 +214,6 @@ $lang['giftcard_balance_applied']		= 'You should see your card balance displayed
 $lang['giftcard_zero_balance']			= 'Sorry, but the gift card you entered is expired or has a zero balance.';
 $lang['giftcard_not_exist']				= 'The gift card code you entered does not exist.';
 $lang['giftcard_already_applied']		= 'Your gift card is already applied';
-
+$lang['error_updating_cart']			= 'There was an error updating the cart!';
+$lang['not_enough_stock']				= 'The quantity requested for the "%s" product could not be added. We only have %d item(s) in stock.';
 

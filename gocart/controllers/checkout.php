@@ -59,8 +59,16 @@ class Checkout extends CI_Controller {
 		if ($this->go_cart->total_items()==0){
 			redirect('cart/view_cart');
 		}
-		//this hides the left column
-		$data['hide_menu'] = true;
+		
+		//double check the inventory of each item before proceeding to checkout
+		$inventory_check	= $this->go_cart->check_inventory();
+		if($inventory_check)
+		{
+			//OOPS we have an error. someone else has gotten the scoop on our customer and bought products out from under them!
+			//we need to redirect them to the view cart page and let them know that the inventory is no longer there.
+			$this->session->set_flashdata('error', $inventory_check);
+			redirect('cart/view_cart');
+		}
 		
 		$this->load->model('Customer_model');
 		
@@ -390,6 +398,7 @@ class Checkout extends CI_Controller {
 	function place_order()
 	{		
 		
+		
 		// retrieve the payment method
 		$payment = $this->go_cart->payment_method();
 		//die(var_dump($payment));
@@ -405,7 +414,6 @@ class Checkout extends CI_Controller {
 		{
 			$this->Customer_model->is_logged_in();
 		}
-	
 		
 		// are we processing an empty cart?
 		$contents = $this->go_cart->contents();
@@ -413,7 +421,15 @@ class Checkout extends CI_Controller {
 		{
 			redirect('cart/view_cart');
 		} else {
-			// do some secondary validation on cart contents before we continue
+			//double check the inventory of each item before processing the order
+			$inventory_check	= $this->go_cart->check_inventory();
+			if($inventory_check)
+			{
+				//OOPS we have an error. someone else has gotten the scoop on our customer and bought products out from under them!
+				//we need to redirect them to the view cart page and let them know that the inventory is no longer there.
+				$this->session->set_flashdata('error', $inventory_check);
+				redirect('cart/view_cart');
+			}
 			
 			//  - check to see if we have a payment method set, if we need one
 			if(empty($payment) && $this->go_cart->total()>0)
@@ -472,10 +488,10 @@ class Checkout extends CI_Controller {
 			if(!empty($data['customer']['id']))
 			{
 				// they can access their downloads by logging in
-				$download_section = str_replace('{download_link}', base_url().'my_downloads',$downlod_msg_record['content']);
+				$download_section = str_replace('{download_link}', anchor('secure/my_downloads', lang('download_link')),$downlod_msg_record['content']);
 			} else {
 				// non regs will receive a code
-				$download_section = str_replace('{download_link}', base_url().'my_downloads/'.$order_downloads['code'], $downlod_msg_record['content']);
+				$download_section = str_replace('{download_link}', anchor('secure/my_downloads/'.$order_downloads['code'], lang('download_link')), $downlod_msg_record['content']);
 			}
 		}
 		

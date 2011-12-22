@@ -14,12 +14,6 @@ class Products extends Admin_Controller {
 		$this->load->model('Product_model');
 		$this->load->helper('form');
 		$this->lang->load('product');
-		
-		if($this->config->item('inventory_enabled'))
-		{
-			$this->use_inventory = true;
-			$this->load->model('Inventory_model');
-		}
 	}
 
 	function index()
@@ -33,21 +27,11 @@ class Products extends Admin_Controller {
 	function bulk_save()
 	{
 		$products	= $this->input->post('product');
-		
-		if($this->use_inventory)
-		{
-			$inventory = $this->input->post('inv');
-		}
-		
+				
 		foreach($products as $id=>$product)
 		{
 			$product['id']	= $id;
 			$this->Product_model->save($product);
-			
-			if($this->use_inventory && !empty($inventory[$id]['qty']) && !empty($inventory[$id]['cost']))
-			{
-				$this->Inventory_model->add_inventory($id, $inventory[$id]['qty'], $inventory[$id]['cost']);
-			}
 		}
 		
 		$this->session->set_flashdata('message', lang('message_bulk_update'));
@@ -78,12 +62,13 @@ class Products extends Admin_Controller {
 		$data['price']				= '';
 		$data['saleprice']			= '';
 		$data['weight']				= '';
-		$data['in_stock'] 			= '';
+		$data['track_stock'] 		= '';
 		$data['seo_title']			= '';
 		$data['meta']				= '';
 		$data['shippable']			= '';
 		$data['taxable']			= '';
 		$data['fixed_quantity']		= '';
+		$data['quantity']			= '';
 		$data['enabled']			= '';
 		$data['related_products']	= array();
 		$data['product_categories']	= array();
@@ -113,13 +98,6 @@ class Products extends Admin_Controller {
 				redirect($this->config->item('admin_folder').'/products');
 			}
 			
-			// get inventory data
-			if($this->use_inventory)
-			{
-				$data['Inventories'] = $this->Inventory_model->product_inventory($id);
-				$data['AvailableQTY'] = $this->Inventory_model->available_qty($id);
-			}
-			
 			//helps us with the slug generation
 			$this->product_name	= $this->input->post('slug', $product->slug);
 			
@@ -135,8 +113,9 @@ class Products extends Admin_Controller {
 			$data['price']				= $product->price;
 			$data['saleprice']			= $product->saleprice;
 			$data['weight']				= $product->weight;
-			$data['in_stock'] 			= $product->in_stock;
+			$data['track_stock'] 		= $product->track_stock;
 			$data['shippable']			= $product->shippable;
+			$data['quantity']			= $product->quantity;
 			$data['taxable']			= $product->taxable;
 			$data['fixed_quantity']		= $product->fixed_quantity;
 			$data['enabled']			= $product->enabled;
@@ -171,10 +150,11 @@ class Products extends Admin_Controller {
 		$this->form_validation->set_rules('slug', 'lang:slug', 'trim');
 		$this->form_validation->set_rules('description', 'lang:description', 'trim');
 		$this->form_validation->set_rules('excerpt', 'lang:excerpt', 'trim');
-		$this->form_validation->set_rules('price', 'lang:price', 'trim|numeric');
-		$this->form_validation->set_rules('saleprice', 'lang:saleprice', 'trim|numeric');
-		$this->form_validation->set_rules('weight', 'lang:weight', 'trim|numeric');
-		$this->form_validation->set_rules('in_stock', 'lang:in_stock', 'trim|numeric');
+		$this->form_validation->set_rules('price', 'lang:price', 'trim|numeric|floatval');
+		$this->form_validation->set_rules('saleprice', 'lang:saleprice', 'trim|numeric|floatval');
+		$this->form_validation->set_rules('weight', 'lang:weight', 'trim|numeric|floatval');
+		$this->form_validation->set_rules('track_stock', 'lang:track_stock', 'trim|numeric');
+		$this->form_validation->set_rules('quantity', 'lang:quantity', 'trim|numeric');
 		$this->form_validation->set_rules('shippable', 'lang:shippable', 'trim|numeric');
 		$this->form_validation->set_rules('taxable', 'lang:taxable', 'trim|numeric');
 		$this->form_validation->set_rules('fixed_quantity', 'lang:fixed_quantity', 'trim|numeric');
@@ -243,10 +223,12 @@ class Products extends Admin_Controller {
 			$save['meta']				= $this->input->post('meta');
 			$save['description']		= $this->input->post('description');
 			$save['excerpt']			= $this->input->post('excerpt');
-			$save['price']				= floatval($this->input->post('price'));
-			$save['saleprice']			= floatval($this->input->post('saleprice'));
-			$save['weight']				= floatval($this->input->post('weight'));
-			$save['in_stock']			= $this->input->post('in_stock');
+			$save['price']				= $this->input->post('price');
+			$save['saleprice']			= $this->input->post('saleprice');
+			$save['weight']				= $this->input->post('weight');
+			$save['track_stock']		= $this->input->post('track_stock');
+			$save['fixed_quantity']		= $this->input->post('fixed_quantity');
+			$save['quantity']			= $this->input->post('quantity');
 			$save['shippable']			= $this->input->post('shippable');
 			$save['taxable']			= $this->input->post('taxable');
 			$save['enabled']			= $this->input->post('enabled');
@@ -299,12 +281,6 @@ class Products extends Admin_Controller {
 			
 			// save product 
 			$product_id	= $this->Product_model->save($save, $options, $categories);
-			
-			// save inventory
-			if($this->use_inventory)
-			{
-				$this->Inventory_model->add_inventory($product_id, $this->input->post('iqty'), $this->input->post('icost'));
-			}
 			
 			// add file associations
 			// clear existsing

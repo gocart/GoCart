@@ -39,17 +39,16 @@ echo form_open_multipart($this->config->item('admin_folder').'/digital_products/
 		$data	= array('id'=>'max_downloads', 'name'=>'max_downloads', 'value'=>set_value('max_downloads', $max_downloads), 'class'=>'gc_tf1');
 		echo form_input($data);
 		?>
+		<small><?php echo lang('max_downloads_note');?></small>
 		</div>
 			
-		<label for="description"><?php echo lang('desc');?> </label>
-		<div class="gc_field gc_tinymce">
+		
+		<div class="gc_field2">
+		<label for="version"><?php echo lang('version');?> </label>
 		<?php
-		$data	= array('id'=>'description', 'name'=>'description', 'class'=>'tinyMCE', 'value'=>set_value('description', $description));
-		echo form_textarea($data);
+		$data	= array('id'=>'version', 'name'=>'version', 'class'=>'gc_tf1', 'value'=>set_value('version', $version));
+		echo form_input($data);
 		?>
-		</div>
-		<div class="button_set">
-			<input type="button" onclick="toggleEditor('description'); return false;" value="Toggle WYSIWYG" />
 		</div>
 	</div>
 </div>
