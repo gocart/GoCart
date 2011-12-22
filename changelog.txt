@@ -4,23 +4,23 @@ Version 1.2
 	
 	Bug Fixes
 		
-		- Replaced deprecated function in the credit card helper and missing HTML tags in the main header view
-		- Fixed various HTML errors
+		- Replaced deprecated function in the credit card helper and missing HTML tags in the main header view.
+		- Made admin and customer authentication use different cookie names to avoid conflicts.
+		- Fixed various HTML errors.
 		
 	Features
 		
-		- Added language support and extended internationalization capabilities
-		- Added support for Sage Pay payment gateway (Thanks to swicks)
-		- Added support for digital products
-		- Added inventory support
-		- Converted payment and shipping libraries into application packages
+		- Added language support and extended internationalization capabilities.
+		- Added support for Sage Pay payment gateway (Thanks to swicks).
+		- Added support for digital products.
+		- Added inventory support.
+		- Converted payment and shipping libraries into application packages.
 		
 	Other
 		
-		- Updated to CodeIgniter 2.1
-		- Changed the database password and prefix fields to unrequired in the Installer, for those of you who want to shoot yourself in the feet
+		- Updated to CodeIgniter 2.1.
+		- Removed database password and prefix requirements in the Installer, for those of you who want to shoot yourself in the feet.
 		- eliminated some junk code and views that are not used.
-		
 
 Version 1.1.4
 -------------
