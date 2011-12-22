@@ -18,12 +18,7 @@ function areyousure()
 				<th><?php echo lang('name');?></th>
 				<th style="width:60px;"><?php echo lang('price');?></th>
 				<th style="width:60px;"><?php echo lang('saleprice');?></th>
-				<?php if($this->config->item('inventory_enabled')) : ?>
-				<th style="width:60px;"><?php echo lang('add_inventory');?></th>
-				<th style="width:60px;"><?php echo lang('item_cost');?></th>
-				<?php else : ?>
-				<th style="width:60px;"><?php echo lang('availability');?></th>
-				<?php endif; ?>
+				<th style="width:60px;"><?php echo lang('quantity');?></th>
 				<th style="width:60px;"><?php echo lang('enabled');?></th>
 				<th class="gc_cell_right"></th>
 			</tr>
@@ -36,34 +31,7 @@ function areyousure()
 				<td><?php echo form_input(array('name'=>'product['.$product->id.'][name]','value'=>form_decode($product->name), 'class'=>'gc_tf3'));?></td>
 				<td><?php echo form_input(array('name'=>'product['.$product->id.'][price]', 'value'=>set_value('price', $product->price), 'class'=>'gc_tf3'));?></td>
 				<td><?php echo form_input(array('name'=>'product['.$product->id.'][saleprice]', 'value'=>set_value('saleprice', $product->saleprice), 'class'=>'gc_tf3'));?></td>
-				
-				<?php if($this->config->item('inventory_enabled')) : ?>
-				<td>
-					<?php
-					$data = array( 'id' => 'inventory_qty', 'name' => 'inv['.$product->id.'][qty]', 'class'=>'gc_tf3' );
-					echo form_input($data);
-					?>
-				</td>
-				<td>
-					<?php
-					$data = array( 'id' => 'inventory_cost', 'name' => 'inv['.$product->id.'][cost]', 'class'=>'gc_tf3' );
-					echo form_input($data);
-					?>
-				</td>
-				<?php endif; ?>
-				
-				<?php if( ! $this->config->item('inventory_enabled')) : ?>
-				<td>
-					<?php
-					 	$options = array(
-			                  '1'	=> lang('in_stock'),
-			                  '0'	=> lang('out_of_stock')
-			                );
-
-						echo form_dropdown('product['.$product->id.'][in_stock]', $options, set_value('in_stock',$product->in_stock));
-					?>
-				</td>
-				<?php endif ?>
+				<td><?php echo ((bool)$product->track_stock)?form_input(array('name'=>'product['.$product->id.'][quantity]', 'value'=>set_value('quantity', $product->quantity), 'class'=>'gc_tf3')):'N/A';?></td>
 				<td>
 					<?php
 					 	$options = array(

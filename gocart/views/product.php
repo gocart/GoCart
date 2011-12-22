@@ -175,14 +175,15 @@
 	</div>
 	<?php endif; ?>
 	<div class="product_section">	
+	
 		<div style="text-align:center; overflow:hidden;">
-			<?php if(!$this->config->item('allow_os_purchase') && ($product->in_stock == 0 || $this->Inventory_model->available_qty($product->id)==0)) : ?>
+			<?php if(!$this->config->item('allow_os_purchase') && ((bool)$product->track_stock && $product->quantity <= 0)) : ?>
 				<h2 class="red"><?php echo lang('out_of_stock');?></h2>				
 			<?php else: ?>
-				<?php if($product->in_stock == 0 || $this->Inventory_model->available_qty($product->id)==0):?>
+				<?php if((bool)$product->track_stock && $product->quantity <= 0):?>
 					<div class="red"><small><?php echo lang('out_of_stock');?></small></div>
 				<?php endif; ?>
-				<?php if(! $product->fixed_quantity) : ?>
+				<?php if(!$product->fixed_quantity) : ?>
 					<?php echo lang('quantity') ?> <input class="product_quantity" type="text" name="quantity" value=""/>
 				<?php endif; ?>
 				<input class="add_to_cart_btn" type="submit" value="<?php echo lang('form_add_to_cart');?>" /> 
