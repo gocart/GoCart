@@ -9,7 +9,7 @@ function areyousure()
 <div class="button_set">
 <?php if ($gift_cards['enabled']):?>
 
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/form'); ?>"><?php echo lang('add_new_giftcad')?></a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/form'); ?>"><?php echo lang('add_giftcard')?></a>
 	
 	<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/settings'); ?>"><?php echo lang('settings');?></a>
 	
