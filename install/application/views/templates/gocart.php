@@ -23,13 +23,6 @@ $config['dimension_unit']   = 'IN'; // FT, CM, etc
 // site logo path (for packing slip)
 $config['site_logo']		= '/images/logo.png';
 
-// digital product file upload file path
-//   (This should be above your web root)
-$config['digital_downloads_path'] = '/path/to/file';
-
-// allowed file types for digital products
-$config['digital_products_types']	= 'zip|rar|pdf';
-
 //change the name of the admin controller folder 
 $config['admin_folder']		= 'admin';
 
@@ -54,6 +47,7 @@ $config['order_statuses']	= array(
 	'Shipped'				=> 'Shipped',
 	'On Hold'				=> 'On Hold',
 	'Cancelled'				=> 'Cancelled'
+	'Delivered'				=> 'Delivered
 );
 
 // enable inventory control ?
