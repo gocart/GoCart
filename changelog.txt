@@ -4,7 +4,8 @@ Version 1.2
 	
 	Bug Fixes
 		
-		- Replaced deprecated function in the credit card helper and missing HTML tags in the main header view 
+		- Replaced deprecated function in the credit card helper and missing HTML tags in the main header view
+		- Fixed various HTML errors
 		
 	Features
 		
