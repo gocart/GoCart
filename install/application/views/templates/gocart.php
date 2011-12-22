@@ -46,7 +46,7 @@ $config['order_statuses']	= array(
 	'Processing'    		=> 'Processing',
 	'Shipped'				=> 'Shipped',
 	'On Hold'				=> 'On Hold',
-	'Cancelled'				=> 'Cancelled'
+	'Cancelled'				=> 'Cancelled',
 	'Delivered'				=> 'Delivered
 );
 
