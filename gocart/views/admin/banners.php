@@ -57,7 +57,7 @@ function areyousure()
 			<th class="gc_cell_right"></th>
 		</tr>
 	</thead>
-	<?php echo (count($banners) < 1)?'<tr><td style="text-align:center;" colspan="3">'.lang('no_banners').'</td></tr>':''?>
+	<?php echo (count($banners) < 1)?'<tr><td style="text-align:center;" colspan="4">'.lang('no_banners').'</td></tr>':''?>
 	<?php if ($banners): ?>
 	<tbody id="banners_sortable">
 	<?php
