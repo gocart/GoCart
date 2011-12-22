@@ -21,7 +21,7 @@ foreach($orders as $year=>$months):?>
 	<thead>
 		<tr>
 			<?php /*<th>ID</th> uncomment this if you want it*/ ?>
-			<th class="gc_cell_left"><?php echo sprintf(lang('months_of', $year));?></th>
+			<th class="gc_cell_left"><?php echo sprintf(lang('months_of'), $year);?></th>
 			<th><?php echo lang('coupon_discounts');?></th>
 			<th><?php echo lang('giftcard_discounts');?></th>
 			<th><?php echo lang('products');?></th>
