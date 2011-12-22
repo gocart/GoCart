@@ -84,14 +84,14 @@ class Install extends CI_Controller {
 			
 			if (is_resource($this->db->conn_id) OR is_object($this->db->conn_id))
 			{	
-				$this->load->model('Install_model');
+
+				$queries	= $this->load->view('templates/sql', '', false);
+				$queries	= explode('-- new query', $queries);
 				
-				//open the database and run the install sql script.
-				$query = $this->Install_model->get_query($this->input->post('prefix'));
-				
-				foreach($query as $q)
+				foreach($queries as $q)
 				{
-					$this->db->query($q);
+					$query	= str_replace('prefix_', $this->input->post('prefix'), $q);
+					$this->db->query($query);
 				}
 
 				//set up the admin user
