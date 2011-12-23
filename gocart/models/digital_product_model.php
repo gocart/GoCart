@@ -121,8 +121,8 @@ Class Digital_Product_Model extends CI_Model {
 		$product_associations  = $this->get_associations_by_file($id);
 		foreach($product_associations as $p)
 		{
-			$save['id'] = $p->id;
-			$save['enabled'] = 0;
+			$save['id']			= $p->product_id;
+			$save['enabled']	= 0;
 			$this->product_model->save($save);
 		}
 		
