@@ -1,5 +1,19 @@
 <?php include('header.php'); ?>
 
+<?php if(!$payment_module_installed):?>
+<div class="ui-state-highlight ui-corner-all" style="padding:10px; margin-bottom:10px;"> 
+	<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+	<strong><?php echo lang('common_note') ?>:</strong> <?php echo lang('no_payment_module_installed'); ?></p>
+</div>
+<?php endif;?>
+
+<?php if(!$shipping_module_installed):?>
+<div class="ui-state-highlight ui-corner-all" style="padding:10px; margin-bottom:10px;"> 
+	<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+	<strong><?php echo lang('common_note') ?>:</strong> <?php echo lang('no_shipping_module_installed'); ?></p>
+</div>
+<?php endif;?>
+
 <h3><?php echo lang('recent_orders') ?></h3>
 <table class="gc_table" cellspacing="0" cellpadding="0">
     <thead>
