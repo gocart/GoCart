@@ -366,7 +366,7 @@ function delete_product_option(id)
 	</div>
 	
 	<div id="gc_product_downloads">
-		<?php echo lang('digital_proudcts_desc') ?>
+		<?php echo lang('digital_products_desc') ?>
 		<table class="gc_table" cellspacing="0" cellpadding="0">
 				<thead>
 					<tr>
