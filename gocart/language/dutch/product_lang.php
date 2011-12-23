@@ -27,12 +27,20 @@ $lang['images']						= 'Afbeeldingen';
 $lang['meta_example']				= 'bv. &lt;meta name="description" content="Wij bieden u de beste producten aan" /&gt;';
 $lang['bulk_save']					= 'Alles opslaan';
 $lang['add_new_product']			= 'Nieuw product';
-$lang['availability']				= 'Beschikbaarheid';
 $lang['no_products']				= 'Er zijn momenteel geen producten.';
-$lang['in_stock']					= 'In voorraad';
+$lang['track_stock']        			= 'Controle voorraad';
+$lang['do_not_track_stock']      		= 'Geen controle voorraad';
 $lang['out_of_stock']				= 'Niet in voorraad';
+$lang['shippable']          			= 'Kan verstuurd worden';
+$lang['taxable']          			= 'Belastbaar';
+$lang['fixed_quantity']        			= 'Vaste hoeveelheid';
+$lang['quantity']          			= 'Beschikbare hoeveelheid';
 $lang['copy']						= 'Kopieer';
 $lang['upload']						= 'Upload';
+$lang['digital_content']      				= 'Digitale inhoud';
+$lang['digital_products_desc']    			= 'Downloadbare inhoud bij productaankoop';
+$lang['fixed_quantity_note']    			= '(Dit voorkomt dat iemand meerdere stuks van dit product toevoegt aan zijn/haar winkelkar.)';
+$lang['quantity_in_stock_note']    			= '(Dit cijfer wordt enkel gebruikt als het product is gemarkeerd met "Controleer voorraad")';
 
 //option form elements
 $lang['checklist']					= 'Aanvinkbare lijst';
