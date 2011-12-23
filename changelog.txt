@@ -15,6 +15,7 @@ Version 1.2
 		- Added support for digital products.
 		- Added inventory support.
 		- Converted payment and shipping libraries into application packages.
+		- Accented characters are now converted to their non-accented equivalents in Category, Page and Product slugs.
 		
 	Other
 		
