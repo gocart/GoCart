@@ -31,7 +31,7 @@ class Banners extends Admin_Controller
 	
 	function delete($id)
 	{
-		$this->Banner_model->delete($id)
+		$this->Banner_model->delete($id);
 		
 		$this->session->set_flashdata('message', lang('message_delete_banner'));
 		redirect($this->config->item('admin_folder').'/banners');
@@ -66,13 +66,13 @@ class Banners extends Admin_Controller
 							,'new_window'=>false	
 						);
 		
-		$data['page_title']	= lang('banner_form');
-		
 		if($id)
 		{
 			$data				= (array) $this->Banner_model->get_banner($id);
 			$data['new_window']	= (bool) $data['new_window'];
 		}
+		
+		$data['page_title']	= lang('banner_form');
 		
 		$this->form_validation->set_rules('title', 'lang:title', 'trim|required|full_decode');
 		$this->form_validation->set_rules('enable_on', 'lang:enable_on', 'trim');

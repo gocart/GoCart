@@ -18,7 +18,8 @@ function areyousure()
 				<th><?php echo lang('name');?></th>
 				<th style="width:60px;"><?php echo lang('price');?></th>
 				<th style="width:60px;"><?php echo lang('saleprice');?></th>
-				<th style="width:60px;"><?php echo lang('availability');?></th>
+				<th style="width:60px;"><?php echo lang('quantity');?></th>
+				<th style="width:60px;"><?php echo lang('enabled');?></th>
 				<th class="gc_cell_right"></th>
 			</tr>
 		</thead>
@@ -30,14 +31,15 @@ function areyousure()
 				<td><?php echo form_input(array('name'=>'product['.$product->id.'][name]','value'=>form_decode($product->name), 'class'=>'gc_tf3'));?></td>
 				<td><?php echo form_input(array('name'=>'product['.$product->id.'][price]', 'value'=>set_value('price', $product->price), 'class'=>'gc_tf3'));?></td>
 				<td><?php echo form_input(array('name'=>'product['.$product->id.'][saleprice]', 'value'=>set_value('saleprice', $product->saleprice), 'class'=>'gc_tf3'));?></td>
+				<td><?php echo ((bool)$product->track_stock)?form_input(array('name'=>'product['.$product->id.'][quantity]', 'value'=>set_value('quantity', $product->quantity), 'class'=>'gc_tf3')):'N/A';?></td>
 				<td>
 					<?php
 					 	$options = array(
-			                  '1'	=> lang('in_stock'),
-			                  '0'	=> lang('out_of_stock')
+			                  '1'	=> lang('enabled'),
+			                  '0'	=> lang('disabled')
 			                );
 
-						echo form_dropdown('product['.$product->id.'][in_stock]', $options, set_value('in_stock',$product->in_stock));
+						echo form_dropdown('product['.$product->id.'][enabled]', $options, set_value('enabled',$product->enabled));
 					?>
 				</td>
 				<td class="gc_cell_right list_buttons">

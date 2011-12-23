@@ -38,13 +38,20 @@ $config['require_login']		= false;
 //default order status
 $config['order_status']			= 'Pending';
 
+// default Status for non-shippable orders (downloads)
+$config['nonship_status'] = 'Delivered';
+
 $config['order_statuses']	= array(
 	'Pending'  				=> 'Pending',
 	'Processing'    		=> 'Processing',
 	'Shipped'				=> 'Shipped',
 	'On Hold'				=> 'On Hold',
-	'Cancelled'				=> 'Cancelled'
+	'Cancelled'				=> 'Cancelled',
+	'Delivered'				=> 'Delivered
 );
+
+// enable inventory control ?
+$config['inventory_enabled']	= true;
 
 // allow customers to purchase inventory flagged as out of stock?
 $config['allow_os_purchase'] 	= true;

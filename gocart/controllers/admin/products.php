@@ -2,6 +2,8 @@
 
 class Products extends Admin_Controller {	
 	
+	private $use_inventory = false;
+	
 	function __construct()
 	{		
 		parent::__construct();
@@ -11,7 +13,6 @@ class Products extends Admin_Controller {
 		
 		$this->load->model('Product_model');
 		$this->load->helper('form');
-		
 		$this->lang->load('product');
 	}
 
@@ -26,7 +27,7 @@ class Products extends Admin_Controller {
 	function bulk_save()
 	{
 		$products	= $this->input->post('product');
-		
+				
 		foreach($products as $id=>$product)
 		{
 			$product['id']	= $id;
@@ -41,11 +42,13 @@ class Products extends Admin_Controller {
 	{
 		$this->product_id	= $id;
 		$this->load->library('form_validation');
-		$this->load->model(array('Option_model', 'Category_model'));
+		$this->load->model(array('Option_model', 'Category_model', 'Digital_Product_model'));
+		$this->lang->load('digital_product');
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
 		$data['categories']		= $this->Category_model->get_categories_tierd();
 		$data['product_list']	= $this->Product_model->get_products();
+		$data['file_list']		= $this->Digital_Product_model->get_list();
 
 		$data['page_title']		= lang('product_form');
 
@@ -59,28 +62,42 @@ class Products extends Admin_Controller {
 		$data['price']				= '';
 		$data['saleprice']			= '';
 		$data['weight']				= '';
-		$data['in_stock'] 			= '';
+		$data['track_stock'] 		= '';
 		$data['seo_title']			= '';
 		$data['meta']				= '';
+		$data['shippable']			= '';
+		$data['taxable']			= '';
+		$data['fixed_quantity']		= '';
+		$data['quantity']			= '';
+		$data['enabled']			= '';
 		$data['related_products']	= array();
 		$data['product_categories']	= array();
 		$data['images']				= array();
+		$data['product_files']		= array();
 
 		//create the photos array for later use
 		$data['photos']		= array();
 
 		if ($id)
 		{	
+			// get the existing file associations and create a format we can read from the form to set the checkboxes
+			$pr_files 		= $this->Digital_Product_model->get_associations_by_product($id);
+			foreach($pr_files as $f)
+			{
+				$data['product_files'][]  = $f->file_id;
+			}
+			
+			// get product & options data
 			$data['product_options']	= $this->Option_model->get_product_options($id);
 			$product					= $this->Product_model->get_product($id);
-
+			
 			//if the product does not exist, redirect them to the product list with an error
 			if (!$product)
 			{
 				$this->session->set_flashdata('error', lang('error_not_found'));
 				redirect($this->config->item('admin_folder').'/products');
 			}
-
+			
 			//helps us with the slug generation
 			$this->product_name	= $this->input->post('slug', $product->slug);
 			
@@ -96,7 +113,12 @@ class Products extends Admin_Controller {
 			$data['price']				= $product->price;
 			$data['saleprice']			= $product->saleprice;
 			$data['weight']				= $product->weight;
-			$data['in_stock'] 			= $product->in_stock;
+			$data['track_stock'] 		= $product->track_stock;
+			$data['shippable']			= $product->shippable;
+			$data['quantity']			= $product->quantity;
+			$data['taxable']			= $product->taxable;
+			$data['fixed_quantity']		= $product->fixed_quantity;
+			$data['enabled']			= $product->enabled;
 			
 			//make sure we haven't submitted the form yet before we pull in the images/related products from the database
 			if(!$this->input->post('submit'))
@@ -128,10 +150,15 @@ class Products extends Admin_Controller {
 		$this->form_validation->set_rules('slug', 'lang:slug', 'trim');
 		$this->form_validation->set_rules('description', 'lang:description', 'trim');
 		$this->form_validation->set_rules('excerpt', 'lang:excerpt', 'trim');
-		$this->form_validation->set_rules('price', 'lang:price', 'trim|numeric');
-		$this->form_validation->set_rules('saleprice', 'lang:saleprice', 'trim|numeric');
-		$this->form_validation->set_rules('weight', 'lang:weight', 'trim|numeric');
-		$this->form_validation->set_rules('in_stock', 'lang:in_stock', 'trim|numeric');
+		$this->form_validation->set_rules('price', 'lang:price', 'trim|numeric|floatval');
+		$this->form_validation->set_rules('saleprice', 'lang:saleprice', 'trim|numeric|floatval');
+		$this->form_validation->set_rules('weight', 'lang:weight', 'trim|numeric|floatval');
+		$this->form_validation->set_rules('track_stock', 'lang:track_stock', 'trim|numeric');
+		$this->form_validation->set_rules('quantity', 'lang:quantity', 'trim|numeric');
+		$this->form_validation->set_rules('shippable', 'lang:shippable', 'trim|numeric');
+		$this->form_validation->set_rules('taxable', 'lang:taxable', 'trim|numeric');
+		$this->form_validation->set_rules('fixed_quantity', 'lang:fixed_quantity', 'trim|numeric');
+		$this->form_validation->set_rules('enabled', 'lang:enabled', 'trim|numeric');
 
 		/*
 		if we've posted already, get the photo stuff and organize it
@@ -152,6 +179,8 @@ class Products extends Admin_Controller {
 			$data['related_products']	= $this->input->post('related_products');
 			$data['product_categories']	= $this->input->post('categories');
 			$data['images']				= $this->input->post('images');
+			$data['product_files']		= $this->input->post('downloads');
+			
 		}
 		
 		if ($this->form_validation->run() == FALSE)
@@ -194,10 +223,15 @@ class Products extends Admin_Controller {
 			$save['meta']				= $this->input->post('meta');
 			$save['description']		= $this->input->post('description');
 			$save['excerpt']			= $this->input->post('excerpt');
-			$save['price']				= floatval($this->input->post('price'));
-			$save['saleprice']			= floatval($this->input->post('saleprice'));
-			$save['weight']				= floatval($this->input->post('weight'));
-			$save['in_stock']			= $this->input->post('in_stock');
+			$save['price']				= $this->input->post('price');
+			$save['saleprice']			= $this->input->post('saleprice');
+			$save['weight']				= $this->input->post('weight');
+			$save['track_stock']		= $this->input->post('track_stock');
+			$save['fixed_quantity']		= $this->input->post('fixed_quantity');
+			$save['quantity']			= $this->input->post('quantity');
+			$save['shippable']			= $this->input->post('shippable');
+			$save['taxable']			= $this->input->post('taxable');
+			$save['enabled']			= $this->input->post('enabled');
 			$post_images				= $this->input->post('images');
 			
 			$save['slug']				= $slug;
@@ -234,7 +268,7 @@ class Products extends Admin_Controller {
 			//save categories
 			$categories			= $this->input->post('categories');
 			
-			
+			// format options
 			$options	= array();
 			if($this->input->post('option'))
 			{
@@ -244,8 +278,22 @@ class Products extends Admin_Controller {
 				}
 
 			}	
-
+			
+			// save product 
 			$product_id	= $this->Product_model->save($save, $options, $categories);
+			
+			// add file associations
+			// clear existsing
+			$this->Digital_Product_model->disassociate(false, $product_id);
+			// save new
+			$downloads = $this->input->post('downloads');
+			if(is_array($downloads))
+			{
+				foreach($downloads as $d)
+				{
+					$this->Digital_Product_model->associate($d, $product_id);
+				}
+			}			
 
 			//save the route
 			$route['id']	= $route_id;
@@ -274,7 +322,7 @@ class Products extends Admin_Controller {
 		$data['error']	= false;
 		
 		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= $this->config->item('size_limit');
+		//$config['max_size']	= $this->config->item('size_limit');
 		$config['upload_path'] = 'uploads/images/full';
 		$config['encrypt_name'] = true;
 		$config['remove_spaces'] = true;

@@ -23,7 +23,7 @@ class Cart extends CI_Controller {
 		remove_ssl();
 		
 		$this->load->library('Go_cart');
-		$this->load->model(array('Page_model', 'Product_model', 'Gift_card_model', 'Option_model', 'Order_model', 'Settings_model'));
+		$this->load->model(array('Page_model', 'Product_model', 'Digital_Product_model', 'Gift_card_model', 'Option_model', 'Order_model', 'Settings_model'));
 		$this->load->helper(array('form_helper', 'formatting_helper'));
 		
 		//fill in our variables
@@ -164,13 +164,16 @@ class Cart extends CI_Controller {
 		//get the product
 		$data['product']	= $this->Product_model->get_product($id);
 		
-		if(!$data['product'])
+		if(!$data['product'] || $data['product']->enabled==0)
 		{
 			show_404();
 		}
 
+		// load the digital language stuff
+		$this->lang->load('digital_product');
+		
 		$data['options']	= $this->Option_model->get_product_options($data['product']->id);
-			
+		
 		$related			= (array)json_decode($data['product']->related_products);
 		$data['related']	= array();
 		foreach($related as $r)
@@ -185,8 +188,6 @@ class Cart extends CI_Controller {
 			
 		}
 		$data['posted_options']	= $this->session->flashdata('option_values');
-	
-		
 
 		$data['page_title']			= $data['product']->name;
 		$data['meta']				= $data['product']->meta;
@@ -217,6 +218,34 @@ class Cart extends CI_Controller {
 		
 		// Get a cart-ready product array
 		$product = $this->Product_model->get_cart_ready_product($product_id, $quantity);
+		
+		//if out of stock purchase is disabled, check to make sure there is inventory to support the cart.
+		if(!$this->config->item('allow_os_purchase') && (bool)$product['track_stock'])
+		{
+			$stock	= $this->Product_model->get_product($product_id);
+			
+			//loop through the products in the cart and make sure we don't have this in there already. If we do get those quantities as well
+			$items		= $this->go_cart->contents();
+			$qty_count	= $quantity;
+			foreach($items as $item)
+			{
+				if(intval($item['id']) == intval($product_id))
+				{
+					$qty_count = $qty_count + $item['quantity'];
+				}
+			}
+			
+			if($stock->quantity < $qty_count)
+			{
+				//we don't have this much in stock
+				$this->session->set_flashdata('error', sprintf(lang('not_enough_stock'), $stock->name, $stock->quantity));
+				$this->session->set_flashdata('cartkey', $cartkey);
+				$this->session->set_flashdata('quantity', $quantity);
+				$this->session->set_flashdata('option_values', $post_options);
+
+				redirect($this->Product_model->get_slug($product_id));
+			}
+		}
 		
 		// Validate Options 
 		// this returns a status array, with product item array automatically modified and options added
@@ -259,15 +288,93 @@ class Cart extends CI_Controller {
 	
 	function update_cart($redirect = false)
 	{
+		//if redirect isn't provided in the URL check for it in a form field
+		if(!$redirect)
+		{
+			$redirect = $this->input->post('redirect');
+		}
+		
 		// see if we have an update for the cart
 		$item_keys		= $this->input->post('cartkey');
 		$coupon_code	= $this->input->post('coupon_code');
 		$gc_code		= $this->input->post('gc_code');
 			
+			
+		//get the items in the cart and test their quantities
+		$items			= $this->go_cart->contents();
+		$new_key_list	= array();
+		//first find out if we're deleting any products
+		foreach($item_keys as $key=>$quantity)
+		{
+			if(intval($quantity) === 0)
+			{
+				//this item is being removed we can remove it before processing quantities.
+				//this will ensure that any items out of order will not throw errors based on the incorrect values of another item in the cart
+				$this->go_cart->update_cart(array($key=>$quantity));
+			}
+			else
+			{
+				//create a new list of relevant items
+				$new_key_list[$key]	= $quantity;
+			}
+		}
+		$response	= array();
+		foreach($new_key_list as $key=>$quantity)
+		{
+			$product	= $this->go_cart->item($key);
+			//if out of stock purchase is disabled, check to make sure there is inventory to support the cart.
+			if(!$this->config->item('allow_os_purchase') && (bool)$product['track_stock'])
+			{
+				$stock	= $this->Product_model->get_product($product['id']);
+			
+				//loop through the new quantities and tabluate any products with the same product id
+				$qty_count	= $quantity;
+				foreach($new_key_list as $item_key=>$item_quantity)
+				{
+					if($key != $item_key)
+					{
+						$item	= $this->go_cart->item($item_key);
+						//look for other instances of the same product (this can occur if they have different options) and tabulate the total quantity
+						if($item['id'] == $stock->id)
+						{
+							$qty_count = $qty_count + $item_quantity;
+						}
+					}
+				}
+				if($stock->quantity < $qty_count)
+				{
+					if(isset($response['error']))
+					{
+						$response['error'] .= '<p>'.sprintf(lang('not_enough_stock'), $stock->name, $stock->quantity).'</p>';
+					}
+					else
+					{
+						$response['error'] = '<p>'.sprintf(lang('not_enough_stock'), $stock->name, $stock->quantity).'</p>';
+					}
+				}
+				else
+				{
+					//this one works, we can update it!
+					//don't update the coupons yet
+					$this->go_cart->update_cart(array($key=>$quantity));
+				}
+			}
+		}
 		
-		$response = $this->go_cart->update_cart($item_keys, $coupon_code, $gc_code);
-		// set any messages that need to be displayed
+		//if we don't have a quantity error, run the update
+		if(!isset($response['error']))
+		{
+			//update the coupons and gift card code
+			$response = $this->go_cart->update_cart(false, $coupon_code, $gc_code);
+			// set any messages that need to be displayed
+		}
+		else
+		{
+			$response['error'] = '<p>'.lang('error_updating_cart').'</p>'.$response['error'];
+		}
 		
+		
+		//check for errors again, there could have been a new error from the update cart function
 		if(isset($response['error']))
 		{
 			$this->session->set_flashdata('error', $response['error']);
@@ -296,6 +403,8 @@ class Cart extends CI_Controller {
 	function giftcard()
 	{
 		if(!$this->gift_cards_enabled) redirect('/');
+		
+		$this->load->helper('utility_helper');
 		
 		// Load giftcard settings
 		$gc_settings = $this->Settings_model->get_settings("gift_cards");
@@ -335,7 +444,7 @@ class Cart extends CI_Controller {
 			$card['sku']			= lang('giftcard');
 			$card['base_price']		= $card['price']; // price gets modified by options, show the baseline still...
 			$card['name']			= lang('giftcard');
-			$card['code']			= $this->Gift_card_model->generate_password();
+			$card['code']			= generate_code(); // from the utility helper
 			$card['excerpt']		= sprintf(lang('giftcard_excerpt'), set_value('gc_to_name'));
 			$card['weight']			= 0;
 			$card['no_quantity']	= true; // prevent quantity change.. since it wouldn't make sense

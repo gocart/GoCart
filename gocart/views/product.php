@@ -78,7 +78,6 @@
 		<?php endif;?>
 	</div>
 	
-	
 	<?php if(count($options) > 0): ?>
 		<div class="product_section">
 		<h2><?php echo lang('available_options');?></h2>
@@ -176,15 +175,18 @@
 	</div>
 	<?php endif; ?>
 	<div class="product_section">	
+	
 		<div style="text-align:center; overflow:hidden;">
-			<?php  if($this->config->item('allow_os_purchase') || $product->in_stock == 1) : ?>
-			<?php if($product->in_stock == 0):?>
-				<div class="red"><small><?php echo lang('out_of_stock');?></small></div>
-			<?php endif;?>
-			QTY <input class="product_quantity" type="text" name="quantity" value=""/>
-			<input class="add_to_cart_btn" type="submit" value="<?php echo lang('form_add_to_cart');?>" />
+			<?php if(!$this->config->item('allow_os_purchase') && ((bool)$product->track_stock && $product->quantity <= 0)) : ?>
+				<h2 class="red"><?php echo lang('out_of_stock');?></h2>				
 			<?php else: ?>
-			<h2 class="red"><?php echo lang('out_of_stock');?></h2>
+				<?php if((bool)$product->track_stock && $product->quantity <= 0):?>
+					<div class="red"><small><?php echo lang('out_of_stock');?></small></div>
+				<?php endif; ?>
+				<?php if(!$product->fixed_quantity) : ?>
+					<?php echo lang('quantity') ?> <input class="product_quantity" type="text" name="quantity" value=""/>
+				<?php endif; ?>
+				<input class="add_to_cart_btn" type="submit" value="<?php echo lang('form_add_to_cart');?>" /> 
 			<?php endif;?>
 		</div>
 	</div>
@@ -198,7 +200,7 @@
 		<div id="description_tab">
 			<?php echo $product->description; ?>
 		</div>
-	
+		
 		<?php if(!empty($related)):?>
 		<div id="related_tab">
 			<?php

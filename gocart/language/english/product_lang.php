@@ -27,12 +27,20 @@ $lang['images']						= 'Images';
 $lang['meta_example']				= 'ex. &lt;meta name="description" content="We sell products that help you" /&gt;';
 $lang['bulk_save']					= 'Bulk Save';
 $lang['add_new_product']			= 'Add New Product';
-$lang['availability']				= 'Availability';
 $lang['no_products']				= 'There are currently no products.';
-$lang['in_stock']					= 'In Stock';
+$lang['track_stock']				= 'Track Stock';
+$lang['do_not_track_stock']			= 'Do Not Track Stock';
 $lang['out_of_stock']				= 'Out of Stock';
+$lang['shippable']					= 'Shippable';
+$lang['taxable']					= 'Taxable';
+$lang['fixed_quantity']				= 'Fixed Quantity';
+$lang['quantity']					= 'Available Quantity';
 $lang['copy']						= 'Copy';
 $lang['upload']						= 'Upload';
+$lang['digital_content']			= 'Digital Content';
+$lang['digital_proudcts_desc']		= 'Downloadable content to associate with product purchase';
+$lang['fixed_quantity_note']		= '(This restricts someone from adding multiple copies of the item to their cart.)';
+$lang['quantity_in_stock_note']		= '(This figure will only be used if the product is marked "Track Stock")';
 
 //option form elements
 $lang['checklist']					= 'Check list';

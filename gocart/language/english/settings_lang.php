@@ -23,3 +23,8 @@ $lang['install']					= 'Install';
 $lang['confirm_are_you_sure']		= 'Are you sure you want to do this?';
 $lang['message_saved_message']		= 'The message has been saved.';
 $lang['message_deleted_message']	= 'The message has been deleted.';
+
+$lang['save_canned_message']		= 'Save Message';
+$lang['tab_canned_info']			= 'Message Info';
+$lang['label_canned_name']			= 'Name';
+$lang['label_canned_subject']		= 'Subject';

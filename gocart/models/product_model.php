@@ -12,7 +12,10 @@ Class Product_model extends CI_Model
 		
 		// check for possible group discount 
 		$customer = $this->session->userdata('customer');
-		if(isset($customer['group_discount_formula'])) $this->group_discount_formula = $customer['group_discount_formula'];
+		if(isset($customer['group_discount_formula'])) 
+		{
+			$this->group_discount_formula = $customer['group_discount_formula'];
+		}
 	}
 
 	function get_products($category_id = false, $limit = false, $offset = false)
@@ -20,9 +23,11 @@ Class Product_model extends CI_Model
 		//if we are provided a category_id, then get products according to category
 		if ($category_id)
 		{
-			$this->db->order_by('sequence', 'ASC');
-			$result	= $this->db->get_where('category_products', array('category_id'=>$category_id), $limit, $offset);
-			$result	= $result->result();
+			$result = $this->db->select('category_products.*')->from('category_products')->join('products', 'category_products.product_id=products.id')->where(array('category_id'=>$category_id, 'enabled'=>1))->limit($limit)->offset($offset)->get()->result();
+			
+			//$this->db->order_by('sequence', 'ASC');
+			//$result	= $this->db->get_where('category_products', array('enabled'=>1,'category_id'=>$category_id), $limit, $offset);
+			//$result	= $result->result();
 
 			$contents	= array();
 			$count		= 0;
@@ -55,8 +60,7 @@ Class Product_model extends CI_Model
 
 	function count_products($id)
 	{
-		$this->db->where('category_id', $id);
-		return $this->db->count_all_results('category_products');
+		$this->db->select('product_id')->from('category_products')->join('products', 'category_products.product_id=products.id')->where(array('category_id'=>$id, 'enabled'=>1))->count_all_results();
 	}
 
 	function get_product($id, $sub=true)
@@ -238,7 +242,6 @@ Class Product_model extends CI_Model
 	// Build a cart-ready product array
 	function get_cart_ready_product($id, $quantity=false)
 	{
-		
 		$db_product			= $this->get_product($id);
 		if( ! $db_product)
 		{
@@ -262,21 +265,22 @@ Class Product_model extends CI_Model
 		$product['excerpt']		= $db_product->excerpt;
 		$product['weight']		= $db_product->weight;
 		$product['shippable'] 	= $db_product->shippable;
+		$product['taxable']		= $db_product->taxable;
+		$product['fixed_quantity'] = $db_product->fixed_quantity;
 		$product['in_stock'] 	= $db_product->in_stock;
 		$product['options']		= array();
 		
-		// Some products have n/a quantity, such as downloadables
-		if($db_product->shippable==1) 
-		{		
-			// no negs || non-shippable products qty is n/a
-			if (!$quantity || $quantity <= 0)
-			{
-				$product['quantity'] = 1;
-			} else {
-				$product['quantity']		= $quantity;
-			}
+		// Some products have n/a quantity, such as downloadables	
+		if (!$quantity || $quantity <= 0 || $db_product->fixed_quantity==1)
+		{
+			$product['quantity'] = 1;
+		} else {
+			$product['quantity'] = $quantity;
+		}
+
 		
-		} // end qty segment
+		// attach list of associated downloadables
+		$product['file_list']	= $this->Digital_Product_model->get_associations_by_product($id);
 		
 		return $product;
 	}

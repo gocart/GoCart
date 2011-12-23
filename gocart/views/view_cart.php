@@ -9,7 +9,7 @@ if (top.location != location) {
 <?php if ($this->go_cart->total_items()==0):?>
 	<div class="message">There are no products in your cart!</div>
 <?php else: ?>
-	<?php echo form_open('cart/update_cart');?>
+	<?php echo form_open('cart/update_cart', array('id'=>'update_cart_form'));?>
 	
 	<table class="cart_table" cellpadding="0" cellspacing="0" border="0">
 		<thead>
@@ -127,8 +127,13 @@ if (top.location != location) {
 					}
 					?></td>
 				<td style="text-align:center;">
-					<input type="text" style="width:30px;"name="cartkey[<?php echo $cartkey;?>]" value="<?php echo $product['quantity'];?>" size="3"/>		 
-                    </td>
+					<?php if(!(bool)$product['fixed_quantity']):?>
+						<input type="text" style="width:30px;" name="cartkey[<?php echo $cartkey;?>]" value="<?php echo $product['quantity'] ?>" size="3"/>
+					<?php else:?>
+						<?php echo $product['quantity'] ?>
+						<input type="hidden" name="cartkey[<?php echo $cartkey;?>]" value="1"/>
+					<?php endif;?>
+                </td>
 				<td><?php echo format_currency($product['price']*$product['quantity']); ?>				</td>
 			</tr>
 				
@@ -157,14 +162,15 @@ if (top.location != location) {
 </div>	
 <div id="gc_view_cart_buttons">
 	<span class="buttonset">
+		<input id="redirect_path" type="hidden" name="redirect" value=""/>
 	<?php if(!$this->Customer_model->is_logged_in(false,false)): ?>
-		<input type="button" onclick="window.location='<?php echo site_url('checkout/login');?>'" value="Login"/>
-		<input type="button" onclick="window.location='<?php echo site_url('checkout/register');?>'" value="Register"/>
+		<input type="submit" onclick="$('#redirect_path').val('checkout/login');" value="Login"/>
+		<input type="submit" onclick="$('#redirect_path').val('checkout/register');" value="Register"/>
 	<?php endif; ?>
 		<input type="submit" value="<?php echo lang('form_update_cart');?>"/>
 	</span>
 	<?php if ($this->Customer_model->is_logged_in(false,false) || !$this->config->item('require_login')): ?>
-			<input style="padding:10px 15px; font-size:16px;" type="button" onclick="window.location='<?php echo site_url('checkout');?>'" value="Checkout &raquo;"/>
+			<input style="padding:10px 15px; font-size:16px;" type="submit" onclick="$('#redirect_path').val('checkout');" value="Checkout &raquo;"/>
 	<?php endif; ?>
 	
 	

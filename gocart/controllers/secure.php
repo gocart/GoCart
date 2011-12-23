@@ -418,6 +418,54 @@ class Secure extends CI_Controller {
 	
 	}
 	
+	
+	function my_downloads($code=false)
+	{
+		
+		if($code!==false)
+		{
+			$data['downloads'] = $this->Digital_Product_model->get_downloads_by_code($code);
+		} else {
+			$this->Customer_model->is_logged_in();
+			
+			$customer = $this->go_cart->customer();
+			
+			$data['downloads'] = $this->Digital_Product_model->get_user_downloads($customer['id']);
+		}
+		
+		$data['gift_cards_enabled']	= $this->gift_cards_enabled;
+		
+		$data['page_title'] = lang('my_downloads');
+		
+		$this->load->view('my_downloads', $data);
+	}
+	
+	
+	function download($link)
+	{
+		$filedata = $this->Digital_Product_model->get_file_info_by_link($link);
+		
+		// missing file (bad link)
+		if(!$filedata)
+		{
+			show_404();
+		}
+		
+		// validate download counter
+		if(intval($filedata->downloads) >= intval($filedata->max_downloads))
+		{
+			show_404();
+		}
+		
+		// increment downloads counter
+		$this->Digital_Product_model->touch_download($link);
+		
+		// Deliver file
+		$this->load->helper('download');
+		force_download('uploads/digital_products/', $filedata->filename);
+	}
+	
+	
 	function set_default_address()
 	{
 		$id = $this->input->post('id');

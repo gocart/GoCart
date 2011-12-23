@@ -204,6 +204,7 @@ function delete_product_option(id)
 		<li><a href="#gc_product_info"><?php echo lang('description');?></a></li>
 		<li><a href="#gc_product_attributes"><?php echo lang('attributes');?></a></li>
 		<li><a href="#gc_product_categories"><?php echo lang('categories');?></a></li>
+		<li><a href="#gc_product_downloads"><?php echo lang('digital_content');?></a></li>
 		<li><a href="#gc_product_seo"><?php echo lang('seo');?></a></li>
 		<li><a href="#gc_product_options"><?php echo lang('options');?></a></li>
 		<li><a href="#gc_product_related"><?php echo lang('related_products');?></a></li>
@@ -266,16 +267,57 @@ function delete_product_option(id)
 		?>
 		</div>
         <div class="gc_field2">
-		<label for="slug"><?php echo lang('in_stock');?> </label>
+		<label for="slug"><?php echo lang('track_stock');?> </label>
 		<?php
-		 	$options = array(
-                  '1'  => 'In Stock',
-                  '0'    => 'Out of Stock'
-                );
-
-			echo form_dropdown('in_stock', $options, set_value('in_stock',$in_stock));
+		 	$options = array(	 '1'	=> lang('track_stock')
+								,'0'	=> lang('do_not_track_stock')
+								);
+			echo form_dropdown('track_stock', $options, set_value('track_stock',$track_stock), 'id="track_stock"');
 		?>
-		</div>		
+		</div>
+		<div class="gc_field2">
+		<label for="quantity"><?php echo lang('quantity');?> </label>
+		<?php
+		$data	= array('id'=>'quantity', 'name'=>'quantity', 'value'=>set_value('quantity', $quantity), 'class'=>'gc_tf1');
+		echo form_input($data);
+		?><small><?php echo lang('quantity_in_stock_note');?></small>
+		</div>
+		<div class="gc_field2">
+		<label for="slug"><?php echo lang('shippable');?> </label>
+		<?php
+		$options = array(	 '1'	=> lang('yes')
+							,'0'	=> lang('no')
+							);
+			echo form_dropdown('shippable', $options, set_value('shippable',$shippable));
+		?>
+		</div>
+		<div class="gc_field2">
+		<label for="slug"><?php echo lang('fixed_quantity');?> </label>
+		<?php
+		 	$options = array(	 '1'	=> lang('yes')
+								,'0'	=> lang('no')
+								);
+			echo form_dropdown('fixed_quantity', $options, set_value('fixed_quantity',$fixed_quantity));
+		?> <small><?php echo lang('fixed_quantity_note');?></small>
+		</div>
+		<div class="gc_field2">
+		<label for="slug"><?php echo lang('taxable');?> </label>
+		<?php
+		$options = array(	 '1'	=> lang('yes')
+							,'0'	=> lang('no')
+							);
+			echo form_dropdown('taxable', $options, set_value('taxable',$taxable));
+		?>
+		</div>
+		<div class="gc_field2">
+		<label for="slug"><?php echo lang('enabled');?> </label>
+		<?php
+		 	$options = array(	 '1'	=> lang('yes')
+								,'0'	=> lang('no')
+								);
+			echo form_dropdown('enabled', $options, set_value('enabled',$enabled));
+		?>
+		</div>
 		<div class="gc_field">
 		<label><?php echo lang('excerpt');?></label>
 		<?php
@@ -286,6 +328,7 @@ function delete_product_option(id)
       
 		</div>
 	</div>
+		 
 	<div id="gc_product_categories">
 		<table class="gc_table" cellspacing="0" cellpadding="0">
 		    <thead>
@@ -320,6 +363,33 @@ function delete_product_option(id)
 				?>
 			</tbody>
 		</table>
+	</div>
+	
+	<div id="gc_product_downloads">
+		<?php echo lang('digital_proudcts_desc') ?>
+		<table class="gc_table" cellspacing="0" cellpadding="0">
+				<thead>
+					<tr>
+						<th class="gc_cell_left"><?php echo lang('filename');?></th>
+						<th><?php echo lang('title');?></th>
+						<th style="width:70px;"><?php echo lang('size');?></th>
+						
+						<th class="gc_cell_right"></th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php echo (count($file_list) < 1)?'<tr><td style="text-align:center;" colspan="6">'.lang('no_files').'</td></tr>':''?>
+				<?php foreach ($file_list as $file):?>
+					<tr>
+						<td class="gc_cell_left"><?php echo $file->filename ?></td>
+						<td><?php echo $file->title ?></td>
+						<td><?php echo $file->size ?></td>
+						<td><?php echo form_checkbox('downloads[]', $file->id, in_array($file->id, $product_files)); ?></td>
+					</tr>
+				<?php endforeach; ?>
+				</tbody>
+		</table>
+
 	</div>
 	
 	<div id="gc_product_seo">
