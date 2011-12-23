@@ -189,6 +189,8 @@ class Products extends Admin_Controller {
 		}
 		else
 		{
+			$this->load->helper('text');
+			
 			//first check the slug field
 			$slug = $this->input->post('slug');
 			
@@ -198,7 +200,7 @@ class Products extends Admin_Controller {
 				$slug = $this->input->post('name');
 			}
 			
-			$slug	= url_title($slug, 'dash', TRUE);
+			$slug	= url_title(convert_accented_characters($slug), 'dash', TRUE);
 			
 			//validate the slug
 			$this->load->model('Routes_model');
