@@ -16,3 +16,6 @@ $lang['email']						= 'E-mail';
 $lang['active']						= 'Actief';
 $lang['yes']						= 'Ja';
 $lang['no']							= 'Nee';
+
+$lang['no_shipping_module_installed']  = 'Er is momenteel geen leveringsmodule actief. Dit kan ertoe leiden dat klanten hun bestelling niet correct kunnen plaatsen.';
+$lang['no_payment_module_installed']  = 'Er is momenteel geen betalingsmodule actief. Dit kan ertoe leiden dat klanten hun bestelling niet correct kunnen plaatsen.';
