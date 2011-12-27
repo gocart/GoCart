@@ -15,12 +15,14 @@ Version 1.2
 		- Added support for digital products.
 		- Added inventory support.
 		- Converted payment and shipping libraries into application packages.
+		- Accented characters are now converted to their non-accented equivalents in Category, Page and Product slugs.
 		
 	Other
 		
 		- Updated to CodeIgniter 2.1.
 		- Removed database password and prefix requirements in the Installer, for those of you who want to shoot yourself in the feet.
-		- eliminated some junk code and views that are not used.
+		- Eliminated some junk code and views that are not used.
+		- Added a check in the dashboard controller to check if there are payment and shipping modules installed.
 
 Version 1.1.4
 -------------

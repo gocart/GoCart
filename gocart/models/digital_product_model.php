@@ -45,13 +45,13 @@ Class Digital_Product_Model extends CI_Model {
 	// Verify upload path
 	function verify_file_path()
 	{
-		return is_writable($this->config->item('digital_products_path'));
+		return is_writable('uploads/digital_products');
 	}
 	
 	// Verify file content
 	function verify_content($filename)
 	{
-		return file_exists($this->config->item('digital_products_path').'/'.$filename);
+		return file_exists('uploads/digital_products'.'/'.$filename);
 	}
 	
 	// Save/Update file record
@@ -113,7 +113,7 @@ Class Digital_Product_Model extends CI_Model {
 		// remove file
 		if($this->verify_content($info->filename))
 		{
-			unlink($this->config->item('digital_products_path').'/'.$info->filename);
+			unlink('uploads/digital_products/'.$info->filename);
 		}
 		
 		// Disable products that are associated with this file
@@ -121,8 +121,8 @@ Class Digital_Product_Model extends CI_Model {
 		$product_associations  = $this->get_associations_by_file($id);
 		foreach($product_associations as $p)
 		{
-			$save['id'] = $p->id;
-			$save['enabled'] = 0;
+			$save['id']			= $p->product_id;
+			$save['enabled']	= 0;
 			$this->product_model->save($save);
 		}
 		
