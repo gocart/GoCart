@@ -27,7 +27,7 @@ $config['base_url']			= '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -225,7 +225,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = '98e2567f533aba085e5ef446f1e8590a';
+$config['encryption_key'] = '3c9ea9dbfc210711250ff9249d7a2b00';
 
 /*
 |--------------------------------------------------------------------------
