@@ -47,7 +47,7 @@ $config['order_statuses']	= array(
 	'Shipped'				=> 'Shipped',
 	'On Hold'				=> 'On Hold',
 	'Cancelled'				=> 'Cancelled',
-	'Delivered'				=> 'Delivered
+	'Delivered'				=> 'Delivered'
 );
 
 // enable inventory control ?
