@@ -82,3 +82,4 @@ $lang['message_saved_product']		= 'The product has been saved.';
 $lang['message_bulk_update']		= 'Your products have been updated.';
 $lang['message_deleted_product']	= 'The product has been deleted.';
 $lang['error_not_found']			= 'The requested product could not be found.';
+$lang['error_bulk_no_products']		= 'There are no products selected to bulk update';
