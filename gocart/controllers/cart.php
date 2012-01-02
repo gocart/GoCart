@@ -41,6 +41,9 @@ class Cart extends CI_Controller {
 			$this->gift_cards_enabled = false;
 		}
 		
+		//load the theme package
+		$this->load->add_package_path(APPPATH.'themes/'.$this->config->item('theme').'/');
+		
 	}
 
 	function index()
