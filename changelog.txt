@@ -7,6 +7,7 @@ Version 1.2
 		- Replaced deprecated function in the credit card helper and missing HTML tags in the main header view.
 		- Made admin and customer authentication use different cookie names to avoid conflicts.
 		- Fixed various HTML errors.
+		- Fixed height issues on "related products"
 		
 	Features
 		
@@ -23,6 +24,8 @@ Version 1.2
 		- Removed database password and prefix requirements in the Installer, for those of you who want to shoot yourself in the feet.
 		- Eliminated some junk code and views that are not used.
 		- Added a check in the dashboard controller to check if there are payment and shipping modules installed.
+		- Extended default expiration for non-remembered sessions.
+		- Packaged in jQuery & jQuery UI
 
 Version 1.1.4
 -------------
