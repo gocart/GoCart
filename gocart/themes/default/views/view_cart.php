@@ -18,31 +18,32 @@ if (top.location != location) {
 				<th style="width:20%;"><?php echo lang('name');?></th>
 				<th style="width:10%;"><?php echo lang('price');?></th>
 				<th><?php echo lang('description');?></th>
-				<th style="text-align:center; width:10%;"><?php echo lang('quantity');?></th>
+				<th style="text-align:right; width:10%;"><?php echo lang('quantity');?></th>
+				<th style="width:16px;"></th>
 				<th style="width:8%;"><?php echo lang('totals');?></th>
 			</tr>
 		</thead>
 		<tfoot>
-			<tr class="tfoot_top"><td colspan="6"></td></tr>
+			<tr class="tfoot_top"><td colspan="7"></td></tr>
 			 <?php if($this->go_cart->group_discount() > 0)  : ?> 
 	       	<tr>
-				<td colspan="5"><?php echo lang('group_discount');?></td>
+				<td colspan="6"><?php echo lang('group_discount');?></td>
 				<td><?php echo format_currency(0-$this->go_cart->group_discount()); ?>                </td>
 			</tr>
 			<?php endif; ?>
             <tr>
-				<td colspan="5"><?php echo lang('subtotal');?></td>
+				<td colspan="6"><?php echo lang('subtotal');?></td>
 				<td>
                 <?php echo format_currency($this->go_cart->subtotal()); ?>                </td>
 			</tr>
            <?php if($this->go_cart->coupon_discount() > 0)  : ?> 
         	<tr>
-				<td colspan="5"><?php echo lang('coupon_discount');?></td>
+				<td colspan="6"><?php echo lang('coupon_discount');?></td>
 				<td><?php echo format_currency(0-$this->go_cart->coupon_discount()); ?>                </td>
 			</tr>
 				 <?php if($this->go_cart->order_tax() != 0) : // Only show a discount subtotal if we still have taxes to add (to show what the tax is calculated from) ?> 
 			<tr>
-				<td colspan="5"><?php echo lang('discounted_subtotal');?></td>
+				<td colspan="6"><?php echo lang('discounted_subtotal');?></td>
 				<td><?php echo format_currency($this->go_cart->discounted_subtotal()); ?>                </td>
 			</tr>
 
@@ -67,13 +68,13 @@ if (top.location != location) {
             // Show shipping cost if added before taxes
 			if($this->config->item('tax_shipping') && $this->go_cart->shipping_cost()>0) : ?>
 				<tr>
-			<td colspan="5"><?php echo lang('shipping');?></td>
+			<td colspan="6"><?php echo lang('shipping');?></td>
 				<td><?php echo format_currency($this->go_cart->shipping_cost()); ?>                </td>
 			</tr>
 			<?php endif ?>
            <?php if($this->go_cart->order_tax() != 0) : ?> 
          	<tr>
-				<td colspan="5"><?php echo lang('taxes');?></td>
+				<td colspan="6"><?php echo lang('taxes');?></td>
 
 				<td><?php echo format_currency($this->go_cart->order_tax()); ?>                </td>
 			</tr>
@@ -81,22 +82,22 @@ if (top.location != location) {
            <?php // Show shipping cost if added after taxes
 			if(!$this->config->item('tax_shipping') && $this->go_cart->shipping_cost()>0) : ?>
 				<tr>
-				<td colspan="5"><?php echo lang('shipping');?></td>
+				<td colspan="6"><?php echo lang('shipping');?></td>
 				<td><?php echo format_currency($this->go_cart->shipping_cost()); ?>                </td>
 			</tr>
 			<?php endif ?>
            <?php if($this->go_cart->gift_card_discount() != 0) : ?> 
          	<tr>
-				<td colspan="5"><?php echo lang('gift_card');?></td>
+				<td colspan="6"><?php echo lang('gift_card');?></td>
 
 				<td><?php echo format_currency(0-$this->go_cart->gift_card_discount()); ?>                </td>
 			</tr>
           <?php endif;   ?>
             <tr class="cart_total"> 
-				<td colspan="5"><?php echo lang('cart_total');?></td>
+				<td colspan="6"><?php echo lang('cart_total');?></td>
 				<td><?php echo format_currency($this->go_cart->total()); ?>                </td>
 			</tr>
-			<tr class="tfoot_bottom"><td colspan="6"></td></tr>
+			<tr class="tfoot_bottom"><td colspan="7"></td></tr>
 		</tfoot>
 
 		<tbody id="cart_items">
@@ -126,14 +127,15 @@ if (top.location != location) {
 						}
 					}
 					?></td>
-				<td style="text-align:center;">
+				<td style="text-align:right;">
 					<?php if(!(bool)$product['fixed_quantity']):?>
 						<input type="text" style="width:30px;" name="cartkey[<?php echo $cartkey;?>]" value="<?php echo $product['quantity'] ?>" size="3"/>
 					<?php else:?>
 						<?php echo $product['quantity'] ?>
 						<input type="hidden" name="cartkey[<?php echo $cartkey;?>]" value="1"/>
 					<?php endif;?>
-                </td>
+				</td>
+				<td><a href="<?php echo site_url('cart/remove_item/'.$cartkey);?>"><img src="<?php echo base_url('gocart/themes/'.$this->config->item('theme').'/images/delete.png');?>" alt="delete"></a></td>
 				<td><?php echo format_currency($product['price']*$product['quantity']); ?>				</td>
 			</tr>
 				

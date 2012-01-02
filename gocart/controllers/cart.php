@@ -289,6 +289,14 @@ class Cart extends CI_Controller {
 		$this->load->view('view_cart', $data);
 	}
 	
+	function remove_item($key)
+	{
+		//drop quantity to 0
+		$this->go_cart->update_cart(array($key=>0));
+		
+		redirect('cart/view_cart');
+	}
+	
 	function update_cart($redirect = false)
 	{
 		//if redirect isn't provided in the URL check for it in a form field
