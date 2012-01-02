@@ -215,8 +215,10 @@
 				<div class="category_box">
 					<div class="thumbnail">
 						<?php
+						$photo	= '<img src="'.base_url('images/nopicture.png').'" alt="'.lang('no_image_available').'"/>';
 						$product->images	= array_values($product->images);
-						if(count($product->images) > 0)
+
+						if(!empty($product->images[0]))
 						{
 							$primary	= $product->images[0];
 							foreach($product->images as $photo)
