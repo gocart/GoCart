@@ -20,6 +20,7 @@ Version 1.2
 		- Converted payment and shipping libraries into application packages.
 		- Accented characters are now converted to their non-accented equivalents in Category, Page and Product slugs.
 		- Support themes through CodeIgniter packages. (configurable via gocart.php config file)
+		- One-click remove item from view cart page.
 		
 	Other
 		
