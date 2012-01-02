@@ -30,7 +30,7 @@ class Products extends Admin_Controller {
 		
 		if(!$products)
 		{
-			$this->session->set_flashdata('message', 'Your have no products.');
+			$this->session->set_flashdata('error',  lang('error_bulk_no_products'));
 			redirect($this->config->item('admin_folder').'/products');
 		}
 				
