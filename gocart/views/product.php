@@ -247,7 +247,7 @@
 						<?php else: ?>
 							<span class="gc_price_reg"><?php echo lang('product_price');?> <?php echo $product->price; ?></span>
 						<?php endif; ?>
-	                    <?php if($product->in_stock==0) { ?>
+	                    <?php if((bool)$product->track_stock && $product->quantity < 1) { ?>
 							<div class="gc_stock_msg"><?php echo lang('out_of_stock');?></div>
 						<?php } ?>
 					</div>
