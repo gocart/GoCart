@@ -85,7 +85,7 @@ class Install extends CI_Controller {
 			if (is_resource($this->db->conn_id) OR is_object($this->db->conn_id))
 			{	
 
-				$queries	= $this->load->view('templates/sql', '', false);
+				$queries	= $this->load->view('templates/sql', '', true);
 				$queries	= explode('-- new query', $queries);
 				
 				foreach($queries as $q)
