@@ -12,20 +12,11 @@
 <meta name="Description" content="Go Cart is an open source shopping cart built on the Code Igniter framework">
 <?php endif;?>
 
-<link href="<?php echo base_url('css/styles.css');?>" type="text/css" rel="stylesheet"/> 
+<link href="<?php echo base_url('gocart/themes/'.$this->config->item('theme').'/css/styles.css');?>" type="text/css" rel="stylesheet"/> 
 
-<?php
-//test for http / https for non hosted files
-$http = 'http';
-if(isset($_SERVER['HTTPS']))
-{
-	$http .= 's';
-}
-?>
-<link href="<?php echo $http;?>://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/smoothness/jquery-ui.css" type="text/css" rel="stylesheet"/> 
-<script type="text/javascript" src="<?php echo $http;?>://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script> 
-<script type="text/javascript" src="<?php echo $http;?>://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
-
+<link type="text/css" href="<?php echo base_url('js/jquery/theme/smoothness/jquery-ui-1.8.16.custom.css');?>" rel="stylesheet" />
+<script type="text/javascript" src="<?php echo base_url('js/jquery/jquery-1.7.1.min.js');?>"></script>
+<script type="text/javascript" src="<?php echo base_url('js/jquery/jquery-ui-1.8.16.custom.min.js');?>"></script>
 
 <link type="text/css" href="<?php echo base_url('js/jquery/colorbox/colorbox.css');?>" rel="stylesheet" />
 <script type="text/javascript" src="<?php echo base_url('js/jquery/colorbox/jquery.colorbox-min.js');?>"></script>

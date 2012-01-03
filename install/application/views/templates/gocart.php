@@ -1,8 +1,12 @@
 <?php echo '<?php  if ( ! defined(\'BASEPATH\')) exit(\'No direct script access allowed\');';?>
-//SSL support
+
+// GoCart Theme
+$config['theme']			= 'default';
+
+// SSL support
 $config['ssl_support']		= <?php echo ($ssl_support)?'true':'false';?>;
 
-//Business information
+// Business information
 $config['company_name']		= '<?php echo $company_name;?>';
 $config['address1']			= '<?php echo $address1;?>';
 $config['address2']			= '<?php echo $address2;?>';
@@ -47,7 +51,7 @@ $config['order_statuses']	= array(
 	'Shipped'				=> 'Shipped',
 	'On Hold'				=> 'On Hold',
 	'Cancelled'				=> 'Cancelled',
-	'Delivered'				=> 'Delivered
+	'Delivered'				=> 'Delivered'
 );
 
 // enable inventory control ?

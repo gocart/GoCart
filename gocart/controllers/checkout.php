@@ -49,6 +49,9 @@ class Checkout extends CI_Controller {
 		{
 			$this->Customer_model->is_logged_in('checkout');
 		}
+		
+		//load the theme package
+		$this->load->add_package_path(APPPATH.'themes/'.$this->config->item('theme').'/');
 	}
 
 	function index()

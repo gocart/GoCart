@@ -27,6 +27,12 @@ class Products extends Admin_Controller {
 	function bulk_save()
 	{
 		$products	= $this->input->post('product');
+		
+		if(!$products)
+		{
+			$this->session->set_flashdata('error',  lang('error_bulk_no_products'));
+			redirect($this->config->item('admin_folder').'/products');
+		}
 				
 		foreach($products as $id=>$product)
 		{

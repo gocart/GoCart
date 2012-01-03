@@ -41,6 +41,9 @@ class Cart extends CI_Controller {
 			$this->gift_cards_enabled = false;
 		}
 		
+		//load the theme package
+		$this->load->add_package_path(APPPATH.'themes/'.$this->config->item('theme').'/');
+		
 	}
 
 	function index()
@@ -284,6 +287,14 @@ class Cart extends CI_Controller {
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		
 		$this->load->view('view_cart', $data);
+	}
+	
+	function remove_item($key)
+	{
+		//drop quantity to 0
+		$this->go_cart->update_cart(array($key=>0));
+		
+		redirect('cart/view_cart');
 	}
 	
 	function update_cart($redirect = false)
