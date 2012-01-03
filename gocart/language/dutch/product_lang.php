@@ -82,3 +82,4 @@ $lang['message_saved_product']		= 'Het product is bewaard.';
 $lang['message_bulk_update']		= 'De producten zijn bijgewerkt.';
 $lang['message_deleted_product']	= 'Het product is gewist.';
 $lang['error_not_found']			= 'Het opgevraagde product is niet gevonden.';
+$lang['error_bulk_no_products']    	= 'Er zijn geen producten geselecteerd om in een keer bij te werken';
