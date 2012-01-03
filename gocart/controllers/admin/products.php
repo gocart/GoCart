@@ -158,7 +158,7 @@ class Products extends CI_Controller {
 			$data['product_options']	= $this->input->post('option');
 			$data['related_products']	= $this->input->post('related_products');
 			$data['product_categories']	= $this->input->post('categories');
-			$data['images']				= $this->input->post('images');
+			$data['images']			= (array)$this->input->post('images');
 		}
 		
 		if ($this->form_validation->run() == FALSE)
