@@ -18,7 +18,7 @@ $new_window		= array('id'=>'new_window', 'name'=>'new_window', 'value'=>1, 'chec
 
 <div id="gc_tabs">
 	<ul>
-		<li><a href="#gc_box_info"><?php echo lang('tab_boxes');?></a></li>
+		<li><a href="#gc_box_info"><?php echo lang('box_info');?></a></li>
 	</ul>
 	<div id="gc_box_info">
 		<div class="gc_field2">

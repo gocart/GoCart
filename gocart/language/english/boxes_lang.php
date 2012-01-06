@@ -5,6 +5,7 @@ Admin Boxes Language
 ******************************************/
 
 $lang['boxes']				= 'Boxes';
+$lang['box_info']			= 'Box Information';
 $lang['title']				= 'Title';
 $lang['link']				= 'Link';
 $lang['enable_on']			= 'Enable On';
