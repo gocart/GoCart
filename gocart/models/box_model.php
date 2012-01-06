@@ -18,8 +18,9 @@ Class Box_model extends CI_Model
 	function get_homepage_boxes($limit = false)
 	{
 		$boxes	= $this->db->order_by('sequence ASC')->get('boxes')->result();
-		$count	= 1;
-		foreach ($boxes as &$box)
+		
+		$return	= array();
+		foreach ($boxes as $box)
 		{
 			if ($box->enable_on == '0000-00-00')
 			{
@@ -49,22 +50,19 @@ Class Box_model extends CI_Model
 
 			if (($enable_test && $enable_test > $curDate) || ($disable_test && $disable_test <= $curDate))
 			{
-				unset($box);
+				//fails to make it. rewrite this if statement one day to work opposite of how it does.
 			}
 			else
 			{
-				$count++;
+				$return[]	= $box;
 			}
 			
-			if($limit)
+			if($limit && $limit >= count($return))
 			{
-				if($count > $limit)
-				{
-					continue;
-				}				
+				break;
 			}
 		}
-		return $boxes;
+		return $return;
 	}
 	
 	function get_box($id)
