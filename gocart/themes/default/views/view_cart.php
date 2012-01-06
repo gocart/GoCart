@@ -151,15 +151,17 @@ if (top.location != location) {
 				<input type="submit" value="<?php echo lang('apply_coupon');?>"/>
 			</td>
 		
-	    <tr>
-	      <td>&nbsp;</td>
-	     </tr>
-        <tr>
-          <td>
+			<?php if($gift_cards_enabled):?>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>
 				<?php echo lang('gift_card_label');?><br/><input type="text" name="gc_code">
 				<input type="submit" value="<?php echo lang('apply_gift_card');?>"/>
-		   </td>
-        </tr>        
+				</td>
+			</tr>
+			<?php endif;?>
   </table>
 </div>	
 <div id="gc_view_cart_buttons">
