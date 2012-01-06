@@ -61,14 +61,13 @@ class Boxes extends Admin_Controller
 							,'link'=>''
 							,'new_window'=>false	
 						);
-		
-		$data['page_title']	= lang('box_form');
 		if($id)
 		{
 			$data				= (array) $this->Box_model->get_box($id);
 
 			$data['new_window']	= (bool) $data['new_window'];
 		}
+		$data['page_title']	= lang('box_form');
 		
 		$this->form_validation->set_rules('title', 'lang:title', 'trim|required|full_decode');
 		$this->form_validation->set_rules('enable_on', 'lang:enable_on', 'trim');
