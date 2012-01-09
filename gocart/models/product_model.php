@@ -258,17 +258,16 @@ Class Product_model extends CI_Model
 			$product['price']	= $db_product->saleprice;
 		}
 		
-		$product['base_price'] 	= $product['price']; // price gets modified by options, show the baseline still...
-		$product['id']			= $db_product->id;
-		$product['name']		= $db_product->name;
-		$product['sku']			= $db_product->sku;
-		$product['excerpt']		= $db_product->excerpt;
-		$product['weight']		= $db_product->weight;
-		$product['shippable'] 	= $db_product->shippable;
-		$product['taxable']		= $db_product->taxable;
-		$product['fixed_quantity'] = $db_product->fixed_quantity;
-		$product['in_stock'] 	= $db_product->in_stock;
-		$product['options']		= array();
+		$product['base_price'] 		= $product['price']; // price gets modified by options, show the baseline still...
+		$product['id']				= $db_product->id;
+		$product['name']			= $db_product->name;
+		$product['sku']				= $db_product->sku;
+		$product['excerpt']			= $db_product->excerpt;
+		$product['weight']			= $db_product->weight;
+		$product['shippable']	 	= $db_product->shippable;
+		$product['taxable']			= $db_product->taxable;
+		$product['fixed_quantity']	= $db_product->fixed_quantity;
+		$product['options']			= array();
 		
 		// Some products have n/a quantity, such as downloadables	
 		if (!$quantity || $quantity <= 0 || $db_product->fixed_quantity==1)
