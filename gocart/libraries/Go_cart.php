@@ -76,6 +76,7 @@ class go_cart {
 		$this->_cart_contents['taxable_coupon_discount']	= 0;
 		$this->_cart_contents['gift_card_balance'] 			= 0;
 		$this->_cart_contents['gift_card_discount'] 		= 0;
+		$this->_cart_contents['downloads']					= array();
 		// totals
 		$this->_cart_contents['cart_subtotal']		 		= 0;
 		$this->_cart_contents['cp_discounted_subtotal'] 	= 0;
