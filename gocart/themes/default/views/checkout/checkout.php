@@ -54,6 +54,8 @@ var addr_context = '';
 var ship_to_bill_address = <?php if(isset($customer['ship_to_bill_address'])) { echo $customer['ship_to_bill_address']; } else { echo 'false'; } ?>;
 var addresses;
 
+// cart total is set in the summary view
+
 // payment method
 var chosen_method = ''; // holds the current chosen method
 var payment_method = {}; // list of payment method validators
@@ -221,7 +223,7 @@ function update_summary()
 	// refresh confirmation content
 	$.post('<?php echo site_url('checkout/order_summary');?>', {}, function(response)
 	{
-		$('#summary_section').html(response);
+		$('#summary_section').html(response);	
 	});
 }
 
