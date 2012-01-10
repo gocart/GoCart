@@ -790,7 +790,51 @@ class go_cart {
 	*
 	********************************************************/
 	
-	
+	/**
+	 * Double check that each item has enough in stock from the database
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
+	function check_inventory()
+	{
+		$contents	= $this->contents();
+		
+		//this array merges any products that share the same product id
+		$new_contents	= array();
+		foreach($contents as $c)
+		{
+			//combine any product id's and tabulate their quantities
+			if(array_key_exists($c['id'], $new_contents))
+			{
+				$new_contents[$c['id']]	= intval($new_contents[$c['id']])+intval($c['quantity']);
+			}
+			else
+			{
+				$new_contents[$c['id']]	= $c['quantity'];
+			}
+		}
+		
+		$error	= '';
+		$this->CI->load->model('Product_model');
+		foreach($new_contents as $product_id => $quantity)
+		{
+			$product	= $this->CI->Product_model->get_product($product_id);
+			if(intval($quantity) > intval($product->quantity))
+			{
+				$error .= '<p>'.sprintf(lang('not_enough_stock'), $product->name, $product->quantity).'</p>';
+			}
+		}
+		
+		if(!empty($error))
+		{
+			return $error;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	
 	/**
 	 * Insert items into the cart and save it to the session table
