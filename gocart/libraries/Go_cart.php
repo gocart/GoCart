@@ -836,6 +836,7 @@ class go_cart {
 		}
 	}
 	
+	
 	/**
 	 * Insert items into the cart and save it to the session table
 	 *
@@ -1189,6 +1190,14 @@ class go_cart {
 				// create the record, send the email
 				$this->CI->Digital_Product_model->add_download_package($download_package, $order_id);
 			}
+			
+			//deduct any quantities from the database
+			$this->CI->load->model('Product_model');
+			$product		= $this->CI->Product_model->get_product($item['id']);
+			$new_quantity	= intval($product->quantity) - intval($item['quantity']);
+			
+			$product_quantity	= array('id'=>$product->id, 'quantity'=>$new_quantity);
+			$this->CI->Product_model->save($product_quantity);
 		}
 			
 			
