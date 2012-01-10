@@ -821,9 +821,14 @@ class go_cart {
 		foreach($new_contents as $product_id => $quantity)
 		{
 			$product	= $this->CI->Product_model->get_product($product_id);
-			if(intval($quantity) > intval($product->quantity))
+			
+			//make sure we're tracking stock for this product
+			if((bool)$product->track_stock)
 			{
-				$error .= '<p>'.sprintf(lang('not_enough_stock'), $product->name, $product->quantity).'</p>';
+				if(intval($quantity) > intval($product->quantity))
+				{
+					$error .= '<p>'.sprintf(lang('not_enough_stock'), $product->name, $product->quantity).'</p>';
+				}
 			}
 		}
 		
