@@ -1,4 +1,4 @@
-<?php include(APPPATH.'views/header.php'); ?>
+<?php include(APPPATH.'themes/'.$this->config->item('theme').'/views/header.php'); ?>
 <script type="text/javascript">
 $(document).ready(function() {
 	$('.continue_shopping').buttonset();
@@ -260,4 +260,4 @@ function update_summary()
 </form>
 </div>
 
-<?php include(APPPATH.'views/footer.php');
+<?php include(APPPATH.'themes/'.$this->config->item('theme').'/views/footer.php'); ?>
