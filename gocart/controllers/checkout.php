@@ -400,8 +400,6 @@ class Checkout extends CI_Controller {
 	
 	function place_order()
 	{		
-		
-		
 		// retrieve the payment method
 		$payment = $this->go_cart->payment_method();
 		//die(var_dump($payment));
@@ -472,10 +470,15 @@ class Checkout extends CI_Controller {
 		
 		$data['hide_menu']			= true;
 		
-        // run the complete payment module method once order has been saved
-        if(method_exists($this->$payment['module'], 'complete_payment'))
-            $this->$payment['module']->complete_payment($data);
-
+		// run the complete payment module method once order has been saved
+		if(!empty($payment))
+		{
+			if(method_exists($this->$payment['module'], 'complete_payment'))
+			{
+				$this->$payment['module']->complete_payment($data);
+			}
+		}
+	
 		// Send the user a confirmation email
 		
 		// - get the email template
