@@ -46,7 +46,7 @@ class Customers extends Admin_Controller {
 		$data['customers'] = (array)$this->Customer_model->get_customers();
 		
 
-		force_download('users.xml', $this->load->view($this->config->item('admin_folder').'/customers_xml', $data, true));
+		force_download_content('customers.xml',	$this->load->view($this->config->item('admin_folder').'/customers_xml', $data, true));
 		
 		//$this->load->view($this->config->item('admin_folder').'/customers_xml', $data);
 	}

@@ -72,7 +72,7 @@ class Orders extends Admin_Controller {
 			$o->items	= $this->Order_model->get_items($o->id);
 		}
 
-		force_download('orders.xml', $this->load->view($this->config->item('admin_folder').'/orders_xml', $data, true));
+		force_download_content('orders.xml', $this->load->view($this->config->item('admin_folder').'/orders_xml', $data, true));
 		
 	}
 	
