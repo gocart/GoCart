@@ -14,7 +14,6 @@ function areyousure()
 			<tr>
 				<th class="gc_cell_left"><?php echo lang('filename');?></th>
 				<th><?php echo lang('title');?></th>
-				<th><?php echo lang('version');?></th>
 				<th style="width:60px;"><?php echo lang('size');?></th>
 				<th class="gc_cell_right"></th>
 			</tr>
@@ -25,7 +24,6 @@ function areyousure()
 			<tr>
 				<td class="gc_cell_left"><?php echo $file->filename ?></td>
 				<td><?php echo $file->title ?></td>
-				<td><?php echo $file->version ?></td>
 				<td><?php echo $file->size ?></td>
 				<td class="gc_cell_right list_buttons">
 					<a href="<?php echo  site_url($this->config->item('admin_folder').'/digital_products/delete/'.$file->id);?>" onclick="return areyousure();"><?php echo lang('delete');?></a>

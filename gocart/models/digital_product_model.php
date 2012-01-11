@@ -59,7 +59,7 @@ Class Digital_Product_Model extends CI_Model {
 	{
 		if(isset($data['id']))
 		{
-			$this->db->where('id', $data['id'])->update('digital_products');
+			$this->db->where('id', $data['id'])->update('digital_products', $data);
 			return $data['id'];
 		} else {
 			$this->db->insert('digital_products', $data);

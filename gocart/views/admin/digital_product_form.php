@@ -42,13 +42,5 @@ echo form_open_multipart($this->config->item('admin_folder').'/digital_products/
 		<small><?php echo lang('max_downloads_note');?></small>
 		</div>
 			
-		
-		<div class="gc_field2">
-		<label for="version"><?php echo lang('version');?> </label>
-		<?php
-		$data	= array('id'=>'version', 'name'=>'version', 'class'=>'gc_tf1', 'value'=>set_value('version', $version));
-		echo form_input($data);
-		?>
 		</div>
-	</div>
 </div>
