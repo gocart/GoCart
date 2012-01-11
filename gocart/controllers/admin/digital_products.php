@@ -28,7 +28,6 @@ Class Digital_Products extends Admin_Controller {
 							,'filename'			=>''
 							,'max_downloads'	=>''
 							,'title'			=>''
-							,'version'			=>''
 							,'size'				=>''
 							);
 		if($id)
@@ -40,7 +39,7 @@ Class Digital_Products extends Admin_Controller {
 		
 		$this->form_validation->set_rules('max_downloads', 'lang:max_downloads', 'numeric');
 		$this->form_validation->set_rules('title', 'lang:title', 'trim|required');
-		$this->form_validation->set_rules('version', 'lang:version', 'trim');
+
 		
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -76,7 +75,6 @@ Class Digital_Products extends Admin_Controller {
 			
 			$save['max_downloads']	= set_value('max_downloads');				
 			$save['title']			= set_value('title');
-			$save['version']		= set_value('version');
 			
 			$this->digital_product_model->save($save);
 			
