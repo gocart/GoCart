@@ -24,6 +24,8 @@
 		</style>
 		
 		<script type="text/javascript">
+			var tablecounts = {};
+			
 			$(function()
 			{
 				var $tabs = $("#tabs").tabs({  // immediately select a newly added tab
@@ -32,10 +34,17 @@
 					    }
 					}).addClass('ui-tabs-vertical ui-helper-clearfix');
 				$("#tabs li").removeClass('ui-corner-top').addClass('ui-corner-left');
+				
+				<?php foreach($rates as $name=>$ratelist ) {  
+				 	//  build table count list
+					
+					echo 'tablecounts.'.$name .' = '. (count($rates[$name])-1) .";\n";
+			
+				} ?>
 	
 			});
 			
-			
+						
 			function add_table() 
 			{
 				if($('#add_name_input').val().length==0) return;
@@ -68,8 +77,11 @@
 								 <a href=\"javascript:tablerate_add_below('TBLID',0)\">(<?php echo lang('btn_below') ?>)</a></td>\
 								</table></div>";
 				
+				// set up variable trackers
 				tbl_name = $('#add_name_input').val();
 				tbl_id = tbl_name.replace(new RegExp(' ','g'), '_');
+				
+				tablecounts[tbl_id] = 0;
 				
 				
 				form_contents = form_contents.replace(/TBLNAME/gi, tbl_name);
@@ -97,15 +109,7 @@
 				$('#tabs').tabs('remove', $('#tabs').tabs('option', 'selected'));
 			}
 		
-			var tablecounts = {};
-			<?php foreach($rates as $name=>$ratelist ) {  
-			 	//  build table count list
-				
-				echo 'tablecounts.'.$name .' = '. count($rates[$name]).";\n";
-		
-			} ?>
-			
-			
+						
 			function tablerate_remove(row)
 			{
 				$('#'+row).remove();
@@ -113,8 +117,8 @@
 			
 			function tablerate_add_below(table, row)
 			{
-
 				eval('next = tablecounts.'+table+' + 1; tablecounts.'+table+' = tablecounts.'+table+' +1;');
+				
 				$('#'+table+'_'+row).after('<tr id="'+table+'_'+next+'"><td><?php echo lang('from') ?>: <input class="gc_tf1 tablerate_input" type="text" name="from['+table+'][]" value=""/></td><td><?php echo lang('rate') ?>: <input class="gc_tf1 tablerate_input" type="text" name="rate['+table+'][]" value=""/></td><td style="font-size:11px;"><a href="javascript:tablerate_remove(\''+table+'_'+next+'\');">(<?php echo lang('btn_remove') ?>)</a> <a href="javascript:tablerate_add_above(\''+table+'\','+next+')">(<?php echo lang('btn_above') ?>)</a> <a href="javascript:tablerate_add_below(\''+table+'\','+next+')">(<?php echo lang('btn_below') ?>)</a></td>');
 			}
 			function tablerate_add_above(table, row)
