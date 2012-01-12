@@ -106,7 +106,7 @@ $(function() {
 			**************************************************************/
 			if($this->go_cart->gift_card_discount() > 0) : ?>
 			<tr>
-				<td colspan="5"><?php echo lang('giftcard');?></td>
+				<td colspan="5"><?php echo lang('gift_card_discount');?></td>
 				<td id="gc_gift_discount">-<?php echo format_currency($this->go_cart->gift_card_discount()); ?></td>
 			</tr>
 			<?php endif; ?>

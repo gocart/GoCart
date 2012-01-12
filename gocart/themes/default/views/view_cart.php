@@ -88,7 +88,7 @@ if (top.location != location) {
 			<?php endif ?>
            <?php if($this->go_cart->gift_card_discount() != 0) : ?> 
          	<tr>
-				<td colspan="6"><?php echo lang('gift_card');?></td>
+				<td colspan="6"><?php echo lang('gift_card_discount');?></td>
 
 				<td><?php echo format_currency(0-$this->go_cart->gift_card_discount()); ?>                </td>
 			</tr>
