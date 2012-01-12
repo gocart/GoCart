@@ -38,6 +38,7 @@ class Giftcards extends Admin_Controller {
 	
 	function form()
 	{
+		
 		$this->form_validation->set_rules('to_email', 'lang:recipient_email', 'trim|required');
 		$this->form_validation->set_rules('to_name', 'lang:recipient_name', 'trim|required');
 		$this->form_validation->set_rules('from', 'lang:sender_name', 'trim|required');
@@ -52,8 +53,9 @@ class Giftcards extends Admin_Controller {
 		}
 		else
 		{
+			$this->load->helper('utility_helper');
 			
-			$save['code'] = $this->Gift_card_model->generate_password();
+			$save['code'] = generate_code(); // from the utility helper
 			$save['to_email'] = $this->input->post('to_email');
 			$save['to_name'] = $this->input->post('to_name');
 			$save['from'] = $this->input->post('from');

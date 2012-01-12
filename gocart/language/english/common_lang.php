@@ -106,6 +106,7 @@ $lang['totals']						= 'Totals';
 $lang['group_discount']				= 'Group Discount';
 $lang['subtotal']					= 'Subtotal';
 $lang['coupon_discount']			= 'Coupon Discount';
+$lang['gift_card_discount']			= 'Gift Card Discont';
 $lang['discounted_subtotal']		= 'Discounted Subtotal';
 $lang['shipping']					= 'Shipping';
 $lang['tax']						= 'Tax';

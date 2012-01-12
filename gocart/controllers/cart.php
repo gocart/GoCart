@@ -458,9 +458,10 @@ class Cart extends CI_Controller {
 			$card['code']			= generate_code(); // from the utility helper
 			$card['excerpt']		= sprintf(lang('giftcard_excerpt'), set_value('gc_to_name'));
 			$card['weight']			= 0;
-			$card['no_quantity']	= true; // prevent quantity change.. since it wouldn't make sense
 			$card['quantity']		= 1;
 			$card['shippable']		= false;
+			$card['taxable']		= 0;
+			$card['fixed_quantity'] = true;
 			$card['is_gc']			= true; // !Important
 			
 			$card['gc_info'] = array("to_name"	=> set_value('gc_to_name'),
