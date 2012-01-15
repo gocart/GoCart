@@ -1,6 +1,6 @@
 <div class="checkout_block">
 
-	<div id="no_payment_necessary" style="display:none">
+	<div id="no_payment_necessary" <?php if($this->go_cart->total()!=0) { ?> style="display:none" <?php } ?>>
 
 		<?php echo lang('no_payment_needed');?>
 	
@@ -10,8 +10,7 @@
 	<?php
 	if(count($payment_methods) > 1):
 	?>
-
-	<div id="payment_section_container">
+	<div id="payment_section_container" <?php if($this->go_cart->total()==0) { ?> style="display:none" <?php } ?>>
 		<div class="error" id="payment_error_box" style="display:none"></div>
 		<table style="width:100%;">
 			<tr>
@@ -61,7 +60,7 @@
 		display:block;
 	}
 	</style>
-	<div id="payment_section_container">
+	<div id="payment_section_container" <?php if($this->go_cart->total()==0) { ?> style="display:none" <?php } ?>>
 		<div class="error" id="payment_error_box" style="display:none"></div>
 	
 			<?php foreach ($payment_methods as $method=>$info):?>

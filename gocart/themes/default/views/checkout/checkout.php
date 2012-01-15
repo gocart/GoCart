@@ -54,7 +54,8 @@ var addr_context = '';
 var ship_to_bill_address = <?php if(isset($customer['ship_to_bill_address'])) { echo $customer['ship_to_bill_address']; } else { echo 'false'; } ?>;
 var addresses;
 
-// cart total is set in the summary view
+// cart total is also set in the summary view
+cart_total = <?php echo $this->go_cart->total(); ?>;
 
 // payment method
 var chosen_method = ''; // holds the current chosen method
