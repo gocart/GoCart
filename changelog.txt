@@ -11,6 +11,7 @@ Version 1.2
 		- Fixed PHP errors associated with no image available on related products.
 		- Support foreign characters in TinyMCE.
 		- Fixed the get_homepage_boxes function.
+		- Removed PHP warning when attempting to add a new product which does not have images. (thanks tfevens)
 		
 	Features
 		
