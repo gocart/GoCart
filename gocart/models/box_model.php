@@ -57,7 +57,7 @@ Class Box_model extends CI_Model
 				$return[]	= $box;
 			}
 			
-			if($limit && $limit >= count($return))
+			if($limit && $limit <= count($return))
 			{
 				break;
 			}
