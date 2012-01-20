@@ -267,6 +267,7 @@ Class Product_model extends CI_Model
 		$product['shippable']	 	= $db_product->shippable;
 		$product['taxable']			= $db_product->taxable;
 		$product['fixed_quantity']	= $db_product->fixed_quantity;
+		$product['track_stock']		= $db_product->track_stock;
 		$product['options']			= array();
 		
 		// Some products have n/a quantity, such as downloadables	
