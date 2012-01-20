@@ -53,7 +53,7 @@ Class Digital_Products extends Admin_Controller {
 				$data['error']	= false;
 				
 				$config['allowed_types'] = '*';
-				$config['upload_path'] = 'uploads/digital_products';//$this->config->item('digital_products_path');
+				$config['upload_path'] = 'uploads/digital_uploads';//$this->config->item('digital_products_path');
 				$config['remove_spaces'] = true;
 		
 				$this->load->library('upload', $config);
