@@ -1,3 +1,12 @@
+Version 1.2.1
+------------
+	Release date : TBA
+
+	Bug Fixed
+
+		- Fixed digital products folder references
+		- Added track_stock to "get_cart_ready_product" function in Product_model
+
 Version 1.2
 -------------
 	Release date: January 16, 2012
