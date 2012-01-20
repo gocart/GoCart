@@ -40,7 +40,7 @@ class Checkout extends CI_Controller {
 		$this->pages		= $this->Page_model->get_pages();	
 		$gc_setting			= $this->Settings_model->get_settings('gift_cards');
 		
-		if($gc_setting['enabled']==1)
+		if(isset($gc_setting['enabled']) && (bool)$gc_setting['enabled'])
 		{
 			$this->gift_cards_enabled = true;
 		}
