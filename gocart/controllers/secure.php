@@ -468,7 +468,7 @@ class Secure extends CI_Controller {
 		
 		// Deliver file
 		$this->load->helper('download');
-		force_download('uploads/digital_products/', $filedata->filename);
+		force_download('uploads/digital_uploads/', $filedata->filename);
 	}
 	
 	
