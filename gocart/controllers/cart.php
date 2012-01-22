@@ -249,6 +249,7 @@ class Cart extends CI_Controller {
 				redirect($this->Product_model->get_slug($product_id));
 			}
 		}
+
 		
 		// Validate Options 
 		// this returns a status array, with product item array automatically modified and options added
@@ -369,6 +370,10 @@ class Cart extends CI_Controller {
 					//don't update the coupons yet
 					$this->go_cart->update_cart(array($key=>$quantity));
 				}
+			}
+			else
+			{
+				$this->go_cart->update_cart(array($key=>$quantity));
 			}
 		}
 		
