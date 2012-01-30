@@ -1,6 +1,6 @@
 Version 1.2.1
 ------------
-	Release date : TBA
+	Release date : January 30, 2012
 
 	Bug Fixed
 
