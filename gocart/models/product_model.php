@@ -60,7 +60,7 @@ Class Product_model extends CI_Model
 
 	function count_products($id)
 	{
-		$this->db->select('product_id')->from('category_products')->join('products', 'category_products.product_id=products.id')->where(array('category_id'=>$id, 'enabled'=>1))->count_all_results();
+		return $this->db->select('product_id')->from('category_products')->join('products', 'category_products.product_id=products.id')->where(array('category_id'=>$id, 'enabled'=>1))->count_all_results();
 	}
 
 	function get_product($id, $sub=true)
