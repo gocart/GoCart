@@ -7,6 +7,7 @@ Version 1.2.1
 		- Fixed digital products folder references
 		- Added track_stock to "get_cart_ready_product" function in Product_model
 		- Fixed updating quantity if allow overstock buying is enabled on the view cart page.
+		- fixed count_product which was stopping pagination on category pages.
 
 
 Version 1.2
