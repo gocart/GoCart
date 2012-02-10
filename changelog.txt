@@ -1,3 +1,11 @@
+Version 1.2.2
+-------------
+	Release date: Pending
+	
+	Bug Fixes
+		- Fixed errors resulting from gift card purchase, a casualty of the inventory tracking code
+
+
 Version 1.2.1
 ------------
 	Release date : January 30, 2012

@@ -805,6 +805,12 @@ class go_cart {
 		$new_contents	= array();
 		foreach($contents as $c)
 		{
+			// skip gift card products
+			if($c['is_gc']) 
+			{
+				continue;
+			}
+			
 			//combine any product id's and tabulate their quantities
 			if(array_key_exists($c['id'], $new_contents))
 			{
@@ -1046,6 +1052,7 @@ class go_cart {
 		
 		
 		$this->CI->load->model('order_model');
+		$this->CI->load->model('Product_model');
 		
 		//prepare our data for being inserted into the database
 		$save	= array();
@@ -1198,12 +1205,13 @@ class go_cart {
 			}
 			
 			//deduct any quantities from the database
-			$this->CI->load->model('Product_model');
-			$product		= $this->CI->Product_model->get_product($item['id']);
-			$new_quantity	= intval($product->quantity) - intval($item['quantity']);
-			
-			$product_quantity	= array('id'=>$product->id, 'quantity'=>$new_quantity);
-			$this->CI->Product_model->save($product_quantity);
+			if(!$item['is_gc'])
+			{
+				$product		= $this->CI->Product_model->get_product($item['id']);
+				$new_quantity	= intval($product->quantity) - intval($item['quantity']);
+				$product_quantity	= array('id'=>$product->id, 'quantity'=>$new_quantity);
+				$this->CI->Product_model->save($product_quantity);
+			}
 		}
 			
 			
