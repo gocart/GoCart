@@ -333,7 +333,7 @@ class Secure extends CI_Controller {
 	
 		$data['gift_cards_enabled']	= $this->gift_cards_enabled;
 		
-		$data['customer']			= $this->go_cart->customer();
+		$data['customer']			= (array)$this->Customer_model->get_customer($this->customer['id']);
 			
 		$data['addresses'] 			= $this->Customer_model->get_address_list($this->customer['id']);
 		
