@@ -184,7 +184,7 @@ Class Customer_model extends CI_Model
 		$this->db->select('*');
 		$this->db->where('email', $email);
 		$this->db->where('active', 1);
-		$this->db->where('password',  $this->encrypt->sha1($password));
+		$this->db->where('password',  sha1($password));
 		$this->db->limit(1);
 		$result = $this->db->get('customers');
 		$customer	= $result->row_array();
@@ -321,7 +321,7 @@ Class Customer_model extends CI_Model
 			$this->load->library('email');
 			
 			$new_password		= random_string('alnum', 8);
-			$customer['password']	= $this->encrypt->sha1($new_password);
+			$customer['password']	= sha1($new_password);
 			$this->save($customer);
 			
 			$this->email->from($this->config->item('email'), $this->config->item('site_name'));
@@ -374,6 +374,4 @@ Class Customer_model extends CI_Model
 			return $this->db->insert_id();
 		}
 	}
-	
-	
 }
