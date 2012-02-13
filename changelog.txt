@@ -4,6 +4,8 @@ Version 1.2.2
 	
 	Bug Fixes
 		- Fixed errors resulting from gift card purchase, a casualty of the inventory tracking code
+		- My Account page was pulling user info from the session rather than database.
+		- Fixed product sorting on the front end.
 
 
 Version 1.2.1
