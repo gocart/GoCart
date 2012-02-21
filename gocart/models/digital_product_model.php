@@ -172,7 +172,7 @@ Class Digital_Product_Model extends CI_Model {
 				{
 					$file['package_id'] = $package_id;
 					$file['file_id'] = $f->file_id;
-					$file['link'] = md5($f->file_id . time() . $customer['id']); // create a unique download key for each file
+					$file['link'] = md5($f->file_id . time() . $new_package['customer_id'] ); // create a unique download key for each file
 					
 					$files_list[] = $file;
 				}
