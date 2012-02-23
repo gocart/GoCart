@@ -10,7 +10,7 @@ Version 1.2.2
 		- Fixed errors resulting from gift card purchase, a casualty of the inventory tracking code
 		- My Account page was pulling user info from the session rather than database.
 		- Fixed product sorting on the front end.
-
+		- Fixed undefined index error if customer ID does not exist in the Digital Product model. (thanks svizion)
 
 Version 1.2.1
 ------------
