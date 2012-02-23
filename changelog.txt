@@ -2,16 +2,17 @@ Version 1.2.2
 -------------
 	Release date: Pending
 	
-	Updates
-	
-		- Replaced depreciated encrypt sha1 function with native PHP sha1 function.
-	
 	Bug Fixes
+	
 		- Fixed errors resulting from gift card purchase, a casualty of the inventory tracking code
 		- My Account page was pulling user info from the session rather than database.
 		- Fixed product sorting on the front end.
 		- Fixed undefined index error if customer ID does not exist in the Digital Product model. (thanks svizion)
 
+	Other
+
+		- Replaced depreciated encrypt sha1 function with native PHP sha1 function.
+			
 Version 1.2.1
 ------------
 	Release date : January 30, 2012
@@ -22,7 +23,6 @@ Version 1.2.1
 		- Added track_stock to "get_cart_ready_product" function in Product_model
 		- Fixed updating quantity if allow overstock buying is enabled on the view cart page.
 		- fixed count_product which was stopping pagination on category pages.
-
 
 Version 1.2
 -------------
