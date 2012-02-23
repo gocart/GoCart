@@ -1,6 +1,6 @@
 Version 1.2.2
 -------------
-	Release date: Pending
+	Release date: February 23, 2012
 	
 	Bug Fixes
 	
