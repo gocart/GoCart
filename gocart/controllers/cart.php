@@ -272,7 +272,7 @@ class Cart extends CI_Controller {
 			//Add the original option vars to the array so we can edit it later
 			$product['post_options']	= $post_options;
 			$product['cartkey']			= $cartkey;
-
+			$product['is_gc']			= false;
 			// Add the product item to the cart, also updates coupon discounts automatically
 			$this->go_cart->insert($product);
 		
@@ -468,6 +468,7 @@ class Cart extends CI_Controller {
 			$card['taxable']		= 0;
 			$card['fixed_quantity'] = true;
 			$card['is_gc']			= true; // !Important
+			$card['track_stock']	= false; // !Imporortant
 			
 			$card['gc_info'] = array("to_name"	=> set_value('gc_to_name'),
 									 "to_email"	=> set_value('gc_to_email'),
