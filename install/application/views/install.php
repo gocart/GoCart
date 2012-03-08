@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Thanks for using GoCart!</title>
+	<title>Thanks for using GoCart !</title>
 	<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/smoothness/jquery-ui.css" type="text/css" rel="stylesheet"/> 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script> 
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
@@ -169,12 +169,17 @@
 				<legend>Cart Information</legend>
 				
 				<label for="company_name">Company Name</label> <?php echo form_input(array('name'=>'company_name', 'value'=>set_value('company_name') ));?><br/>
-				<label for="website_email">Website Email</label> <?php echo form_input(array('name'=>'website_email', 'value'=>set_value('website_email') ));?><br/>
+				<label for="website_email">Website Email</label> <?php echo form_input(array('name'=>'website_email', 'value'=>set_value('website_email') ));?>All emails to the customer will be sent by this email address. Eg: <i>noreply@gocartdv.com</i><br/>
+				<label for="reply_email">Reply Email</label> <?php echo form_input(array('name'=>'reply_email', 'value'=>set_value('reply_email') ));?>Email to which Customer will reply when they press Reply button. Eg: <i>support@gocartdv.com</i><br/>
 				<label for="ssl">SSL Support</label> <?php echo form_checkbox('ssl_support', '1', (bool)set_value('ssl_support') );?><br/>
 				<label for="mod_rewrite">Cleaner URLs</label> <?php echo form_checkbox('mod_rewrite', '1', (bool)set_value('mod_rewrite') );?> <small>Removes "index.php" from the url and requires Apache with mod_rewrite</small>
 				
 			</fieldset>
-			
+			<fieldset>
+            	<legend>Currency Information</legend>
+                <label for="currency">ISO 4217 Currency Code</label> <?php echo form_input(array('name'=>'currency', 'value'=>set_value('currency') ));?><br/>
+                <label for="currency_symbol">Currency Symbol</label> <?php echo form_input(array('name'=>'currency_symbol', 'value'=>set_value('currency_symbol') ));?><br/>
+            </fieldset>
 			<fieldset>
 				<legend>Location Information</legend>
 				
