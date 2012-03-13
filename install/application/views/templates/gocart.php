@@ -15,10 +15,13 @@ $config['city']				= '<?php echo $city;?>';
 $config['state']			= '<?php echo $state;?>';
 $config['zip']				= '<?php echo $zip;?>';
 $config['email']			= '<?php echo $email;?>';
-
+$config['reply_email']		= '<?php echo $reply_email;?>';
 // Store currency
+/* Dinesh-Ramakrishnan : Implementing Custom Currency 
 $config['currency']			= 'USD';  // USD, EUR, etc
-$config['currency_symbol']  = '$';
+$config['currency_symbol']  = '$';*/
+$config['currency']			= '<?php echo $currency;?>';
+$config['currency_symbol']  = '<?php echo $currency_symbol;?>';
 
 // Shipping config units
 $config['weight_unit']	    = 'LB'; // LB, KG, etc

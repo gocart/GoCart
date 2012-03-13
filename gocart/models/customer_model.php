@@ -325,6 +325,7 @@ Class Customer_model extends CI_Model
 			$this->save($customer);
 			
 			$this->email->from($this->config->item('email'), $this->config->item('site_name'));
+			$this->email->reply_to($this->config->item('reply_email'),$this->config->item('company_name'));
 			$this->email->to($email);
 			$this->email->subject($this->config->item('site_name').': Password Reset');
 			$this->email->message('Your password has been reset to <strong>'. $new_password .'</strong>.');

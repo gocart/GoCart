@@ -249,6 +249,7 @@ class Secure extends CI_Controller {
 			$this->email->initialize($config);
 	
 			$this->email->from($this->config->item('email'), $this->config->item('company_name'));
+			$this->email->reply_to($this->config->item('reply_email'),$this->config->item('company_name'));
 			$this->email->to($save['email']);
 			$this->email->bcc($this->config->item('email'));
 			$this->email->subject($row['subject']);
