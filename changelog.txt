@@ -1,3 +1,11 @@
+Version 1.2.4
+-------------
+	Release date: TBA
+	
+	Bug Fixes
+	
+		- Fixed blank search term error.
+
 Version 1.2.3
 -------------
 	Release date: March 8, 2012
