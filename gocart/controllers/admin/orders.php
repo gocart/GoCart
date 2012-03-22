@@ -102,16 +102,13 @@ class Orders extends Admin_Controller {
 		// we need to see if any items are gift cards, so we can generate an activation link
 		foreach($data['order']->contents as $orderkey=>$product)
 		{
-			if(isset($product['is_gc']))
+			if(isset($product['is_gc']) && (bool)$product['is_gc'])
 			{
-				if(isset($product['is_gc']) && (bool)$product['is_gc'])
+				if($this->Gift_card_model->is_active($product['code']))
 				{
-					if($this->Gift_card_model->is_active($product['code']))
-					{
-						$data['order']->contents[$orderkey]['gc_status'] = '[ '.lang('giftcard_is_active').' ]';
-					} else {
-						$data['order']->contents[$orderkey]['gc_status'] = ' [ <a href="'. base_url() . $this->config->item('admin_folder').'/giftcards/activate/'. $product['code'].'">'.lang('activate').'</a> ]';
-					}
+					$data['order']->contents[$orderkey]['gc_status'] = '[ '.lang('giftcard_is_active').' ]';
+				} else {
+					$data['order']->contents[$orderkey]['gc_status'] = ' [ <a href="'. base_url() . $this->config->item('admin_folder').'/giftcards/activate/'. $product['code'].'">'.lang('activate').'</a> ]';
 				}
 			}
 		}
