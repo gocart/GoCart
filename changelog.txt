@@ -6,6 +6,9 @@ Version 1.2.4
 	
 		- Fixed blank search term error.
 		- Fixed admin order view error for is_gc flag.
+		- Removed default Lousiana tax of %4.
+		- Updated default uri-protocol to AUTO.
+		- Fixed colspan on an empty product table in the admin products view.
 
 Version 1.2.3
 -------------
