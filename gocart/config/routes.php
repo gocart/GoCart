@@ -44,4 +44,4 @@ $route['default_controller']	= "cart";
 $route['admin']					= 'admin/dashboard';
 
 //get routes from database
-@include(BASEPATH . 'cache/routes.php');
+@include(APPPATH . 'cache/routes.php');
