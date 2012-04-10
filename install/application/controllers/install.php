@@ -28,9 +28,11 @@ class Install extends CI_Controller {
 		
 		//make sure the config folder is writable
 		$data['config_writable']	= is_writable($_SERVER['DOCUMENT_ROOT'].$subfolder.'gocart/config/');
+		$data['cache_writable']	= is_writable($_SERVER['DOCUMENT_ROOT'].$subfolder.'gocart/cache/');
 		$data['root_writable']		= is_writable($_SERVER['DOCUMENT_ROOT'].$subfolder);
 		$data['relative_path']		= $subfolder.'gocart/config/';
-		
+		$data['cache_path']		= $subfolder.'gocart/cache/';
+
 		
 		$this->load->library('form_validation');
 		$this->load->helper(array('form', 'file'));
