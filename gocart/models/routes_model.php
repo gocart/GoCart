@@ -151,7 +151,7 @@ class Routes_model extends CI_Model {
 		$routes	= array();
 		foreach($all as $route)
 		{
-			$routes[$route['slug']]	= $route['route'];
+			$routes[$route->slug]	= $route->route;
 		}
 		
 		return $routes;
@@ -169,12 +169,17 @@ class Routes_model extends CI_Model {
 		{
 			$this->db->where('id', $route['id']);
 			$this->db->update('routes', $route);
+
+            $this->_cache();
 			
 			return $route['id'];
 		}
 		else
 		{
 			$this->db->insert('routes', $route);
+
+            $this->_cache();
+            
 			return $this->db->insert_id();
 		}
 	}
@@ -214,5 +219,31 @@ class Routes_model extends CI_Model {
 	{
 		$this->db->where('id', $id);
 		$this->db->delete('routes');
+        $this->_cache();
 	}
+
+    function _cache()
+    {
+        $data[] = "<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');";
+
+        $routes = $this->get_all();
+
+        foreach($routes as $slug => $route)
+        {
+            //if "category" is in the route, then add some stuff for pagination
+            if(strpos($route, 'category'))
+            {
+                $data[] = '$route["' . $slug . '"] = "' . $route . '";';
+
+                $slug 	.= '/(:num)';
+                $route 	.= '/$1';
+            }
+
+            $data[] = '$route["' . $slug . '"] = "' . $route . '";';
+
+            $output = implode("\n", $data);
+
+            write_file(APPPATH . "cache/routes.php", $output);
+        }
+    }
 }
