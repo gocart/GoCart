@@ -44,7 +44,7 @@ class Products extends Admin_Controller {
 		redirect($this->config->item('admin_folder').'/products');
 	}
 	
-	function form($id = false, $duplicate = false)
+	function form($id = null, $duplicate = false)
 	{
 		$this->product_id	= $id;
 		$this->load->library('form_validation');
@@ -398,7 +398,7 @@ class Products extends Admin_Controller {
 		$this->load->view($this->config->item('admin_folder').'/iframe/product_image_uploader', $data);
 	}
 	
-	function delete($id = false)
+	function delete($id = null)
 	{
 		if ($id)
 		{	
