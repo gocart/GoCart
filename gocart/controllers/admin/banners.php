@@ -41,7 +41,7 @@ class Banners extends Admin_Controller
 	this function is called by an ajax script, it re-sorts the banners
 	********************************************************************/
 	
-	function form($id = false)
+	function form($id = null)
 	{
 		
 		$config['upload_path']		= 'uploads';
