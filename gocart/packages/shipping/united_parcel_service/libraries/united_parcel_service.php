@@ -53,8 +53,8 @@ class United_parcel_service
 		$insured_value 		= $this->CI->go_cart->order_insurable_value();
 		
 		// shipping address will always be there
-		$destination_zip 	= $customer['ship_address']['zip'];
-		
+		$destination_zip 		= $customer['ship_address']['zip'];
+		$destination_country 	= $customer['ship_address']['country_code'];
 		
 		$data ="<?xml version='1.0'?>
 					<AccessRequest xml:lang='en-US'>
@@ -84,6 +84,7 @@ class United_parcel_service
 							<ShipTo>
 								<Address>
 									<PostalCode>$destination_zip</PostalCode>
+									<CountryCode>$destination_country</CountryCode>
 								</Address>
 							</ShipTo>
 							<Package>
@@ -145,7 +146,15 @@ class United_parcel_service
                 	$shipping_choices[$k] = $amount;
                 }
             }
-            return $shipping_choices;
+			
+			if(!empty($shipping_choices))
+			{
+				return $shipping_choices;
+			}
+			else
+			{
+				return array();
+			}
         }
         else
         {	
@@ -267,4 +276,4 @@ class United_parcel_service
 		}
 	}
 	
-} 
+}
