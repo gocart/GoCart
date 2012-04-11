@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title><?php echo (isset($seo_title))?$seo_title:$this->config->item('company_name'); ?></title>
+<title><?php echo (!empty($seo_title))?$seo_title:$this->config->item('company_name'); ?></title>
 
 
-<?php if(isset($meta)):?>
+<?php if(!empty($meta)):?>
 	<?php echo $meta;?>
 <?php else:?>
 <meta name="Keywords" content="Shopping Cart, eCommerce, Code Igniter">
