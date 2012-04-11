@@ -209,7 +209,11 @@ class go_cart {
 			//this is for non-edited products (except for quantity)
 			if(isset($this->_cart_contents['items'][$newkey]))
 			{
-				$this->_cart_contents['items'][$newkey]['quantity'] = $this->_cart_contents['items'][$newkey]['quantity'] + $item['quantity'];
+				//make sure that fixed quantity items remain fixed quantity
+				if(!(bool)$item['fixed_quantity'])
+				{
+					$this->_cart_contents['items'][$newkey]['quantity'] = $this->_cart_contents['items'][$newkey]['quantity'] + $item['quantity'];
+				}
 			}
 			else
 			{
