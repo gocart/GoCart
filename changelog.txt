@@ -9,6 +9,8 @@ Version 1.2.4
 		- Removed default Lousiana tax of %4.
 		- Updated default uri-protocol to AUTO.
 		- Fixed colspan on an empty product table in the admin products view.
+		- Fixed admin banner datepicker javascript and fields
+		- Fixed banner_model.php to properly restrict disabled banners for the get_homepage_banners() function.
 
 Version 1.2.3
 -------------
