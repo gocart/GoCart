@@ -46,9 +46,11 @@ class Install extends CI_Controller {
 		
 		$this->form_validation->set_rules('company_name', 'Company Name', 'required');
 		$this->form_validation->set_rules('website_email', 'Website Email', 'required|valid_email');
+		$this->form_validation->set_rules('reply_email', 'Website Reply Email', 'required|valid_email');
 		$this->form_validation->set_rules('ssl_support');
 		$this->form_validation->set_rules('mod_rewrite');
-		
+		$this->form_validation->set_rules('currency', 'ISO 4217 Currency Code', 'required|exact_length[3]');
+		$this->form_validation->set_rules('currency_symbol', 'Currency Symbol', 'required');
 		$this->form_validation->set_rules('address1');
 		$this->form_validation->set_rules('address2');
 		$this->form_validation->set_rules('city');
@@ -117,7 +119,10 @@ class Install extends CI_Controller {
 				$settings['country']		= $this->input->post('country');
 				$settings['zip']			= $this->input->post('zip');
 				$settings['email']			= $this->input->post('website_email');
+				$settings['reply_email']	= $this->input->post('reply_email');
 				$settings['ssl_support']	= (bool)$this->input->post('ssl_support');
+				$settings['currency']		= $this->input->post('currency');
+				$settings['currency_symbol']= $this->input->post('currency_symbol');
 				$file_contents				= $this->load->view('templates/gocart', $settings, true);
 				write_file($_SERVER['DOCUMENT_ROOT'].$subfolder.'gocart/config/gocart.php', $file_contents);
 
