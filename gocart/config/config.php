@@ -45,7 +45,7 @@ $config['index_page'] = 'index.php';
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol']	= 'PATH_INFO';
+$config['uri_protocol']	= 'AUTO';
 
 /*
 |--------------------------------------------------------------------------
@@ -225,7 +225,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = 'c07ad0c763b0b85b1c07254cb0da3feb';
+$config['encryption_key'] = '11bbc84d4b4512b7c738639b68113f16';
 
 /*
 |--------------------------------------------------------------------------
