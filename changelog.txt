@@ -11,6 +11,7 @@ Version 1.2.4
 		- Fixed colspan on an empty product table in the admin products view.
 		- Fixed admin banner datepicker javascript and fields
 		- Fixed banner_model.php to properly restrict disabled banners for the get_homepage_banners() function.
+		- Fixed meta tag code in the default theme header.
 
 Version 1.2.3
 -------------
