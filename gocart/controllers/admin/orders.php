@@ -102,7 +102,7 @@ class Orders extends Admin_Controller {
 		// we need to see if any items are gift cards, so we can generate an activation link
 		foreach($data['order']->contents as $orderkey=>$product)
 		{
-			if(isset($product['is_gc']))
+			if(isset($product['is_gc']) && (bool)$product['is_gc'])
 			{
 				if($this->Gift_card_model->is_active($product['code']))
 				{

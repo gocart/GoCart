@@ -55,6 +55,7 @@ $lang['form_from']			= 'From';
 $lang['form_to']			= 'to';
 
 $lang['search']				= 'Search';
+$lang['search_error']		= 'Your did not supply a search term!';
 $lang['amount']				= 'Amount';
 $lang['custom_amount']		= 'Custom Amount';
 $lang['preset_amount']		= 'Preset Amount';

@@ -1,3 +1,12 @@
+Version 1.2.4
+-------------
+	Release date: TBA
+	
+	Bug Fixes
+	
+		- Fixed blank search term error.
+		- Fixed admin order view error for is_gc flag.
+
 Version 1.2.3
 -------------
 	Release date: March 8, 2012
