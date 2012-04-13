@@ -51,7 +51,7 @@ class Customers extends Admin_Controller {
 		//$this->load->view($this->config->item('admin_folder').'/customers_xml', $data);
 	}
 
-	function form($id = false)
+	function form($id = null)
 	{
 		force_ssl();
 		$this->load->helper('form');
@@ -152,7 +152,7 @@ class Customers extends Admin_Controller {
 		}
 	}
 	
-	function addresses($id = false)
+	function addresses($id = null)
 	{
 		$data['customer']		= $this->Customer_model->get_customer($id);
 
@@ -170,7 +170,7 @@ class Customers extends Admin_Controller {
 		$this->load->view($this->config->item('admin_folder').'/customer_addresses', $data);
 	}
 	
-	function delete($id = false)
+	function delete($id = null)
 	{
 		if ($id)
 		{	
@@ -333,7 +333,7 @@ class Customers extends Admin_Controller {
 		$this->load->view($this->config->item('admin_folder').'/address_list', $data);
 	}
 	
-	function address_form($customer_id, $id = false)
+	function address_form($customer_id, $id = null)
 	{
 		$data['id']				= $id;
 		$data['company']		= '';
@@ -422,7 +422,7 @@ class Customers extends Admin_Controller {
 	}
 	
 	
-	function delete_address($customer_id = false, $id = false)
+	function delete_address($customer_id = false, $id = null)
 	{
 		if ($id)
 		{	
