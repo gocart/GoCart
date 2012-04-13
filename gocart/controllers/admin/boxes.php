@@ -37,7 +37,7 @@ class Boxes extends Admin_Controller
 		$this->Box_model->organize($boxes);
 	}
 	
-	function form($id = false)
+	function form($id = null)
 	{
 		
 		$config['upload_path']		= 'uploads';
