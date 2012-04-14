@@ -347,6 +347,8 @@ CREATE TABLE `prefix_orders` (
   `bill_country` varchar(255) default NULL,
   `bill_country_code` varchar(10) default NULL,
   `bill_country_id` int(11) default NULL,
+  `total_quantities` int(11) NOT NULL DEFAULT '1',
+  `total_items` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
