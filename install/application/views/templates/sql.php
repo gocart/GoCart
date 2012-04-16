@@ -395,6 +395,9 @@ CREATE TABLE `prefix_products` (
   `seo_title` text,
   `meta` text,
   `enabled` tinyint(1) NOT NULL default '1',
+  `costpersqft` tinyint(1) NOT NULL DEFAULT '0',
+  `width` int(11) NOT NULL DEFAULT '0',
+  `height` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 

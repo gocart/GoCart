@@ -71,7 +71,8 @@ class Products extends Admin_Controller {
 		$data['track_stock'] 		= '';
 		$data['seo_title']			= '';
 		$data['meta']				= '';
-		$data['shippable']			= '';
+		$data['costpersqft']			= 0;
+                $data['shippable']			= '';
 		$data['taxable']			= '';
 		$data['fixed_quantity']		= '';
 		$data['quantity']			= '';
@@ -121,6 +122,7 @@ class Products extends Admin_Controller {
 			$data['weight']				= $product->weight;
 			$data['track_stock'] 		= $product->track_stock;
 			$data['shippable']			= $product->shippable;
+                        $data['costpersqft']			= $product->costpersqft;
 			$data['quantity']			= $product->quantity;
 			$data['taxable']			= $product->taxable;
 			$data['fixed_quantity']		= $product->fixed_quantity;
@@ -161,6 +163,7 @@ class Products extends Admin_Controller {
 		$this->form_validation->set_rules('weight', 'lang:weight', 'trim|numeric|floatval');
 		$this->form_validation->set_rules('track_stock', 'lang:track_stock', 'trim|numeric');
 		$this->form_validation->set_rules('quantity', 'lang:quantity', 'trim|numeric');
+                $this->form_validation->set_rules('costpersqft', 'lang:costpersqft', 'trim|numeric');
 		$this->form_validation->set_rules('shippable', 'lang:shippable', 'trim|numeric');
 		$this->form_validation->set_rules('taxable', 'lang:taxable', 'trim|numeric');
 		$this->form_validation->set_rules('fixed_quantity', 'lang:fixed_quantity', 'trim|numeric');
@@ -238,6 +241,7 @@ class Products extends Admin_Controller {
 			$save['fixed_quantity']		= $this->input->post('fixed_quantity');
 			$save['quantity']			= $this->input->post('quantity');
 			$save['shippable']			= $this->input->post('shippable');
+                        $save['costpersqft']			= $this->input->post('costpersqft');
 			$save['taxable']			= $this->input->post('taxable');
 			$save['enabled']			= $this->input->post('enabled');
 			$post_images				= $this->input->post('images');

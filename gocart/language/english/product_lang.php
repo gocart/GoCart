@@ -32,6 +32,7 @@ $lang['track_stock']				= 'Track Stock';
 $lang['do_not_track_stock']			= 'Do Not Track Stock';
 $lang['out_of_stock']				= 'Out of Stock';
 $lang['shippable']					= 'Shippable';
+$lang['costpersqft']					= 'Enable Cost Per SqFt';
 $lang['taxable']					= 'Taxable';
 $lang['fixed_quantity']				= 'Fixed Quantity';
 $lang['quantity']					= 'Available Quantity';
