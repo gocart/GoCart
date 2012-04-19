@@ -363,7 +363,7 @@ Class Customer_model extends CI_Model
 
 				if($default_redirect)
 				{
-					redirect('login');
+					redirect('secure/login');
 				}
 
 				return false;
