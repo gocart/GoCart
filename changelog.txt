@@ -12,6 +12,7 @@ Version 1.2.4
 		- Fixed admin banner datepicker javascript and fields
 		- Fixed banner_model.php to properly restrict disabled banners for the get_homepage_banners() function.
 		- Fixed meta tag code in the default theme header.
+		- Fixed login redirect for expired customer sessions (thanks Dinesh)
 
 Version 1.2.3
 -------------
