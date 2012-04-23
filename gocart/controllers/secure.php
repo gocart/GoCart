@@ -69,7 +69,8 @@ class Secure extends CI_Controller {
                     // Connect to FaceBook For Authentication.
                     $app_id = $this->config->item('Facebook_APPID');
                     $app_secret = $this->config->item('Facebook_APPSecret');
-                    $my_url = 'https://www.gc.dev.hp-wallartindia.com/index.php/secure/login_facebook/';
+                    
+                    $my_url = site_url('secure/login_facebook');
                     $_SESSION['state'] = md5(uniqid(rand(), TRUE)); //CSRF protection
                     $dialog_url = "https://www.facebook.com/dialog/oauth?client_id=" 
                        . $app_id . "&redirect_uri=" . urlencode($my_url) . "&state="
@@ -97,7 +98,8 @@ class Secure extends CI_Controller {
                     {        
                         $app_id = $this->config->item('Facebook_APPID');
                         $app_secret = $this->config->item('Facebook_APPSecret');
-                        $my_url = 'https://www.gc.dev.hp-wallartindia.com/index.php/secure/login_facebook/';
+                        
+                        $my_url = site_url('secure/login_facebook');
                         $code = $_REQUEST["code"];
 
                         $token_url = "https://graph.facebook.com/oauth/access_token?"
