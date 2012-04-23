@@ -179,6 +179,7 @@ $lang['register']					= 'Register';
 $lang['login_failed']				= 'Authentication Failed!';
 $lang['go_to_login']				= 'Go to Login';
 $lang['or']                     =   'Or';
+$lang['orLoginWith']            =   'Or Login With';
 $lang['account_registration']			= 'Account Registration';
 $lang['registration_thanks']			= 'thanks for registering %s!';
 $lang['error_email']					= 'The requested email is already in use.';

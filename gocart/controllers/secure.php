@@ -52,7 +52,157 @@ class Secure extends CI_Controller {
 		//we don't have a default landing page for secure
 		redirect('');
 	}
-	function login_social($ajax = false)
+	function login_facebook($ajax = false)
+        {
+
+           session_start();
+
+            // IF the User Decided to Login using one of the Social Provider then the $social will contain the provider name
+            $submitted 		= $this->input->post('submitted');
+            if ($submitted)
+            {
+                $redirect	= $this->input->post('redirect');
+                $social         = $this->input->post('social');
+                $openidurl = '';
+                if('facebook' == $social)
+                {
+                    // Connect to FaceBook For Authentication.
+                    $app_id = $this->config->item('Facebook_APPID');
+                    $app_secret = $this->config->item('Facebook_APPSecret');
+                    $my_url = 'https://www.gc.dev.hp-wallartindia.com/index.php/secure/login_facebook/';
+                    $_SESSION['state'] = md5(uniqid(rand(), TRUE)); //CSRF protection
+                    $dialog_url = "https://www.facebook.com/dialog/oauth?client_id=" 
+                       . $app_id . "&redirect_uri=" . urlencode($my_url) . "&state="
+                       . $_SESSION['state']."&scope=email";
+                    echo " Connecting To FaceBook for Authentication ....  Please Wait .....";
+                    echo "<br/> Dont Press Back Button .....";
+                    echo("<script> top.location.href='" . $dialog_url . "'</script>");
+                }
+                else
+                {
+                    // OOPS something went wrong, fallback safe.
+                    redirect('secure/login');
+                }
+            }
+            else
+            {
+                 
+                /* We might reach here when the FaceBook Authorization Happened
+                or if the user has directly launched this url with Social value */
+                // Avoid Cross Site Scripting
+                if($_REQUEST['state'] == $_SESSION['state']) 
+                {
+                    // Using the Code get the Access Token
+                    if(isset($_REQUEST["code"]))
+                    {        
+                        $app_id = $this->config->item('Facebook_APPID');
+                        $app_secret = $this->config->item('Facebook_APPSecret');
+                        $my_url = 'https://www.gc.dev.hp-wallartindia.com/index.php/secure/login_facebook/';
+                        $code = $_REQUEST["code"];
+
+                        $token_url = "https://graph.facebook.com/oauth/access_token?"
+                           . "client_id=" . $app_id . "&redirect_uri=" . urlencode($my_url)
+                           . "&client_secret=" . $app_secret . "&code=" . $code;
+
+                        $response = file_get_contents($token_url);
+                        $statuscode = explode(' ',$http_response_header[0] );
+                        if('200' != $statuscode[1])
+                        {
+                            // If we didnt Get Proper Response then Redirect Login.
+                            // In future we should display proper Error Message Also.
+                            redirect('secure/login');
+                        }
+                        $params = null;
+                        parse_str($response, $params);
+                        
+                        
+                        $graph_url = "https://graph.facebook.com/me?access_token=" 
+                           . $params['access_token'];
+                        $dataresponse = file_get_contents($graph_url);
+                        $statuscode = explode(' ',$http_response_header[0] );
+                        if('200' != $statuscode[1])
+                        {
+                            // If there is Error with the Access Token then we might get Response Code 400.
+                            redirect('secure/login');
+                        }
+                        
+                        $user = json_decode($dataresponse,true);
+
+                        // We should have a valid Email returned by the Social Provider
+                        $this->load->library('form_validation');
+                        if($this->form_validation->valid_email($user['email']))
+                        {
+                            // Check whether the User is already existing, if so then login him
+                            if($this->Customer_model->check_email($user['email']))
+                            {
+                                $redirect = $this->session->flashdata('redirect');
+                                $login		= $this->Customer_model->login_social($user['email']);
+                                if ($login)
+                                {
+                                    if ($redirect == '')
+                                    {
+                                            //if there is not a redirect link, send them to the my account page
+                                            $redirect = 'secure/my_account';
+                                    }
+                                    //to login via ajax
+                                    if($ajax)
+                                    {
+                                            die(json_encode(array('result'=>true)));
+                                    }
+                                    else
+                                    {
+                                            redirect($redirect);
+                                    }
+
+                                }
+                                else
+                                {
+                                    //this adds the redirect back to flash data if they provide an incorrect credentials
+                                    //
+                                    //to login via ajax
+                                    if($ajax)
+                                    {
+                                            die(json_encode(array('result'=>false)));
+                                    }
+                                    else
+                                    {
+                                            $this->session->set_flashdata('redirect', $redirect);
+                                            $this->session->set_flashdata('error', lang('login_failed'));
+
+                                            redirect('secure/login');
+                                    }
+                                }
+                            }
+                            // Else Register for New User
+                            else
+                            {
+                                $redirect = $this->session->flashdata('redirect');
+                                $data['page_title']	= lang('account_registration');
+                                $data['gift_cards_enabled'] = $this->gift_cards_enabled;
+                                $data['redirect'] = $redirect;
+                                $data['email']=$user['email'];
+                                $data['firstname']=$user['first_name'];
+                                $data['lastname']=$user['last_name'];
+                                $this->load->view('register_social',$data);
+                            }        
+                        }
+                        else
+                        {
+                            // We should receive a valid Email from the Social otherwise we cant proceed. So redirecting the User to Login Page
+                            redirect('secure/login');
+                        }
+
+                    }
+                    else
+                    {
+                            // May Be the User Denied To Authorize
+                            redirect('secure/login');
+                    }
+                }
+            }
+        }
+
+        function login_social($ajax = false)
         {
             // Load the OpenID Third Party Library
             // Credit Goes to "https://gitorious.org/lightopenid"
@@ -660,7 +810,7 @@ class Secure extends CI_Controller {
 		// paginate the orders
 		$this->load->library('pagination');
 
-		$config['base_url'] = base_url().'secure/my_account';
+		$config['base_url'] = site_url('secure/my_account');
 		$config['total_rows'] = $this->order_model->count_customer_orders($this->customer['id']);
 		$config['per_page'] = '15'; 
 	
@@ -934,7 +1084,7 @@ class Secure extends CI_Controller {
 			echo 1;
 		}
 	}
-	
+        
 	function delete_address()
 	{
 		$id = $this->input->post('id');

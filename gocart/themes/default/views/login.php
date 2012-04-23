@@ -28,7 +28,7 @@ include('header.php');
         <div id="login_form_links">
             <a href="<?php echo site_url('secure/forgot_password'); ?>"><?php echo lang('forgot_password') ?></a> | <a href="<?php echo site_url('secure/register'); ?>"><?php echo lang('register'); ?></a>
         </div>
-        <br/><?php echo lang('or'); ?>	<br/>
+        <br/><?php echo lang('orLoginWith'); ?>	<br/>
         <table>
             <tr>
                 <td>
@@ -36,7 +36,7 @@ include('header.php');
                         <input type="hidden" value="<?php echo $redirect; ?>" name="redirect"/>
                         <input type="hidden" value="submitted" name="submitted"/>
                         <input type="hidden" value="yahoo" name="social"/>
-                        <input type="submit" value="" name="submit" style="background : url('<?php echo base_url('images/signYahooBig.png'); ?>'); height: 35px; width:232px;"/>
+                        <input type="submit" value="" name="submit" style="background : url('<?php echo base_url('images/LoginWithYahooSmall.png'); ?>');width:300px; height: 120;"/>
                     </form>
                 </td>
             </tr>
@@ -46,7 +46,17 @@ include('header.php');
                         <input type="hidden" value="<?php echo $redirect; ?>" name="redirect"/>
                         <input type="hidden" value="submitted" name="submitted"/>
                         <input type="hidden" value="google" name="social"/>
-                        <input type="submit" value="" name="submit" style="background : url('<?php echo base_url('images/signGoogleBig.png'); ?>'); height: 35px; width:232px;"/>
+                        <input type="submit" value="" name="submit" style="background : url('<?php echo base_url('images/LoginWithGoogleSmall.png'); ?>');width:300px; height: 120px;"/>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php echo form_open('secure/login_facebook') ?>
+                        <input type="hidden" value="<?php echo $redirect; ?>" name="redirect"/>
+                        <input type="hidden" value="submitted" name="submitted"/>
+                        <input type="hidden" value="facebook" name="social"/>
+                        <input type="submit" value="" name="submit" style="background : url('<?php echo base_url('images/LoginWithFacebookSmall.png'); ?>');width:300px; height: 120px;"/>
                     </form>
                 </td>
             </tr>
