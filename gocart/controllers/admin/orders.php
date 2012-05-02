@@ -45,9 +45,10 @@ class Orders extends Admin_Controller {
 		
 		$this->load->library('pagination');
 		
-		$config['base_url'] = site_url($this->config->item('admin_folder').'/orders/index/'.$sort_by.'/'.$sortorder.'/'.$code.'/');
-		$config['total_rows'] = $data['total'];
-		$config['per_page'] = $rows;
+		$config['base_url']		= site_url($this->config->item('admin_folder').'/orders/index/'.$sort_by.'/'.$sortorder.'/'.$code.'/');
+		$config['total_rows']	= $data['total'];
+		$config['per_page']		= $rows;
+		$config['uri_segment']	= 7;
 		
 		$this->pagination->initialize($config);
 	
