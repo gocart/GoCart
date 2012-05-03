@@ -133,6 +133,11 @@
 				<p>The <?php echo $relative_path?> folder is not writable! This is required to generate the config files.</p>
 			</div>
 		<?php endif;?>
+		<?php if(!$cache_writable):?>
+			<div class="errors">
+				<p>The <?php echo $cache_path?> folder is not writable! This is required to generate the cache files.</p>
+			</div>
+		<?php endif;?>
 		<?php if(!$root_writable):?>
 			<div class="errors">
 				<p>The root folder is not writable! This is required if you want to use "Cleaner URLs" to generate .htaccess file.</p>

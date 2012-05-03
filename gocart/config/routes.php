@@ -44,35 +44,4 @@ $route['default_controller']	= "cart";
 $route['admin']					= 'admin/dashboard';
 
 //get routes from database
-include('database.php');
-
-if($db[$active_group]['pconnect'])
-{
-	mysql_pconnect($db[$active_group]['hostname'],$db[$active_group]['username'],$db[$active_group]['password']);	
-}
-else
-{
-	mysql_connect($db[$active_group]['hostname'],$db[$active_group]['username'],$db[$active_group]['password']);	
-}
-mysql_select_db($db[$active_group]['database']) or die("Unable to select database");
-
-$routes	= mysql_query('SELECT * FROM '.$db[$active_group]['dbprefix'].'routes');
-
-while($row = mysql_fetch_array($routes))
-{
-	//if "category" is in the route, then add some stuff for pagination
-	if(strpos($row['route'], 'category'))
-	{
-		$route[$row['slug']] = $row['route'];
-
-		$row['slug'] 	.= '/(:num)';
-		$row['route'] 	.= '/$1';
-	}
-	$route[$row['slug']] = $row['route'];
-}
-
-mysql_free_result($routes);
-
-
-//in case we're using pconnect
-mysql_close();
+@include(APPPATH . 'cache/routes.php');
