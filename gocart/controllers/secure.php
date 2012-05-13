@@ -717,6 +717,10 @@ class Secure extends CI_Controller {
 			
 			//lets automatically log them in
 			$this->Customer_model->login($save['email'], $this->input->post('confirm'));
+
+			// Update the activity log
+			$this->load->model('activity_model');
+			$this->activity_model->save_activity(2,"New Customer : ".$save['firstname']." ".$save['lastname']);
 			
 			//we're just going to make this secure regardless, because we don't know if they are
 			//wanting to redirect to an insecure location, if it needs to be secured then we can use the secure redirect in the controller

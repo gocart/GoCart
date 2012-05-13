@@ -1,0 +1,23 @@
+{
+  "name": "GoCart Admin ActivityFeed",
+  "version": "1.1",
+  "manifest_version": 2,
+  "description": "Activity and Notification Feed for GoCar",
+  "browser_action": {
+    "default_icon": "16.png",
+    "default_popup": "popup.html"
+  },
+   "web_accessible_resources": [
+    "128.png",
+    "64.png",
+    "48.png",
+    "19.png",
+	"NewCustomer.png",
+	"NewOrder.png"
+  ],
+    "icons": {"16": "16.png", "48": "48.png", "128": "128.png"},
+  "permissions": [
+    "https://localhost/wallartindia/hpbackend/","tabs", "notifications"
+  ],
+    "background": { "scripts": ["background.js"] }
+}
