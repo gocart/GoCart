@@ -36,7 +36,7 @@ include('header.php');
                         <input type="hidden" value="<?php echo $redirect; ?>" name="redirect"/>
                         <input type="hidden" value="submitted" name="submitted"/>
                         <input type="hidden" value="yahoo" name="social"/>
-                        <input type="submit" value="" name="submit" style="background : url('<?php echo base_url('images/LoginWithYahooSmall.png'); ?>');width:300px; height: 120;"/>
+                        <input type="submit" value="" name="submit" style="background : url('<?php echo base_url('images/LoginWithYahooSmall.png'); ?>');width:112px; height: 45px;"/>
                     </form>
                 </td>
             </tr>
@@ -46,7 +46,7 @@ include('header.php');
                         <input type="hidden" value="<?php echo $redirect; ?>" name="redirect"/>
                         <input type="hidden" value="submitted" name="submitted"/>
                         <input type="hidden" value="google" name="social"/>
-                        <input type="submit" value="" name="submit" style="background : url('<?php echo base_url('images/LoginWithGoogleSmall.png'); ?>');width:300px; height: 120px;"/>
+                        <input type="submit" value="" name="submit" style="background : url('<?php echo base_url('images/LoginWithGoogleSmall.png'); ?>');width:112px; height: 45px;"/>
                     </form>
                 </td>
             </tr>
@@ -56,7 +56,7 @@ include('header.php');
                         <input type="hidden" value="<?php echo $redirect; ?>" name="redirect"/>
                         <input type="hidden" value="submitted" name="submitted"/>
                         <input type="hidden" value="facebook" name="social"/>
-                        <input type="submit" value="" name="submit" style="background : url('<?php echo base_url('images/LoginWithFacebookSmall.png'); ?>');width:300px; height: 120px;"/>
+                        <input type="submit" value="" name="submit" style="background : url('<?php echo base_url('images/LoginWithFacebookSmall.png'); ?>');width:112px; height: 45px;"/>
                     </form>
                 </td>
             </tr>

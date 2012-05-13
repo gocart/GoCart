@@ -5,8 +5,6 @@ class Orders extends Admin_Controller {
 	function __construct()
 	{		
 		parent::__construct();
-
-		remove_ssl();
 		$this->load->model('Order_model');
 		$this->load->model('Search_model');
 		$this->load->model('location_model');

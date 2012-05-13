@@ -6,8 +6,6 @@ class Giftcards extends Admin_Controller {
 	{
 		parent::__construct();
 		
-		force_ssl();
-		
 		$this->load->model('Settings_model');
 		$this->load->model('Gift_card_model');
 		$this->load->helper('form');

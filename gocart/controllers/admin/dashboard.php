@@ -5,7 +5,7 @@ class Dashboard extends Admin_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		remove_ssl();
+
 		
 		if($this->auth->check_access('Orders'))
 		{
