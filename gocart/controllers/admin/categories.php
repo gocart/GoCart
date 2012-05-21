@@ -286,6 +286,15 @@ class Categories extends Admin_Controller {
 			$this->load->model('Routes_model');
 			
 			$this->Routes_model->delete($category->route_id);
+			
+			/* my fix 003.1
+			 * 
+			 * delete category image or the files will remain undeleted forever and mixed with correctly associated to product or category files
+			 * call image_file_delete to recursively delete all image file of category and children before database deletion
+			 * 
+			 * */
+			$this->image_file_delete($id);
+			
 			$this->Category_model->delete($id);
 			
 			$this->session->set_flashdata('message', lang('message_delete_category'));
@@ -296,4 +305,42 @@ class Categories extends Admin_Controller {
 			$this->session->set_flashdata('error', lang('error_not_found'));
 		}
 	}
+
+	/* my fix 003.2
+	 * 
+	 * this function unlink the category image file of given category id and recursively do it for all category children
+	 * this function should be called only in delete function before database category deletion
+	 * 
+	 *  */
+	private function image_file_delete($id) {
+		$category = $this->Category_model->get_category($id);
+
+		if ($category) {
+		
+			$category_children = $this->Category_model->get_categories($id);
+		
+			foreach ($category_children as $category_child) {
+				$this->image_file_delete($category_child->id);
+			}
+		
+			if($category->image != '') {
+				$file = array();
+				$file[] = 'uploads/images/full/'.$category->image;
+				$file[] = 'uploads/images/medium/'.$category->image;
+				$file[] = 'uploads/images/small/'.$category->image;
+				$file[] = 'uploads/images/thumbnails/'.$category->image;
+				
+				foreach($file as $f)
+				{
+					//delete the existing file if needed
+					if(file_exists($f))
+					{
+						unlink($f);
+					}
+				}
+			}
+			
+		}
+	}
+	
 }
