@@ -116,6 +116,19 @@ Class Category_model extends CI_Model
 		$this->db->where('id', $id);
 		$this->db->delete('categories');
 		
+		/* my fix 004.1
+		 * 
+		 * delete all category children of this category or nobody will never remove them from database.
+		 * this can be a cascade process so we use recursive call of this delete function.
+		 * the image file of each category must be deleted samewhere else. It's not correct to unlink files in model.
+		 * 
+		 * */
+		$category_children = $this->get_categories($id);
+		
+		foreach ($category_children as $category_child) {
+			$this->delete($category_child->id);
+		}
+		
 		//delete references to this category in the product to category table
 		$this->db->where('category_id', $id);
 		$this->db->delete('category_products');

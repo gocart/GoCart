@@ -8,8 +8,28 @@ $.post('<?php echo site_url('checkout/shipping_payment_methods');?>', function(d
 });
 </script>
 <?php
+/* old code
+ * 
+ * when you set the first address if make it as ship but not bill an error is displayed.
+
 $bill	= $customer['bill_address'];
 $ship	= $customer['ship_address'];
+*/
+
+/* my fix 001
+ * 
+ * this fix assume that bill address, if not setted, is always the same as shipping
+ * 
+ * */
+$ship	= $customer['ship_address'];
+
+if (isset($customer['bill_address'])) {
+	$bill	= $customer['bill_address'];
+}
+else {
+	$bill	= $customer['ship_address'];
+}
+
 ?>
 
 <div id="shipping_address">

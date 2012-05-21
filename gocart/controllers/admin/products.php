@@ -419,6 +419,30 @@ class Products extends Admin_Controller {
 				//if the product is legit, delete them
 				$this->Product_model->delete_product($id);
 
+				/* my fix 002
+				 * 
+				 * delete images of product or the files will remain undeleted forever and mixed with correctly associated to product or category files
+				 * 
+				 */
+				$images = json_decode($product->images);
+				
+				foreach($images as $image) {
+					$file = array();
+					$file[] = 'uploads/images/full/'.$image->filename;
+					$file[] = 'uploads/images/medium/'.$image->filename;
+					$file[] = 'uploads/images/small/'.$image->filename;
+					$file[] = 'uploads/images/thumbnails/'.$image->filename;
+					
+					foreach($file as $f)
+					{
+						//delete the existing file if needed
+						if(file_exists($f))
+						{
+							unlink($f);
+						}
+					}
+				}
+
 				$this->session->set_flashdata('message', lang('message_deleted_product'));
 				redirect($this->config->item('admin_folder').'/products');
 			}
