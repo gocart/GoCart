@@ -45,9 +45,10 @@ class Orders extends Admin_Controller {
 		
 		$this->load->library('pagination');
 		
-		$config['base_url'] = $this->config->item('admin_folder').'/orders/index/'.$sort_by.'/'.$sortorder.'/'.$code.'/';
-		$config['total_rows'] = $data['total'];
-		$config['per_page'] = $rows;
+		$config['base_url']		= site_url($this->config->item('admin_folder').'/orders/index/'.$sort_by.'/'.$sortorder.'/'.$code.'/');
+		$config['total_rows']	= $data['total'];
+		$config['per_page']		= $rows;
+		$config['uri_segment'] 	= 7;
 		
 		$this->pagination->initialize($config);
 	
@@ -102,7 +103,7 @@ class Orders extends Admin_Controller {
 		// we need to see if any items are gift cards, so we can generate an activation link
 		foreach($data['order']->contents as $orderkey=>$product)
 		{
-			if(isset($product['is_gc']))
+			if(isset($product['is_gc']) && $product['is_gc'] == true)
 			{
 				if($this->Gift_card_model->is_active($product['code']))
 				{

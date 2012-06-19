@@ -1,3 +1,19 @@
+Version 1.2.4
+-------------
+	Release date: TBA
+	
+	Bug Fixes
+	
+		- Fixed blank search term error.
+		- Fixed admin order view error for is_gc flag.
+		- Removed default Lousiana tax of %4.
+		- Updated default uri-protocol to AUTO.
+		- Fixed colspan on an empty product table in the admin products view.
+		- Fixed admin banner datepicker javascript and fields
+		- Fixed banner_model.php to properly restrict disabled banners for the get_homepage_banners() function.
+		- Fixed meta tag code in the default theme header.
+		- Fixed login redirect for expired customer sessions (thanks Dinesh)
+
 Version 1.2.3
 -------------
 	Release date: March 8, 2012

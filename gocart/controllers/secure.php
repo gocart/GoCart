@@ -355,7 +355,7 @@ class Secure extends CI_Controller {
 		// paginate the orders
 		$this->load->library('pagination');
 
-		$config['base_url'] = base_url().'secure/my_account';
+		$config['base_url'] = site_url('secure/my_account');
 		$config['total_rows'] = $this->order_model->count_customer_orders($this->customer['id']);
 		$config['per_page'] = '15'; 
 	
