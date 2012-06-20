@@ -8,7 +8,6 @@ if(!file_exists(dirname($_SERVER['SCRIPT_FILENAME']).'/gocart/config/gocart.php'
 	header('Location: http://'.$path.'install');
 	die;
 }
-
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
@@ -81,7 +80,7 @@ if (defined('ENVIRONMENT'))
  * NO TRAILING SLASH!
  *
  */
-	$application_folder = 'gocart';
+	$application_folder = 'application';
 
 /*
  * --------------------------------------------------------------------
