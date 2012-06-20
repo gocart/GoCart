@@ -425,7 +425,7 @@ CREATE TABLE `prefix_search` (
 
 CREATE TABLE `prefix_sessions` (
   `session_id` varchar(40) NOT NULL default '0',
-  `ip_address` varchar(16) NOT NULL default '0',
+  `ip_address` varchar(45) NOT NULL default '0',
   `user_agent` varchar(120) default NULL,
   `last_activity` int(10) unsigned NOT NULL default '0',
   `user_data` text NOT NULL,
