@@ -13,6 +13,8 @@ Version 1.2.4
 		- Fixed banner_model.php to properly restrict disabled banners for the get_homepage_banners() function.
 		- Fixed meta tag code in the default theme header.
 		- Fixed login redirect for expired customer sessions (thanks Dinesh)
+		- Upgraded to CodeIgnier 2.1.1
+		- Updated SQL install script to support ipv6 ip address length
 
 Version 1.2.3
 -------------
