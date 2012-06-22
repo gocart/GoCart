@@ -52,6 +52,7 @@ class Payment extends Admin_Controller {
 	{
 		$this->load->add_package_path(APPPATH.'packages/payment/'.$module.'/');
 		$this->load->library($module);
+		$this->load->helper('form');
 		
 		//ok, in order for the most flexibility, and in case someone wants to use javascript or something
 		//the form gets pulled directly from the library.

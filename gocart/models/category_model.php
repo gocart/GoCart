@@ -37,6 +37,11 @@ Class Category_model extends CI_Model
 		return $categories;
 	}
 	
+	function category_autocomplete($name, $limit)
+	{
+		return	$this->db->like('name', $name)->get('categories', $limit)->result();
+	}
+	
 	function get_category($id)
 	{
 		return $this->db->get_where('categories', array('id'=>$id))->row();

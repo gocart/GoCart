@@ -106,8 +106,8 @@ class go_cart {
 			$this->_cart_contents['custom_charges']				= array();
 			
 			// shipping details container
-			$this->_cart_contents['shipping']['method']	= "No Shipping";  // defaults
-			$this->_cart_contents['shipping']['price']	= 0.00;
+			$this->_cart_contents['shipping']['method']	= false;  // defaults
+			$this->_cart_contents['shipping']['price']	= false;
 			
 			// This is the list of gift cards that are attached to the cart
 			//   to be applied toward a price reduction
@@ -754,8 +754,8 @@ class go_cart {
 				$this->_cart_contents['cart_total'] += $this->_cart_contents['shipping']['price'];
 			} else {
 				// placeholders
-				$this->_cart_contents['shipping']['method'] = "No Shipping";
-				$this->_cart_contents['shipping']['price']  = 0.00;
+				$this->_cart_contents['shipping']['method']	= false;  // defaults
+				$this->_cart_contents['shipping']['price']	= false;
 			}
 			
 			// Compute taxes AFTER shipping costs are added in ?
@@ -899,6 +899,11 @@ class go_cart {
 		if ($save_cart == TRUE)
 		{
 			$this->_save_cart();
+			
+			//clear the shipping after the cart is updated.
+			//This will ensure the rates need to be reset if they would differ
+			$this->clear_shipping();
+			
 			return TRUE;
 		}
 
@@ -976,8 +981,11 @@ class go_cart {
 		{
 			$this->_save_cart();
 		}
-			
 		
+		//clear the shipping after the cart is updated.
+		//This will ensure the rates need to be reset if they would differ
+		$this->clear_shipping();
+
 		return $response;
 	}
 	
@@ -1053,8 +1061,7 @@ class go_cart {
 	
 	// This saves the confirmed order 
 	function save_order() {
-		
-		
+
 		$this->CI->load->model('order_model');
 		$this->CI->load->model('Product_model');
 		
@@ -1277,7 +1284,7 @@ class go_cart {
 
 	function total()
 	{
-		return $this->_cart_contents['cart_total'];
+		return round($this->_cart_contents['cart_total'], 2);
 	}
 	
 	function subtotal()
@@ -1334,8 +1341,14 @@ class go_cart {
 	}
 	function is_free_shipping()
 	{
-		if( ! $this->_cart_contents['free_shipping_coupon']) return false;
-		else return true; // if the value isn't false, it must be set
+		if( ! $this->_cart_contents['free_shipping_coupon'])
+		{
+			return false;
+		}
+		else
+		{
+			return true; // if the value isn't false, it must be set
+		}
 	}
 	
 	// return array

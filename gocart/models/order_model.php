@@ -6,6 +6,37 @@ Class order_model extends CI_Model
 		parent::__construct();
 	}
 	
+	function get_gross_monthly_sales($year)
+	{
+		$this->db->select('SUM(coupon_discount) as coupon_discounts');
+		$this->db->select('SUM(gift_card_discount) as gift_card_discounts');
+		$this->db->select('SUM(subtotal) as product_totals');
+		$this->db->select('SUM(shipping) as shipping');
+		$this->db->select('SUM(tax) as tax');
+		$this->db->select('SUM(total) as total');
+		$this->db->select('YEAR(ordered_on) as year');
+		$this->db->select('MONTH(ordered_on) as month');
+		$this->db->group_by(array('MONTH(ordered_on)'));
+		$this->db->order_by("ordered_on", "desc");
+		$this->db->where('YEAR(ordered_on)', $year);
+		
+		return $this->db->get('orders')->result();
+	}
+	
+	function get_sales_years()
+	{
+		$this->db->order_by("ordered_on", "desc");
+		$this->db->select('YEAR(ordered_on) as year');
+		$this->db->group_by('YEAR(ordered_on)');
+		$records	= $this->db->get('orders')->result();
+		$years		= array();
+		foreach($records as $r)
+		{
+			$years[]	= $r->year;
+		}
+		return $years;
+	}
+	
 	function get_orders($search=false, $sort_by='', $sort_order='DESC', $limit=0, $offset=0)
 	{			
 		if ($search)

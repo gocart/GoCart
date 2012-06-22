@@ -12,7 +12,7 @@ $lang['to']						= 'To';
 $lang['sku']					= 'SKU';
 $lang['name']					= 'Name';
 $lang['quantity']				= 'Quantity';
-
+$lang['date']					= 'Month/Year';
 $lang['january']				= 'January';
 $lang['february']				= 'February';
 $lang['march']					= 'March';
@@ -26,10 +26,12 @@ $lang['october']				= 'October';
 $lang['november']				= 'November';
 $lang['december']				= 'December';
 
-$lang['months_of']				= 'Months of %d';
+$lang['get_best_sellers']		= 'Get Best Sellers';
+$lang['get_monthly_sales']		= 'Get Monthly Sales';
 $lang['coupon_discounts']		= 'Coupon Discounts';
 $lang['gift_card_discounts']	= 'Gift Card Discounts';
 $lang['products']				= 'Products';
 $lang['shipping']				= 'Shipping';
 $lang['tax']					= 'Tax';
 $lang['grand_total']			= 'Grand Total';
+$lang['loading']				= 'Loading';

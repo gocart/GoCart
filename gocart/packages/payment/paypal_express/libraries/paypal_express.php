@@ -5,7 +5,7 @@ class Paypal_express
 	var $CI;
 	
 	//this can be used in several places
-	var	$method_name	= 'Paypal Express';
+	var	$method_name;
 	
 	function __construct()
 	{
@@ -14,6 +14,8 @@ class Paypal_express
 		$this->CI->load->library('paypal');
 		$this->CI->load->library('httprequest');
 		$this->CI->lang->load('paypal_express');
+		
+		$this->method_name	= lang('paypal_express');
 	}
 	
 	/*
@@ -51,7 +53,7 @@ class Paypal_express
 	
 	function description()
 	{
-		return 'Paypal Express';
+		return lang('paypal_express');
 	}
 	
 	//back end installation functions
@@ -107,7 +109,7 @@ class Paypal_express
 			$settings = $post;
 		}
 		//retrieve form contents
-		return $this->CI->load->view('admin_form', array('settings'=>$settings), true);
+		return $this->CI->load->view('paypal_express_form', array('settings'=>$settings), true);
 	}
 	
 	function check()

@@ -40,24 +40,26 @@ function save_sortable()
 //]]>
 </script>
 
-<p><?php echo lang('drag_and_drop');?></p>
+<div class="alert alert-info">
+	<?php echo lang('drag_and_drop');?>
+</div>
 
-<table class="gc_table" cellspacing="0" cellpadding="0">
+<table class="table table-striped">
 	<thead>
 		<tr>
-			<th class="gc_cell_left" style="width:60px;"><?php echo lang('sku');?></th>
+			<th><?php echo lang('sku');?></th>
 			<th><?php echo lang('name');?></th>
-			<th style="width:60px;"><?php echo lang('price');?></th>
-			<th class="gc_cell_right" style="width:60px;"><?php echo lang('sale');?></th>
+			<th><?php echo lang('price');?></th>
+			<th><?php echo lang('sale');?></th>
 		</tr>
 	</thead>
 	<tbody id="category_contents">
 <?php foreach ($category_products as $product):?>
-		<tr id="product-<?php echo $product->id;?>" class="gc_row">
-			<td class="gc_cell_left"><?php echo $product->sku;?></td>
+		<tr id="product-<?php echo $product->id;?>">
+			<td><?php echo $product->sku;?></td>
 			<td><?php echo $product->name;?></td>
-			<td><?php echo $product->price;?></td>
-			<td class="gc_cell_right"><?php echo $product->saleprice;?></td>
+			<td><?php echo format_currency($product->price);?></td>
+			<td><?php echo format_currency($product->saleprice);?></td>
 		</tr>
 <?php endforeach; ?>
 	</tbody>

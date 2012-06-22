@@ -1,81 +1,83 @@
 <?php include('header.php');
-$f_company	= array('id'=>'f_company', 'name'=>'company','class'=>'gc_tf1', 'value'=> set_value('company',$company));
-$f_address1	= array('id'=>'f_address1', 'name'=>'address1', 'class'=>'gc_tf1 address','value'=>set_value('address1',$address1));
-$f_address2	= array('id'=>'f_address2', 'name'=>'address2', 'class'=>'gc_tf1 address','value'=> set_value('address2',$address2));
-$f_first	= array('id'=>'f_firstname', 'name'=>'firstname', 'class'=>'gc_tf1','value'=> set_value('firstname',$firstname));
-$f_last		= array('id'=>'f_lastname', 'name'=>'lastname', 'class'=>'gc_tf1','value'=> set_value('lastname',$lastname));
-$f_email	= array('id'=>'f_email', 'name'=>'email', 'class'=>'gc_tf1','value'=>set_value('email',$email));
-$f_phone	= array('id'=>'f_phone', 'name'=>'phone', 'class'=>'gc_tf1','value'=> set_value('phone',$phone));
-$f_city		= array('id'=>'f_city', 'name'=>'city','class'=>'gc_tf1', 'value'=>set_value('city',$city));
-$f_zip		= array('id'=>'f_zip', 'maxlength'=>'10', 'class'=>'bill input','class'=>'gc_tf1', 'name'=>'zip', 'value'=> set_value('zip',$zip));
+$f_company	= array('name'=>'company','class'=>'span3', 'value'=> set_value('company',$company));
+$f_address1	= array('name'=>'address1', 'class'=>'span6','value'=>set_value('address1',$address1));
+$f_address2	= array('name'=>'address2', 'class'=>'span6','value'=> set_value('address2',$address2));
+$f_first	= array('name'=>'firstname', 'class'=>'span3','value'=> set_value('firstname',$firstname));
+$f_last		= array('name'=>'lastname', 'class'=>'span3','value'=> set_value('lastname',$lastname));
+$f_email	= array('name'=>'email', 'class'=>'span3','value'=>set_value('email',$email));
+$f_phone	= array('name'=>'phone', 'class'=>'span3','value'=> set_value('phone',$phone));
+$f_city		= array('name'=>'city','class'=>'span2', 'value'=>set_value('city',$city));
+$f_zip		= array('maxlength'=>'10', 'class'=>'span1', 'name'=>'zip', 'value'=> set_value('zip',$zip));
 ?>
-<?php echo form_open('/'.$this->config->item('admin_folder').'/customers/address_form/'.$customer_id.'/'.$id);?>
+<?php echo form_open($this->config->item('admin_folder').'/customers/address_form/'.$customer_id.'/'.$id);?>
 
-<div class="button_set">
-	<input type="submit" value="<?php echo lang('save');?>" />
-</div>
-
-<div id="gc_tabs">
-	<ul>
-		<li><a href="#gc_address"><?php echo lang('address_information');?></a></li>
-	</ul>
-<div id="gc_address" style="overflow:auto">
-	<div class="field_wrap">
-		<div>
-			<?php echo lang('company');?><br/>
+	<div class="row">
+		<div class="span3">
+			<label><?php echo lang('company');?></label>
 			<?php echo form_input($f_company);?>
 		</div>
-		<div>
-			<?php echo lang('firstname');?><br/>
+	</div>
+
+	<div class="row">
+		<div class="span3">
+			<label><?php echo lang('firstname');?></label>
 			<?php echo form_input($f_first);?>
 		</div>
-		<div>
-			<?php echo lang('lastname');?><br/>
+		<div class="span3">
+			<label><?php echo lang('lastname');?></label>
 			<?php echo form_input($f_last);?>
 		</div>
 	</div>
 
-	<div class="field_wrap">
-		<div>
-			<?php echo lang('email');?><br/>
+	<div class="row">
+		<div class="span3">
+			<label><?php echo lang('email');?></label>
 			<?php echo form_input($f_email);?>
 		</div>
-		<div>
-			<?php echo lang('phone');?><br/>
+		<div class="span3">
+			<label><?php echo lang('phone');?></label>
 			<?php echo form_input($f_phone);?>
 		</div>
 	</div>
 
-	<div class="field_wrap">
-		<?php echo lang('address');?><br/>
-		<?php echo form_input($f_address1).'<br/>'.form_input($f_address2);?>
+	<div class="row">
+		<div class="span6">
+			<label><?php echo lang('country');?></label>
+			<?php echo form_dropdown('country_id', $countries_menu, set_value('country_id', $country_id), 'id="f_country_id" class="span6"');?>
+		</div>
 	</div>
 
-	<div class="field_wrap">
-		<div>
-			<?php echo lang('city');?><br/>
+	<div class="row">
+		<div class="span6">
+			<label><?php echo lang('address');?></label>
+			<?php echo form_input($f_address1);?>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span6">
+			<?php echo form_input($f_address2);?>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span2">
+			<label><?php echo lang('city');?></label>
 			<?php echo form_input($f_city);?>
 		</div>
-		<div>
-			<?php echo lang('postcode');?><br/>
+		<div class="span3">
+			<label><?php echo lang('state');?></label>
+			<?php echo form_dropdown('zone_id', $zones_menu, set_value('zone_id', $zone_id), 'id="f_zone_id" class="span3"');?>
+		</div>
+		<div class="span1">
+			<label><?php echo lang('postcode');?></label>
 			<?php echo form_input($f_zip);?>
 		</div>
 	</div>
 
-	<div class="field_wrap">
-		<div>
-			<?php echo lang('country');?><br/>
-			<?php echo form_dropdown('country_id', $countries_menu, set_value('country_id', $country_id), 'style="width:200px; display:block;" id="f_country_id" class="input"');?>
-		</div>
+	<div class="form-actions">
+		<input class="btn btn-primary" type="submit" value="<?php echo lang('save');?>"/>
 	</div>
-
-	<div class="field_wrap">
-		<div>
-			<?php echo lang('state');?><br/>
-			<?php echo form_dropdown('zone_id', $zones_menu, set_value('zone_id', $zone_id), 'style="width:200px; display:block;" id="f_zone_id" class="input"');?>
-		</div>
-	</div>
-
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$('.button').button();
@@ -88,6 +90,5 @@ $f_zip		= array('id'=>'f_zip', 'maxlength'=>'10', 'class'=>'bill input','class'=
 		});
 	});
 	</script>
-</div>
 </form>
 <?php include('footer.php');

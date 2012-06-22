@@ -6,29 +6,30 @@ function areyousure()
 }
 </script>
 
-<div class="button_set">
+<div class="btn-group" style="float:right">
+
 <?php if ($gift_cards['enabled']):?>
 
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/form'); ?>"><?php echo lang('add_giftcard')?></a>
+	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_giftcard')?></a>
 	
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/settings'); ?>"><?php echo lang('settings');?></a>
+	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/settings'); ?>"><i class="icon-cog"></i> <?php echo lang('settings');?></a>
 	
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/disable'); ?>"><?php echo lang('disable_giftcards');?></a>
+	<a class="btn btn-danger" href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/disable'); ?>"><i class="icon-ban-circle icon-white"></i> <?php echo lang('disable_giftcards');?></a>
 	
 <?php else: ?>
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/enable'); ?>"><?php echo lang('enable_giftcards');?></a>
+	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/enable'); ?>"><i class="icon-ok icon-white"></i> <?php echo lang('enable_giftcards');?></a>
 <?php endif; ?>
 </div>
-<table class="gc_table" cellspacing="0" cellpadding="0">
+<table class="table table-striped">
 	<thead>
 		<tr>
-			<th class="gc_cell_left"><?php echo lang('code');?></th>
+			<th><?php echo lang('code');?></th>
 			<th><?php echo lang('to');?></th>
 			<th><?php echo lang('from');?></th>
 			<th><?php echo lang('total');?></th>
 			<th><?php echo lang('used');?></th>
 			<th><?php echo lang('remaining');?></th>
-			<th class="gc_cell_right"></th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -41,8 +42,8 @@ function areyousure()
 			<td><?php echo (float) $card['beginning_amount'];?></td>
 			<td><?php echo (float) $card['amount_used']; ?></td>
 			<td><?php echo (float) $card['beginning_amount'] - (float) $card['amount_used']; ?></td>
-			<td class="list_buttons">
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/delete/'.$card['id']); ?>" onclick="return areyousure();"><?php echo lang('delete');?></a>
+			<td>
+				<a class="btn btn-danger" style="float:right;" href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/delete/'.$card['id']); ?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
 	  </tr>
 <?php endforeach; ?>
 	</tbody>

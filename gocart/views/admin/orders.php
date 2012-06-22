@@ -9,95 +9,89 @@
 	{
 		$code = '/'.$code;
 	}
-	function sort_url($by, $sort, $sorder, $code, $admin_folder)
+	function sort_url($lang, $by, $sort, $sorder, $code, $admin_folder)
 	{
 		if ($sort == $by)
 		{
 			if ($sorder == 'asc')
 			{
 				$sort	= 'desc';
+				$icon	= ' <i class="icon-chevron-up"></i>';
 			}
 			else
 			{
 				$sort	= 'asc';
+				$icon	= ' <i class="icon-chevron-down"></i>';
 			}
 		}
 		else
 		{
 			$sort	= 'asc';
+			$icon	= '';
 		}
-		$return = site_url($admin_folder.'/orders/index/'.$by.'/'.$sort.'/'.$code);
-		return $return;
-	}
 			
 
-	$pagination = '<tr><td class="gc_pagination" colspan="8"><table class="table_nav" style="width:100%" cellpadding="0" cellspacing="0"><tr><td style="width:50px; text-align:left;">';
- 	
- 	$pagination .= '</td><td style="text-align:center;">';
- 	
- 	$pagination .= $pages;
- 	
- 	
- 	$pagination .= $pages;
- 	$pagination .= '</td><td style="width:50px; text-align:right;">';
-	$pagination .= '</td></tr></table></td></tr>';
-	
-	
-if ($term)
-{
-	echo '<p id="searched_for"><div style="width:70%;float:left;"><strong>'.sprintf(lang('search_returned'), intval($total)).'</strong></div><div style="width:29% float:right; text-align:right;"><a href="'.base_url().$this->config->item('admin_folder').'/orders" class="button">'.lang('all_orders').'</a></div></p>';
-	
-}
-?>
-<?php echo form_open($this->config->item('admin_folder').'/orders', array('id'=>'search_form')); ?>
-	<input type="hidden" name="term" id="search_term" value=""/>
-	<input type="hidden" name="start_date" id="start_date" value=""/>
-	<input type="hidden" name="end_date" id="end_date" value=""/>
-</form>
+		$return = site_url($admin_folder.'/orders/index/'.$by.'/'.$sort.'/'.$code);
+		
+		echo '<a href="'.$return.'">'.lang($lang).$icon.'</a>';
 
-<?php echo form_open($this->config->item('admin_folder').'/orders/export', array('id'=>'export_form')); ?>
-	<input type="hidden" name="term" id="export_search_term" value=""/>
-	<input type="hidden" name="start_date" id="export_start_date" value=""/>
-	<input type="hidden" name="end_date" id="export_end_date" value=""/>
-</form>
+	}
+	
+if ($term):?>
 
-<?php echo form_open($this->config->item('admin_folder').'/orders/bulk_delete', array('id'=>'delete_form')); ?>
+<div class="alert alert-info">
+	<?php echo sprintf(lang('search_returned'), intval($total));?>
+</div>
+<?php endif;?>
 
-<table class="gc_table" cellspacing="0" cellpadding="0">
+<style type="text/css">
+	.pagination {
+		margin:0px;
+		margin-top:-3px;
+	}
+</style>
+<div class="row">
+	<div class="span12" style="border-bottom:1px solid #f5f5f5;">
+		<div class="row">
+			<div class="span4">
+				<?php echo $this->pagination->create_links();?>	
+			</div>
+			<div class="span8">
+				<?php echo form_open($this->config->item('admin_folder').'/orders/index', 'class="form-inline" style="float:right"');?>
+					<fieldset>
+						<input id="start_top"  value="" class="span2" type="text" placeholder="Start Date"/>
+						<input id="start_top_alt" type="hidden" name="start_date" />
+						<input id="end_top" value="" class="span2" type="text"  placeholder="End Date"/>
+						<input id="end_top_alt" type="hidden" name="end_date" />
+				
+						<input id="top" type="text" class="span2" name="term" placeholder="<?php echo lang('term')?>" /> 
+
+						<button class="btn" name="submit" value="search"><?php echo lang('search')?></button>
+						<button class="btn" name="submit" value="export"><?php echo lang('xml_export')?></button>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php echo form_open($this->config->item('admin_folder').'/orders/bulk_delete', array('id'=>'delete_form', 'onsubmit'=>'return submit_form();', 'class="form-inline"')); ?>
+
+<table class="table table-striped">
     <thead>
 		<tr>
-			<th class="gc_cell_left"><input type="checkbox" id="gc_check_all" /></th>
-			<th><a href="<?php echo sort_url('order_number', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>"><?php echo lang('order')?></a></th>
-			<th><a href="<?php echo sort_url('bill_lastname', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>"><?php echo lang('bill_to')?></a></th>
-			<th><a href="<?php echo sort_url('ship_lastname', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>"><?php echo lang('ship_to')?></a></th>
-			<th><a href="<?php echo sort_url('ordered_on', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>"><?php echo lang('ordered_on')?></a></th>
-			<th><a href="<?php echo sort_url('status', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>"><?php echo lang('status')?></a></th>
-			<th><a href="<?php echo sort_url('notes', $sort_by, $sortorder, $code, $this->config->item('admin_folder')); ?>"><?php echo lang('notes')?></a></th>
-			<th class="gc_cell_right"></th>
+			<th><input type="checkbox" id="gc_check_all" /> <button type="submit" class="btn btn-danger"><i class="icon-trash icon-white"></i></button></th>
+			<th><?php echo sort_url('order', 'order_number', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
+			<th><?php echo sort_url('bill_to', 'bill_lastname', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
+			<th><?php echo sort_url('ship_to', 'ship_lastname', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
+			<th><?php echo sort_url('ordered_on','ordered_on', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
+			<th><?php echo sort_url('status','status', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
+			<th><?php echo sort_url('total','total', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
+			<th></th>
 	    </tr>
-		<?php echo $pagination; ?>
 	</thead>
- 	<tfoot>
-    <?php echo $pagination?>
-	</tfoot>
+
     <tbody>
-		<tr>
-			<td colspan="8" class="gc_table_tools">
-				<div class="gc_order_delete">
-					<a onclick="submit_form();" class="button"><?php echo lang('form_delete')?></a>
-				</div>
-				<div class="gc_order_search">
-					<?php echo lang('from')?> <input id="start_top"  value="" class="gc_tf1" type="text" /> 
-						<input id="start_top_alt" type="hidden" name="start_date" />
-					<?php echo lang('to')?> <input id="end_top" value="" class="gc_tf1" type="text" />
-						<input id="end_top_alt" type="hidden" name="end_date" />
-					<?php echo lang('term')?> <input id="top" type="text" class="gc_tf1" name="term" value="" /> 
-					<span class="button_set"><a href="#" onclick="do_search('top'); return false;"><?php echo lang('search')?></a>
-					<a href="#" onclick="do_export('top'); return false;"><?php echo lang('xml_export')?></a></span>
-					</span>
-				</div>
-			</td>
-		</tr>
 	<?php echo (count($orders) < 1)?'<tr><td style="text-align:center;" colspan="8">'.lang('no_orders') .'</td></tr>':''?>
     <?php foreach($orders as $order): ?>
 	<tr>
@@ -106,42 +100,16 @@ if ($term)
 		<td style="white-space:nowrap"><?php echo $order->bill_lastname.', '.$order->bill_firstname; ?></td>
 		<td style="white-space:nowrap"><?php echo $order->ship_lastname.', '.$order->ship_firstname; ?></td>
 		<td style="white-space:nowrap"><?php echo date('m/d/y h:i a', strtotime($order->ordered_on)); ?></td>
-		<td>
-			<div id="status_container_<?php echo $order->id; ?>" style="position:relative; font-weight:bold; padding-left:20px;">
-				<span id="status_<?php echo $order->id; ?>" class="<?php echo url_title($order->status); ?>"><?php echo $order->status; ?></span>
-				<img style="position:absolute; left:2px;" src="<?php echo base_url('images/edit.gif');?>" alt="edit" title="edit" onclick="edit_status(<?php echo $order->id; ?>)"/>
-			</div>
-			<div id="edit_status_<?php echo $order->id; ?>" style="display:none; position:relative; white-space:nowrap;">
-				<?php
-				
-				echo form_dropdown('status', $this->config->item('order_statuses'), $order->status, 'id="status_form_'.$order->id.'"');
-				?>
-				<a class="button" onClick="save_status(<?php echo $order->id; ?>)"><?php echo lang('form_save')?></a>
-			</div>
+		<td style="span2">
+			<?php echo form_dropdown('status', $this->config->item('order_statuses'), $order->status, 'id="status_form_'.$order->id.'" class="span2" style="float:left;"'); ?>
+			<button type="button" class="btn" onClick="save_status(<?php echo $order->id; ?>)" style="float:left;margin-left:4px;"><?php echo lang('save');?></button>
 		</td>
-		<td><div class="MainTableNotes"><?php echo $order->notes; ?></div></td>
-		<td class="gc_cell_right list_buttons">
-			<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/view/'.$order->id);?>"><?php echo lang('form_view')?></a>
+		<td><div class="MainTableNotes"><?php echo format_currency($order->total); ?></div></td>
+		<td>
+			<a class="btn btn-small" style="float:right;"href="<?php echo site_url($this->config->item('admin_folder').'/orders/view/'.$order->id);?>"><i class="icon-search"></i> <?php echo lang('form_view')?></a>
 		</td>
 	</tr>
     <?php endforeach; ?>
-		<tr>
-			<td colspan="8" class="gc_table_tools">
-				<div class="gc_order_delete">
-					<a onclick="submit_form();" class="button"><?php echo lang('form_delete')?></a>
-				</div>
-				<div class="gc_order_search">
-					<?php echo lang('from')?> <input id="start_bottom"  value="" class="gc_tf1" type="text" /> 
-						<input id="start_bottom_alt" type="hidden" name="start_date" />
-					<?php echo lang('to')?> <input id="end_bottom" value="" class="gc_tf1" type="text" />
-						<input id="end_bottom_alt" type="hidden" name="end_date" />
-					<?php echo lang('term')?> <input id="top" type="text" class="gc_tf1" name="term" value="" /> 
-					<span class="button_set"><a href="#" onclick="do_search('bottom'); return false;"><?php echo lang('search')?></a>
-					<a href="#" onclick="do_export('bottom'); return false;"><?php echo lang('xml_export')?></a></span>
-					</span>
-				</div>
-			</td>
-		</tr>
     </tbody>
 </table>
 
@@ -186,33 +154,38 @@ function submit_form()
 {
 	if($(".gc_check:checked").length > 0)
 	{
-		if(confirm('<?php echo lang('confirm_order_delete') ?>'))
-		{
-			$('#delete_form').submit();
-		}
+		return confirm('<?php echo lang('confirm_delete_order') ?>');
 	}
 	else
 	{
 		alert('<?php echo lang('error_no_orders_selected') ?>');
+		return false;
 	}
-}
-
-function edit_status(id)
-{
-	$('#status_container_'+id).hide();
-	$('#edit_status_'+id).show();
 }
 
 function save_status(id)
 {
+	show_animation();
 	$.post("<?php echo site_url($this->config->item('admin_folder').'/orders/edit_status'); ?>", { id: id, status: $('#status_form_'+id).val()}, function(data){
-		$('#status_'+id).html('<span class="'+data+'">'+$('#status_form_'+id).val()+'</span>');
+		setTimeout('hide_animation()', 500);
 	});
-	
-	$('#status_container_'+id).show();
-	$('#edit_status_'+id).hide();	
+}
+
+function show_animation()
+{
+	$('#saving_container').css('display', 'block');
+	$('#saving').css('opacity', '.8');
+}
+
+function hide_animation()
+{
+	$('#saving_container').fadeOut();
 }
 </script>
 
-
+<div id="saving_container" style="display:none;">
+	<div id="saving" style="background-color:#000; position:fixed; width:100%; height:100%; top:0px; left:0px;z-index:100000"></div>
+	<img id="saving_animation" src="<?php echo base_url('assets/img/storing_animation.gif');?>" alt="saving" style="z-index:100001; margin-left:-32px; margin-top:-32px; position:fixed; left:50%; top:50%"/>
+	<div id="saving_text" style="text-align:center; width:100%; position:fixed; left:0px; top:50%; margin-top:40px; color:#fff; z-index:100001"><?php echo lang('saving');?></div>
+</div>
 <?php include('footer.php'); ?>

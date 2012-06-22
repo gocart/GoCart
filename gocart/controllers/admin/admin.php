@@ -36,7 +36,7 @@ class Admin extends Admin_Controller
 		$this->session->set_flashdata('message', lang('message_user_deleted'));
 		redirect($this->config->item('admin_folder').'/admin');
 	}
-	function form($id = null)
+	function form($id = false)
 	{
 		force_ssl();
 		

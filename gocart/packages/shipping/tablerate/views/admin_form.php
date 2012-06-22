@@ -1,4 +1,5 @@
 <div style="font-size:11px;margin-bottom:20px;"><?php echo lang('notice') ?></div>
+<h3>This is a legacy shipping method and is no longer being updated. table_rate is now the standard table rate shipping module and if you are using this method you should migrate to the new one.</h3>
 		<style type="text/css">
 		.tablerate_input {
 			width:50px;
@@ -28,9 +29,9 @@
 			
 			$(function()
 			{
-				var $tabs = $("#tabs").tabs({  // immediately select a newly added tab
+				var tabs = $("#tabs").tabs({  // immediately select a newly added tab
 					    add: function(event, ui) {
-					        $tabs.tabs('select', '#' + ui.panel.id);
+					        tabs.tabs('select', '#' + ui.panel.id);
 					    }
 					}).addClass('ui-tabs-vertical ui-helper-clearfix');
 				$("#tabs li").removeClass('ui-corner-top').addClass('ui-corner-left');

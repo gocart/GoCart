@@ -88,24 +88,35 @@ class MY_Pagination extends CI_Pagination
 		$start = (($this->cur_page - $this->num_links) > 0) ? $this->cur_page - ($this->num_links - 1) : 1;
 		$end   = (($this->cur_page + $this->num_links) < $num_pages) ? $this->cur_page + $this->num_links : $num_pages;
 
+		$get_sort	= '';
 		// Is pagination being used over GET or POST?  If get, add a per_page query
 		// string. If post, add a trailing slash to the base URL if needed
 		if ($this->page_query_string === TRUE)
 		{
 			$this->base_url = rtrim($this->base_url).'&amp;'.$this->query_string_segment.'=';
+			if(!empty($_GET['by']))
+			{
+				$get_sort	= '&by='.$_GET['by'];
+			}
 		}
 		else
 		{
 			$this->base_url = rtrim($this->base_url, '/') .'/';
+			if(!empty($_GET['by']))
+			{
+				$get_sort	= '/?by='.$_GET['by'];
+			}
 		}
-
+		
+		
+		
   		// And here we go...
 		$output = '';
-
+		
 		// Render the "First" link
 		if  ($this->cur_page > ($this->num_links + 1))
 		{
-			$output .= $this->first_tag_open.'<a href="'.$this->base_url.'">'.$this->first_link.'</a>'.$this->first_tag_close;
+			$output .= $this->first_tag_open.'<a href="'.$this->base_url.$get_sort.'">'.$this->first_link.'</a>'.$this->first_tag_close;
 		}
 
 		// Render the "previous" link
@@ -113,7 +124,7 @@ class MY_Pagination extends CI_Pagination
 		{
 			$i = $uri_page_number - $this->per_page;
 			if ($i == 0) $i = '';
-			$output .= $this->prev_tag_open.'<a href="'.$this->base_url.$i.'">'.$this->prev_link.'</a>'.$this->prev_tag_close;
+			$output .= $this->prev_tag_open.'<a href="'.$this->base_url.$i.$get_sort.'">'.$this->prev_link.'</a>'.$this->prev_tag_close;
 		}
 
 		// Write the digit links
@@ -130,7 +141,7 @@ class MY_Pagination extends CI_Pagination
 				else
 				{
 					$n = ($i == 0) ? '' : $i;
-					$output .= $this->num_tag_open.'<a href="'.$this->base_url.$n.'">'.$loop.'</a>'.$this->num_tag_close;
+					$output .= $this->num_tag_open.'<a href="'.$this->base_url.$n.$get_sort.'">'.$loop.'</a>'.$this->num_tag_close;
 				}
 			}
 		}
@@ -138,14 +149,14 @@ class MY_Pagination extends CI_Pagination
 		// Render the "next" link
 		if ($this->cur_page < $num_pages)
 		{
-			$output .= $this->next_tag_open.'<a href="'.$this->base_url.($this->cur_page * $this->per_page).'">'.$this->next_link.'</a>'.$this->next_tag_close;
+			$output .= $this->next_tag_open.'<a href="'.$this->base_url.($this->cur_page * $this->per_page).$get_sort.'">'.$this->next_link.'</a>'.$this->next_tag_close;
 		}
 
 		// Render the "Last" link
 		if (($this->cur_page + $this->num_links) < $num_pages)
 		{
 			$i = (($num_pages * $this->per_page) - $this->per_page);
-			$output .= $this->last_tag_open.'<a href="'.$this->base_url.$i.'">'.$this->last_link.'</a>'.$this->last_tag_close;
+			$output .= $this->last_tag_open.'<a href="'.$this->base_url.$i.$get_sort.'">'.$this->last_link.'</a>'.$this->last_tag_close;
 		}
 
 		// Kill double slashes.  Note: Sometimes we can end up with a double slash

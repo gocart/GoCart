@@ -8,86 +8,72 @@ $("#datepicker2").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker2_al
 </script>
 
 <?php echo form_open($this->config->item('admin_folder').'/coupons/form/'.$id); ?>
-<div class="button_set">
-<input type="submit" value="Save Coupon"/>
+
+<div class="alert alert-info" style="text-align:center;">
+	<strong><?php echo sprintf(lang('times_used'), @$num_uses);?></strong>
 </div>
-<div id="gc_tabs">
-	<ul>
-		<li><a href="#gc_coupon_attributes"><?php echo lang('attributes');?></a></li>
-		<li><a href="#gc_coupon_applies_to"><?php echo lang('applies_to')?></a></li>
-	</ul>
-	
-	<div id="gc_coupon_attributes">
-		<div class="gc_field2">
-		<label><?php echo lang('coupon_code');?></label>
+<div class="row">
+	<div class="span4">
+		<fieldset>
+			<label for="code"><?php echo lang('coupon_code');?></label>
 			<?php
-			$data	= array('id'=>'code', 'name'=>'code', 'value'=>set_value('code', $code), 'class'=>'gc_tf1');
+			$data	= array('name'=>'code', 'value'=>set_value('code', $code), 'class'=>'span3');
 			echo form_input($data);
 			?>
-		</div>
-		
-		<div class="gc_field2">
-			<label><?php echo lang('times_used');?></label>
-			<?php
-				echo @$num_uses
-			?>
-		</div>
-		<div class="gc_field2">
+			
 			<label for="max_uses"><?php echo lang('max_uses');?></label>
 			<?php
-			$data	= array('id'=>'max_uses', 'name'=>'max_uses', 'value'=>set_value('max_uses', $max_uses), 'class'=>'gc_tf1');
+			$data	= array('name'=>'max_uses', 'value'=>set_value('max_uses', $max_uses), 'class'=>'span3');
 			echo form_input($data);
 			?>
-		</div>
-		<div class="gc_field2">
+			
 			<label for="max_product_instances"><?php echo lang('limit_per_order')?></label>
 			<?php
-				$data	= array('name'=>'max_product_instances', 'value'=>set_value('max_product_instances', $max_product_instances), 'class'=>'gc_tf1');
-				echo form_input($data);
+			$data	= array('name'=>'max_product_instances', 'value'=>set_value('max_product_instances', $max_product_instances), 'class'=>'span3');
+			echo form_input($data);
 			?>
-		</div>
-		<div class="gc_field2">
+			
 			<label for="start_date"><?php echo lang('enable_on');?></label>
 			<?php
-				$data	= array('id'=>'datepicker1', 'value'=>set_value('start_date', reverse_format($start_date)), 'class'=>'gc_tf1');
-				echo form_input($data);
+			$data	= array('id'=>'datepicker1', 'value'=>set_value('start_date', reverse_format($start_date)), 'class'=>'span3');
+			echo form_input($data);
 			?>
 			<input type="hidden" name="start_date" value="<?php echo set_value('start_date', $start_date) ?>" id="datepicker1_alt" />
-		</div>
-		<div class="gc_field2">
+			
 			<label for="end_date"><?php echo lang('disable_on');?></label>
 			<?php
-				$data	= array('id'=>'datepicker2', 'value'=>set_value('end_date', reverse_format($end_date)), 'class'=>'gc_tf1');
-				echo form_input($data);
+			$data	= array('id'=>'datepicker2', 'value'=>set_value('end_date', reverse_format($end_date)), 'class'=>'span3');
+			echo form_input($data);
 			?>
 			<input type="hidden" name="end_date" value="<?php echo set_value('end_date', $end_date) ?>" id="datepicker2_alt" />
-		</div>
-		<div class="gc_field2">
+			
 			<label for="reduction_target"><?php echo lang('coupon_type');?></label>
 			<?php
 		 		$options = array(
-                  'price'  => lang('price_discount'),
-				  'shipping' => lang('free_shipping')
+				'price'  => lang('price_discount'),
+				'shipping' => lang('free_shipping')
                	);
-				echo form_dropdown('reduction_target', $options,  $reduction_target, 'id="gc_coupon_type"');
+				echo form_dropdown('reduction_target', $options,  $reduction_target, 'id="gc_coupon_type" class="span3"');
 			?>
-		</div>
-		<div class="gc_field2" id="gc_coupon_price_fields">
 			<label for="reduction_amount"><?php echo lang('reduction_amount')?></label>
-			<?php
-				$data	= array('id'=>'reduction_amount', 'name'=>'reduction_amount', 'value'=>set_value('reduction_amount', $reduction_amount), 'class'=>'gc_tf1');
-				echo form_input($data);
-				
-				$options = array(
-                  'percent'  => '%',
-				  'fixed' => $this->config->item('currency_symbol')
-               	);
-				echo ' '.form_dropdown('reduction_type', $options,  $reduction_type);
-			?>
-		</div>
+			<div class="row">
+				<div class="span1">
+				<?php	$options = array(
+	                  'percent'  => '%',
+					  'fixed' => $this->config->item('currency_symbol')
+	               	);
+					echo ' '.form_dropdown('reduction_type', $options,  $reduction_type, 'class="span1"');
+				?>
+				</div>
+				<div class="span2">
+					<?php
+						$data	= array('id'=>'reduction_amount', 'name'=>'reduction_amount', 'value'=>set_value('reduction_amount', $reduction_amount), 'class'=>'span2');
+						echo form_input($data);?>
+				</div>
+			</div>
+		</fieldset>
 	</div>
-	
-	<div id="gc_coupon_applies_to">
+	<div class="span6 offset1 well">
 		<?php
 	 		$options = array(
               '1' => lang('apply_to_whole_order'),
@@ -102,9 +88,17 @@ $("#datepicker2").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker2_al
 		</div>
 	</div>
 </div>
+
+<div class="form-actions">
+	<button type="submit" class="btn btn-primary"><?php echo lang('form_save');?></button>
+</div>
 </form>
 
 <script type="text/javascript">
+$('form').submit(function() {
+	$('.btn').attr('disabled', true).addClass('disabled');
+});
+
 $(document).ready(function(){
 	$("#gc_tabs").tabs();
 	

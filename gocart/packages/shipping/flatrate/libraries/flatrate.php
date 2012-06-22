@@ -42,6 +42,8 @@ class flatrate
 	
 	function form($post	= false)
 	{
+		$this->CI->load->helper('form');
+		
 		//this same function processes the form
 		if(!$post)
 		{
@@ -52,23 +54,20 @@ class flatrate
 		{
 			$rate		= $post['rate'];
 		}
+		ob_start();
+		?>
+		<label><?php echo lang('rate');?></label>
+		<?php echo form_input(array('name'=>'rate', 'value'=>$rate, 'class'=>'span3'));?>
 		
-		$form	= '<table><tr><td>'.lang('rate').':</td><td><input type="text" name="rate" value="'.$rate.'"  class="gc_tf1"/></td></tr>
-		<tr><td>'.lang('enabled').': </td><td><select name="enabled">';
-		if($settings['enabled'] == 1)
-		{
-			$enable		= ' selected="selected"';
-			$disable	= '';
-		}
-		else
-		{
-			$enable		= '';
-			$disable	= ' selected="selected"';
-		}
-		$form	.= '<option value="1"'.$enable.'>'.lang('enabled').'</option>
-					<option value="0"'.$disable.'>'.lang('disabled').'</option>';
-		$form	.= '</select></td></tr>
-		</table>';
+		<label><?php echo lang('enabled');?></label>
+		<select name="enabled" class="span3">
+			<option value="1"<?php echo((bool)$settings['enabled'])?' selected="selected"':'';?>><?php echo lang('enabled');?></option>
+			<option value="0"<?php echo((bool)$settings['enabled'])?'':' selected="selected"';?>><?php echo lang('disabled');?></option>
+		</select>
+		<?php
+		$form =ob_get_contents();
+		ob_end_clean();
+
 		return $form;
 	}
 	
