@@ -1,21 +1,17 @@
 <?php include('header.php'); ?>
 
-<form id="settings_form" method="post" action="<?php echo site_url($this->config->item('admin_folder').'/shipping/settings/'.$module);?>">
-	<div class="button_set">
-		<input type="submit" value="<?php echo lang('save');?>"/>
-	</div>
-	
-	<div id="gc_tabs">
-		<ul>
-			<li><a href="#gc_settings"><?php echo lang('shipping_settings_title');?></a></li>
-		</ul>
-		
-		<div id="gc_settings">
+<div class="row">
+	<div class="span12">
+		<?php echo form_open($this->config->item('admin_folder').'/shipping/settings/'. $module);?>
+			<fieldset>
 <?php
 echo $form;
 ?>
-		</div>
+				<div class="form-actions">
+					<input class="btn btn-primary" type="submit" value="<?php echo lang('save');?>"/>
+				</div>
+			</fieldset>
+		</form>
 	</div>
-</form>
-
+</div>
 <?php include('footer.php');

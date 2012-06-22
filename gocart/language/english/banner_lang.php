@@ -19,3 +19,5 @@ $lang['message_banner_saved']	= 'The banner has been saved!';
 $lang['date_error']				= 'The "Disable On" date cannot come on or before the "Enable On" date.';
 $lang['banner_form']			= 'Banner Form';
 $lang['message_delete_banner']	= 'The banner has been deleted.';
+$lang['sort']					= 'Sort';
+$lang['sort_banners']			= 'Banners are sortable! Just drag and drop them in the order you would like for them to appear.';

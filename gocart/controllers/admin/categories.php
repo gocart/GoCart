@@ -23,9 +23,34 @@ class Categories extends Admin_Controller {
 		$this->load->view($this->config->item('admin_folder').'/categories', $data);
 	}
 	
-	function organize($id = null)
+	//basic category search
+	function category_autocomplete()
+	{
+		$name	= trim($this->input->post('name'));
+		$limit	= $this->input->post('limit');
+		
+		if(empty($name))
+		{
+			echo json_encode(array());
+		}
+		else
+		{
+			$results	= $this->Category_model->category_autocomplete($name, $limit);
+			
+			$return		= array();
+			foreach($results as $r)
+			{
+				$return[$r->id]	= $r->name;
+			}
+			echo json_encode($return);
+		}
+		
+	}
+	
+	function organize($id = false)
 	{
 		$this->load->helper('form');
+		$this->load->helper('formatting');
 		
 		if (!$id)
 		{
@@ -54,7 +79,7 @@ class Categories extends Admin_Controller {
 		$this->Category_model->organize_contents($id, $products);
 	}
 	
-	function form($id = null)
+	function form($id = false)
 	{
 		
 		$config['upload_path']		= 'uploads/images/full';

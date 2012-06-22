@@ -5,16 +5,16 @@ function areyousure()
 	return confirm('<?php echo lang('confirm_delete_coupon');?>');
 }
 </script>
-<div class="button_set">
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/coupons/form'); ?>"><?php echo lang('add_new_coupon');?></a>
-</div>
 
-<table class="gc_table" cellspacing="0" cellpadding="0">
+	<a class="btn" style="float:right;" href="<?php echo site_url($this->config->item('admin_folder').'/coupons/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_coupon');?></a>
+
+
+<table class="table">
 	<thead>
 		<tr>
-		  <th class="gc_cell_left"><?php echo lang('code');?></th>
+		  <th><?php echo lang('code');?></th>
 		  <th><?php echo lang('usage');?></th>
-		  <th class="gc_cell_right"></th>
+		  <th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -25,9 +25,11 @@ function areyousure()
 			<td>
 			  <?php echo  $coupon->num_uses ." / ". $coupon->max_uses; ?>
 			</td>
-			<td class="list_buttons" >
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/coupons/delete/'.$coupon->id); ?>" onclick="return areyousure();"><?php echo lang('delete');?></a>
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/coupons/form/'.$coupon->id); ?>"><?php echo lang('edit');?></a>
+			<td>
+				<div class="btn-group" style="float:right;">
+					<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/coupons/form/'.$coupon->id); ?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
+					<a class="btn btn-danger" href="<?php echo site_url($this->config->item('admin_folder').'/coupons/delete/'.$coupon->id); ?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
+				</div>
 			</td>
 	  </tr>
 <?php endforeach; ?>

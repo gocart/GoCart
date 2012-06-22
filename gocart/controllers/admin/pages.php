@@ -25,7 +25,7 @@ class Pages extends Admin_Controller
 	/********************************************************************
 	edit page
 	********************************************************************/
-	function form($id = null)
+	function form($id = false)
 	{
 		$this->load->helper('url');
 		$this->load->helper('form');
@@ -149,7 +149,7 @@ class Pages extends Admin_Controller
 		}
 	}
 	
-	function link_form($id = null)
+	function link_form($id = false)
 	{
 	
 		$this->load->helper('url');

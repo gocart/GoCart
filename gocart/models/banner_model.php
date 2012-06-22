@@ -14,9 +14,7 @@ Class Banner_model extends CI_Model
 	{
 		$banners	= $this->db->order_by('sequence ASC')->get('banners')->result();
 		$count	= 1;
-		
-		$return	= array();
-		foreach ($banners as $banner)
+		foreach ($banners as &$banner)
 		{
 			if ($banner->enable_on == '0000-00-00')
 			{
@@ -46,11 +44,10 @@ Class Banner_model extends CI_Model
 
 			if (($enable_test && $enable_test > $curDate) || ($disable_test && $disable_test <= $curDate))
 			{
-				//unset($ad);
+				unset($banner);
 			}
 			else
 			{
-				$return[]	= $banner;
 				$count++;
 			}
 			
@@ -62,12 +59,7 @@ Class Banner_model extends CI_Model
 				}				
 			}
 		}
-		
-		if($limit)
-		{
-			array_splice($return, $limit);
-		}
-		return $return;
+		return $banners;
 	}
 	
 	function get_banner($id)

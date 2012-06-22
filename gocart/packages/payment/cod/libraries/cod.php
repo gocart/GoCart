@@ -5,11 +5,14 @@ class cod
 	var $CI;
 	
 	//this can be used in several places
-	var	$method_name	= 'Charge on Delivery';
+	var	$method_name;
 	
 	function __construct()
 	{
 		$this->CI =& get_instance();
+		$this->CI->lang->load('cod');
+		
+		$this->method_name	= lang('charge_on_delivery');
 	}
 	
 	/*
@@ -52,7 +55,7 @@ class cod
 		from the same place as the checkout_check above.
 		*/
 		
-		return 'Charge on Delivery';
+		return lang('charge_on_delivery');
 		
 		/*
 		for a credit card, this may look something like
@@ -83,7 +86,7 @@ class cod
 		//process the payment here, if it goes through return false if it breaks down, return an error message
 		if($process)
 		{
-			return 'There was an error processing your payment';
+			return lang('processing_error');
 		}
 		else
 		{
@@ -105,22 +108,18 @@ class cod
 			$enabled	= $post['enabled'];
 		}
 		
-		$form	= '<table>
-		<tr><td>Enabled: </td><td><select name="enabled">';
-		if($enabled == 1)
-		{
-			$enable		= ' selected="selected"';
-			$disable	= '';
-		}
-		else
-		{
-			$enable		= '';
-			$disable	= ' selected="selected"';
-		}
-		$form	.= '<option value="1"'.$enable.'>Enabled</option>
-		<option value="0"'.$disable.'>Disabled</option>';
-		$form	.= '</select></td></tr>
-		</table>';
+		ob_start();
+		?>
+
+		<label><?php echo lang('enabled');?></label>
+		<select name="enabled" class="span3">
+			<option value="1"<?php echo((bool)$settings['enabled'])?' selected="selected"':'';?>><?php echo lang('enabled');?></option>
+			<option value="0"<?php echo((bool)$settings['enabled'])?'':' selected="selected"';?>><?php echo lang('disabled');?></option>
+		</select>
+		<?php
+		$form =ob_get_contents();
+		ob_end_clean();
+		
 		return $form;
 	}
 	

@@ -1,66 +1,51 @@
 <?php include('header.php'); ?>
 
 <?php
+
 $title			= array('name'=>'title', 'value' => set_value('title', $title));
-$enable_on_alt	= array('id'=>'enable_on_alt', 'value' => set_value('enable_on_alt', reverse_format($enable_on)));
-$disable_on_alt	= array('id'=>'disable_on_alt', 'value' => set_value('disable_on_alt', reverse_format($disable_on)));
+$enable_on		= array('name'=>'enable_on', 'id'=>'enable_on', 'value'=>set_value('enable_on', set_value('enable_on', $enable_on)));
+$disable_on		= array('name'=>'disable_on', 'id'=>'disable_on', 'value'=>set_value('disable_on', set_value('disable_on', $disable_on)));
 $f_image		= array('name'=>'image', 'id'=>'image');
 $link			= array('name'=>'link', 'value' => set_value('link', $link));	
-$new_window		= array('name'=>'new_window', 'value'=>1, 'checked'=>set_checkbox('new_window', 1, $new_window));?>
+$new_window		= array('name'=>'new_window', 'value'=>1, 'checked'=>set_checkbox('new_window', 1, $new_window));
+?>
 
 <?php echo form_open_multipart($this->config->item('admin_folder').'/banners/form/'.$id); ?>
+	<label for="title"><?php echo lang('title');?> </label>
+	<?php echo form_input($title); ?>
 
-<div class="button_set">
-	<input type="submit" value="<?php echo lang('form_save');?>"/>
-</div>
+	<label for="link"><?php echo lang('link');?> </label>
+	<?php echo form_input($link); ?>
 
-<div id="gc_tabs">
-	<ul>
-		<li><a href="#gc_banner_info"><?php echo lang('banners');?></a></li>
-	</ul>
-	<div id="gc_banner_info">
-		<div class="gc_field2">
-			<label for="title"><?php echo lang('title');?> </label>
-			<?php echo form_input($title); ?>
-		</div>
+	<label for="enable_on"><?php echo lang('enable_on');?> </label>
+	<?php echo form_input($enable_on); ?>
 
-		<div class="gc_field2">
-			<label for="link"><?php echo lang('link');?> </label>
-			<?php echo form_input($link); ?>
-		</div>
+	<label for="disable_on"><?php echo lang('disable_on');?> </label>
+	<?php echo form_input($disable_on); ?>
 
-		<div class="gc_field2">
-			<label for="enable_on"><?php echo lang('enable_on');?> </label>
-			<?php echo form_input($enable_on_alt); ?>
-			<input type="hidden" name="enable_on" id="enable_on" value="<?php echo set_value('enable_on', $enable_on) ?>">
-		</div>
+	<label class="checkbox">
+	    <?php echo form_checkbox($new_window); ?> <?php echo lang('new_window');?>
+	</label>
 
-		<div class="gc_field2">
-			<label for="disable_on"><?php echo lang('disable_on');?> </label>
-			<?php echo form_input($disable_on_alt); ?>
-			<input type="hidden" name="disable_on" id="disable_on" value="<?php echo set_value('disable_on', $disable_on) ?>">
-		</div>
+	<label for="image"><?php echo lang('image');?> </label>
+	<?php echo form_upload($f_image); ?>
 
-		<div class="gc_field2">
-			<?php echo form_checkbox($new_window); ?> <label><?php echo lang('new_window');?></label>
-		</div>
+	<?php if($id && $image != ''):?>
+	<div style="text-align:center; padding:5px; border:1px solid #ccc;"><img src="<?php echo base_url('uploads/'.$image);?>" alt="current"/><br/><?php echo lang('current_file');?></div>
+	<?php endif;?>
 
-		<div class="gc_field2">
-			<label for="image"><?php echo lang('image');?> </label>
-			<?php echo form_upload($f_image); ?>
-
-			<?php if($id && $image != ''):?>
-			<div style="text-align:center; padding:5px; border:1px solid #ccc;"><img src="<?php echo base_url('uploads/'.$image);?>" alt="current"/><br/><?php echo lang('current_file');?></div>
-			<?php endif;?>
-		</div>
-		
+	<div class="form-actions">
+		<input class="btn btn-primary" type="submit" value="<?php echo lang('save');?>"/>
 	</div>
-</div>
 </form>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#enable_on_alt").datepicker({ dateFormat: 'mm-dd-yy', altField: '#enable_on', altFormat: 'yy-mm-dd'});
-		$("#disable_on_alt").datepicker({ dateFormat: 'mm-dd-yy',altField: '#disable_on', altFormat: 'yy-mm-dd' });
+		$("#enable_on").datepicker({ dateFormat: 'mm-dd-yy'});
+		$("#disable_on").datepicker({ dateFormat: 'mm-dd-yy'});
+	});
+	
+	$('form').submit(function() {
+		$('.btn').attr('disabled', true).addClass('disabled');
 	});
 </script>
 <?php include('footer.php'); ?>
