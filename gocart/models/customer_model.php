@@ -252,6 +252,79 @@ Class Customer_model extends CI_Model
 			return false;
 		}
 	}
+        
+	function login_social($email, $remember=false)
+	{
+		$this->db->select('*');
+		$this->db->where('email', $email);
+		$this->db->where('active', 1);
+		$this->db->limit(1);
+		$result = $this->db->get('customers');
+		$customer	= $result->row_array();
+		
+		if ($customer)
+		{
+			
+			// Retrieve customer addresses
+			$this->db->where(array('customer_id'=>$customer['id'], 'id'=>$customer['default_billing_address']));
+			$address = $this->db->get('customers_address_bank')->row_array();
+			if($address)
+			{
+				$fields = unserialize($address['field_data']);
+				$customer['bill_address'] = $fields;
+				$customer['bill_address']['id'] = $address['id']; // save the addres id for future reference
+			}
+			
+			$this->db->where(array('customer_id'=>$customer['id'], 'id'=>$customer['default_shipping_address']));
+			$address = $this->db->get('customers_address_bank')->row_array();
+			if($address)
+			{
+				$fields = unserialize($address['field_data']);
+				$customer['ship_address'] = $fields;
+				$customer['ship_address']['id'] = $address['id'];
+			} else {
+				 $customer['ship_to_bill_address'] = 'true';
+			}
+			
+			
+			// Set up any group discount 
+			if($customer['group_id']!=0) 
+			{
+				$group = $this->get_group($customer['group_id']);
+				if($group) // group might not exist
+				{
+					if($group->discount_type == "fixed")
+					{
+						$customer['group_discount_formula'] = "- ". $group->discount; 
+					}
+					else
+					{
+						$percent	= (100-(float)$group->discount)/100;
+						$customer['group_discount_formula'] = '* ('.$percent.')';
+					}
+				}
+			}
+			
+			if(!$remember)
+			{
+				$customer['expire'] = time()+$this->session_expire;
+			}
+			else
+			{
+				$customer['expire'] = false;
+			}
+			
+			// put our customer in the cart
+			$this->go_cart->save_customer($customer);
+
+		
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	
 	function is_logged_in($redirect = false, $default_redirect = 'secure/login/')
 	{
@@ -325,6 +398,7 @@ Class Customer_model extends CI_Model
 			$this->save($customer);
 			
 			$this->email->from($this->config->item('email'), $this->config->item('site_name'));
+			$this->email->reply_to($this->config->item('reply_email'),$this->config->item('company_name'));
 			$this->email->to($email);
 			$this->email->subject($this->config->item('site_name').': Password Reset');
 			$this->email->message('Your password has been reset to <strong>'. $new_password .'</strong>.');

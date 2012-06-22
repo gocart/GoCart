@@ -63,7 +63,7 @@ $confirm	= array('id'=>'confirm', 'class'=>'input', 'name'=>'confirm', 'value'=>
 	<div id="my_account_info">
 		<div id="my_information">
 			<?php echo form_open('secure/my_account'); ?>
-				<h2>Account Information</h2>
+				<h2>Account Information <a target="_blank" href="<?php echo 'http://www.gravatar.com/'.md5( strtolower( trim( $customer['email'] ) ) ); ?>"><img src="<?php echo "https://secure.gravatar.com/avatar/".md5( strtolower( trim( $customer['email'] ) ) )."?d=mm&r=g&s=50"; ?>" style="float:right;"/></a></h2> 
 				<div class="form_wrap">
 					<div>
 						<?php echo lang('account_company');?><br/>

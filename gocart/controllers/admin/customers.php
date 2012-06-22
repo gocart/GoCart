@@ -53,7 +53,6 @@ class Customers extends Admin_Controller {
 
 	function form($id = null)
 	{
-		force_ssl();
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		

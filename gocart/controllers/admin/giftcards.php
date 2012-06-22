@@ -6,8 +6,6 @@ class Giftcards extends Admin_Controller {
 	{
 		parent::__construct();
 		
-		force_ssl();
-		
 		$this->load->model('Settings_model');
 		$this->load->model('Gift_card_model');
 		$this->load->helper('form');
@@ -87,6 +85,7 @@ class Giftcards extends Admin_Controller {
 				$this->email->initialize($config);
 
 				$this->email->from($this->config->item('email'));
+				$this->email->reply_to($this->config->item('reply_email'),$this->config->item('company_name'));
 				$this->email->to($save['to_email']);
 
 				$this->email->subject($row['subject']);

@@ -1,3 +1,12 @@
+CREATE TABLE `prefix_activityfeed` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` int(11) NOT NULL COMMENT '0 - No Activity 1 - New Order 2 - New Customer,etc,.',
+  `activity` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 ;
+
+-- new query
 
 CREATE TABLE `prefix_admin` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -347,6 +356,8 @@ CREATE TABLE `prefix_orders` (
   `bill_country` varchar(255) default NULL,
   `bill_country_code` varchar(10) default NULL,
   `bill_country_id` int(11) default NULL,
+  `total_quantities` int(11) NOT NULL DEFAULT '1',
+  `total_items` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
@@ -393,6 +404,9 @@ CREATE TABLE `prefix_products` (
   `seo_title` text,
   `meta` text,
   `enabled` tinyint(1) NOT NULL default '1',
+  `costpersqft` tinyint(1) NOT NULL DEFAULT '0',
+  `width` int(11) NOT NULL DEFAULT '0',
+  `height` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 

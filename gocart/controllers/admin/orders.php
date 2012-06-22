@@ -5,8 +5,6 @@ class Orders extends Admin_Controller {
 	function __construct()
 	{		
 		parent::__construct();
-
-		remove_ssl();
 		$this->load->model('Order_model');
 		$this->load->model('Search_model');
 		$this->load->model('location_model');
@@ -151,6 +149,7 @@ class Orders extends Admin_Controller {
 			$this->email->initialize($config);
 	
 			$this->email->from($this->config->item('email'), $this->config->item('company_name'));
+			$this->email->reply_to($this->config->item('reply_email'),$this->config->item('company_name'));
 			$this->email->to($this->input->post('recipient'));
 			
 			$this->email->subject($this->input->post('subject'));

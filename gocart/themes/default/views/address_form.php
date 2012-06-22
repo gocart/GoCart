@@ -48,17 +48,6 @@ echo form_input($f_id);
 			<?php echo form_input($f_address1).'<br/>'.form_input($f_address2);?>
 		</div>
 	</div>
-
-	<div class="form_wrap">
-		<div>
-			<?php echo lang('address_city');?><b class="r"> *</b><br/>
-			<?php echo form_input($f_city);?>
-		</div>
-		<div>
-			<?php echo lang('address_postcode');?><b class="r"> *</b><br/>
-			<?php echo form_input($f_zip);?>
-		</div>
-	</div>
 		
 	<div class="form_wrap">
 		<div>
@@ -68,6 +57,17 @@ echo form_input($f_id);
 		<div>
 			<?php echo lang('address_state');?><br/>
 			<?php echo form_dropdown('zone_id', $zones_menu, set_value('zone_id', $zone_id), 'style="width:200px; display:block;" id="f_zone_id" class="input"');?>
+		</div>
+	</div>
+
+	<div class="form_wrap">
+		<div>
+			<?php echo lang('address_city');?><b class="r"> *</b><br/>
+			<?php echo form_input($f_city);?>
+		</div>
+		<div>
+			<?php echo lang('address_postcode');?><b class="r"> *</b><br/>
+			<?php echo form_input($f_zip);?>
 		</div>
 	</div>
 	<div class="clear"></div>

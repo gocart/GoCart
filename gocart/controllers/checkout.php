@@ -526,6 +526,7 @@ class Checkout extends CI_Controller {
 		$this->email->initialize($config);
 
 		$this->email->from($this->config->item('email'), $this->config->item('company_name'));
+		$this->email->reply_to($this->config->item('reply_email'),$this->config->item('company_name'));
 		
 		if($this->Customer_model->is_logged_in(false, false))
 		{
@@ -548,6 +549,10 @@ class Checkout extends CI_Controller {
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		$data['download_section']	= $download_section;
 		
+		// Update the activity log
+		$this->load->model('activity_model');
+		$this->activity_model->save_activity(1,"New Order : ".$order_id);
+
 		// show final confirmation page
 		$this->load->view('order_placed', $data);
 		

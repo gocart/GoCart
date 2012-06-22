@@ -162,7 +162,8 @@ Class Option_model extends CI_Model
 		// Get the list of options for the product 
 		//  We will check the submitted options against this to make sure required options were selected	
 		$db_options = $this->get_product_options($product['id']);
-		
+                $price_before_alteration = $product['price'];
+                $sqftprice = $price_before_alteration;
 		// Loop through the options from the database
 		foreach($db_options as $option)
 		{
@@ -208,7 +209,8 @@ Class Option_model extends CI_Model
 						{
 							$price = ' ('.format_currency($val->price).')';
 						}
-						$product['price'] 	= $product['price'] + $val->price;
+                                  
+                                                $product['price'] 	= $product['price'] + $val->price;    
 						$product['weight'] 	= $product['weight'] + $val->weight;
 
 						array_push($opts, $val->value.$price);
@@ -239,8 +241,30 @@ Class Option_model extends CI_Model
 					$val	= $option->values[0];
 										
 					//add the weight and price to the product
-					$product['price'] 	= $product['price'] + $val->price;
-					$product['weight'] 	= $product['weight'] + $val->weight;
+                                        
+                                        // Multiple Height and Widht for SqFt Product
+
+                                        /*if((1 == $product['costpersqft']) && ('WidthCPsqft' == $val->name ))
+                                        {
+                                            $sqftprice	= $sqftprice * $val->value;
+                                        }
+
+                                        else if((1 == $product['costpersqft']) && ('HeightCPsqft' == $val->name )) 
+                                        {
+                                            $sqftprice	= $sqftprice * $val->value;
+                                            die;
+                                            echo $sqftprice;
+                                        }*/
+                                        if((1 == $product['costpersqft']) && (('WidthCPsqft' == $val->name) || ('HeightCPsqft' == $val->name)))
+                                        {
+                                            $sqftprice	= $sqftprice * $option_value;
+                                        }
+                                        else 
+                                        {
+                                            $product['price'] 	= $product['price'] + $val->price;
+                                        }
+                                        
+                                        $product['weight'] 	= $product['weight'] + $val->weight;
 					
 					//if there is additional cost, add it to the item description
 					$price = '';
@@ -283,9 +307,16 @@ Class Option_model extends CI_Model
 					$product['options'][$option->name] = $val->name.$price;
 				}
 			}
+                        
+
 		}
-		
-		if($error)
+                        // Now add the Sqft Cost
+                if(($sqftprice - $price_before_alteration) > 0)
+                {
+                    $product['price'] = $product['price'] + $sqftprice - $price_before_alteration;
+                }
+
+                if($error)
 		{
 			return( array( 'validated' => false,
 						   'message' => $msg

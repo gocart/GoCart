@@ -115,6 +115,70 @@ function save_customer()
 		}
 	}, 'json');
 }
+
+
+function save_billaddress()
+{
+	$('#save_customer_loader').show();
+	//send data to server
+
+	$.post("<?php echo site_url('secure/address_form');?>/"+$('#f_id').val(), {	company: $('#bill_company').val(),
+																				firstname: $('#bill_firstname').val(),
+																				lastname: $('#bill_lastname').val(),
+																				email: $('#bill_email').val(),
+																				phone: $('#bill_phone').val(),
+																				address1: $('#bill_address1').val(),
+																				address2: $('#bill_address2').val(),
+																				city: $('#bill_city').val(),
+																				country_id: $('#bill_country_id').val(),
+																				zone_id: $('#bill_zone_id').val(),
+																				zip: $('#bill_zip').val()
+																				},
+		function(data){
+			if(data == 1)
+			{
+				//window.location = "<?php echo site_url('secure/my_account');?>";
+				$('#save_customer_loader').hide();
+			}
+			else
+			{
+				$('#form_error').show().html(data);
+				//call resize twice to fix a wierd bug where the height is overcompensated
+				$.fn.colorbox.resize();
+			}
+		});
+}
+function save_shipaddress()
+{
+	$('#save_customer_loader').show();
+	//send data to server
+
+	$.post("<?php echo site_url('secure/address_form');?>/"+$('#f_id').val(), {	company: $('#ship_company').val(),
+																				firstname: $('#ship_firstname').val(),
+																				lastname: $('#ship_lastname').val(),
+																				email: $('#ship_email').val(),
+																				phone: $('#ship_phone').val(),
+																				address1: $('#ship_address1').val(),
+																				address2: $('#ship_address2').val(),
+																				city: $('#ship_city').val(),
+																				country_id: $('#ship_country_id').val(),
+																				zone_id: $('#ship_zone_id').val(),
+																				zip: $('#ship_zip').val()
+																				},
+		function(data){
+			if(data == 1)
+			{
+				//window.location = "<?php echo site_url('secure/my_account');?>";
+				$('#save_customer_loader').hide();
+			}
+			else
+			{
+				$('#form_error').show().html(data);
+				//call resize twice to fix a wierd bug where the height is overcompensated
+				$.fn.colorbox.resize();
+			}
+		});
+}
 </script>
 <?php /* Only show this javascript if the user is logged in */ ?>
 <?php if($this->Customer_model->is_logged_in(false, false)) : ?>
@@ -289,7 +353,18 @@ $s_zip		= array('id'=>'ship_zip', 'maxlength'=>'10', 'class'=>'ship input ship_r
 					<?php echo form_input($s_address1).'<br/>'.form_input($s_address2);?>
 				</div>
 			</div>
-			
+
+			<div class="form_wrap">
+				<div>
+					<?php echo lang('address_country');?><b class="r"> *</b><br/>
+					<?php echo form_dropdown('ship_country_id',$countries, @$customer['ship_address']['country_id'], 'id="ship_country_id" class="ship input ship_req"');?>
+				</div>
+				<div>
+					<?php echo lang('address_state');?><b class="r"> *</b><br/>
+					<?php echo form_dropdown('ship_zone_id',$ship_zone_menu, @$customer['ship_address']['zone_id'], 'id="ship_zone_id" class="ship input ship_req"');?>
+				</div>
+			</div>
+
 			<div class="form_wrap">
 				<div>
 					<?php echo lang('address_city');?><b class="r"> *</b><br/>
@@ -301,16 +376,6 @@ $s_zip		= array('id'=>'ship_zip', 'maxlength'=>'10', 'class'=>'ship input ship_r
 				</div>
 			</div>
 			
-			<div class="form_wrap">
-				<div>
-					<?php echo lang('address_country');?><b class="r"> *</b><br/>
-					<?php echo form_dropdown('ship_country_id',$countries, @$customer['ship_address']['country_id'], 'id="ship_country_id" class="ship input ship_req"');?>
-				</div>
-				<div>
-					<?php echo lang('address_state');?><b class="r"> *</b><br/>
-					<?php echo form_dropdown('ship_zone_id',$ship_zone_menu, @$customer['ship_address']['zone_id'], 'id="ship_zone_id" class="ship input ship_req"');?>
-				</div>
-			</div>
 			<div class="clear"></div>
 			<div class="form_wrap">
 				<input type="checkbox" id="different_address" name="ship_to_bill_address" value="yes" <?php echo set_checkbox('ship_to_bill_address', 'yes', @$customer['ship_to_bill_address']);?> onclick="toggle_billing_address_form(this.checked)"> <?php echo lang('use_address_for_billing');?>
@@ -361,6 +426,16 @@ $s_zip		= array('id'=>'ship_zip', 'maxlength'=>'10', 'class'=>'ship input ship_r
 					<?php echo form_input($b_address1).'<br/>'.form_input($b_address2);?>
 				</div>
 			</div>
+			<div class="form_wrap">
+				<div>
+					<?php echo lang('address_country');?><b class="r"> *</b><br/>
+					<?php echo form_dropdown('bill_country_id',$countries, @$customer['bill_address']['country_id'], 'id="bill_country_id" class="bill input bill_req"');?>
+				</div>
+				<div>
+					<?php echo lang('address_state');?><b class="r"> *</b><br/>
+					<?php echo form_dropdown('bill_zone_id',$bill_zone_menu, @$customer['bill_address']['zone_id'], 'id="bill_zone_id" class="bill input bill_req"');?>
+				</div>
+			</div>
 				
 			<div class="form_wrap">
 				<div>
@@ -373,16 +448,6 @@ $s_zip		= array('id'=>'ship_zip', 'maxlength'=>'10', 'class'=>'ship input ship_r
 					<?php echo form_input($b_zip);?>
 				</div>
 			</div>
-			<div class="form_wrap">
-				<div>
-					<?php echo lang('address_country');?><b class="r"> *</b><br/>
-					<?php echo form_dropdown('bill_country_id',$countries, @$customer['bill_address']['country_id'], 'id="bill_country_id" class="bill input bill_req"');?>
-				</div>
-				<div>
-					<?php echo lang('address_state');?><b class="r"> *</b><br/>
-					<?php echo form_dropdown('bill_zone_id',$bill_zone_menu, @$customer['bill_address']['zone_id'], 'id="bill_zone_id" class="bill input bill_req"');?>
-				</div>
-			</div>
 			<div class="clear"></div>
 		</div>
 		
@@ -392,6 +457,8 @@ $s_zip		= array('id'=>'ship_zip', 'maxlength'=>'10', 'class'=>'ship input ship_r
 	<table style="margin-top:10px;">
 		<tr>
 			<td><input type="button" value="<?php echo lang('form_continue');?>" onclick="save_customer()"/></td>
+			<td><input type="button" value="<?php echo lang('form_saveshippingaddress');?>" onclick="save_shipaddress()"/></td>
+			<td><input type="button" value="<?php echo lang('form_savebillingaddress');?>" onclick="save_billaddress()"/></td>
 			<td><img id="save_customer_loader" alt="loading" src="<?php echo base_url('images/ajax-loader.gif');?>" style="display:none;"/></td>
 		</tr>
 	</table>

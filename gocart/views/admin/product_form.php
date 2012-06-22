@@ -11,7 +11,7 @@ $(document).ready(function() {
 	$(".sortable").sortable();
 	$(".sortable > span").disableSelection();
 	//if the image already exists (phpcheck) enable the selector
-
+        
 	<?php if($id) : ?>
 	//options related
 	var ct	= $('#option_list').children().size();
@@ -31,6 +31,7 @@ $(document).ready(function() {
 	photos_sortable();
 });
 
+CostperSqftOption=<?php echo $costpersqft?> ;
 function add_product_image(data)
 {
 	p	= data.split('.');
@@ -93,6 +94,68 @@ function add_option(type)
 	}
 	
 }
+
+function add_csqftoption()
+{
+
+        // Add Width
+        //increase option_count by 1
+        option_count++;
+
+        $('#options_accordion').append('<?php add_option('Width(in Inches)', "'+option_count+'", "textfield",'true');?>');
+
+
+        //eliminate the add button if this is a text based option
+        $('#add_item_'+option_count).remove();
+    
+
+        add_csqftitem("Width","5" ,option_count);
+
+
+        // Add Height
+        //increase option_count by 1
+        option_count++;
+
+        $('#options_accordion').append('<?php add_option('Height(in Inches)', "'+option_count+'", "textfield",'true');?>');
+
+
+        //eliminate the add button if this is a text based option
+        $('#add_item_'+option_count).remove();
+
+        add_csqftitem("Height","6" ,option_count);
+
+        //reset the option_name field
+        $('#option_name').val('');
+        reset_accordion();
+		
+}
+
+function add_csqftitem(name,val, id)
+{
+	
+	var count = $('#option_items_'+id+'>li').size()+1;
+	
+	append_html = '';
+	
+	append_html += '<div style="margin:2px"><span><?php echo lang('name');?>: </span> <input class="req gc_tf2" type="text" name="option['+id+'][values]['+count+'][name]" value="'+name+'" /> '+
+	'<span><?php echo lang('value');?>: </span> <input class="req gc_tf2" type="text" name="option['+id+'][values]['+count+'][value]" value="'+val+'" /> '+
+	'<span><?php echo lang('weight');?>: </span> <input class="req gc_tf2" type="text" name="option['+id+'][values]['+count+'][weight]" value="" /> '+
+	'<span><?php echo lang('price');?>: </span> <input class="req gc_tf2" type="text" name="option['+id+'][values]['+count+'][price]" value="" />';
+
+	append_html += ' <span><?php echo lang('limit');?>: </span> <input class="req gc_tf2" type="text" name="option['+id+'][values]['+count+'][limit]" value="" />';
+
+	append_html += '</div> ';
+	
+	
+	$('#option_items_'+id).append(append_html);	
+	
+	$(".sortable").sortable();
+	$(".sortable > span").disableSelection();
+	
+	
+}
+
+
 
 function add_item(type, id)
 {
@@ -206,7 +269,7 @@ function delete_product_option(id)
 		<li><a href="#gc_product_categories"><?php echo lang('categories');?></a></li>
 		<li><a href="#gc_product_downloads"><?php echo lang('digital_content');?></a></li>
 		<li><a href="#gc_product_seo"><?php echo lang('seo');?></a></li>
-		<li><a href="#gc_product_options"><?php echo lang('options');?></a></li>
+		<li><a href="#gc_product_options" onclick='{ if( 0 == CostperSqftOption){if( 1 == $("select[name=\"costpersqft\"]").val()){CostperSqftOption = 1;add_csqftoption();}}}'><?php echo lang('options');?></a></li>
 		<li><a href="#gc_product_related"><?php echo lang('related_products');?></a></li>
 		<li><a href="#gc_product_photos"><?php echo lang('images');?></a></li>
 	</ul>
@@ -266,7 +329,7 @@ function delete_product_option(id)
 		echo form_input($data);
 		?>
 		</div>
-        <div class="gc_field2">
+            <div class="gc_field2">
 		<label for="slug"><?php echo lang('track_stock');?> </label>
 		<?php
 		 	$options = array(	 '1'	=> lang('track_stock')
@@ -281,6 +344,15 @@ function delete_product_option(id)
 		$data	= array('id'=>'quantity', 'name'=>'quantity', 'value'=>set_value('quantity', $quantity), 'class'=>'gc_tf1');
 		echo form_input($data);
 		?><small><?php echo lang('quantity_in_stock_note');?></small>
+		</div>
+		<div class="gc_field2">
+		<label for="costpersqft"><?php echo lang('costpersqft');?> </label>
+		<?php
+		$options = array(	 '1'	=> lang('yes')
+							,'0'	=> lang('no')
+							);
+			echo form_dropdown('costpersqft', $options, set_value('costpersqft',$costpersqft));
+		?>
 		</div>
 		<div class="gc_field2">
 		<label for="slug"><?php echo lang('shippable');?> </label>
@@ -608,7 +680,7 @@ function add_image($photo_id, $filename, $alt, $caption, $primary=false)
 	echo replace_newline($stuff);
 }
 
-function add_option($name, $option_id, $type)
+function add_option($name, $option_id, $type,$required='false')
 {
 	ob_start();
 	?>
@@ -621,7 +693,7 @@ function add_option($name, $option_id, $type)
 			<a onclick="remove_option(<?php echo $option_id ?>)" class="ui-state-default ui-corner-all" style="float:right;"><span class="ui-icon ui-icon-circle-minus"></span></a></span>
 			<input class="input gc_tf1" type="text" name="option[<?php echo $option_id;?>][name]" value="<?php echo $name;?>"/>
 			<input type="hidden" name="option[<?php echo $option_id;?>][type]" value="<?php echo $type;?>" />
-			<input class="checkbox" type="checkbox" name="option[<?php echo $option_id;?>][required]" value="1"/> <?php echo lang('required');?>
+			<input class="checkbox" type="checkbox" name="option[<?php echo $option_id;?>][required]" value="1" <?php if('true' == $required) echo 'checked="checked"'; ?>/> <?php echo lang('required');?>
 			
 	
 			<button id="add_item_<?php echo $option_id;?>" type="button" rel="<?php echo $type;?>"onclick="add_item($(this).attr(\'rel\'), <?php echo $option_id;?>);"><?php echo lang('add_item');?></button>
