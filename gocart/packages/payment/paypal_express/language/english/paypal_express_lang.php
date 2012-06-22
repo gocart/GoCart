@@ -1,5 +1,7 @@
 <?php
 
+$lang['paypal_express']				= 'PayPal Express';
+
 //paypal library messages
 $lang['paypal_error']				= 'There was an error processing your payment through PayPal';
 $lang['paypal_desc']				= 'You will be directed to the Paypal website to verify your payment. Once your payment is authorized, you will be directed back to our website and your order will be complete.';

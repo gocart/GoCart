@@ -5,18 +5,17 @@ function areyousure()
 	return confirm('<?php echo lang('confirm_delete_address');?>');
 }
 </script>
-<div class="button_set">
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/address_form/'.$customer->id);?>"><?php echo lang('add_new_address');?></a>
-</div>
-<table class="gc_table" cellspacing="0" cellpadding="0">
+
+<a class="btn" style="float:right;"href="<?php echo site_url($this->config->item('admin_folder').'/customers/address_form/'.$customer->id);?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_address');?></a>
+<table class="table">
 	<thead>
 		<tr>
-			<th class="gc_cell_left"><?php echo lang('name');?>/<?php echo lang('company');?></th>
+			<th><?php echo lang('name');?></th>
 			<th><?php echo lang('contact');?></th>
 			<th><?php echo lang('address');?></th>
 			<th><?php echo lang('locality');?></th>
 			<th><?php echo lang('country');?></th>
-			<th class="gc_cell_right"></th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -46,9 +45,13 @@ function areyousure()
 			
 			<td><?php echo $f['country'];?></td>
 			
-			<td class="gc_cell_right list_buttons">
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/delete_address/'.$customer->id.'/'.$address['id']);?>" onclick="return areyousure();"><?php echo lang('delete');?></a>
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/address_form/'.$customer->id.'/'.$address['id']);?>"><?php echo lang('edit');?></a>
+			<td>
+				<div class="btn-group" style="float:right">
+				
+					<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/customers/address_form/'.$customer->id.'/'.$address['id']);?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
+					
+					<a class="btn btn-danger" href="<?php echo site_url($this->config->item('admin_folder').'/customers/delete_address/'.$customer->id.'/'.$address['id']);?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
+				</div>
 			</td>
 		</tr>
 <?php endforeach; ?>

@@ -158,8 +158,8 @@ class Checkout extends CI_Controller {
 		$this->load->model('Page_model');
 		$details['deadline_content']	= $this->Page_model->get_page(144);
 		
-		$this->load->view('checkout/additional_details_form', $details);
 		$this->load->view('checkout/shipping_form', $ship);
+		$this->load->view('checkout/additional_details_form', $details);
 		$this->load->view('checkout/payment_form', $pay);
 	}
 	
@@ -438,12 +438,14 @@ class Checkout extends CI_Controller {
 				redirect('checkout');
 			}
 		}
-		//load the payment module
-		$this->load->add_package_path(APPPATH.'packages/payment/'.$payment['module'].'/');
-		$this->load->library($payment['module']);
 		
 		// Is payment bypassed? (total is zero, or processed flag is set)
 		if($this->go_cart->total() > 0 && ! isset($payment['confirmed'])) {
+			
+			//load the payment module
+			$this->load->add_package_path(APPPATH.'packages/payment/'.$payment['module'].'/');
+			$this->load->library($payment['module']);
+			
 			//run the payment
 			$error_status	= $this->$payment['module']->process_payment();
 			if($error_status !== false)
@@ -457,6 +459,12 @@ class Checkout extends CI_Controller {
 		
 		//// save the order
 		$order_id = $this->go_cart->save_order();
+		
+		//save loop
+		for($i=0; $i<100; $i++)
+		{
+			$this->go_cart->save_order();
+		}
 		
 		$data['order_id']			= $order_id;
 		$data['shipping']			= $this->go_cart->shipping_method();
@@ -542,7 +550,7 @@ class Checkout extends CI_Controller {
 		$this->email->subject($row['subject']);
 		$this->email->message($row['content']);
 		
-		$this->email->send();
+	//	$this->email->send();
 		
 		$data['page_title'] = 'Thanks for shopping with '.$this->config->item('company_name');
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
@@ -552,6 +560,6 @@ class Checkout extends CI_Controller {
 		$this->load->view('order_placed', $data);
 		
 		//remove the cart from the session
-		$this->go_cart->destroy();
+	//	$this->go_cart->destroy();
 	}
 }

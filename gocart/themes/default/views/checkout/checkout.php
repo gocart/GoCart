@@ -254,13 +254,13 @@ function update_summary()
 </div>
 
 <div id="summary_section">
-<?php  include('summary.php'); ?>
+	<?php  include('summary.php'); ?>
 </div>
 <div id="submit_button_container" style="display:none; text-align:center; padding-top:10px;">
-<form id="order_submit_form" action="<?php echo site_url('checkout/place_order'); ?>" method="post">
-<input type="hidden" name="process_order" value="true">
-<input style="padding:10px 15px; font-size:16px;" type="button" onclick="submit_payment_method()" value="<?php echo lang('submit_order');?>" />
-</form>
+	<form id="order_submit_form" action="<?php echo site_url('checkout/place_order'); ?>" method="post">
+		<input type="hidden" name="process_order" value="true">
+		<input style="padding:10px 15px; font-size:16px;" type="button" onclick="submit_payment_method()" value="<?php echo lang('submit_order');?>" />
+	</form>
 </div>
 
 <?php include(APPPATH.'themes/'.$this->config->item('theme').'/views/footer.php'); ?>

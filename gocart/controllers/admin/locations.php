@@ -26,7 +26,7 @@ class Locations extends Admin_Controller {
 		$this->Location_model->organize_countries($countries);
 	}
 	
-	function country_form($id = null)
+	function country_form($id = false)
 	{
 		$this->load->helper('form');
 		$this->load->library('form_validation');
@@ -92,7 +92,7 @@ class Locations extends Admin_Controller {
 	}
 
 	
-	function delete_country($id = null)
+	function delete_country($id = false)
 	{
 		if ($id)
 		{	
@@ -119,7 +119,7 @@ class Locations extends Admin_Controller {
 		}
 	}
 	
-	function delete_zone($id = null)
+	function delete_zone($id = false)
 	{
 		if ($id)
 		{	
@@ -162,7 +162,7 @@ class Locations extends Admin_Controller {
 		$this->load->view($this->config->item('admin_folder').'/country_zones', $data);
 	}
 	
-	function zone_form($id = null)
+	function zone_form($id = false)
 	{
 		$this->load->helper('form');
 		$this->load->library('form_validation');
@@ -243,7 +243,7 @@ class Locations extends Admin_Controller {
 		$this->load->view($this->config->item('admin_folder').'/country_zone_areas', $data);
 	}
 
-	function delete_zone_area($id = null)
+	function delete_zone_area($id = false)
 	{
 		if ($id)
 		{	

@@ -27,6 +27,7 @@ $lang['add_new_zone']				= 'Add New Zone';
 $lang['add_new_zone_area']			= 'Add New Zone Area';
 $lang['details']					= 'Details';
 $lang['enabled']					= 'Enabled';
+$lang['sort']						= 'Sort';
 
 $lang['error_country_not_found']	= 'The requested country could not be found.';
 $lang['message_saved_country']		= 'The country was saved.';

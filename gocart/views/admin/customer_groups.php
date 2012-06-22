@@ -8,45 +8,37 @@ function areyousure()
 
 </script>
 
-<div class="button_set">
-	<a href="<?php echo site_url( $this->config->item('admin_folder').'/customers/edit_group'); ?>"><?php echo lang('add_new_group');?></a>
-</div>
-
+<a class="btn" style="float:right;" href="<?php echo site_url( $this->config->item('admin_folder').'/customers/edit_group'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_group');?></a>
 	
-	<table class="gc_table">
+<table class="table table-striped">
 	<thead>
 		<tr>
 			<th><?php echo lang('group_name');?></th>
 			<th><?php echo lang('discount');?></th>
 			<th><?php echo lang('discount_type');?></th>
-			<th> </th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
 	
-	<?php 
-		if(isset($groups)) :
-			foreach ($groups as $group):?>
-				<tr id="group_<?php echo $group->id; ?>">
-					<td><?php echo $group->name;?></td>
-					<td><?php echo $group->discount ?></td>
-					<td><?php echo $group->discount_type ?></td>
-					<td class="list_buttons">
-						<?php 
-						// keep the default group from being deleted
-						if($group->id != 1) : ?>
-						<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/delete_group/'.$group->id); ?>" onclick="return areyousure();"><?php echo lang('delete');?></a>
-						<?php endif; ?>
-						<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/edit_group/'.$group->id); ?>"><?php echo lang('edit');?></a>
-					</td>
-				</tr>
-			<?php endforeach; ?>
-		<?php endif; ?>
-		</tbody>
-	</table>
+	<?php foreach ($groups as $group):?>
+	<tr>
+		<td><?php echo $group->name;?></td>
+		<td><?php echo $group->discount ?></td>
+		<td><?php echo $group->discount_type ?></td>
+		<td>
+			<div class="btn-group" style="float:right;">
 
+				<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/customers/edit_group/'.$group->id); ?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
+				
+				<?php if($group->id != 1) : ?>
+				<a class="btn btn-danger" href="<?php echo site_url($this->config->item('admin_folder').'/customers/delete_group/'.$group->id); ?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
+				<?php endif; ?>
+			</div>
+		</td>
+	</tr>
+	<?php endforeach; ?>
+	</tbody>
+</table>
 
-</div>
-
-
-<?php include('footer.php') ?>
+<?php include('footer.php');

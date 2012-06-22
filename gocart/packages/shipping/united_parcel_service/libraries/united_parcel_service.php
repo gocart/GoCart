@@ -53,8 +53,8 @@ class United_parcel_service
 		$insured_value 		= $this->CI->go_cart->order_insurable_value();
 		
 		// shipping address will always be there
-		$destination_zip 		= $customer['ship_address']['zip'];
-		$destination_country 	= $customer['ship_address']['country_code'];
+		$destination_zip 	= $customer['ship_address']['zip'];
+		
 		
 		$data ="<?xml version='1.0'?>
 					<AccessRequest xml:lang='en-US'>
@@ -84,7 +84,6 @@ class United_parcel_service
 							<ShipTo>
 								<Address>
 									<PostalCode>$destination_zip</PostalCode>
-									<CountryCode>$destination_country</CountryCode>
 								</Address>
 							</ShipTo>
 							<Package>
@@ -146,15 +145,7 @@ class United_parcel_service
                 	$shipping_choices[$k] = $amount;
                 }
             }
-			
-			if(!empty($shipping_choices))
-			{
-				return $shipping_choices;
-			}
-			else
-			{
-				return array();
-			}
+            return $shipping_choices;
         }
         else
         {	
@@ -213,43 +204,39 @@ class United_parcel_service
 			$enabled	= $post['enabled'];
 		}
 		
-		$form	= '<table cellspacing=5><tr><td>'.lang('account').': </td><td><input type="text" name="ups_account_username" value="'.$username.'" class="gc_tf1"/></td></tr>
-		<tr><td>'.lang('password').': </td><td><input type="text" name="ups_account_password" value="'.$password.'" class="gc_tf1"/></td></tr>
-		<tr><td>'.lang('key').': </td><td><input type="text" name="access_key" value="'.$access_key.'" class="gc_tf1"/></td></tr>
-		<tr><td valign="top">'.lang('services').': </td><td>';
+		ob_start();
+		?>
 
-            
-         foreach($this->ups_services as $id=>$opt)
-         {
-         	$form .= "<input type='checkbox' name='services[]' value='$id' ";
-         	if(in_array($id, $services)) $form .= "checked='checked'";
-         	$form .= "> $opt <br />";
-         }
-		
-		$form .='</td></tr>';
-		
-		$form .= '</td></tr><tr><td>'.lang('fee').': </td><td>';
-		
-		$form .= form_dropdown('handling_method', array('$'=>'$', '%'=>'%'), $handling_method);
-		
-		$form .= ' '. form_input('handling_amount', $handling_amount, 'class="gc_tf1"');
-		
-		$form .= '<tr><td>'.lang('enabled').': </td><td><select name="enabled">';
-		
-		$enabledtxt		= '';
-		$disabledtxt	= '';
-		if($enabled == 1)
-		{
-			$enabledtxt		= ' selected="selected"';
-		}
-		else
-		{
-			$disabledtxt	= ' selected="selected"';
-		}
-		$form	.= '<option value="1"'.$enabledtxt.'>'.lang('enabled').'</option>
-		<option value="0"'.$disabledtxt.'>'.lang('disabled').'</option>';
-		$form	.= '</select></td></tr>
-		</table>';
+		<label><?php echo lang('account');?></label>
+		<?php echo form_input('ups_account_username', $username, 'class="span3"');?>
+
+		<label><?php echo lang('password');?></label>
+		<?php echo form_input('ups_account_password', $password, 'class="span3"');?>
+
+		<label><?php echo lang('key');?></label>
+		<?php echo form_input('access_key', $access_key, 'class="span3"');?>
+
+
+		<label><?php echo lang('services');?></label>
+
+		<?php  foreach($this->ups_services as $id=>$opt):?>
+		<label class="checkbox">
+			<input type="checkbox" name="service[]" value="<?php echo $id;?>" <?php echo (in_array($id, $services))?'checked="checked"':'';?> />
+			<?php echo $opt;?>
+		</label>
+		<?php endforeach;?>
+
+		<label><?php echo lang('fee');?></label>
+		<?php echo form_dropdown('handling_method', array('$'=>'$', '%'=>'%'), $handling_method, 'class="span1"');?>
+		<?php echo form_input('handling_amount', $handling_amount, 'class="span3"');?>
+
+		<label><?php echo lang('enabled');?></label>
+		<?php echo form_dropdown('enabled', array(lang('disabled'), lang('enabled')), $enabled, 'class="span3"');?>
+
+		<?php
+		$form =ob_get_contents();
+		ob_end_clean();
+
 		return $form;
 	}
 	
@@ -276,4 +263,4 @@ class United_parcel_service
 		}
 	}
 	
-}
+} 

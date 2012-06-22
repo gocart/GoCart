@@ -20,3 +20,5 @@ $lang['message_box_saved']	= 'The box has been saved!';
 $lang['date_error']			= 'The "Disable On" date cannot come on or before the "Enable On" date.';
 $lang['box_form']			= 'Box Form';
 $lang['message_delete_box']	= 'The box has been deleted.';
+$lang['sort']				= 'Sort';
+$lang['sort_boxes']			= 'Boxes are sortable! Just drag and drop them in the order you would like for them to appear.';

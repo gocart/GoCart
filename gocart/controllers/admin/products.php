@@ -16,12 +16,99 @@ class Products extends Admin_Controller {
 		$this->lang->load('product');
 	}
 
-	function index()
+	function index($order_by="name", $sort_order="ASC", $code=0, $page=0, $rows=15)
 	{
+		
 		$data['page_title']	= lang('products');
-		$data['products']	= $this->Product_model->get_products();
+		
+		$data['code']		= $code;
+		$term				= false;
+		$category_id		= false;
+		
+		//get the category list for the drop menu
+		$data['categories']	= $this->Category_model->get_categories_tierd();
+		
+		$post				= $this->input->post(null, false);
+		$this->load->model('Search_model');
+		if($post)
+		{
+			$term			= json_encode($post);
+			$code			= $this->Search_model->record_term($term);
+			$data['code']	= $code;
+		}
+		elseif ($code)
+		{
+			$term			= $this->Search_model->get_term($code);
+		}
+		
+		//store the search term
+		$data['term']		= $term;
+		$data['order_by']	= $order_by;
+		$data['sort_order']	= $sort_order;
+		
+		$data['products']	= $this->Product_model->products(array('term'=>$term, 'order_by'=>$order_by, 'sort_order'=>$sort_order, 'rows'=>$rows, 'page'=>$page));
 
+		//total number of products
+		$data['total']		= $this->Product_model->products(array('term'=>$term, 'order_by'=>$order_by, 'sort_order'=>$sort_order), true);
+
+		
+		$this->load->library('pagination');
+		
+		$config['base_url']			= site_url($this->config->item('admin_folder').'/products/index/'.$order_by.'/'.$sort_order.'/'.$code.'/');
+		$config['total_rows']		= $data['total'];
+		$config['per_page']			= $rows;
+		$config['uri_segment']		= 7;
+		$config['first_link']		= 'First';
+		$config['first_tag_open']	= '<li>';
+		$config['first_tag_close']	= '</li>';
+		$config['last_link']		= 'Last';
+		$config['last_tag_open']	= '<li>';
+		$config['last_tag_close']	= '</li>';
+
+		$config['full_tag_open']	= '<div class="pagination"><ul>';
+		$config['full_tag_close']	= '</ul></div>';
+		$config['cur_tag_open']		= '<li class="active"><a href="#">';
+		$config['cur_tag_close']	= '</a></li>';
+		
+		$config['num_tag_open']		= '<li>';
+		$config['num_tag_close']	= '</li>';
+		
+		$config['prev_link']		= '&laquo;';
+		$config['prev_tag_open']	= '<li>';
+		$config['prev_tag_close']	= '</li>';
+
+		$config['next_link']		= '&raquo;';
+		$config['next_tag_open']	= '<li>';
+		$config['next_tag_close']	= '</li>';
+		
+		$this->pagination->initialize($config);
+		
 		$this->load->view($this->config->item('admin_folder').'/products', $data);
+	}
+	
+	//basic category search
+	function product_autocomplete()
+	{
+		$name	= trim($this->input->post('name'));
+		$limit	= $this->input->post('limit');
+		
+		if(empty($name))
+		{
+			echo json_encode(array());
+		}
+		else
+		{
+			$results	= $this->Product_model->product_autocomplete($name, $limit);
+			
+			$return		= array();
+			
+			foreach($results as $r)
+			{
+				$return[$r->id]	= $r->name;
+			}
+			echo json_encode($return);
+		}
+		
 	}
 	
 	function bulk_save()
@@ -44,7 +131,7 @@ class Products extends Admin_Controller {
 		redirect($this->config->item('admin_folder').'/products');
 	}
 	
-	function form($id = null, $duplicate = false)
+	function form($id = false, $duplicate = false)
 	{
 		$this->product_id	= $id;
 		$this->load->library('form_validation');
@@ -52,8 +139,8 @@ class Products extends Admin_Controller {
 		$this->lang->load('digital_product');
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
-		$data['categories']		= $this->Category_model->get_categories_tierd();
-		$data['product_list']	= $this->Product_model->get_products();
+		//$data['categories']		= $this->Category_model->get_categories_tierd();
+		//$data['product_list']	= $this->Product_model->get_products();
 		$data['file_list']		= $this->Digital_Product_model->get_list();
 
 		$data['page_title']		= lang('product_form');
@@ -130,7 +217,7 @@ class Products extends Admin_Controller {
 			if(!$this->input->post('submit'))
 			{
 				$data['product_categories']	= $product->categories;
-				$data['related_products']	= json_decode($product->related_products);
+				$data['related_products']	= $product->related_products;
 				$data['images']				= (array)json_decode($product->images);
 			}
 		}
@@ -398,7 +485,7 @@ class Products extends Admin_Controller {
 		$this->load->view($this->config->item('admin_folder').'/iframe/product_image_uploader', $data);
 	}
 	
-	function delete($id = null)
+	function delete($id = false)
 	{
 		if ($id)
 		{	
