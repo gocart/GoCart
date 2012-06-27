@@ -97,7 +97,13 @@ class Cart extends CI_Controller {
 			$term	= $this->Search_model->get_term($code);
 		}
 		
-		
+		if(empty($term))
+		{
+			//if there is still no search term throw an error
+			//if there is still no search term throw an error
+			$this->session->set_flashdata('error', lang('search_error'));
+			redirect('cart');
+		}
 		$data['page_title']			= lang('search');
 		$data['gift_cards_enabled']	= $this->gift_cards_enabled;
 		
