@@ -20,8 +20,10 @@ class Categories extends Admin_Controller {
 		$data['page_title']	= lang('categories');
 		$data['categories']	= $this->Category_model->get_categories_tierd();
 		
-		$this->load->view($this->config->item('admin_folder').'/categories', $data);
+		$this->load->view(ADMIN_AREA.'/categories', $data);
 	}
+
+	//--------------------------------------------------------------------
 	
 	//basic category search
 	function category_autocomplete()
@@ -29,11 +31,11 @@ class Categories extends Admin_Controller {
 		$name	= trim($this->input->post('name'));
 		$limit	= $this->input->post('limit');
 		
-		if(empty($name))
-		{
-			echo json_encode(array());
-		}
-		else
+		$this->output->set_content_type('application/json');
+
+		$return = array();
+
+		if( ! empty($name))
 		{
 			$results	= $this->Category_model->category_autocomplete($name, $limit);
 			
@@ -41,11 +43,12 @@ class Categories extends Admin_Controller {
 			foreach($results as $r)
 			{
 				$return[$r->id]	= $r->name;
-			}
-			echo json_encode($return);
+			}			
 		}
-		
-	}
+
+		$this->output->set_output(json_encode($return));		
+	}//end category_autocomplete()
+
 	
 	function organize($id = false)
 	{
@@ -55,7 +58,7 @@ class Categories extends Admin_Controller {
 		if (!$id)
 		{
 			$this->session->set_flashdata('error', lang('error_must_select'));
-			redirect($this->config->item('admin_folder').'/categories');
+			redirect(ADMIN_AREA.'/categories');
 		}
 		
 		$data['category']		= $this->Category_model->get_category($id);
@@ -63,14 +66,14 @@ class Categories extends Admin_Controller {
 		if (!$data['category'])
 		{
 			$this->session->set_flashdata('error', lang('error_not_found'));
-			redirect($this->config->item('admin_folder').'/categories');
+			redirect(ADMIN_AREA.'/categories');
 		}
 			
 		$data['page_title']		= sprintf(lang('organize_category'), $data['category']->name);
 		
 		$data['category_products']	= $this->Category_model->get_category_products_admin($id);
 		
-		$this->load->view($this->config->item('admin_folder').'/organize_category', $data);
+		$this->load->view(ADMIN_AREA.'/organize_category', $data);
 	}
 	
 	function process_organization($id)
@@ -122,7 +125,7 @@ class Categories extends Admin_Controller {
 			if (!$category)
 			{
 				$this->session->set_flashdata('error', lang('error_not_found'));
-				redirect($this->config->item('admin_folder').'/categories');
+				redirect(ADMIN_AREA.'/categories');
 			}
 			
 			//helps us with the slug generation
@@ -156,7 +159,7 @@ class Categories extends Admin_Controller {
 		// validate the form
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/category_form', $data);
+			$this->load->view(ADMIN_AREA.'/category_form', $data);
 		}
 		else
 		{
@@ -198,7 +201,7 @@ class Categories extends Admin_Controller {
 					if($error != lang('error_file_upload'))
 					{
 						$data['error']	.= $this->upload->display_errors();
-						$this->load->view($this->config->item('admin_folder').'/category_form', $data);
+						$this->load->view(ADMIN_AREA.'/category_form', $data);
 						return; //end script here if there is an error
 					}
 				}
@@ -297,7 +300,7 @@ class Categories extends Admin_Controller {
 			$this->session->set_flashdata('message', lang('message_category_saved'));
 			
 			//go back to the category list
-			redirect($this->config->item('admin_folder').'/categories');
+			redirect(ADMIN_AREA.'/categories');
 		}
 	}
 
@@ -314,7 +317,7 @@ class Categories extends Admin_Controller {
 			$this->Category_model->delete($id);
 			
 			$this->session->set_flashdata('message', lang('message_delete_category'));
-			redirect($this->config->item('admin_folder').'/categories');
+			redirect(ADMIN_AREA.'/categories');
 		}
 		else
 		{

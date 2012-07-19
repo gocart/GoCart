@@ -17,7 +17,7 @@ class Locations extends Admin_Controller {
 		$data['page_title']	= lang('countries');
 		$data['locations']	= $this->Location_model->get_countries();
 		
-		$this->load->view($this->config->item('admin_folder').'/countries', $data);
+		$this->load->view(ADMIN_AREA.'/countries', $data);
 	}
 	
 	function organize_countries()
@@ -53,7 +53,7 @@ class Locations extends Admin_Controller {
 			if (!$country)
 			{
 				$this->session->set_flashdata('error', lang('error_country_not_found'));
-				redirect($this->config->item('admin_folder').'/locations');
+				redirect(ADMIN_AREA.'/locations');
 			}
 			
 			$data	= array_merge($data, $country);
@@ -69,7 +69,7 @@ class Locations extends Admin_Controller {
 	
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/country_form', $data);
+			$this->load->view(ADMIN_AREA.'/country_form', $data);
 		}
 		else
 		{
@@ -87,7 +87,7 @@ class Locations extends Admin_Controller {
 			$this->session->set_flashdata('message', lang('message_saved_country'));
 			
 			//go back to the product list
-			redirect($this->config->item('admin_folder').'/locations');
+			redirect(ADMIN_AREA.'/locations');
 		}
 	}
 
@@ -101,21 +101,21 @@ class Locations extends Admin_Controller {
 			if (!$location)
 			{
 				$this->session->set_flashdata('error', lang('error_country_not_found'));
-				redirect($this->config->item('admin_folder').'/locations');
+				redirect(ADMIN_AREA.'/locations');
 			}
 			else
 			{
 				$this->Location_model->delete_country($id);
 				
 				$this->session->set_flashdata('message', lang('message_deleted_country'));
-				redirect($this->config->item('admin_folder').'/locations');
+				redirect(ADMIN_AREA.'/locations');
 			}
 		}
 		else
 		{
 			//if they do not provide an id send them to the promo list page with an error
 			$this->session->set_flashdata('error', lang('error_country_not_found'));
-			redirect($this->config->item('admin_folder').'/locations');
+			redirect(ADMIN_AREA.'/locations');
 		}
 	}
 	
@@ -128,21 +128,21 @@ class Locations extends Admin_Controller {
 			if (!$location)
 			{
 				$this->session->set_flashdata('error', lang('error_zone_not_found'));
-				redirect($this->config->item('admin_folder').'/locations');
+				redirect(ADMIN_AREA.'/locations');
 			}
 			else
 			{
 				$this->Location_model->delete_zone($id);
 				
 				$this->session->set_flashdata('message', lang('message_deleted_zone'));
-				redirect($this->config->item('admin_folder').'/locations/zones/'.$location->country_id);
+				redirect(ADMIN_AREA.'/locations/zones/'.$location->country_id);
 			}
 		}
 		else
 		{
 			//if they do not provide an id send them to the promo list page with an error
 			$this->session->set_flashdata('error', lang('error_zone_not_found'));
-			redirect($this->config->item('admin_folder').'/locations');
+			redirect(ADMIN_AREA.'/locations');
 		}
 	}
 	
@@ -153,13 +153,13 @@ class Locations extends Admin_Controller {
 		if(!$data['country'])
 		{
 			$this->session->set_flashdata('error', lang('error_zone_not_found'));
-			redirect($this->config->item('admin_folder').'/locations');
+			redirect(ADMIN_AREA.'/locations');
 		}
 		$data['zones']	= $this->Location_model->get_zones($country_id);
 		
 		$data['page_title']	= sprintf(lang('country_zones'), $data['country']->name);
 
-		$this->load->view($this->config->item('admin_folder').'/country_zones', $data);
+		$this->load->view(ADMIN_AREA.'/country_zones', $data);
 	}
 	
 	function zone_form($id = false)
@@ -188,7 +188,7 @@ class Locations extends Admin_Controller {
 			if (!$zone)
 			{
 				$this->session->set_flashdata('error', lang('error_zone_not_found'));
-				redirect($this->config->item('admin_folder').'/locations');
+				redirect(ADMIN_AREA.'/locations');
 			}
 			
 			$data	= array_merge($data, $zone);
@@ -202,7 +202,7 @@ class Locations extends Admin_Controller {
 	
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/country_zone_form', $data);
+			$this->load->view(ADMIN_AREA.'/country_zone_form', $data);
 		}
 		else
 		{
@@ -217,7 +217,7 @@ class Locations extends Admin_Controller {
 			
 			$this->session->set_flashdata('message', lang('message_zone_saved'));
 			//go back to the product list
-			redirect($this->config->item('admin_folder').'/locations/zones/'.$save['country_id']);
+			redirect(ADMIN_AREA.'/locations/zones/'.$save['country_id']);
 		}
 	}
 	
@@ -240,7 +240,7 @@ class Locations extends Admin_Controller {
 		
 		$data['page_title']		= sprintf(lang('zone_areas_for'), $data['zone']->name);
 		
-		$this->load->view($this->config->item('admin_folder').'/country_zone_areas', $data);
+		$this->load->view(ADMIN_AREA.'/country_zone_areas', $data);
 	}
 
 	function delete_zone_area($id = false)
@@ -252,21 +252,21 @@ class Locations extends Admin_Controller {
 			if (!$location)
 			{
 				$this->session->set_flashdata('error', lang('error_zone_area_not_found'));
-				redirect($this->config->item('admin_folder').'/locations');
+				redirect(ADMIN_AREA.'/locations');
 			}
 			else
 			{
 				$this->Location_model->delete_zone_area($id);
 				
 				$this->session->set_flashdata('message', lang('message_deleted_zone_area'));
-				redirect($this->config->item('admin_folder').'/locations/zone_areas/'.$location->zone_id);
+				redirect(ADMIN_AREA.'/locations/zone_areas/'.$location->zone_id);
 			}
 		}
 		else
 		{
 			//if they do not provide an id send them to the promo list page with an error
 			$this->session->set_flashdata('error', lang('error_zone_area_not_found'));
-			redirect($this->config->item('admin_folder').'/locations/');
+			redirect(ADMIN_AREA.'/locations/');
 		}
 	}
 		
@@ -294,7 +294,7 @@ class Locations extends Admin_Controller {
 			if (!$area)
 			{
 				$this->session->set_flashdata('error', lang('error_zone_area_not_found'));
-				redirect($this->config->item('admin_folder').'/locations/zone_areas/'.$zone_id);
+				redirect(ADMIN_AREA.'/locations/zone_areas/'.$zone_id);
 			}
 
 			$data	= array_merge($data, $area);
@@ -305,7 +305,7 @@ class Locations extends Admin_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/country_zone_area_form', $data);
+			$this->load->view(ADMIN_AREA.'/country_zone_area_form', $data);
 		}
 		else
 		{
@@ -319,7 +319,7 @@ class Locations extends Admin_Controller {
 			$this->session->set_flashdata('message', lang('message_saved_zone_area'));
 
 			//go back to the product list
-			redirect($this->config->item('admin_folder').'/locations/zone_areas/'.$save['zone_id']);
+			redirect(ADMIN_AREA.'/locations/zone_areas/'.$save['zone_id']);
 		}
 	}
 }

@@ -7,9 +7,9 @@ function areyousure()
 </script>
 
 <div class="btn-group" style="float:right;">
-	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/locations/country_form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_country');?></a>
-	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/locations/zone_form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_zone');?></a>
-	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/locations/zone_area_form/'.$zone->id);?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_zone_area');?></a>
+	<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/locations/country_form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_country');?></a>
+	<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/locations/zone_form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_zone');?></a>
+	<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/locations/zone_area_form/'.$zone->id);?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_zone_area');?></a>
 </div>
 
 <table class="table table-striped" cellspacing="0" cellpadding="0">
@@ -27,8 +27,8 @@ function areyousure()
 			<td><?php echo $location->tax+0;?>%</td>
 			<td>
 				<div class="btn-group" style="float:right;">
-					<a class="btn" href="<?php echo  site_url($this->config->item('admin_folder').'/locations/zone_area_form/'.$zone->id.'/'.$location->id); ?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
-					<a class="btn btn-danger" href="<?php echo  site_url($this->config->item('admin_folder').'/locations/delete_zone_area/'.$location->id); ?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
+					<a class="btn" href="<?php echo  site_url(ADMIN_AREA.'/locations/zone_area_form/'.$zone->id.'/'.$location->id); ?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
+					<a class="btn btn-danger" href="<?php echo  site_url(ADMIN_AREA.'/locations/delete_zone_area/'.$location->id); ?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
 				</div>
 			</td>
 	  </tr>

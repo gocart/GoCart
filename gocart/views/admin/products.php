@@ -65,7 +65,7 @@ function areyousure()
 				<?php echo $this->pagination->create_links();?>	&nbsp;
 			</div>
 			<div class="span8">
-				<?php echo form_open($this->config->item('admin_folder').'/products/index', 'class="form-inline" style="float:right"');?>
+				<?php echo form_open(ADMIN_AREA.'/products/index', 'class="form-inline" style="float:right"');?>
 					<fieldset>
 						<?php
 						
@@ -94,7 +94,7 @@ function areyousure()
 						
 						<input type="text" class="span2" name="term" placeholder="<?php echo lang('search_term');?>" /> 
 						<button class="btn" name="submit" value="search"><?php echo lang('search')?></button>
-						<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/products/index');?>">Reset</a>
+						<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/products/index');?>">Reset</a>
 					</fieldset>
 				</form>
 			</div>
@@ -104,20 +104,20 @@ function areyousure()
 <div class="btn-group pull-right">
 </div>
 
-<?php echo form_open($this->config->item('admin_folder').'/products/bulk_save', array('id'=>'bulk_form'));?>
+<?php echo form_open(ADMIN_AREA.'/products/bulk_save', array('id'=>'bulk_form'));?>
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th><?php echo sort_url('sku', 'sku', $order_by, $sort_order, $code, $this->config->item('admin_folder'));?></th>
-				<th><?php echo sort_url('name', 'name', $order_by, $sort_order, $code, $this->config->item('admin_folder'));?></th>
-				<th><?php echo sort_url('price', 'price', $order_by, $sort_order, $code, $this->config->item('admin_folder'));?></th>
-				<th><?php echo sort_url('saleprice', 'saleprice', $order_by, $sort_order, $code, $this->config->item('admin_folder'));?></th>
-				<th><?php echo sort_url('quantity', 'quantity', $order_by, $sort_order, $code, $this->config->item('admin_folder'));?></th>
-				<th><?php echo sort_url('enabled', 'enabled', $order_by, $sort_order, $code, $this->config->item('admin_folder'));?></th>
+				<th><?php echo sort_url('sku', 'sku', $order_by, $sort_order, $code, ADMIN_AREA);?></th>
+				<th><?php echo sort_url('name', 'name', $order_by, $sort_order, $code, ADMIN_AREA);?></th>
+				<th><?php echo sort_url('price', 'price', $order_by, $sort_order, $code, ADMIN_AREA);?></th>
+				<th><?php echo sort_url('saleprice', 'saleprice', $order_by, $sort_order, $code, ADMIN_AREA);?></th>
+				<th><?php echo sort_url('quantity', 'quantity', $order_by, $sort_order, $code, ADMIN_AREA);?></th>
+				<th><?php echo sort_url('enabled', 'enabled', $order_by, $sort_order, $code, ADMIN_AREA);?></th>
 				<th>
 					<span class="btn-group pull-right">
 						<button class="btn" href="#"><i class="icon-ok"></i> <?php echo lang('bulk_save');?></button>
-						<a class="btn" style="font-weight:normal;"href="<?php echo site_url($this->config->item('admin_folder').'/products/form');?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_product');?></a>
+						<a class="btn" style="font-weight:normal;"href="<?php echo site_url(ADMIN_AREA.'/products/form');?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_product');?></a>
 					</span>
 				</th>
 			</tr>
@@ -143,9 +143,9 @@ function areyousure()
 				</td>
 				<td>
 					<span class="btn-group pull-right">
-						<a class="btn" href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$product->id);?>"><i class="icon-pencil"></i>  <?php echo lang('edit');?></a>
-						<a class="btn" href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$product->id.'/1');?>"><i class="icon-share-alt"></i> <?php echo lang('copy');?></a>
-						<a class="btn btn-danger" href="<?php echo  site_url($this->config->item('admin_folder').'/products/delete/'.$product->id);?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
+						<a class="btn" href="<?php echo  site_url(ADMIN_AREA.'/products/form/'.$product->id);?>"><i class="icon-pencil"></i>  <?php echo lang('edit');?></a>
+						<a class="btn" href="<?php echo  site_url(ADMIN_AREA.'/products/form/'.$product->id.'/1');?>"><i class="icon-share-alt"></i> <?php echo lang('copy');?></a>
+						<a class="btn btn-danger" href="<?php echo  site_url(ADMIN_AREA.'/products/delete/'.$product->id);?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
 					</span>
 				</td>
 			</tr>

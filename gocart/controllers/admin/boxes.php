@@ -18,14 +18,14 @@ class Boxes extends Admin_Controller
 		$data['boxes']		= $this->Box_model->get_boxes();
 		$data['page_title']	= lang('boxes');
 		
-		$this->load->view($this->config->item('admin_folder').'/boxes', $data);
+		$this->load->view(ADMIN_AREA.'/boxes', $data);
 	}
 	
 	function delete($id)
 	{
 		$this->Box_model->delete($id);
 		$this->session->set_flashdata('message', lang('message_delete_box'));
-		redirect($this->config->item('admin_folder').'/boxes');
+		redirect(ADMIN_AREA.'/boxes');
 	}
 	
 	/********************************************************************
@@ -80,7 +80,7 @@ class Boxes extends Admin_Controller
 		if ($this->form_validation->run() == false)
 		{
 			$data['error'] = validation_errors();
-			$this->load->view($this->config->item('admin_folder').'/box_form', $data);
+			$this->load->view(ADMIN_AREA.'/box_form', $data);
 		}
 		else
 		{	
@@ -118,7 +118,7 @@ class Boxes extends Admin_Controller
 				if(!$uploaded)
 				{
 					$data['error']	= $this->upload->display_errors();
-					$this->load->view($this->config->item('admin_folder').'/box_form', $data);
+					$this->load->view(ADMIN_AREA.'/box_form', $data);
 					return; //end script here if there is an error
 				}
 			}
@@ -133,7 +133,7 @@ class Boxes extends Admin_Controller
 			
 			$this->session->set_flashdata('message', lang('message_box_saved'));
 			
-			redirect($this->config->item('admin_folder').'/boxes');
+			redirect(ADMIN_AREA.'/boxes');
 		}	
 	}
 	

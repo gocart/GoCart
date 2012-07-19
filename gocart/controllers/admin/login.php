@@ -20,7 +20,7 @@ class Login extends CI_Controller {
 		//if they are logged in, we send them back to the dashboard by default, if they are not logging in
 		if ($redirect)
 		{
-			redirect($this->config->item('admin_folder').'/dashboard');
+			redirect(ADMIN_AREA.'/dashboard');
 		}
 		
 		
@@ -38,7 +38,7 @@ class Login extends CI_Controller {
 			{
 				if ($redirect == '')
 				{
-					$redirect = $this->config->item('admin_folder').'/dashboard';
+					$redirect = ADMIN_AREA.'/dashboard';
 				}
 				redirect($redirect);
 			}
@@ -47,10 +47,10 @@ class Login extends CI_Controller {
 				//this adds the redirect back to flash data if they provide an incorrect credentials
 				$this->session->set_flashdata('redirect', $redirect);
 				$this->session->set_flashdata('error', lang('error_authentication_failed'));
-				redirect($this->config->item('admin_folder').'/login');
+				redirect(ADMIN_AREA.'/login');
 			}
 		}
-		$this->load->view($this->config->item('admin_folder').'/login', $data);
+		$this->load->view(ADMIN_AREA.'/login', $data);
 	}
 	
 	function logout()
@@ -59,7 +59,7 @@ class Login extends CI_Controller {
 		
 		//when someone logs out, automatically redirect them to the login page.
 		$this->session->set_flashdata('message', lang('message_logged_out'));
-		redirect($this->config->item('admin_folder').'/login');
+		redirect(ADMIN_AREA.'/login');
 	}
 
 }

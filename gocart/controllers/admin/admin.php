@@ -20,7 +20,7 @@ class Admin extends Admin_Controller
 		$data['page_title']	= lang('admins');
 		$data['admins']		= $this->auth->get_admin_list();
 
-		$this->load->view($this->config->item('admin_folder').'/admins', $data);
+		$this->load->view(ADMIN_AREA.'/admins', $data);
 	}
 	function delete($id)
 	{
@@ -28,13 +28,13 @@ class Admin extends Admin_Controller
 		if ($this->current_admin['id'] == $id)
 		{
 			$this->session->set_flashdata('message', lang('error_self_delete'));
-			redirect($this->config->item('admin_folder').'/admin');	
+			redirect(ADMIN_AREA.'/admin');	
 		}
 		
 		//delete the user
 		$this->auth->delete($id);
 		$this->session->set_flashdata('message', lang('message_user_deleted'));
-		redirect($this->config->item('admin_folder').'/admin');
+		redirect(ADMIN_AREA.'/admin');
 	}
 	function form($id = false)
 	{
@@ -61,7 +61,7 @@ class Admin extends Admin_Controller
 			if (!$admin)
 			{
 				$this->session->set_flashdata('message', lang('admin_not_found'));
-				redirect($this->config->item('admin_folder').'/admin');
+				redirect(ADMIN_AREA.'/admin');
 			}
 			//set values to db values
 			$data['id']			= $admin->id;
@@ -85,7 +85,7 @@ class Admin extends Admin_Controller
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/admin_form', $data);
+			$this->load->view(ADMIN_AREA.'/admin_form', $data);
 		}
 		else
 		{
@@ -105,7 +105,7 @@ class Admin extends Admin_Controller
 			$this->session->set_flashdata('message', lang('message_user_saved'));
 			
 			//go back to the customer list
-			redirect($this->config->item('admin_folder').'/admin');
+			redirect(ADMIN_AREA.'/admin');
 		}
 	}
 	

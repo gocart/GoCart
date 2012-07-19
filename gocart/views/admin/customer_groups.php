@@ -8,7 +8,7 @@ function areyousure()
 
 </script>
 
-<a class="btn" style="float:right;" href="<?php echo site_url( $this->config->item('admin_folder').'/customers/edit_group'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_group');?></a>
+<a class="btn" style="float:right;" href="<?php echo site_url( ADMIN_AREA.'/customers/edit_group'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_group');?></a>
 	
 <table class="table table-striped">
 	<thead>
@@ -29,10 +29,10 @@ function areyousure()
 		<td>
 			<div class="btn-group" style="float:right;">
 
-				<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/customers/edit_group/'.$group->id); ?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
+				<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/customers/edit_group/'.$group->id); ?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
 				
 				<?php if($group->id != 1) : ?>
-				<a class="btn btn-danger" href="<?php echo site_url($this->config->item('admin_folder').'/customers/delete_group/'.$group->id); ?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
+				<a class="btn btn-danger" href="<?php echo site_url(ADMIN_AREA.'/customers/delete_group/'.$group->id); ?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
 				<?php endif; ?>
 			</div>
 		</td>

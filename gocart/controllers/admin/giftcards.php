@@ -32,7 +32,7 @@ class Giftcards extends Admin_Controller {
 			$data['gift_cards']['enabled'] = false;
 		}
 		
-		$this->load->view($this->config->item('admin_folder').'/giftcards', $data);
+		$this->load->view(ADMIN_AREA.'/giftcards', $data);
 		
 	}
 	
@@ -49,7 +49,7 @@ class Giftcards extends Admin_Controller {
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/giftcard_form', $data);
+			$this->load->view(ADMIN_AREA.'/giftcard_form', $data);
 		}
 		else
 		{
@@ -97,7 +97,7 @@ class Giftcards extends Admin_Controller {
 			
 			$this->session->set_flashdata('message', lang('message_saved_giftcard'));
 			
-			redirect($this->config->item('admin_folder').'/giftcards');
+			redirect(ADMIN_AREA.'/giftcards');
 		}
 		
 	}
@@ -107,7 +107,7 @@ class Giftcards extends Admin_Controller {
 		$this->Gift_card_model->activate($code);
 		$this->Gift_card_model->send_notification($code);
 		$this->session->set_flashdata('message', lang('message_activated_giftcard'));
-		redirect($this->config->item('admin_folder').'/giftcards');
+		redirect(ADMIN_AREA.'/giftcards');
 	}
 	
 	function delete($id)
@@ -115,7 +115,7 @@ class Giftcards extends Admin_Controller {
 		$this->Gift_card_model->delete($id);
 		
 		$this->session->set_flashdata('message', lang('message_deleted_giftcard'));
-		redirect($this->config->item('admin_folder').'/giftcards');
+		redirect(ADMIN_AREA.'/giftcards');
 	}
 	
 	// Gift card functionality 
@@ -126,14 +126,14 @@ class Giftcards extends Admin_Controller {
 		$config['allow_custom_amount'] = "1";
 		$config['enabled'] = '1';
 		$this->Settings_model->save_settings('gift_cards', $config);
-		redirect($this->config->item('admin_folder').'/giftcards');
+		redirect(ADMIN_AREA.'/giftcards');
 	}
 	
 	function disable() 
 	{
 		$config['enabled'] = '0';
 		$this->Settings_model->save_settings('gift_cards', $config);
-		redirect($this->config->item('admin_folder').'/giftcards');
+		redirect(ADMIN_AREA.'/giftcards');
 	}
 	
 	function settings()
@@ -150,7 +150,7 @@ class Giftcards extends Admin_Controller {
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/giftcards_settings', $data);
+			$this->load->view(ADMIN_AREA.'/giftcards_settings', $data);
 		}
 		else
 		{
@@ -162,7 +162,7 @@ class Giftcards extends Admin_Controller {
 			
 			$this->session->set_flashdata('message', lang('message_saved_settings'));
 			
-			redirect($this->config->item('admin_folder').'/giftcards');
+			redirect(ADMIN_AREA.'/giftcards');
 			
 		}
 	}

@@ -20,7 +20,7 @@ class Banners extends Admin_Controller
 		$data['banners']		= $this->Banner_model->get_banners();
 		$data['page_title']		= lang('banners');
 		
-		$this->load->view($this->config->item('admin_folder').'/banners', $data);
+		$this->load->view(ADMIN_AREA.'/banners', $data);
 	}
 	
 	function organize()
@@ -34,7 +34,7 @@ class Banners extends Admin_Controller
 		$this->Banner_model->delete($id);
 		
 		$this->session->set_flashdata('message', lang('message_delete_banner'));
-		redirect($this->config->item('admin_folder').'/banners');
+		redirect(ADMIN_AREA.'/banners');
 	}
 	
 	/********************************************************************
@@ -84,7 +84,7 @@ class Banners extends Admin_Controller
 		if ($this->form_validation->run() == false)
 		{
 			$data['error'] = validation_errors();
-			$this->load->view($this->config->item('admin_folder').'/banner_form', $data);
+			$this->load->view(ADMIN_AREA.'/banner_form', $data);
 		}
 		else
 		{	
@@ -122,7 +122,7 @@ class Banners extends Admin_Controller
 				if(!$uploaded)
 				{
 					$data['error']	= $this->upload->display_errors();
-					$this->load->view($this->config->item('admin_folder').'/banner_form', $data);
+					$this->load->view(ADMIN_AREA.'/banner_form', $data);
 					return; //end script here if there is an error
 				}
 			}
@@ -137,7 +137,7 @@ class Banners extends Admin_Controller
 			
 			$this->session->set_flashdata('message', lang('message_banner_saved'));
 			
-			redirect($this->config->item('admin_folder').'/banners');
+			redirect(ADMIN_AREA.'/banners');
 		}	
 	}
 

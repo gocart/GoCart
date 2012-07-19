@@ -54,7 +54,7 @@ class Products extends Admin_Controller {
 		
 		$this->load->library('pagination');
 		
-		$config['base_url']			= site_url($this->config->item('admin_folder').'/products/index/'.$order_by.'/'.$sort_order.'/'.$code.'/');
+		$config['base_url']			= site_url(ADMIN_AREA.'/products/index/'.$order_by.'/'.$sort_order.'/'.$code.'/');
 		$config['total_rows']		= $data['total'];
 		$config['per_page']			= $rows;
 		$config['uri_segment']		= 7;
@@ -83,7 +83,7 @@ class Products extends Admin_Controller {
 		
 		$this->pagination->initialize($config);
 		
-		$this->load->view($this->config->item('admin_folder').'/products', $data);
+		$this->load->view(ADMIN_AREA.'/products', $data);
 	}
 	
 	//basic category search
@@ -118,7 +118,7 @@ class Products extends Admin_Controller {
 		if(!$products)
 		{
 			$this->session->set_flashdata('error',  lang('error_bulk_no_products'));
-			redirect($this->config->item('admin_folder').'/products');
+			redirect(ADMIN_AREA.'/products');
 		}
 				
 		foreach($products as $id=>$product)
@@ -128,7 +128,7 @@ class Products extends Admin_Controller {
 		}
 		
 		$this->session->set_flashdata('message', lang('message_bulk_update'));
-		redirect($this->config->item('admin_folder').'/products');
+		redirect(ADMIN_AREA.'/products');
 	}
 	
 	function form($id = false, $duplicate = false)
@@ -188,7 +188,7 @@ class Products extends Admin_Controller {
 			if (!$product)
 			{
 				$this->session->set_flashdata('error', lang('error_not_found'));
-				redirect($this->config->item('admin_folder').'/products');
+				redirect(ADMIN_AREA.'/products');
 			}
 			
 			//helps us with the slug generation
@@ -278,7 +278,7 @@ class Products extends Admin_Controller {
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/product_form', $data);
+			$this->load->view(ADMIN_AREA.'/product_form', $data);
 		}
 		else
 		{
@@ -400,7 +400,7 @@ class Products extends Admin_Controller {
 			$this->session->set_flashdata('message', lang('message_saved_product'));
 
 			//go back to the product list
-			redirect($this->config->item('admin_folder').'/products');
+			redirect(ADMIN_AREA.'/products');
 		}
 	}
 	
@@ -408,7 +408,7 @@ class Products extends Admin_Controller {
 	{
 		$data['file_name'] = false;
 		$data['error']	= false;
-		$this->load->view($this->config->item('admin_folder').'/iframe/product_image_uploader', $data);
+		$this->load->view(ADMIN_AREA.'/iframe/product_image_uploader', $data);
 	}
 	
 	function product_image_upload()
@@ -482,7 +482,7 @@ class Products extends Admin_Controller {
 		{
 			$data['error'] = $this->upload->display_errors();
 		}
-		$this->load->view($this->config->item('admin_folder').'/iframe/product_image_uploader', $data);
+		$this->load->view(ADMIN_AREA.'/iframe/product_image_uploader', $data);
 	}
 	
 	function delete($id = false)
@@ -494,7 +494,7 @@ class Products extends Admin_Controller {
 			if (!$product)
 			{
 				$this->session->set_flashdata('error', lang('error_not_found'));
-				redirect($this->config->item('admin_folder').'/products');
+				redirect(ADMIN_AREA.'/products');
 			}
 			else
 			{
@@ -507,14 +507,14 @@ class Products extends Admin_Controller {
 				$this->Product_model->delete_product($id);
 
 				$this->session->set_flashdata('message', lang('message_deleted_product'));
-				redirect($this->config->item('admin_folder').'/products');
+				redirect(ADMIN_AREA.'/products');
 			}
 		}
 		else
 		{
 			//if they do not provide an id send them to the product list page with an error
 			$this->session->set_flashdata('error', lang('error_not_found'));
-			redirect($this->config->item('admin_folder').'/products');
+			redirect(ADMIN_AREA.'/products');
 		}
 	}
 }

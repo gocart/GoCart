@@ -55,7 +55,7 @@ function set_canned_message(id)
 
 <div id="notification_form" class="row" style="display:none;">
 	<div class="span12">
-		<?php echo form_open($this->config->item('admin_folder').'/orders/send_notification/'.$order->id);?>
+		<?php echo form_open(ADMIN_AREA.'/orders/send_notification/'.$order->id);?>
 			<fieldset>
 				<label><?php echo lang('message_templates');?></label>
 				<select id="canned_messages" onchange="set_canned_message(this.value)" class="span12">
@@ -163,7 +163,7 @@ function set_canned_message(id)
 	</div>
 </div>
 
-<?php echo form_open($this->config->item('admin_folder').'/orders/view/'.$order->id, 'class="form-inline"');?>
+<?php echo form_open(ADMIN_AREA.'/orders/view/'.$order->id, 'class="form-inline"');?>
 <fieldset>
 	<div class="row" style="margin-top:20px;">
 		<div class="span8">

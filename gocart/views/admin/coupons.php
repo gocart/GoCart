@@ -6,7 +6,7 @@ function areyousure()
 }
 </script>
 
-	<a class="btn" style="float:right;" href="<?php echo site_url($this->config->item('admin_folder').'/coupons/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_coupon');?></a>
+	<a class="btn" style="float:right;" href="<?php echo site_url(ADMIN_AREA.'/coupons/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_coupon');?></a>
 
 
 <table class="table">
@@ -27,8 +27,8 @@ function areyousure()
 			</td>
 			<td>
 				<div class="btn-group" style="float:right;">
-					<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/coupons/form/'.$coupon->id); ?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
-					<a class="btn btn-danger" href="<?php echo site_url($this->config->item('admin_folder').'/coupons/delete/'.$coupon->id); ?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
+					<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/coupons/form/'.$coupon->id); ?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
+					<a class="btn btn-danger" href="<?php echo site_url(ADMIN_AREA.'/coupons/delete/'.$coupon->id); ?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
 				</div>
 			</td>
 	  </tr>

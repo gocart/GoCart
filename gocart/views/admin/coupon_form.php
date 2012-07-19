@@ -7,7 +7,7 @@ $("#datepicker2").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker2_al
 });
 </script>
 
-<?php echo form_open($this->config->item('admin_folder').'/coupons/form/'.$id); ?>
+<?php echo form_open(ADMIN_AREA.'/coupons/form/'.$id); ?>
 
 <div class="alert alert-info" style="text-align:center;">
 	<strong><?php echo sprintf(lang('times_used'), @$num_uses);?></strong>

@@ -70,7 +70,7 @@ function remove_option(id)
 </script>
 
 
-<?php echo form_open($this->config->item('admin_folder').'/products/form/'.$id ); ?>
+<?php echo form_open(ADMIN_AREA.'/products/form/'.$id ); ?>
 <div class="row">
 	<div class="span8">
 		<div class="tabbable">
@@ -229,7 +229,7 @@ function remove_option(id)
 
 								function run_category_query()
 								{
-									$.post("<?php echo site_url($this->config->item('admin_folder').'/categories/category_autocomplete/');?>", { name: $('#category_search').val(), limit:10},
+									$.post("<?php echo site_url(ADMIN_AREA.'/categories/category_autocomplete/');?>", { name: $('#category_search').val(), limit:10},
 										function(data) {
 
 											$('#category_list').html('');
@@ -438,7 +438,7 @@ function remove_option(id)
 						
 								function run_product_query()
 								{
-									$.post("<?php echo site_url($this->config->item('admin_folder').'/products/product_autocomplete/');?>", { name: $('#product_search').val(), limit:10},
+									$.post("<?php echo site_url(ADMIN_AREA.'/products/product_autocomplete/');?>", { name: $('#product_search').val(), limit:10},
 										function(data) {
 									
 											$('#product_list').html('');
@@ -484,7 +484,7 @@ function remove_option(id)
 			
 			<div class="tab-pane" id="product_photos">
 				<div class="row">
-					<iframe id="iframe_uploader" src="<?php echo site_url($this->config->item('admin_folder').'/products/product_image_form');?>" class="span8" style="height:75px; border:0px;"></iframe>
+					<iframe id="iframe_uploader" src="<?php echo site_url(ADMIN_AREA.'/products/product_image_form');?>" class="span8" style="height:75px; border:0px;"></iframe>
 				</div>
 				<div class="row">
 					<div class="span8">

@@ -1,5 +1,5 @@
 <?php include('header.php'); ?>
-<?php echo form_open($this->config->item('admin_folder').'/admin/form/'.$id); ?>
+<?php echo form_open(ADMIN_AREA.'/admin/form/'.$id); ?>
 	
 		<label><?php echo lang('firstname');?></label>
 		<?php

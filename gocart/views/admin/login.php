@@ -13,7 +13,7 @@
 			<img src="<?php echo base_url('images/admin/login_logo.png');?>"/>
 		</div>
 	
-	<?php echo form_open($this->config->item('admin_folder').'/login') ?>
+	<?php echo form_open(ADMIN_AREA.'/login') ?>
 	<fieldset>
 		<label for="email"><?php echo lang('email');?></label>
 		<?php echo form_input(array('name'=>'email', 'class'=>'span4')); ?>

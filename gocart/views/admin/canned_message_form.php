@@ -1,6 +1,6 @@
 <?php include('header.php'); ?>
 
-<?php echo form_open($this->config->item('admin_folder').'/settings/canned_message_form/'.$id); ?>
+<?php echo form_open(ADMIN_AREA.'/settings/canned_message_form/'.$id); ?>
 
 	<label for="name"><?php echo lang('label_canned_name');?> </label>
 	<?php

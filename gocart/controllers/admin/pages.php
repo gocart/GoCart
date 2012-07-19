@@ -19,7 +19,7 @@ class Pages extends Admin_Controller
 		$data['pages']		= $this->Page_model->get_pages();
 		
 		
-		$this->load->view($this->config->item('admin_folder').'/pages', $data);
+		$this->load->view(ADMIN_AREA.'/pages', $data);
 	}
 	
 	/********************************************************************
@@ -54,7 +54,7 @@ class Pages extends Admin_Controller
 			{
 				//page does not exist
 				$this->session->set_flashdata('error', lang('error_page_not_found'));
-				redirect($this->config->item('admin_folder').'/pages');
+				redirect(ADMIN_AREA.'/pages');
 			}
 			
 			
@@ -82,7 +82,7 @@ class Pages extends Admin_Controller
 		// Validate the form
 		if($this->form_validation->run() == false)
 		{
-			$this->load->view($this->config->item('admin_folder').'/page_form', $data);
+			$this->load->view(ADMIN_AREA.'/page_form', $data);
 		}
 		else
 		{
@@ -145,7 +145,7 @@ class Pages extends Admin_Controller
 			$this->session->set_flashdata('message', lang('message_saved_page'));
 			
 			//go back to the page list
-			redirect($this->config->item('admin_folder').'/pages');
+			redirect(ADMIN_AREA.'/pages');
 		}
 	}
 	
@@ -175,7 +175,7 @@ class Pages extends Admin_Controller
 			{
 				//page does not exist
 				$this->session->set_flashdata('error', lang('error_link_not_found'));
-				redirect($this->config->item('admin_folder').'/pages');
+				redirect(ADMIN_AREA.'/pages');
 			}
 			
 			
@@ -197,7 +197,7 @@ class Pages extends Admin_Controller
 		// Validate the form
 		if($this->form_validation->run() == false)
 		{
-			$this->load->view($this->config->item('admin_folder').'/link_form', $data);
+			$this->load->view(ADMIN_AREA.'/link_form', $data);
 		}
 		else
 		{	
@@ -216,7 +216,7 @@ class Pages extends Admin_Controller
 			$this->session->set_flashdata('message', lang('message_saved_link'));
 			
 			//go back to the page list
-			redirect($this->config->item('admin_folder').'/pages');
+			redirect(ADMIN_AREA.'/pages');
 		}
 	}
 	
@@ -241,6 +241,6 @@ class Pages extends Admin_Controller
 			$this->session->set_flashdata('error', lang('error_page_not_found'));
 		}
 		
-		redirect($this->config->item('admin_folder').'/pages');
+		redirect(ADMIN_AREA.'/pages');
 	}
 }	

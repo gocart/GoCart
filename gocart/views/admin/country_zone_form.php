@@ -1,6 +1,6 @@
 <?php include('header.php'); ?>
 
-<?php echo form_open($this->config->item('admin_folder').'/locations/zone_form/'.$id); ?>
+<?php echo form_open(ADMIN_AREA.'/locations/zone_form/'.$id); ?>
 
 	<label for="country_id"><?php echo lang('country');?></label>
 	<?php

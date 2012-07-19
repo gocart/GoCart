@@ -1,6 +1,6 @@
 <?php include('header.php'); ?>
 
-<?php echo form_open($this->config->item('admin_folder').'/giftcards/settings'); ?>
+<?php echo form_open(ADMIN_AREA.'/giftcards/settings'); ?>
 
 
 			<label for="predefined_card_amounts"><?php echo lang('predefined_card_amounts');?></label>

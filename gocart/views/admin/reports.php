@@ -56,7 +56,7 @@ $(document).ready(function(){
 function get_best_sellers()
 {
 	show_animation();
-	$.post('<?php echo site_url($this->config->item('admin_folder').'/reports/best_sellers');?>',{start:$('#best_sellers_start').val(), end:$('#best_sellers_end').val()}, function(data){
+	$.post('<?php echo site_url(ADMIN_AREA.'/reports/best_sellers');?>',{start:$('#best_sellers_start').val(), end:$('#best_sellers_end').val()}, function(data){
 		$('#best_sellers').html(data);
 		setTimeout('hide_animation()', 500);
 	});
@@ -65,7 +65,7 @@ function get_best_sellers()
 function get_monthly_sales()
 {
 	show_animation();
-	$.post('<?php echo site_url($this->config->item('admin_folder').'/reports/sales');?>',{year:$('#sales_year').val()}, function(data){
+	$.post('<?php echo site_url(ADMIN_AREA.'/reports/sales');?>',{year:$('#sales_year').val()}, function(data){
 		$('#sales_container').html(data);
 		setTimeout('hide_animation()', 500);
 	});
