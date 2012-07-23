@@ -460,12 +460,6 @@ class Checkout extends CI_Controller {
 		//// save the order
 		$order_id = $this->go_cart->save_order();
 		
-		//save loop
-		for($i=0; $i<100; $i++)
-		{
-			$this->go_cart->save_order();
-		}
-		
 		$data['order_id']			= $order_id;
 		$data['shipping']			= $this->go_cart->shipping_method();
 		$data['payment']			= $this->go_cart->payment_method();
@@ -550,7 +544,7 @@ class Checkout extends CI_Controller {
 		$this->email->subject($row['subject']);
 		$this->email->message($row['content']);
 		
-	//	$this->email->send();
+		$this->email->send();
 		
 		$data['page_title'] = 'Thanks for shopping with '.$this->config->item('company_name');
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
@@ -560,6 +554,6 @@ class Checkout extends CI_Controller {
 		$this->load->view('order_placed', $data);
 		
 		//remove the cart from the session
-	//	$this->go_cart->destroy();
+		$this->go_cart->destroy();
 	}
 }
