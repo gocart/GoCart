@@ -1,11 +1,7 @@
 <?php
 Class Page_model extends CI_Model
 {
-	function page_model()
-	{
-			parent::__construct();
-	}
-	
+
 	/********************************************************************
 	Page functions
 	********************************************************************/
