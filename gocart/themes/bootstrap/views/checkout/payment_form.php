@@ -11,7 +11,7 @@
 	if(count($payment_methods) > 1):
 	?>
 	<div id="payment_section_container" <?php if($this->go_cart->total()==0) { ?> style="display:none" <?php } ?>>
-		<div class="error" id="payment_error_box" style="display:none"></div>
+		<div class="alert alert-error" id="payment_error_box" style="display:none"></div>
 		<table style="width:100%;">
 			<tr>
 				<td style="width:30%;">
