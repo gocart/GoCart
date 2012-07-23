@@ -9,7 +9,7 @@ class Dashboard extends Admin_Controller {
 		
 		if($this->auth->check_access('Orders'))
 		{
-			redirect($this->config->item('admin_folder').'/orders');
+			redirect(ADMIN_AREA.'/orders');
 		}
 		
 		$this->load->model('Order_model');
@@ -34,7 +34,7 @@ class Dashboard extends Admin_Controller {
 		$data['customers'] = $this->Customer_model->get_customers(5);
 				
 		
-		$this->load->view($this->config->item('admin_folder').'/dashboard', $data);
+		$this->load->view(ADMIN_AREA.'/dashboard', $data);
 	}
 
 }

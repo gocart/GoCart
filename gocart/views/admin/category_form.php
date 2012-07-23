@@ -1,6 +1,6 @@
 <?php include('header.php'); ?>
 
-<?php echo form_open_multipart($this->config->item('admin_folder').'/categories/form/'.$id); ?>
+<?php echo form_open_multipart(ADMIN_AREA.'/categories/form/'.$id); ?>
 
 <div class="tabbable">
 

@@ -30,7 +30,7 @@ function save_sortable()
 	serial=$('#countries').sortable('serialize');
 			
 	$.ajax({
-		url:'<?php echo site_url($this->config->item('admin_folder').'/locations/organize_countries');?>',
+		url:'<?php echo site_url(ADMIN_AREA.'/locations/organize_countries');?>',
 		type:'POST',
 		data:serial
 	});
@@ -43,8 +43,8 @@ function areyousure()
 </script>
 
 <div class="btn-group" style="float:right;">
-	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/locations/country_form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_country');?></a>
-	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/locations/zone_form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_zone');?></a>
+	<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/locations/country_form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_country');?></a>
+	<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/locations/zone_form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_zone');?></a>
 </div>
 
 
@@ -73,9 +73,9 @@ function areyousure()
 			<td><?php echo ((bool)$location->status)?'enabled':'disabled';?></td>
 			<td>
 				<div class="btn-group" style="float:right;">
-					<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/locations/country_form/'.$location->id); ?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
-					<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/locations/zones/'.$location->id); ?>"><i class="icon-map-marker"></i> <?php echo lang('zones');?></a>
-					<a class="btn btn-danger" href="<?php echo site_url($this->config->item('admin_folder').'/locations/delete_country/'.$location->id); ?>" onclick="return areyousure<();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
+					<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/locations/country_form/'.$location->id); ?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
+					<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/locations/zones/'.$location->id); ?>"><i class="icon-map-marker"></i> <?php echo lang('zones');?></a>
+					<a class="btn btn-danger" href="<?php echo site_url(ADMIN_AREA.'/locations/delete_country/'.$location->id); ?>" onclick="return areyousure<();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
 				</div>
 			</td>
 	  </tr>

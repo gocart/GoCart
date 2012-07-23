@@ -1,6 +1,6 @@
 <?php include('header.php'); ?>
 
-<?php echo form_open($this->config->item('admin_folder').'/giftcards/form/'); ?>
+<?php echo form_open(ADMIN_AREA.'/giftcards/form/'); ?>
 
 	<label for="to_name"><?php echo lang('recipient_name');?> </label>
 	<?php

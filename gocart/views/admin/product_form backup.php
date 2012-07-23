@@ -178,7 +178,7 @@ function delete_product_option(id)
 </script>
 
 
-<?php echo form_open($this->config->item('admin_folder').'/products/form/'.$id ); ?>
+<?php echo form_open(ADMIN_AREA.'/products/form/'.$id ); ?>
 <div class="row">
 	<div class="span8">
 		<div class="tabbable">
@@ -546,7 +546,7 @@ function delete_product_option(id)
 	</div>
 	<div id="gc_product_photos">
 		<div class="gc_segment_content">
-			<iframe src="<?php echo site_url($this->config->item('admin_folder').'/products/product_image_form');?>" style="height:75px; border:0px;">
+			<iframe src="<?php echo site_url(ADMIN_AREA.'/products/product_image_form');?>" style="height:75px; border:0px;">
 			</iframe>
 			<div id="gc_photos">
 			<?php

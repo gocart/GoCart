@@ -1,6 +1,6 @@
 <?php include('header.php'); ?>
 
-<?php echo form_open($this->config->item('admin_folder').'/locations/country_form/'.$id); ?>
+<?php echo form_open(ADMIN_AREA.'/locations/country_form/'.$id); ?>
 
 <fieldset>
 	

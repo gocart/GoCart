@@ -32,7 +32,7 @@ function save_sortable()
 	serial=$('#category_contents').sortable('serialize');
 			
 	$.ajax({
-		url:'<?php echo site_url($this->config->item('admin_folder').'/categories/process_organization/'.$category->id);?>',
+		url:'<?php echo site_url(ADMIN_AREA.'/categories/process_organization/'.$category->id);?>',
 		type:'POST',
 		data:serial
 	});

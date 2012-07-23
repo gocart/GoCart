@@ -10,14 +10,14 @@ function areyousure()
 
 <?php if ($gift_cards['enabled']):?>
 
-	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_giftcard')?></a>
+	<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/giftcards/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_giftcard')?></a>
 	
-	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/settings'); ?>"><i class="icon-cog"></i> <?php echo lang('settings');?></a>
+	<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/giftcards/settings'); ?>"><i class="icon-cog"></i> <?php echo lang('settings');?></a>
 	
-	<a class="btn btn-danger" href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/disable'); ?>"><i class="icon-ban-circle icon-white"></i> <?php echo lang('disable_giftcards');?></a>
+	<a class="btn btn-danger" href="<?php echo site_url(ADMIN_AREA.'/giftcards/disable'); ?>"><i class="icon-ban-circle icon-white"></i> <?php echo lang('disable_giftcards');?></a>
 	
 <?php else: ?>
-	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/enable'); ?>"><i class="icon-ok icon-white"></i> <?php echo lang('enable_giftcards');?></a>
+	<a class="btn btn-primary" href="<?php echo site_url(ADMIN_AREA.'/giftcards/enable'); ?>"><i class="icon-ok icon-white"></i> <?php echo lang('enable_giftcards');?></a>
 <?php endif; ?>
 </div>
 <table class="table table-striped">
@@ -43,7 +43,7 @@ function areyousure()
 			<td><?php echo (float) $card['amount_used']; ?></td>
 			<td><?php echo (float) $card['beginning_amount'] - (float) $card['amount_used']; ?></td>
 			<td>
-				<a class="btn btn-danger" style="float:right;" href="<?php echo site_url($this->config->item('admin_folder').'/giftcards/delete/'.$card['id']); ?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
+				<a class="btn btn-danger" style="float:right;" href="<?php echo site_url(ADMIN_AREA.'/giftcards/delete/'.$card['id']); ?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
 	  </tr>
 <?php endforeach; ?>
 	</tbody>

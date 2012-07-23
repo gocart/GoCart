@@ -32,7 +32,7 @@ class Orders extends Admin_Controller {
 				$o->items	= $this->Order_model->get_items($o->id);
 			}
 
-			force_download_content('orders.xml', $this->load->view($this->config->item('admin_folder').'/orders_xml', $data, true));
+			force_download_content('orders.xml', $this->load->view(ADMIN_AREA.'/orders_xml', $data, true));
 			
 			//kill the script from here
 			die;
@@ -67,7 +67,7 @@ class Orders extends Admin_Controller {
 		
 		$this->load->library('pagination');
 		
-		$config['base_url']			= site_url($this->config->item('admin_folder').'/orders/index/'.$sort_by.'/'.$sort_order.'/'.$code.'/');
+		$config['base_url']			= site_url(ADMIN_AREA.'/orders/index/'.$sort_by.'/'.$sort_order.'/'.$code.'/');
 		$config['total_rows']		= $data['total'];
 		$config['per_page']			= $rows;
 		$config['uri_segment']		= 7;
@@ -99,7 +99,7 @@ class Orders extends Admin_Controller {
 		$data['sort_by']	= $sort_by;
 		$data['sort_order']	= $sort_order;
 				
-		$this->load->view($this->config->item('admin_folder').'/orders', $data);
+		$this->load->view(ADMIN_AREA.'/orders', $data);
 	}
 	
 	function export()
@@ -116,7 +116,7 @@ class Orders extends Admin_Controller {
 			$o->items	= $this->Order_model->get_items($o->id);
 		}
 
-		force_download_content('orders.xml', $this->load->view($this->config->item('admin_folder').'/orders_xml', $data, true));
+		force_download_content('orders.xml', $this->load->view(ADMIN_AREA.'/orders_xml', $data, true));
 		
 	}
 	
@@ -184,12 +184,12 @@ class Orders extends Admin_Controller {
 				{
 					$data['order']->contents[$orderkey]['gc_status'] = '[ '.lang('giftcard_is_active').' ]';
 				} else {
-					$data['order']->contents[$orderkey]['gc_status'] = ' [ <a href="'. base_url() . $this->config->item('admin_folder').'/giftcards/activate/'. $product['code'].'">'.lang('activate').'</a> ]';
+					$data['order']->contents[$orderkey]['gc_status'] = ' [ <a href="'. base_url() . ADMIN_AREA.'/giftcards/activate/'. $product['code'].'">'.lang('activate').'</a> ]';
 				}
 			}
 		}
 		
-		$this->load->view($this->config->item('admin_folder').'/order', $data);
+		$this->load->view(ADMIN_AREA.'/order', $data);
 		
 	}
 	
@@ -198,7 +198,7 @@ class Orders extends Admin_Controller {
 		$this->load->helper('date');
 		$data['order']		= $this->Order_model->get_order($order_id);
 		
-		$this->load->view($this->config->item('admin_folder').'/packing_slip.php', $data);
+		$this->load->view(ADMIN_AREA.'/packing_slip.php', $data);
 	}
 	
 	function edit_status()
@@ -230,7 +230,7 @@ class Orders extends Admin_Controller {
 		$this->email->send();
 		
 		$this->session->set_flashdata('message', lang('sent_notification_message'));
-		redirect($this->config->item('admin_folder').'/orders/view/'.$order_id);
+		redirect(ADMIN_AREA.'/orders/view/'.$order_id);
 	}
 	
 	function bulk_delete()
@@ -250,6 +250,6 @@ class Orders extends Admin_Controller {
 			$this->session->set_flashdata('error', lang('error_no_orders_selected'));
 		}
    		//redirect as to change the url
-		redirect($this->config->item('admin_folder').'/orders');	
+		redirect(ADMIN_AREA.'/orders');	
     }
 }

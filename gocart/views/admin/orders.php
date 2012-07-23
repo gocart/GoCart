@@ -57,7 +57,7 @@ if ($term):?>
 				<?php echo $this->pagination->create_links();?>	
 			</div>
 			<div class="span8">
-				<?php echo form_open($this->config->item('admin_folder').'/orders/index', 'class="form-inline" style="float:right"');?>
+				<?php echo form_open(ADMIN_AREA.'/orders/index', 'class="form-inline" style="float:right"');?>
 					<fieldset>
 						<input id="start_top"  value="" class="span2" type="text" placeholder="Start Date"/>
 						<input id="start_top_alt" type="hidden" name="start_date" />
@@ -75,18 +75,18 @@ if ($term):?>
 	</div>
 </div>
 
-<?php echo form_open($this->config->item('admin_folder').'/orders/bulk_delete', array('id'=>'delete_form', 'onsubmit'=>'return submit_form();', 'class="form-inline"')); ?>
+<?php echo form_open(ADMIN_AREA.'/orders/bulk_delete', array('id'=>'delete_form', 'onsubmit'=>'return submit_form();', 'class="form-inline"')); ?>
 
 <table class="table table-striped">
     <thead>
 		<tr>
 			<th><input type="checkbox" id="gc_check_all" /> <button type="submit" class="btn btn-danger"><i class="icon-trash icon-white"></i></button></th>
-			<th><?php echo sort_url('order', 'order_number', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
-			<th><?php echo sort_url('bill_to', 'bill_lastname', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
-			<th><?php echo sort_url('ship_to', 'ship_lastname', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
-			<th><?php echo sort_url('ordered_on','ordered_on', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
-			<th><?php echo sort_url('status','status', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
-			<th><?php echo sort_url('total','total', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
+			<th><?php echo sort_url('order', 'order_number', $sort_by, $sort_order, $code, ADMIN_AREA); ?></th>
+			<th><?php echo sort_url('bill_to', 'bill_lastname', $sort_by, $sort_order, $code, ADMIN_AREA); ?></th>
+			<th><?php echo sort_url('ship_to', 'ship_lastname', $sort_by, $sort_order, $code, ADMIN_AREA); ?></th>
+			<th><?php echo sort_url('ordered_on','ordered_on', $sort_by, $sort_order, $code, ADMIN_AREA); ?></th>
+			<th><?php echo sort_url('status','status', $sort_by, $sort_order, $code, ADMIN_AREA); ?></th>
+			<th><?php echo sort_url('total','total', $sort_by, $sort_order, $code, ADMIN_AREA); ?></th>
 			<th></th>
 	    </tr>
 	</thead>
@@ -106,7 +106,7 @@ if ($term):?>
 		</td>
 		<td><div class="MainTableNotes"><?php echo format_currency($order->total); ?></div></td>
 		<td>
-			<a class="btn btn-small" style="float:right;"href="<?php echo site_url($this->config->item('admin_folder').'/orders/view/'.$order->id);?>"><i class="icon-search"></i> <?php echo lang('form_view')?></a>
+			<a class="btn btn-small" style="float:right;"href="<?php echo site_url(ADMIN_AREA.'/orders/view/'.$order->id);?>"><i class="icon-search"></i> <?php echo lang('form_view')?></a>
 		</td>
 	</tr>
     <?php endforeach; ?>
@@ -166,7 +166,7 @@ function submit_form()
 function save_status(id)
 {
 	show_animation();
-	$.post("<?php echo site_url($this->config->item('admin_folder').'/orders/edit_status'); ?>", { id: id, status: $('#status_form_'+id).val()}, function(data){
+	$.post("<?php echo site_url(ADMIN_AREA.'/orders/edit_status'); ?>", { id: id, status: $('#status_form_'+id).val()}, function(data){
 		setTimeout('hide_animation()', 500);
 	});
 }

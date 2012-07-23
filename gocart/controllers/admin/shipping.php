@@ -14,7 +14,7 @@ class Shipping extends Admin_Controller {
 	
 	function index()
 	{
-		redirect($this->config->item('admin_folder').'/settings');
+		redirect(ADMIN_AREA.'/settings');
 	}
 	
 	function install($module)
@@ -37,7 +37,7 @@ class Shipping extends Admin_Controller {
 			$this->Settings_model->delete_setting('shipping_modules', $module);
 			$this->$module->uninstall();
 		}
-		redirect($this->config->item('admin_folder').'/shipping');
+		redirect(ADMIN_AREA.'/shipping');
 	}
 	
 	//this is an alias of install
@@ -61,14 +61,14 @@ class Shipping extends Admin_Controller {
 			if(!$check)
 			{
 				$this->session->set_flashdata('message', sprintf(lang('settings_updated'), $module));
-				redirect($this->config->item('admin_folder').'/shipping');
+				redirect(ADMIN_AREA.'/shipping');
 			}
 			else
 			{
 				//set the error data and form data in the flashdata
 				$this->session->set_flashdata('message', $check);
 				$this->session->set_flashdata('post', $_POST);
-				redirect($this->config->item('admin_folder').'/shipping/settings/'.$module);
+				redirect(ADMIN_AREA.'/shipping/settings/'.$module);
 			}
 		}
 		elseif($this->session->flashdata('post'))
@@ -81,6 +81,6 @@ class Shipping extends Admin_Controller {
 		}
 		$data['module']		= $module;
 		$data['page_title']	= sprintf(lang('shipping_settings'), $module);
-		$this->load->view($this->config->item('admin_folder').'/shipping_module_settings', $data);
+		$this->load->view(ADMIN_AREA.'/shipping_module_settings', $data);
 	}
 }

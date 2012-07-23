@@ -9,7 +9,7 @@ $f_phone	= array('name'=>'phone', 'class'=>'span3','value'=> set_value('phone',$
 $f_city		= array('name'=>'city','class'=>'span2', 'value'=>set_value('city',$city));
 $f_zip		= array('maxlength'=>'10', 'class'=>'span1', 'name'=>'zip', 'value'=> set_value('zip',$zip));
 ?>
-<?php echo form_open($this->config->item('admin_folder').'/customers/address_form/'.$customer_id.'/'.$id);?>
+<?php echo form_open(ADMIN_AREA.'/customers/address_form/'.$customer_id.'/'.$id);?>
 
 	<div class="row">
 		<div class="span3">
@@ -83,7 +83,7 @@ $f_zip		= array('maxlength'=>'10', 'class'=>'span1', 'name'=>'zip', 'value'=> se
 		$('.button').button();
 	
 		$('#f_country_id').change(function(){
-			$.post('<?php echo site_url($this->config->item('admin_folder').'/locations/get_zone_menu');?>',{id:$('#f_country_id').val()}, function(data) {
+			$.post('<?php echo site_url(ADMIN_AREA.'/locations/get_zone_menu');?>',{id:$('#f_country_id').val()}, function(data) {
 			  $('#f_zone_id').html(data);
 			});
 	

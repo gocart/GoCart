@@ -1,6 +1,6 @@
 <?php include('header.php');
 
-echo form_open_multipart($this->config->item('admin_folder').'/digital_products/form/'.$id); ?>
+echo form_open_multipart(ADMIN_AREA.'/digital_products/form/'.$id); ?>
 
 	<?php if($id==0) : ?>
 		<label for="file"><?php echo lang('file_label');?> </label>

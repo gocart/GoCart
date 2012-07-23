@@ -1,6 +1,6 @@
 <?php include('header.php'); ?>
 
-<?php echo form_open($this->config->item('admin_folder').'/customers/form/'.$id); ?>
+<?php echo form_open(ADMIN_AREA.'/customers/form/'.$id); ?>
 
 	<div class="row">
 		<div class="span3">

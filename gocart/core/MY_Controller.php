@@ -11,5 +11,15 @@ class Admin_Controller extends CI_Controller
 		
 		//load the base language file
 		$this->lang->load('admin_common');
-	}
+
+		//@TODO: Find Admin Permission and Add that to the mix.
+		if (ENVIRONMENT === 'development')
+		{
+			$this->load->helper('chromephp');
+		}
+
+
+	}//end __construct()
+
 }
+

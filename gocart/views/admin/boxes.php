@@ -30,7 +30,7 @@ function save_sortable()
 	serial=$('#boxes_sortable').sortable('serialize');
 			
 	$.ajax({
-		url:'<?php echo site_url($this->config->item('admin_folder').'/boxes/organize');?>',
+		url:'<?php echo site_url(ADMIN_AREA.'/boxes/organize');?>',
 		type:'POST',
 		data:serial
 	});
@@ -44,7 +44,7 @@ function areyousure()
 
 
 
-<a style="float:right;" class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/boxes/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_box');?></a>
+<a style="float:right;" class="btn" href="<?php echo site_url(ADMIN_AREA.'/boxes/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_box');?></a>
 
 <strong style="float:left;"><?php echo lang('sort_boxes')?></strong>
 
@@ -106,8 +106,8 @@ function areyousure()
 			<td><?php echo $disable;?></td>
 			<td>
 				<div class="btn-group" style="float:right">
-					<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/boxes/form/'.$box->id); ?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
-					<a class="btn btn-danger" href="<?php echo site_url($this->config->item('admin_folder').'/boxes/delete/'.$box->id); ?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
+					<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/boxes/form/'.$box->id); ?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
+					<a class="btn btn-danger" href="<?php echo site_url(ADMIN_AREA.'/boxes/delete/'.$box->id); ?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
 				</div>
 			</td>
 		</tr>

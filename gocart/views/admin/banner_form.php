@@ -10,7 +10,7 @@ $link			= array('name'=>'link', 'value' => set_value('link', $link));
 $new_window		= array('name'=>'new_window', 'value'=>1, 'checked'=>set_checkbox('new_window', 1, $new_window));
 ?>
 
-<?php echo form_open_multipart($this->config->item('admin_folder').'/banners/form/'.$id); ?>
+<?php echo form_open_multipart(ADMIN_AREA.'/banners/form/'.$id); ?>
 	<label for="title"><?php echo lang('title');?> </label>
 	<?php echo form_input($title); ?>
 

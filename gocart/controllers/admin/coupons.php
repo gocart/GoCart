@@ -20,7 +20,7 @@ class Coupons extends Admin_Controller {
 		$data['page_title']	= lang('coupons');
 		$data['coupons']	= $this->Coupon_model->get_coupons();
 		
-		$this->load->view($this->config->item('admin_folder').'/coupons', $data);
+		$this->load->view(ADMIN_AREA.'/coupons', $data);
 	}
 	
 	
@@ -57,7 +57,7 @@ class Coupons extends Admin_Controller {
 			if (!$coupon)
 			{
 				$this->session->set_flashdata('message', lang('error_not_found'));
-				redirect($this->config->item('admin_folder').'/product');
+				redirect(ADMIN_AREA.'/product');
 			}
 			
 			//set values to db values
@@ -121,7 +121,7 @@ class Coupons extends Admin_Controller {
 	
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/coupon_form', $data);
+			$this->load->view(ADMIN_AREA.'/coupon_form', $data);
 		}
 		else
 		{
@@ -157,7 +157,7 @@ class Coupons extends Admin_Controller {
 			$this->session->set_flashdata('message', lang('message_saved_coupon'));
 			
 			//go back to the product list
-			redirect($this->config->item('admin_folder').'/coupons');
+			redirect(ADMIN_AREA.'/coupons');
 		}
 	}
 
@@ -185,21 +185,21 @@ class Coupons extends Admin_Controller {
 			if (!$coupon)
 			{
 				$this->session->set_flashdata('error', lang('error_not_found'));
-				redirect($this->config->item('admin_folder').'/coupons');
+				redirect(ADMIN_AREA.'/coupons');
 			}
 			else
 			{
 				$this->Coupon_model->delete_coupon($id);
 				
 				$this->session->set_flashdata('message', lang('message_coupon_deleted'));
-				redirect($this->config->item('admin_folder').'/coupons');
+				redirect(ADMIN_AREA.'/coupons');
 			}
 		}
 		else
 		{
 			//if they do not provide an id send them to the promo list page with an error
 			$this->session->set_flashdata('message', lang('error_not_found'));
-			redirect($this->config->item('admin_folder').'/coupons');
+			redirect(ADMIN_AREA.'/coupons');
 		}
 	}
 }

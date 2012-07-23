@@ -2,7 +2,7 @@
 
 <div class="row">
 	<div class="span12">
-		<?php echo form_open($this->config->item('admin_folder').'/shipping/settings/'. $module);?>
+		<?php echo form_open(ADMIN_AREA.'/shipping/settings/'. $module);?>
 			<fieldset>
 <?php
 echo $form;

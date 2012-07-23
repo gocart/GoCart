@@ -24,7 +24,7 @@ class Customers extends Admin_Controller {
 		
 		$this->load->library('pagination');
 
-		$config['base_url']		= base_url().'/'.$this->config->item('admin_folder').'/customers/index/'.$field.'/'.$by.'/';
+		$config['base_url']		= base_url().'/'.ADMIN_AREA.'/customers/index/'.$field.'/'.$by.'/';
 		$config['total_rows']	= $this->Customer_model->count_customers();
 		$config['per_page']		= 50;
 		$config['uri_segment']	= 6;
@@ -58,7 +58,7 @@ class Customers extends Admin_Controller {
 		$data['field']	= $field;
 		$data['by']		= $by;
 		
-		$this->load->view($this->config->item('admin_folder').'/customers', $data);
+		$this->load->view(ADMIN_AREA.'/customers', $data);
 	}
 	
 	function export_xml()
@@ -68,9 +68,9 @@ class Customers extends Admin_Controller {
 		$data['customers'] = (array)$this->Customer_model->get_customers();
 		
 
-		force_download_content('customers.xml',	$this->load->view($this->config->item('admin_folder').'/customers_xml', $data, true));
+		force_download_content('customers.xml',	$this->load->view(ADMIN_AREA.'/customers_xml', $data, true));
 		
-		//$this->load->view($this->config->item('admin_folder').'/customers_xml', $data);
+		//$this->load->view(ADMIN_AREA.'/customers_xml', $data);
 	}
 
 	function form($id = false)
@@ -110,7 +110,7 @@ class Customers extends Admin_Controller {
 			if (!$customer)
 			{
 				$this->session->set_flashdata('error', lang('error_not_found'));
-				redirect($this->config->item('admin_folder').'/customers');
+				redirect(ADMIN_AREA.'/customers');
 			}
 			
 			//set values to db values
@@ -145,7 +145,7 @@ class Customers extends Admin_Controller {
 				
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/customer_form', $data);
+			$this->load->view(ADMIN_AREA.'/customer_form', $data);
 		}
 		else
 		{
@@ -170,7 +170,7 @@ class Customers extends Admin_Controller {
 			$this->session->set_flashdata('message', lang('message_saved_customer'));
 			
 			//go back to the customer list
-			redirect($this->config->item('admin_folder').'/customers');
+			redirect(ADMIN_AREA.'/customers');
 		}
 	}
 	
@@ -182,14 +182,14 @@ class Customers extends Admin_Controller {
 		if (!$data['customer'])
 		{
 			$this->session->set_flashdata('error', lang('error_not_found'));
-			redirect($this->config->item('admin_folder').'/customers');
+			redirect(ADMIN_AREA.'/customers');
 		}
 		
 		$data['addresses'] = $this->Customer_model->get_address_list($id);
 		
 		$data['page_title']	= sprintf(lang('addresses_for'), $data['customer']->firstname.' '.$data['customer']->lastname);
 		
-		$this->load->view($this->config->item('admin_folder').'/customer_addresses', $data);
+		$this->load->view(ADMIN_AREA.'/customer_addresses', $data);
 	}
 	
 	function delete($id = false)
@@ -201,7 +201,7 @@ class Customers extends Admin_Controller {
 			if (!$customer)
 			{
 				$this->session->set_flashdata('error', lang('error_not_found'));
-				redirect($this->config->item('admin_folder').'/customers');
+				redirect(ADMIN_AREA.'/customers');
 			}
 			else
 			{
@@ -209,14 +209,14 @@ class Customers extends Admin_Controller {
 				$delete	= $this->Customer_model->delete($id);
 				
 				$this->session->set_flashdata('message', lang('message_customer_deleted'));
-				redirect($this->config->item('admin_folder').'/customers');
+				redirect(ADMIN_AREA.'/customers');
 			}
 		}
 		else
 		{
 			//if they do not provide an id send them to the customer list page with an error
 			$this->session->set_flashdata('error', lang('error_not_found'));
-			redirect($this->config->item('admin_folder').'/customers');
+			redirect(ADMIN_AREA.'/customers');
 		}
 	}
 	
@@ -243,7 +243,7 @@ class Customers extends Admin_Controller {
 		$data['page_title']	= 'Order List';
 		$data['orders']		= $this->Order_model->get_orders($status);
 		
-		$this->load->view($this->config->item('admin_folder').'/order_list', $data);
+		$this->load->view(ADMIN_AREA.'/order_list', $data);
 	}
 	
 	
@@ -260,7 +260,7 @@ class Customers extends Admin_Controller {
 		
 		$data['sub_list']	= $sub_list;
 		
-		$this->load->view($this->config->item('admin_folder').'/customer_subscriber_list', $data);
+		$this->load->view(ADMIN_AREA.'/customer_subscriber_list', $data);
 	}	
 	
 	//  customer groups
@@ -269,7 +269,7 @@ class Customers extends Admin_Controller {
 		$data['groups']		= $this->Customer_model->get_groups();
 		$data['page_title']	= lang('customer_groups');
 		
-		$this->load->view($this->config->item('admin_folder').'/customer_groups', $data);
+		$this->load->view(ADMIN_AREA.'/customer_groups', $data);
 	}
 	
 	function edit_group($id=0)
@@ -301,7 +301,7 @@ class Customers extends Admin_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/customer_group_form', $data);
+			$this->load->view(ADMIN_AREA.'/customer_group_form', $data);
 		}
 		else
 		{
@@ -319,7 +319,7 @@ class Customers extends Admin_Controller {
 			$this->session->set_flashdata('message', lang('message_saved_group'));
 			
 			//go back to the customer group list
-			redirect($this->config->item('admin_folder').'/customers/groups');
+			redirect(ADMIN_AREA.'/customers/groups');
 		}
 	}
 	
@@ -345,14 +345,14 @@ class Customers extends Admin_Controller {
 		$this->Customer_model->delete_group($id);
 		
 		//go back to the customer list
-		redirect($this->config->item('admin_folder').'/customers/groups');
+		redirect(ADMIN_AREA.'/customers/groups');
 	}
 	
 	function address_list($customer_id)
 	{
 		$data['address_list'] = $this->Customer_model->get_address_list($customer_id);
 		
-		$this->load->view($this->config->item('admin_folder').'/address_list', $data);
+		$this->load->view(ADMIN_AREA.'/address_list', $data);
 	}
 	
 	function address_form($customer_id, $id = false)
@@ -408,7 +408,7 @@ class Customers extends Admin_Controller {
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/customer_address_form', $data);
+			$this->load->view(ADMIN_AREA.'/customer_address_form', $data);
 		}
 		else
 		{
@@ -439,7 +439,7 @@ class Customers extends Admin_Controller {
 			$this->Customer_model->save_address($a);
 			$this->session->set_flashdata('message', lang('message_saved_address'));
 			
-			redirect($this->config->item('admin_folder').'/customers/addresses/'.$customer_id);
+			redirect(ADMIN_AREA.'/customers/addresses/'.$customer_id);
 		}
 	}
 	
@@ -456,11 +456,11 @@ class Customers extends Admin_Controller {
 				
 				if($customer_id)
 				{
-					redirect($this->config->item('admin_folder').'/customers/addresses/'.$customer_id);
+					redirect(ADMIN_AREA.'/customers/addresses/'.$customer_id);
 				}
 				else
 				{
-					redirect($this->config->item('admin_folder').'/customers');
+					redirect(ADMIN_AREA.'/customers');
 				}
 				
 			}
@@ -472,11 +472,11 @@ class Customers extends Admin_Controller {
 				
 				if($customer_id)
 				{
-					redirect($this->config->item('admin_folder').'/customers/addresses/'.$customer_id);
+					redirect(ADMIN_AREA.'/customers/addresses/'.$customer_id);
 				}
 				else
 				{
-					redirect($this->config->item('admin_folder').'/customers');
+					redirect(ADMIN_AREA.'/customers');
 				}
 			}
 		}
@@ -487,11 +487,11 @@ class Customers extends Admin_Controller {
 			
 			if($customer_id)
 			{
-				redirect($this->config->item('admin_folder').'/customers/addresses/'.$customer_id);
+				redirect(ADMIN_AREA.'/customers/addresses/'.$customer_id);
 			}
 			else
 			{
-				redirect($this->config->item('admin_folder').'/customers');
+				redirect(ADMIN_AREA.'/customers');
 			}
 		}
 	}

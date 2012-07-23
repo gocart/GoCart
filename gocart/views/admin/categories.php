@@ -7,7 +7,7 @@ function areyousure()
 </script>
 
 <div style="text-align:right">
-	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/categories/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_category');?></a>
+	<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/categories/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_category');?></a>
 </div>
 
 <table class="table table-striped">
@@ -21,7 +21,7 @@ function areyousure()
 	<tbody>
 		<?php echo (count($categories) < 1)?'<tr><td style="text-align:center;" colspan="3">'.lang('no_categories').'</td></tr>':''?>
 		<?php
-		define('ADMIN_FOLDER', $this->config->item('admin_folder'));
+		define('ADMIN_FOLDER', ADMIN_AREA);
 		function list_categories($cats, $sub='') {
 			
 			foreach ($cats as $cat):?>

@@ -15,10 +15,10 @@
 					<td>
 						<span class="btn-group pull-right">
 					<?php if($enabled): ?>
-						<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/shipping/settings/'.$module);?>"><i class="icon-wrench"></i> <?php echo lang('settings');?></a>
-						<a class="btn btn-danger" href="<?php echo site_url($this->config->item('admin_folder').'/shipping/uninstall/'.$module);?>" onclick="return areyousure();"><i class=" icon-minus icon-white"></i> <?php echo lang('uninstall');?></a>
+						<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/shipping/settings/'.$module);?>"><i class="icon-wrench"></i> <?php echo lang('settings');?></a>
+						<a class="btn btn-danger" href="<?php echo site_url(ADMIN_AREA.'/shipping/uninstall/'.$module);?>" onclick="return areyousure();"><i class=" icon-minus icon-white"></i> <?php echo lang('uninstall');?></a>
 					<?php else: ?>
-						<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/shipping/install/'.$module);?>"><i class="icon-ok"></i> <?php echo lang('install');?></a>
+						<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/shipping/install/'.$module);?>"><i class="icon-ok"></i> <?php echo lang('install');?></a>
 					<?php endif; ?>
 						</span>
 					</td>
@@ -44,10 +44,10 @@
 					<td>
 						<span class="btn-group pull-right">
 					<?php if($enabled): ?>
-						<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/payment/settings/'.$module);?>"><i class="icon-wrench"></i> <?php echo lang('settings');?></a>
-						<a class="btn btn-danger" href="<?php echo site_url($this->config->item('admin_folder').'/payment/uninstall/'.$module);?>" onclick="return areyousure();"><i class=" icon-minus icon-white"></i> <?php echo lang('uninstall');?></a>
+						<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/payment/settings/'.$module);?>"><i class="icon-wrench"></i> <?php echo lang('settings');?></a>
+						<a class="btn btn-danger" href="<?php echo site_url(ADMIN_AREA.'/payment/uninstall/'.$module);?>" onclick="return areyousure();"><i class=" icon-minus icon-white"></i> <?php echo lang('uninstall');?></a>
 					<?php else: ?>
-						<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/payment/install/'.$module);?>"><i class="icon-ok"></i> <?php echo lang('install');?></a>
+						<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/payment/install/'.$module);?>"><i class="icon-ok"></i> <?php echo lang('install');?></a>
 					<?php endif; ?>
 						</span>
 					</td>
@@ -64,7 +64,7 @@
 	<div class="span12">
 		<div class="page-header">
 			<div class="button_set pull-right">
-				<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/settings/canned_message_form/');?>"><i class="icon-plus-sign"></i> <?php echo lang('add_canned_message');?></a>
+				<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/settings/canned_message_form/');?>"><i class="icon-plus-sign"></i> <?php echo lang('add_canned_message');?></a>
 			</div>
 			<h3><?php echo lang('canned_messages');?></h3>
 		</div>
@@ -77,9 +77,9 @@
 			<td><?php echo $message['name']; ?></td>
 			<td>
 				<span class="btn-group pull-right">
-					<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/settings/canned_message_form/'.$message['id']);?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
+					<a class="btn" href="<?php echo site_url(ADMIN_AREA.'/settings/canned_message_form/'.$message['id']);?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
 					<?php if($message['deletable'] == 1) : ?>	
-						<a class="btn btn-danger" href="<?php echo site_url($this->config->item('admin_folder').'/settings/delete_message/'.$message['id']);?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
+						<a class="btn btn-danger" href="<?php echo site_url(ADMIN_AREA.'/settings/delete_message/'.$message['id']);?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
 					<?php endif; ?>
 				</span>
 			</td>
