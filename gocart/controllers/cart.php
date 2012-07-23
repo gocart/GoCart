@@ -59,11 +59,17 @@ class Cart extends CI_Controller {
 		$this->load->view('homepage', $data);
 	}
 
-	function page($id)
+	function page($id = false)
 	{
+		//if there is no page id provided redirect to the homepage.
+		$data['page']	= $this->Page_model->get_page($id);
+		if(!$data['page'])
+		{
+			show_404();
+		}
 		$this->load->model('Page_model');
 		$data['base_url']			= $this->uri->segment_array();
-		$data['page']				= $this->Page_model->get_page($id);
+		
 		$data['fb_like']			= true;
 
 		$data['page_title']			= $data['page']->title;
