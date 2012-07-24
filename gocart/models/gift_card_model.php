@@ -119,7 +119,15 @@ class Gift_card_model extends CI_Model
 		$this->db->where('code', $code);
 		$res = $this->db->get('gift_cards');
 		$row = $res->row();
-		return (bool) $row->activated;
+		if($row)
+		{
+			return (bool) $row->activated;
+		}
+		else
+		{
+			return false;
+		}
+		
 	}
 	
 
