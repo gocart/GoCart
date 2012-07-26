@@ -4,7 +4,7 @@ Version 2.0
 	
 	Features
 		
-		- Upgraded to CodeIgnier 2.1.1
+		- Upgraded to CodeIgniter 2.1.2
 		- Updated SQL install script to support ipv6 ip address length
 		- New default theme based on Twitter bootstrap 2.0
 		- Admin interface now based on twitter bootstrap
