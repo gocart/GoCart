@@ -33,7 +33,7 @@ function add_product_image(data)
 {
 	p	= data.split('.');
 	
-	var photo = '<?php add_image("'+p[0]+'", "'+p[0]+'.'+p[1]+'", '', '', '', $this->s3_url);?>';
+	var photo = '<?php add_image("'+p[0]+'", "'+p[0]+'.'+p[1]+'", '', '', '', base_url('uploads/images/thumbnails'));?>';
 	$('#gc_photos').append(photo);
 	$('#gc_photos').sortable('destroy');
 	photos_sortable();
@@ -502,7 +502,7 @@ function remove_option(id)
 							if(!empty($photo_obj))
 							{
 								$photo = (array)$photo_obj;
-								add_image($photo_id, $photo['filename'], $photo['alt'], $photo['caption'], isset($photo['primary']), $this->s3_url);
+								add_image($photo_id, $photo['filename'], $photo['alt'], $photo['caption'], isset($photo['primary']));
 							}
 
 						}
@@ -563,7 +563,7 @@ function remove_option(id)
 </form>
 
 <?php
-function add_image($photo_id, $filename, $alt, $caption, $primary=false, $s3)
+function add_image($photo_id, $filename, $alt, $caption, $primary=false)
 {
 
 	ob_start();
@@ -571,7 +571,7 @@ function add_image($photo_id, $filename, $alt, $caption, $primary=false, $s3)
 	<div class="row gc_photo" id="gc_photo_<?php echo $photo_id;?>" style="background-color:#fff; border-bottom:1px solid #ddd; padding-bottom:20px; margin-bottom:20px;">
 		<div class="span2">
 			<input type="hidden" name="images[<?php echo $photo_id;?>][filename]" value="<?php echo $filename;?>"/>
-			<img class="gc_thumbnail" src="<?php echo $s3.'images/thumbnails/'.$filename;?>" style="padding:5px; border:1px solid #ddd"/>
+			<img class="gc_thumbnail" src="<?php echo base_url('uploads/images/thumbnails/'.$filename);?>" style="padding:5px; border:1px solid #ddd"/>
 		</div>
 		<div class="span6">
 			<div class="row">
