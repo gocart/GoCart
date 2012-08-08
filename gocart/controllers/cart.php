@@ -59,10 +59,17 @@ class Cart extends CI_Controller {
 		$this->load->view('homepage', $data);
 	}
 
-	function page($id)
+	function page($id = false)
 	{
+		//if there is no page id provided redirect to the homepage.
+		$data['page']	= $this->Page_model->get_page($id);
+		if(!$data['page'])
+		{
+			show_404();
+		}
 		$this->load->model('Page_model');
-		$data['page']				= $this->Page_model->get_page($id);
+		$data['base_url']			= $this->uri->segment_array();
+		
 		$data['fb_like']			= true;
 
 		$data['page_title']			= $data['page']->title;
@@ -78,20 +85,53 @@ class Cart extends CI_Controller {
 	function search($code=false, $page = 0)
 	{
 		$this->load->model('Search_model');
-		$data['page_title']			= lang('search');
-		$data['gift_cards_enabled']	= $this->gift_cards_enabled;
+		
 		//check to see if we have a search term
 		if(!$code)
 		{
 			//if the term is in post, save it to the db and give me a reference
 			$term		= $this->input->post('term');
 			$code		= $this->Search_model->record_term($term);
+			
+			// no code? redirect so we can have the code in place for the sorting.
+			// I know this isn't the best way...
+			redirect('cart/search/'.$code.'/'.$page);
 		}
 		else
 		{
 			//if we have the md5 string, get the term
 			$term	= $this->Search_model->get_term($code);
 		}
+		
+		if(empty($term))
+		{
+			//if there is still no search term throw an error
+			//if there is still no search term throw an error
+			$this->session->set_flashdata('error', lang('search_error'));
+			redirect('cart');
+		}
+		$data['page_title']			= lang('search');
+		$data['gift_cards_enabled']	= $this->gift_cards_enabled;
+		
+		//fix for the category view page.
+		$data['base_url']			= array();
+		
+		$sort_array = array(
+							'name/asc' => array('by' => 'name', 'sort'=>'ASC'),
+							'name/desc' => array('by' => 'name', 'sort'=>'DESC'),
+							'price/asc' => array('by' => 'price', 'sort'=>'ASC'),
+							'price/desc' => array('by' => 'price', 'sort'=>'DESC'),
+							);
+		$sort_by	= array('by'=>false, 'sort'=>false);
+	
+		if(isset($_GET['by']))
+		{
+			if(isset($sort_array[$_GET['by']]))
+			{
+				$sort_by	= $sort_array[$_GET['by']];
+			}
+		}
+		
 
 		if(empty($term))
 		{
@@ -109,8 +149,31 @@ class Cart extends CI_Controller {
 			$config['base_url']		= base_url().'cart/search/'.$code.'/';
 			$config['uri_segment']	= 4;
 			$config['per_page']		= 20;
-	
-			$result					= $this->Product_model->search_products($term, $config['per_page'], $page);
+			
+			$config['first_link'] = 'First';
+			$config['first_tag_open'] = '<li>';
+			$config['first_tag_close'] = '</li>';
+			$config['last_link'] = 'Last';
+			$config['last_tag_open'] = '<li>';
+			$config['last_tag_close'] = '</li>';
+
+			$config['full_tag_open'] = '<div class="pagination"><ul>';
+			$config['full_tag_close'] = '</ul></div>';
+			$config['cur_tag_open'] = '<li class="active"><a href="#">';
+			$config['cur_tag_close'] = '</a></li>';
+
+			$config['num_tag_open'] = '<li>';
+			$config['num_tag_close'] = '</li>';
+
+			$config['prev_link'] = '&laquo;';
+			$config['prev_tag_open'] = '<li>';
+			$config['prev_tag_close'] = '</li>';
+
+			$config['next_link'] = '&raquo;';
+			$config['next_tag_open'] = '<li>';
+			$config['next_tag_close'] = '</li>';
+			
+			$result					= $this->Product_model->search_products($term, $config['per_page'], $page, $sort_by['by'], $sort_by['sort']);
 			$config['total_rows']	= $result['count'];
 			$this->pagination->initialize($config);
 	
@@ -124,9 +187,8 @@ class Cart extends CI_Controller {
 		}
 	}
 	
-	function category($id, $page=0)
+	function category($id)
 	{
-		
 		//get the category
 		$data['category']			= $this->Category_model->get_category($id);
 				
@@ -134,6 +196,24 @@ class Cart extends CI_Controller {
 		{
 			show_404();
 		}
+		
+		//set up pagination
+		$segments	= $this->uri->total_segments();
+		$base_url	= $this->uri->segment_array();
+		
+		if($data['category']->slug == $base_url[count($base_url)])
+		{
+			$page	= 0;
+			$segments++;
+		}
+		else
+		{
+			$page	= array_splice($base_url, -1, 1);
+			$page	= $page[0];
+		}
+		
+		$data['base_url']	= $base_url;
+		$base_url			= implode('/', $base_url);
 		
 		$data['subcategories']		= $this->Category_model->get_categories($data['category']->id);
 		$data['product_columns']	= $this->config->item('product_columns');
@@ -143,16 +223,57 @@ class Cart extends CI_Controller {
 		$data['seo_title']	= $data['category']->seo_title;
 		
 		$data['page_title']	= $data['category']->name;
+		
+		$sort_array = array(
+							'name/asc' => array('by' => 'products.name', 'sort'=>'ASC'),
+							'name/desc' => array('by' => 'products.name', 'sort'=>'DESC'),
+							'price/asc' => array('by' => 'products.price', 'sort'=>'ASC'),
+							'price/desc' => array('by' => 'products.price', 'sort'=>'DESC'),
+							);
+		$sort_by	= array('by'=>'sequence', 'sort'=>'ASC');
+	
+		if(isset($_GET['by']))
+		{
+			if(isset($sort_array[$_GET['by']]))
+			{
+				$sort_by	= $sort_array[$_GET['by']];
+			}
+		}
+		
 		//set up pagination
 		$this->load->library('pagination');
-		$config['base_url']		= base_url().$data['category']->slug.'/';
-		$config['uri_segment']	= 2;
-		$config['per_page']		= 20;
+		$config['base_url']		= site_url($base_url);
+		$config['uri_segment']	= $segments;
+		$config['per_page']		= 24;
 		$config['total_rows']	= $this->Product_model->count_products($data['category']->id);
+		
+		$config['first_link'] = 'First';
+		$config['first_tag_open'] = '<li>';
+		$config['first_tag_close'] = '</li>';
+		$config['last_link'] = 'Last';
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '</li>';
+
+		$config['full_tag_open'] = '<div class="pagination"><ul>';
+		$config['full_tag_close'] = '</ul></div>';
+		$config['cur_tag_open'] = '<li class="active"><a href="#">';
+		$config['cur_tag_close'] = '</a></li>';
+		
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		
+		$config['prev_link'] = '&laquo;';
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_tag_close'] = '</li>';
+
+		$config['next_link'] = '&raquo;';
+		$config['next_tag_open'] = '<li>';
+		$config['next_tag_close'] = '</li>';
+		
 		$this->pagination->initialize($config);
 		
 		//grab the products using the pagination lib
-		$data['products']	= $this->Product_model->get_products($data['category']->id, $config['per_page'], $page);
+		$data['products']	= $this->Product_model->get_products($data['category']->id, $config['per_page'], $page, $sort_by['by'], $sort_by['sort']);
 		foreach ($data['products'] as &$p)
 		{
 			$p->images	= (array)json_decode($p->images);
@@ -167,29 +288,24 @@ class Cart extends CI_Controller {
 		//get the product
 		$data['product']	= $this->Product_model->get_product($id);
 		
+		
 		if(!$data['product'] || $data['product']->enabled==0)
 		{
 			show_404();
 		}
-
+		
+		$data['base_url']			= $this->uri->segment_array();
+		
 		// load the digital language stuff
 		$this->lang->load('digital_product');
 		
 		$data['options']	= $this->Option_model->get_product_options($data['product']->id);
 		
-		$related			= (array)json_decode($data['product']->related_products);
+		$related			= $data['product']->related_products;
 		$data['related']	= array();
-		foreach($related as $r)
-		{
-			$r					= $this->Product_model->get_product($r);
-			if($r)
-			{
-				$r->images			= (array)json_decode($r->images);
-				$r->options			= $this->Option_model->get_product_options($r->id);
-				$data['related'][]	= $r;
-			}
-			
-		}
+		
+
+				
 		$data['posted_options']	= $this->session->flashdata('option_values');
 
 		$data['page_title']			= $data['product']->name;
@@ -217,7 +333,6 @@ class Cart extends CI_Controller {
 		$product_id		= $this->input->post('id');
 		$quantity 		= $this->input->post('quantity');
 		$post_options 	= $this->input->post('option');
-		$cartkey		= $this->input->post('cartkey');
 		
 		// Get a cart-ready product array
 		$product = $this->Product_model->get_cart_ready_product($product_id, $quantity);
@@ -250,7 +365,6 @@ class Cart extends CI_Controller {
 			}
 		}
 
-		
 		// Validate Options 
 		// this returns a status array, with product item array automatically modified and options added
 		//  Warning: this method receives the product by reference
@@ -263,7 +377,7 @@ class Cart extends CI_Controller {
 			$this->session->set_flashdata('cartkey', $cartkey);
 			$this->session->set_flashdata('quantity', $quantity);
 			$this->session->set_flashdata('error', $status['message']);
-			$this->session->set_flashdata('option_values', $post_options);			
+			$this->session->set_flashdata('option_values', $post_options);
 		
 			redirect($this->Product_model->get_slug($product_id));
 		
@@ -271,8 +385,10 @@ class Cart extends CI_Controller {
 		
 			//Add the original option vars to the array so we can edit it later
 			$product['post_options']	= $post_options;
-			$product['cartkey']			= $cartkey;
+			
+			//is giftcard
 			$product['is_gc']			= false;
+			
 			// Add the product item to the cart, also updates coupon discounts automatically
 			$this->go_cart->insert($product);
 		

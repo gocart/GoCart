@@ -65,6 +65,32 @@ function reverse_format($date)
 	return "{$d[1]}-{$d[2]}-{$d[0]}";
 }
 
+function format_ymd($date)
+{
+	if(empty($date) || $date == '00-00-0000')
+	{
+		return '';
+	}
+	else
+	{
+		$d = explode('-', $date);
+		return $d[2].'-'.$d[0].'-'.$d[1];
+	}
+}
+
+function format_mdy($date)
+{
+	if(empty($date) || $date == '0000-00-00')
+	{
+		return '';
+	}
+	else
+	{
+		return date('m-d-Y', strtotime($date));
+	}
+	
+}
+
 
 /* End of file welcome.php */
 /* Location: ./system/application/helpers/MY_date_helper.php */

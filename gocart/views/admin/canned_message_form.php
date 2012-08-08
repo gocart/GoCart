@@ -2,37 +2,35 @@
 
 <?php echo form_open($this->config->item('admin_folder').'/settings/canned_message_form/'.$id); ?>
 
-<div class="button_set">
-	<input type="submit" value="<?php echo lang('save_canned_message');?>"/>
-</div>
+	<label for="name"><?php echo lang('label_canned_name');?> </label>
+	<?php
+	$name_array = array('name' =>'name', 'class'=>'input-xlarge', 'value'=>set_value('name', $name));
 
-<div id="gc_tabs">
-	<ul>
-		<li><a href="#gc_message_info"><?php echo lang('tab_canned_info');?></a></li>
-	</ul>
-	<div id="gc_message_info">
-		<div class="gc_field2">
-			<label for="name"><?php echo lang('label_canned_name');?> </label>
-			<input class="gc_tf1" type="text" name="name" value="<?php echo  set_value('name', $name); ?>" size="40" <?php if(!$deletable) { ?> style=" background-color:#f2f2f2;" readonly="readonly" <?php } ?>/>
-		</div>
-
-		<div class="gc_field2">
-			<label for="subject"><?php echo lang('label_canned_subject');?> </label>
-			<input class="gc_tf1" type="text" name="subject" value="<?php echo  set_value('subject', $subject); ?>" size="40" />
-		</div>
-		<div class="gc_field gc_tinymce">
-			<?php
-			$data	= array('id'=>'description', 'name'=>'content', 'class'=>'tinyMCE', 'value'=>set_value('content', $content));
-			echo form_textarea($data);
-			?>
-		</div>
+	if(!$deletable) {
+		$name_array['class']	= "input-xlarge disabled";
+		$name_array['readonly']	= "readonly";
+	}
+	echo form_input($name_array);?>
+	
+	
+	<label for="subject"><?php echo lang('label_canned_subject');?> </label>
+	<?php echo form_input(array('name'=>'subject', 'class'=>'input-xlarge', 'value'=>set_value('subject', $subject)));?>
+	
+	<label for="description"></label>
+	<?php
+	$data	= array('id'=>'description', 'name'=>'content', 'class'=>'tinyMCE', 'value'=>set_value('content', $content));
+	echo form_textarea($data);
+	?>
+	
+	<div class="form-actions">
+		<input class="btn btn-primary" type="submit" value="<?php echo lang('save');?>"/>
 	</div>
-</div>
+	
 
 </form>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#gc_tabs").tabs();
+	$('form').submit(function() {
+		$('.btn').attr('disabled', true).addClass('disabled');
 	});
 </script>
 <?php include('footer.php');

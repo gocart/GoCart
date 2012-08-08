@@ -23,7 +23,7 @@ class usps_domestic
 		//username password, origin zip code etc.
 		$this->CI =& get_instance();
 		$this->CI->load->model('Settings_model');
-		
+		$this->CI->lang->load('usps_domestic');
 		
 		$this->service_list = array(
 			// Domestic Services
@@ -69,27 +69,27 @@ class usps_domestic
 	
 	function rates()
 	{
-		
+
 		$this->CI->load->library('session');
-		
+
 		// get customer info
 		$customer = $this->CI->go_cart->customer();
 		$dest_zip 	= $customer['ship_address']['zip'];
 		$dest_country = $customer['ship_address']['country'];
-		
+
 		//grab this information from the config file
 		$country	= $this->CI->config->item('country');
 		$orig_zip	= $this->CI->config->item('zip');
-		
+
 		// retrieve settings
 		$settings	= $this->CI->Settings_model->get_settings('usps_domestic');
-		
+
 		//check if we're enabled
 		if(!$settings['enabled'] || $settings['enabled'] < 1)
 		{
 			return array();
 		}
-		
+
 		$user	 		= $settings['username'];
 		$pass 			= $settings['password'];
 		$service		= explode(',',$settings['service']);
@@ -98,155 +98,155 @@ class usps_domestic
 		$machinable 	= $settings['machinable'];
 		$handling_method = $settings['handling_method'];
 		$handling_amount = $settings['handling_amount'];
-		
+
 		// build allowed service list
 		foreach($service as $s)
 		{
 			$service_list[] = $this->service_list[$s];
 		}
-		
+
 		//set the weight
 		$weight	= $this->CI->go_cart->order_weight();
-		
+
 		// value of contents
 		$total = $this->CI->go_cart->order_insurable_value();
-		
+
 		//strip the decimal
 		$oz		= ($weight-(floor($weight)))*100;
 		//set pounds
 		$lbs	= floor($weight);
 		//set ounces based on decimal
 		$oz	= round(($oz*16)/100);
-		
+
 		// no foreign support
 		if($country!="US")
-	  	{
-	       return array(); 
- 	    }
-		
+		{
+			return array(); 
+		}
+
 		// no intl shipping in this lib
 		if($dest_country!='United States')
 		{
 			return array();
 		}
-		
+
 		// send a standard test request
 		if($settings['mode'] == 'test')
 		{
-	
+
 			$str = '<RateV2Request USERID="';
-	        $str .= $user . '"><Package ID="1"><Service>';
-	        $str .= 'All</Service><ZipOrigination>10022</ZipOrigination>';
-	        $str .= '<ZipDestination>20008</ZipDestination>';
-	        $str .= '<Pounds>10</Pounds><Ounces>5</Ounces>';
-	        $str .= '<Container>Flat Rate Box</Container><Size>LARGE</Size>';
-	        $str .= '<Machinable>True</Machinable></Package></RateV2Request>';
-	        
-	        $str = $this->testserver .'?API=RateV2&XML='. urlencode($str);
-	       
+			$str .= $user . '"><Package ID="1"><Service>';
+			$str .= 'All</Service><ZipOrigination>10022</ZipOrigination>';
+			$str .= '<ZipDestination>20008</ZipDestination>';
+			$str .= '<Pounds>10</Pounds><Ounces>5</Ounces>';
+			$str .= '<Container>Flat Rate Box</Container><Size>LARGE</Size>';
+			$str .= '<Machinable>True</Machinable></Package></RateV2Request>';
+
+			$str = $this->testserver .'?API=RateV2&XML='. urlencode($str);
+
 		}
 		else
 		{
-			
+
 			// Domestic Rates
 			$str = '<RateV4Request USERID="';
-	        //$str .= $user . '" PASSWORD="' . $pass . '"><Package ID="1"><Service>';
-	       	$str .= $user . '"><Package ID="1"><Service>';
-	        $str .= 'ALL</Service><ZipOrigination>'.$orig_zip.'</ZipOrigination>';
-	        $str .= '<ZipDestination>'.$dest_zip.'</ZipDestination>';
-	        $str .= '<Pounds>'.$lbs.'</Pounds><Ounces>'.$oz.'</Ounces>';
-	        $str .= '<Container>' . $container .'</Container><Size>'.$size.'</Size>';
-	        $str .= '<Machinable>'.$machinable.'</Machinable></Package></RateV4Request>';
-		
+			//$str .= $user . '" PASSWORD="' . $pass . '"><Package ID="1"><Service>';
+			$str .= $user . '"><Package ID="1"><Service>';
+			$str .= 'ALL</Service><ZipOrigination>'.$orig_zip.'</ZipOrigination>';
+			$str .= '<ZipDestination>'.$dest_zip.'</ZipDestination>';
+			$str .= '<Pounds>'.$lbs.'</Pounds><Ounces>'.$oz.'</Ounces>';
+			$str .= '<Container>' . $container .'</Container><Size>'.$size.'</Size>';
+			$str .= '<Machinable>'.$machinable.'</Machinable></Package></RateV4Request>';
+
 			$str = $this->liveserver .'?API=RateV4&XML='. urlencode($str);				
-			
+
 		}
-		
-	  
-        $ch = curl_init();
-        // set URL and other appropriate options
-        curl_setopt($ch, CURLOPT_URL, $str);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-        // grab URL and pass it to the browser
-        $ats = curl_exec($ch);
 
-        // close curl resource, and free up system resources
-        curl_close($ch);
-        //$xmlParser = new xmlparser();
-        $this->CI->load->library('xmlparser');
-        $array = $this->CI->xmlparser->GetXMLTree($ats);
-       	
- 
-       	
-       	if(isset($array['ERROR'])) 
-       	{
-       		var_dump($array);
-       		
-       		return array(); // if the request failed, just send back an empty set
-       	}
-       	
-       	$rates = array();
-       	
-       
-       	
-       	// Parse test mode response
-       	if($settings['mode'] == 'test')
+		$ch = curl_init();
+		// set URL and other appropriate options
+		curl_setopt($ch, CURLOPT_URL, $str);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+		// grab URL and pass it to the browser
+		$ats = curl_exec($ch);
+
+		// close curl resource, and free up system resources
+		curl_close($ch);
+		//$xmlParser = new xmlparser();
+		$this->CI->load->library('xmlparser');
+		$array = $this->CI->xmlparser->GetXMLTree($ats);
+
+
+
+		if(isset($array['ERROR'])) 
 		{
-	       	foreach ($array['RATEV2RESPONSE'][0]['PACKAGE'][0]['POSTAGE'] as $value)
-	       	{
-	       		
-             	$amount = $value['RATE'][0]['VALUE'];
-             	
-             	if(is_numeric($handling_amount)) // valid entry?
-	        	{
-	        			
-	        			if($handling_method=='$')
-	        			{
-	        				$amount += $handling_amount;
-	        			}
-	        			elseif($handling_method=='%')
-	        			{
-	        				$amount += $amount * ($handling_amount/100);
-	        			}
-	        	}
-             	
-                $rates[$value['MAILSERVICE'][0]['VALUE']] = $amount;
-	  			
-	        }
-	        
-	      // Parse live response
-	      } else {
-	      			//var_dump($service_list);
-	      			
-      			foreach ($array['RATEV4RESPONSE'][0]['PACKAGE'][0]['POSTAGE'] as $value)
-		       	{		
-					//echo $value['MAILSERVICE'][0]['VALUE']."\n";
-					if(in_array($value['MAILSERVICE'][0]['VALUE'],$service_list))
-                	{	             	
-		             	$amount = $value['RATE'][0]['VALUE'];
-		             	
-		             	if(is_numeric($handling_amount)) // valid entry?
-			        	{
-			        			
-			        			if($handling_method=='$')
-			        			{
-			        				$amount += $handling_amount;
-			        			}
-			        			elseif($handling_method=='%')
-			        			{
-			        				$amount += $amount * ($handling_amount/100);
-			        			}
-			        	}
-		             	
-		                $rates[$value['MAILSERVICE'][0]['VALUE']] = $amount;
-		             }	
-		        }
-	  
-	      }
-  
-       return $rates;
+			var_dump($array);
+
+			return array(); // if the request failed, just send back an empty set
+		}
+
+		$rates = array();
+
+
+
+		// Parse test mode response
+		if($settings['mode'] == 'test')
+		{
+			foreach ($array['RATEV2RESPONSE'][0]['PACKAGE'][0]['POSTAGE'] as $value)
+			{
+
+				$amount = $value['RATE'][0]['VALUE'];
+
+				if(is_numeric($handling_amount)) // valid entry?
+				{
+
+					if($handling_method=='$')
+					{
+						$amount += $handling_amount;
+					}
+					elseif($handling_method=='%')
+					{
+						$amount += $amount * ($handling_amount/100);
+					}
+				}
+
+				$rates[$value['MAILSERVICE'][0]['VALUE']] = $amount;
+
+			}
+
+			// Parse live response
+		} else {
+			//var_dump($service_list);
+
+			foreach ($array['RATEV4RESPONSE'][0]['PACKAGE'][0]['POSTAGE'] as $value)
+			{		
+				//echo $value['MAILSERVICE'][0]['VALUE']."\n";
+				if(in_array($value['MAILSERVICE'][0]['VALUE'],$service_list))
+				{	             	
+					$amount = $value['RATE'][0]['VALUE'];
+
+					if(is_numeric($handling_amount)) // valid entry?
+					{
+
+						if($handling_method=='$')
+						{
+							$amount += $handling_amount;
+						}
+						elseif($handling_method=='%')
+						{
+							$amount += $amount * ($handling_amount/100);
+						}
+					}
+
+					$rates[$value['MAILSERVICE'][0]['VALUE']] = $amount;
+				}	
+			}
+
+		}
+
+		return $rates;
 	}
 	
 	function install()
@@ -317,83 +317,85 @@ class usps_domestic
 			$handling_amount = $post['handling_amount'];
 		}
 		
-		$form	= '<table><tr><td>Username: </td><td>'.form_input('username', $username, 'class="gc_tf1"') .'</td></tr>
-					<tr><td>Password: </td><td>'.form_input('password', $password, 'class="gc_tf1"') .'</td></tr>
-					<tr><td>Mode: </td><td>';
+		ob_start();
+		?>
+		<div class="row">
+			<div class="span12">
+				<label><?php echo lang('username');?></label>
+				<?php echo form_input('username', $username, 'class="span3"');?>
 		
-		$opts = array('test'=>'Test', 'live'=>'Live');
+				<label><?php echo lang('password');?></label>
+				<?php echo form_input('password', $username, 'class="span3"');?>
 		
-		$form .= form_dropdown('mode', $opts, $mode);
-		
-		$form	.= '</td></tr><tr><td valign="top">Services To Offer: </td><td>';
-		
-		 foreach($this->service_list as $id=>$opt)
-         {
-         	$form .= "<input type='checkbox' name='service[]' value='$id' ";
-         	if(in_array($id, $service)) $form .= "checked='checked'";
-         	$form .= "> ".  htmlspecialchars_decode(html_entity_decode(stripslashes($opt))) ." <br />";
-         }
-         
-        
-	
-		
-		$form .= '</td></tr><tr><td>Container: </td><td>';
-		
-		
-		$opts = array('VARIABLE'=>'Variable',
-					  'FLAT RATE BOX'=>'Flat Rate Box',
-					  'MD FLAT RATE BOX'=>'Medium Flat Rate Box',
-					  'LG FLAT RATE BOX'=>'Large Flat Rate Box',
-					  'FLAT RATE ENVELOPE'=>'Flat Rate Envelope',
-					  'RECTANGULAR'=>'Rectangular',
-					  'NONRECTANGULAR'=>'Non Rectangular'
-					  );
-		
-		$form .= form_dropdown('container', $opts, $container);
+				<label><?php echo lang('mode');?></label>
+				<?php echo form_dropdown('mode', array('test'=>lang('test'), 'live'=>lang('live')), $mode);?>
 
-		$form	.= '</td></tr><tr><td>Size: </td><td>';
+				<label><?php echo lang('method')?></label>
+				<div class="controls">
+				 <?php foreach($this->service_list as $id=>$opt):?>
+					<label class="checkbox">
+						<input type='checkbox' name='service[]' value='<?php echo $id;?>' <?php echo(in_array($id, $service))?"checked='checked'":'';?> /> <?php echo htmlspecialchars_decode(html_entity_decode(stripslashes($opt)));?>
+					</label>
+		         <?php endforeach;?>
+				</div>
+				<label><?php echo lang('container')?></label>
+				<?php
+				$opts	= array('VARIABLE'=>lang('variable'),
+								'FLAT RATE BOX'=>lang('flat_rate_box'),
+								'MD FLAT RATE BOX'=>lang('medium_flat_rate_box'),
+								'LG FLAT RATE BOX'=>lang('large_flat_rate_box'),
+								'FLAT RATE ENVELOPE'=>lang('flat_rate_envelope'),
+								'RECTANGULAR'=>lang('rectangular'),
+								'NONRECTANGULAR'=>lang('non_rectangular')
+								);
 		
+				echo form_dropdown('container', $opts, $container, 'class="span3"');?>
 		
-		$opts = array('REGULAR'=>'Regular',
-					  'LARGE'=>'Large',
-					  'OVERSIZE'=>'Oversize'	
-					 );
+				<label><?php echo lang('size');?></label>
+				<?php
+				$opts	= array('REGULAR'=>lang('regular'),
+								'LARGE'=>lang('large'),
+								'OVERSIZE'=>lang('oversize')
+								);
+				echo form_dropdown('size', $opts, $size, 'class="span3"');?>
 		
-		$form .= form_dropdown('size', $opts, $size);
+				<h3><?php echo lang('size_message');?></h3>
 		
-		$form .= '</td></tr><tr><td colspan=2>(Dimensions required for size LARGE)</td>';
+				<label><?php echo lang('package_length');?></label>
+				<?php echo form_input('length', $length, 'class="span3"');?>
 		
-		$form .= '</tr><tr><td>Pkg Length: </td><td>';
-		$form .= form_input('length', $length, 'class="gc_tf1"');
+				<label><?php echo lang('package_width');?></label>
+				<?php echo form_input('width', $width, 'class="span3"');?>
 		
-		$form .= '</td></tr><tr><td>Pkg Width: </td><td>';
-		$form .= form_input('width', $width, 'class="gc_tf1"');
+				<label><?php echo lang('package_height');?></label>
+				<?php echo form_input('height', $height, 'class="span3"');?>
+
+				<label><?php echo lang('package_girth');?></label>
+				<?php echo form_input('girth', $girth, 'class="span3"');?>
 		
-		$form .= '</td></tr><tr><td>Pkg Height: </td><td>';
-		$form .= form_input('height', $height, 'class="gc_tf1"');
-		
-		$form .= '</td></tr><tr><td>Pkg Girth: </td><td>';
-		$form .= form_input('girth', $girth, 'class="gc_tf1"');
-		
-		$form .= '</td></tr><tr><td>Machinable: </td><td>';
-		
-		$opts = array('TRUE'=>'True', 'FALSE'=>'False');
-		
-		$form .= form_dropdown('machinable', $opts, $machinable);
-		
-		$form .= '</td></tr><tr><td>Handling Fee: </td><td>';
-		
-		$form .= form_dropdown('handling_method', array('$'=>'$', '%'=>'%'), $handling_method);
-		
-		$form .= ' '. form_input('handling_amount', $handling_amount, 'class="gc_tf1"');
-		
-		$form .= '</td></tr><tr><td>Module Status: </td><td>';
-		
-		$opts = array('Disabled', 'Enabled');
-		
-		$form .= form_dropdown('enabled', $opts, $enabled);
-		
-		$form .= '</td></tr></table>';
+				<label><?php echo lang('machinable');?></label>
+				<?php echo form_dropdown('machinable', array('TRUE'=>lang('yes'), 'FALSE'=>lang('no')), $machinable, 'class="span3"');?>
+				
+				<label><?php echo lang('handling_fee');?></label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span1">
+				<?php echo form_dropdown('handling_method', array('$'=>'$', '%'=>'%'), $handling_method, 'class="span1"');?>
+			</div>
+			<div class="span2">
+				<?php echo form_input('handling_amount', $handling_amount, 'class="span2"');?>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span12">
+				<label><?php echo lang('enabled');?></label>
+				<?php echo form_dropdown('enabled', array(lang('disabled'), lang('enabled')), $enabled, 'class="span3"');?>
+			</div>
+		</div>
+		<?php
+		$form =ob_get_contents();
+		ob_end_clean();
 		
 		return $form;
 	}
@@ -406,11 +408,11 @@ class usps_domestic
 		//count the errors
 		if(empty($save['service']))
 		{
-			return 'You must choose at least one service';
+			return lang('service_error');
 		}
 		else if(empty($save['username']))
 		{
-			return 'You must provide a username';
+			return lang('username_error');
 		}
 		else
 		{

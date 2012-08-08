@@ -1,3 +1,36 @@
+Version 2.0
+-------------
+	Release date: TBA
+	
+	Features
+		
+		- Upgraded to CodeIgniter 2.1.2
+		- Updated SQL install script to support ipv6 ip address length
+		- New default theme based on Twitter bootstrap 2.0
+		- Admin interface now based on twitter bootstrap
+		- Pagination on admin product list
+		- Category filter on admin product list page
+		- Admin Reports are better optimized than before.
+		- AJAX related products search on product_form.php view.
+		- AJAX category search on product_form.php view.
+		- Sortable products on front end (in the bootstrap theme)
+		- Breadcrumbs
+		- Routing system improved for optimum scalability
+		
+	
+	Bug Fixes
+	
+		- Fixed blank search term error.
+		- Fixed admin order view error for is_gc flag.
+		- Removed default Lousiana tax of %4.
+		- Updated default uri-protocol to AUTO.
+		- Fixed colspan on an empty product table in the admin products view.
+		- Fixed admin banner datepicker javascript and fields
+		- Fixed banner_model.php to properly restrict disabled banners for the get_homepage_banners() function.
+		- Fixed meta tag code in the default theme header.
+		- Fixed login redirect for expired customer sessions (thanks Dinesh)
+
+
 Version 1.2.3
 -------------
 	Release date: March 8, 2012

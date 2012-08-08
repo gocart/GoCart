@@ -206,7 +206,7 @@ class Authorize_net
 			$settings = $post;
 		}
 		
-		return $this->CI->load->view('admin_form', array('settings'=>$settings), true);
+		return $this->CI->load->view('auth_net_form', array('settings'=>$settings), true);
 	}
 	
 	

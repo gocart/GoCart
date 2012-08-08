@@ -5,7 +5,7 @@ Admin Coupon Language
 ******************************************/
 
 $lang['coupons']				= 'Coupons';
-$lang['counpon_form']			= 'Coupon Form';
+$lang['coupon_form']			= 'Coupon Form';
 $lang['error_not_found']		= 'The requested coupon could not be found.';
 $lang['no_coupons']				= 'There are currently no coupons.';
 $lang['confirm_delete_coupon']	= 'Are you sure you want to delete this coupon?';
@@ -24,7 +24,7 @@ $lang['message_coupon_deleted']	= 'The coupon has been deleted.';
 $lang['attributes']				= 'Attributes';
 $lang['applies_to']				= 'Applies To';
 $lang['coupon_code']			= 'Coupon Code';
-$lang['times_used']				= 'Times Used';
+$lang['times_used']				= 'This coupon has been used %d times.';
 $lang['limit_per_order']		= 'Limit Per Order';
 $lang['enable_on']				= 'Enable On';
 $lang['disable_on']				= 'Disable On';

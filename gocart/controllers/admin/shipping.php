@@ -48,6 +48,7 @@ class Shipping extends Admin_Controller {
 	
 	function settings($module)
 	{
+		$this->load->helper('form');
 		$this->load->add_package_path(APPPATH.'packages/shipping/'.$module.'/');
 		$this->load->library($module);
 		

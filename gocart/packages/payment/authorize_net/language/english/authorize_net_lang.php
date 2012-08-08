@@ -20,7 +20,7 @@ $lang['auth_error']					= 'Authorize.Net Critical Error: ';
 
 
 //admin
-
+$lang['mode']						= 'Mode';
 $lang['test_mode']					= 'Test Mode';
 $lang['live_mode']					= 'Live Mode';
 $lang['tm_login']					= 'Test Mode Login ID';

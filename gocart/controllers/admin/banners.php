@@ -47,8 +47,6 @@ class Banners extends Admin_Controller
 		$config['upload_path']		= 'uploads';
 		$config['allowed_types']	= 'gif|jpg|png';
 		$config['max_size']			= $this->config->item('size_limit');
-		$config['max_width']		= '1024';
-		$config['max_height']		= '768';
 		$config['encrypt_name']		= true;
 		$this->load->library('upload', $config);
 		
@@ -69,6 +67,8 @@ class Banners extends Admin_Controller
 		if($id)
 		{
 			$data				= (array) $this->Banner_model->get_banner($id);
+			$data['enable_on']	= format_mdy($data['enable_on']);
+			$data['disable_on']	= format_mdy($data['disable_on']);
 			$data['new_window']	= (bool) $data['new_window'];
 		}
 		
@@ -92,11 +92,11 @@ class Banners extends Admin_Controller
 			$uploaded	= $this->upload->do_upload('image');
 			
 			$save['title']			= $this->input->post('title');
-			$save['enable_on']		= $this->input->post('enable_on');
-			$save['disable_on']		= $this->input->post('disable_on');
+			$save['enable_on']		= format_ymd($this->input->post('enable_on'));
+			$save['disable_on']		= format_ymd($this->input->post('disable_on'));
 			$save['link']			= $this->input->post('link');
 			$save['new_window']		= $this->input->post('new_window');
-
+			
 			if ($id)
 			{
 				$save['id']	= $id;
@@ -141,12 +141,12 @@ class Banners extends Admin_Controller
 		}	
 	}
 
-	function date_check($str)
+	function date_check()
 	{
 		
-		if ($this->input->post('enable_on') != '')
+		if ($this->input->post('disable_on') != '')
 		{
-			if ($this->input->post('enable_on') >= $str)
+			if (format_ymd($this->input->post('disable_on')) <= format_ymd($this->input->post('enable_on')))
 			{
 				$this->form_validation->set_message('date_check', lang('date_error'));
 				return FALSE;

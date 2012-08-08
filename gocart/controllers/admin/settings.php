@@ -115,6 +115,11 @@ class Settings extends Admin_Controller {
 			$save['subject']	= $this->input->post('subject');
 			$save['content']	= $this->input->post('content');
 			
+			//all created messages are typed to order so admins can send them from the view order page.
+			if($data['deletable'])
+			{
+				$save['type'] = 'order';
+			}
 			$this->Messages_model->save_message($save);
 			
 			$this->session->set_flashdata('message', lang('message_saved_message'));

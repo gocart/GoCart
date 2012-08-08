@@ -158,8 +158,8 @@ class Checkout extends CI_Controller {
 		$this->load->model('Page_model');
 		$details['deadline_content']	= $this->Page_model->get_page(144);
 		
-		$this->load->view('checkout/additional_details_form', $details);
 		$this->load->view('checkout/shipping_form', $ship);
+		$this->load->view('checkout/additional_details_form', $details);
 		$this->load->view('checkout/payment_form', $pay);
 	}
 	
@@ -221,7 +221,19 @@ class Checkout extends CI_Controller {
 			$this->form_validation->set_rules('bill_city', 'Billing City', 'trim|required|max_length[128]');
 			$this->form_validation->set_rules('bill_country_id', 'Billing Country', 'trim|required|numeric');
 			$this->form_validation->set_rules('bill_zone_id', 'Billing State', 'trim|required|numeric');
-			$this->form_validation->set_rules('bill_zip', 'Billing Zip', 'trim|required|max_length[10]');
+			//if there is post data, get the country info and see if the zip code is required
+			if($this->input->post('bill_country_id'))
+			{
+				$country = $this->Location_model->get_country($this->input->post('bill_country_id'));
+				if((bool)$country->postcode_required)
+				{
+					$this->form_validation->set_rules('bill_zip', 'Billing Zip', 'trim|required|max_length[10]');
+				}
+			}
+			else
+			{
+				$this->form_validation->set_rules('bill_zip', 'Billing Zip', 'trim|max_length[10]');
+			}
 		}
 		
 		$this->form_validation->set_rules('ship_address_id', 'Shipping Address ID', 'numeric');
@@ -235,7 +247,20 @@ class Checkout extends CI_Controller {
 		$this->form_validation->set_rules('ship_city', 'Shipping City', 'trim|required|max_length[128]');
 		$this->form_validation->set_rules('ship_country_id', 'Shipping Country', 'trim|required|numeric');
 		$this->form_validation->set_rules('ship_zone_id', 'Shipping State', 'trim|required|numeric');
-		$this->form_validation->set_rules('ship_zip', 'Shipping Zip', 'trim|required|max_length[10]');
+
+		//if there is post data, get the country info and see if the zip code is required
+		if($this->input->post('ship_country_id'))
+		{
+			$country = $this->Location_model->get_country($this->input->post('ship_country_id'));
+			if((bool)$country->postcode_required)
+			{
+				$this->form_validation->set_rules('ship_zip', 'Shipping Zip', 'trim|required|max_length[10]');
+			}
+		}
+		else
+		{
+			$this->form_validation->set_rules('ship_zip', 'Shipping Zip', 'trim|max_length[10]');
+		}
 		
 		
 		

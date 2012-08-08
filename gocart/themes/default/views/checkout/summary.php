@@ -80,7 +80,8 @@ $(function() {
 			Order Taxes
 			**************************************************************/
 			 // Show shipping cost if added before taxes
-			if($this->config->item('tax_shipping') && $this->go_cart->shipping_cost()>0) : ?>
+			echo $this->go_cart->shipping_cost();
+			if($this->config->item('tax_shipping') &&  $this->go_cart->shipping_cost() !== false) : ?>
 				<tr>
 				<td colspan="5"><?php echo lang('shipping');?></td>
 				<td id="gc_tax_price"><?php echo format_currency($this->go_cart->shipping_cost()); ?></td>
@@ -93,7 +94,7 @@ $(function() {
 			</tr>
 			<?php endif; 
 			// Show shipping cost if added after taxes
-			if(!$this->config->item('tax_shipping') && $this->go_cart->shipping_cost()>0) : ?>
+			if(!$this->config->item('tax_shipping') && $this->go_cart->shipping_cost() !== false) : ?>
 				<tr>
 				<td colspan="5"><?php echo lang('shipping');?></td>
 				<td id="gc_tax_price"><?php echo format_currency($this->go_cart->shipping_cost()); ?></td>

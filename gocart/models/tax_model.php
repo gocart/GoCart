@@ -75,7 +75,7 @@ Class Tax_model extends CI_Model
 		$tax_total	= 0;
 		$tax_total	= $tax_total + $this->get_taxes();
 		
-		return number_format($tax_total, 2, '.', ',');
+		return number_format($tax_total, 2, '.', '');
 	}
 	
 	function get_tax_rate()

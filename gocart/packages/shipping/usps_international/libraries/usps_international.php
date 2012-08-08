@@ -13,7 +13,7 @@ class usps_international
 		//username password, origin zip code etc.
 		$this->CI =& get_instance();
 		$this->CI->load->model('Settings_model');
-		
+		$this->CI->lang->load('usps_international');
 		
 		$this->service_list = array(
 			
@@ -64,15 +64,15 @@ class usps_international
 			return array();
 		}
 		
-		$user	 		= $settings['username'];
-		$pass 			= $settings['password'];
-		$service		= explode(',',$settings['service']);
-		$mailtype 		= $settings['mailtype'];
-		$container 		= $settings['container'];
-		$size 			= $settings['size'];
-		$machinable 	= $settings['machinable'];
-		$handling_method = $settings['handling_method'];
-		$handling_amount = $settings['handling_amount'];
+		$user	 			= $settings['username'];
+		$pass 				= $settings['password'];
+		$service			= explode(',',$settings['service']);
+		$mailtype 			= $settings['mailtype'];
+		$container 			= $settings['container'];
+		$size 				= $settings['size'];
+		$machinable 		= $settings['machinable'];
+		$handling_method	= $settings['handling_method'];
+		$handling_amount	= $settings['handling_amount'];
 		
 		// build allowed service list
 		foreach($service as $s)
@@ -172,21 +172,21 @@ class usps_international
 	
 	function install()
 	{
-		$default_settings	= array(
-			'username'=>'',
-			'password'=>'',
-			'mailtype'=>'ALL',
-			'container'=>'RECTANGULAR',
-			'service' => implode(',', array_keys($this->service_list)),
-			'size'=>'LARGE',
-			'length'=>'',
-			'width'=>'',
-			'height'=>'',
-			'girth'=>'',
-			'machinable'=>'true',
-			'handling_method'=>'$',
-			'handling_amount'=>5,
-			'enabled'=>'0'
+		$default_settings		= array(
+			'username'			=> '',
+			'password'			=> '',
+			'mailtype'			=> 'ALL',
+			'container'			=> 'RECTANGULAR',
+			'service'			=> implode(',', array_keys($this->service_list)),
+			'size'				=> 'LARGE',
+			'length'			=> '',
+			'width'				=> '',
+			'height'			=> '',
+			'girth'				=> '',
+			'machinable'		=> 'true',
+			'handling_method'	=> '$',
+			'handling_amount'	=> 5,
+			'enabled'			=> '0'
 		);
 		//set a default blank setting for flatrate shipping
 		$this->CI->Settings_model->save_settings('usps_international', $default_settings);
@@ -204,114 +204,116 @@ class usps_international
 		//this same function processes the form
 		if(!$post)
 		{
-			$settings	= $this->CI->Settings_model->get_settings('usps_international');
-			$mailtype	= $settings['mailtype'];
-			$container	= $settings['container'];
-			$service   	= explode(',', $settings['service']);
-			$username	= $settings['username'];
-			$password	= $settings['password'];
-			$enabled	= $settings['enabled'];
-			$size		= $settings['size'];
-			$length		= $settings['length'];
-			$width      = $settings['width'];
-			$height		= $settings['height'];
-			$girth		= $settings['girth'];
-			$machinable	= $settings['machinable'];
-			$handling_method = $settings['handling_method'];
-			$handling_amount = $settings['handling_amount'];
+			$settings			= $this->CI->Settings_model->get_settings('usps_international');
+			$mailtype			= $settings['mailtype'];
+			$container			= $settings['container'];
+			$service   			= explode(',', $settings['service']);
+			$username			= $settings['username'];
+			$password			= $settings['password'];
+			$enabled			= $settings['enabled'];
+			$size				= $settings['size'];
+			$length				= $settings['length'];
+			$width				= $settings['width'];
+			$height				= $settings['height'];
+			$girth				= $settings['girth'];
+			$machinable			= $settings['machinable'];
+			$handling_method	= $settings['handling_method'];
+			$handling_amount	= $settings['handling_amount'];
 		}
 		else
 		{
-			$mailtype	= $post['mailtype'];
-			$container	= $post['container'];
-			$service 	= $post['service'];
-			$username	= $post['username'];
-			$password	= $post['password'];
-			$enabled	= $post['enabled'];
-			$size		= $post['size'];
-			$length		= $post['length'];
-			$width      = $post['width'];
-			$height		= $post['height'];
-			$girth		= $post['girth'];
-			$machinable	= $post['machinable'];
-			$handling_method = $post['handling_method'];
-			$handling_amount = $post['handling_amount'];
+			$mailtype			= $post['mailtype'];
+			$container			= $post['container'];
+			$service 			= $post['service'];
+			$username			= $post['username'];
+			$password			= $post['password'];
+			$enabled			= $post['enabled'];
+			$size				= $post['size'];
+			$length				= $post['length'];
+			$width				= $post['width'];
+			$height				= $post['height'];
+			$girth				= $post['girth'];
+			$machinable			= $post['machinable'];
+			$handling_method	= $post['handling_method'];
+			$handling_amount	= $post['handling_amount'];
 		}
-		
-		$form	= '<table><tr><td>Username: </td><td>'.form_input('username', $username) .'</td></tr>';
-					//<tr><td>Password: </td><td>'.form_input('password', $password) .'</td></tr>';
-		
-		$form	.= '</td></tr><tr><td valign="top">Services To Offer: </td><td>';
-		
-		 foreach($this->service_list as $id=>$opt)
-         {
-         	$form .= "<input type='checkbox' name='service[]' value='$id' ";
-         	if(in_array($id, $service)) $form .= "checked='checked'";
-         	$form .= "> ".  htmlspecialchars_decode(html_entity_decode(stripslashes($opt))) ." <br />";
-         }
-		
-		
-		$form .= '</td></tr><tr><td>Mailtype: </td><td>';
-		
-		$opts = array(
-					  'ALL'=>'All',
-					  'PACKAGE'=>'Package',
-					  'ENVELOPE'=>'envelope'
-					  );
-		
-		$form .= form_dropdown('mailtype', $opts, $mailtype);
-		
-		$form .= '</td></tr><tr><td>Container: </td><td>';
-		
-		
-		$opts = array(
-					  'RECTANGULAR'=>'Rectangular',
-					  'NONRECTANGULAR'=>'Non Rectangular'
-					  );
-		
-		$form .= form_dropdown('container', $opts, $container);
+		ob_start();
+		?>
 
-		$form	.= '</td></tr><tr><td>Size: </td><td>';
+		<label><?php echo lang('username');?></label>
+		<?php echo form_input('username', $username, 'class="span3"');?>
+				
+		<?php //form_input('password', $password);?>
 		
+		<label><?php echo lang('method')?></label>
+		<div class="controls">
+		 <?php foreach($this->service_list as $id=>$opt):?>
+			<label class="checkbox">
+				<input type='checkbox' name='service[]' value='<?php echo $id;?>' <?php echo(in_array($id, $service))?"checked='checked'":'';?> /> <?php echo htmlspecialchars_decode(html_entity_decode(stripslashes($opt)));?>
+			</label>
+         <?php endforeach;?>
+		</div>
 		
-		$opts = array('REGULAR'=>'Regular',
-					  'LARGE'=>'Large',
-					  'OVERSIZE'=>'Oversize'	
-					 );
+		<label><?php echo lang('mail_type');?></label>
+		<?php
+		$opts	= array('ALL'		=>lang('all'),
+						'PACKAGE'	=>lang('package'),
+						'ENVELOPE'	=>lang('envelope')
+						);
 		
-		$form .= form_dropdown('size', $opts, $size);
+		echo form_dropdown('mailtype', $opts, $mailtype, 'class="span3"');?>
 		
-		$form .= '</td></tr><tr><td>Pkg Length: </td><td>';
-		$form .= form_input('length', $length);
+		<label><?php echo lang('container');?></label>
+		<?php
+		$opts = array(
+					  'RECTANGULAR'=>lang('rectangular'),
+					  'NONRECTANGULAR'=>lang('non_rectangular')
+					  );
+		echo form_dropdown('container', $opts, $container, 'class="span3"');?>
+
+		<label><?php echo lang('size');?></label>
+		<?php
+		$opts	= array('REGULAR'=>lang('regular'),
+						'LARGE'=>lang('large'),
+						'OVERSIZE'=>lang('oversize')
+						);
+		echo form_dropdown('size', $opts, $size, 'class="span3"');?>
 		
-		$form .= '</td></tr><tr><td>Pkg Width: </td><td>';
-		$form .= form_input('width', $width);
+		<h3><?php echo lang('size_message');?></h3>
+
+		<label><?php echo lang('package_length');?></label>
+		<?php echo form_input('length', $length, 'class="span3"');?>
+
+		<label><?php echo lang('package_width');?></label>
+		<?php echo form_input('width', $width, 'class="span3"');?>
+
+		<label><?php echo lang('package_height');?></label>
+		<?php echo form_input('height', $height, 'class="span3"');?>
+
+		<label><?php echo lang('package_girth');?></label>
+		<?php echo form_input('girth', $girth, 'class="span3"');?>
+
+		<label><?php echo lang('machinable');?></label>
+		<?php echo form_dropdown('machinable', array('TRUE'=>lang('yes'), 'FALSE'=>lang('no')), $machinable, 'class="span3"');?>
 		
-		$form .= '</td></tr><tr><td>Pkg Height: </td><td>';
-		$form .= form_input('height', $height);
-		
-		$form .= '</td></tr><tr><td>Pkg Girth: </td><td>';
-		$form .= form_input('girth', $girth);
-		
-		$form .= '</td></tr><tr><td>Machinable: </td><td>';
-		
-		$opts = array('TRUE'=>'True', 'FALSE'=>'False');
-		
-		$form .= form_dropdown('machinable', $opts, $machinable);
-		
-		$form .= '</td></tr><tr><td>Handling Fee: </td><td>';
-		
-		$form .= form_dropdown('handling_method', array('$'=>'$', '%'=>'%'), $handling_method);
-		
-		$form .= ' '. form_input('handling_amount', $handling_amount);
-		
-		$form .= '</td></tr><tr><td>Module Status: </td><td>';
-		
-		$opts = array('Disabled', 'Enabled');
-		
-		$form .= form_dropdown('enabled', $opts, $enabled);
-		
-		$form .= '</td></tr></table>';
+		<label><?php echo lang('handling_fee');?></label>
+		<div class="row">
+			<div class="span1">
+				<?php echo form_dropdown('handling_method', array('$'=>'$', '%'=>'%'), $handling_method, 'class="span1"');?>
+			</div>
+			<div class="span2">
+				<?php echo form_input('handling_amount', $handling_amount, 'class="span2"');?>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span12">
+				<label><?php echo lang('enabled');?></label>
+				<?php echo form_dropdown('enabled', array(lang('disabled'), lang('enabled')), $enabled, 'class="span3"');?>
+			</div>
+		</div>
+		<?php
+		$form =ob_get_contents();
+		ob_end_clean();
 		
 		return $form;
 	}
