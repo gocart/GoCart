@@ -362,6 +362,10 @@ class Products extends Admin_Controller {
 			
 			//save categories
 			$categories			= $this->input->post('categories');
+			if(!$categories)
+			{
+				$categories	= array();
+			}
 			
 			// format options
 			$options	= array();
