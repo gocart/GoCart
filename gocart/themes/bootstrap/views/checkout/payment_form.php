@@ -61,7 +61,7 @@
 	}
 	</style>
 	<div id="payment_section_container" <?php if($this->go_cart->total()==0) { ?> style="display:none" <?php } ?>>
-		<div class="error" id="payment_error_box" style="display:none"></div>
+		<div class="alert alert-error" id="payment_error_box" style="display:none"></div>
 	
 			<?php foreach ($payment_methods as $method=>$info):?>
 				<input type="hidden" id="payment_<?php echo $method;?>" name="payment_method" value="<?php echo $method;?>"/>
