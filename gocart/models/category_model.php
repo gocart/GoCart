@@ -6,7 +6,7 @@ Class Category_model extends CI_Model
 	{
 		if ($parent !== false)
 		{
-			$this->db->where("parent_id = $parent");
+			$this->db->where('parent_id', $parent);
 		}
 		$this->db->select('id');
 		$this->db->order_by('categories.sequence', 'ASC');
