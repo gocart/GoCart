@@ -66,7 +66,7 @@
 
 				<label for="image"><?php echo lang('image');?> </label>
 				<div class="input-append">
-					<?php echo form_upload(array('name'=>'image', 'class'=>'btn'));?><span class="add-on"><?php echo lang('max_file_size');?> <?php echo  $this->config->item('size_limit')/1024; ?>kb</span>
+					<?php echo form_upload(array('name'=>'image'));?><span class="add-on"><?php echo lang('max_file_size');?> <?php echo  $this->config->item('size_limit')/1024; ?>kb</span>
 				</div>
 					
 				<?php if($id && $image != ''):?>
