@@ -113,7 +113,7 @@ class My_Router extends CI_Router
 	
 	function _get_db_route($prefix, $slug)
 	{
-		$query	= 'SELECT * FROM '.$prefix.'routes WHERE slug=\''.$slug.'\' LIMIT 1';
+		$$query	= 'SELECT * FROM '.$prefix.'routes WHERE slug=\''.mysql_escape_string($slug).'\' LIMIT 1';
 		$query	= mysql_query($query);
 		return mysql_fetch_assoc($query);
 		
