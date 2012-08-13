@@ -19,12 +19,12 @@ $(document).ready(function() {
 	
 	// populate zone menu with country selection
 	$('#ship_country_id').change(function(){
-			populate_zone_menu('ship');
-		});
+		populate_zone_menu('ship');
+	});
 
 	$('#bill_country_id').change(function(){
-			populate_zone_menu('bill');
-		});	
+		populate_zone_menu('bill');
+	});	
 
 });
 // context is ship or bill
@@ -47,18 +47,21 @@ function toggle_billing_address_form(checked)
 		clear_billing_address();
 		$('.bill').attr('disabled', false);
 		$('.bill').removeClass('disabled');
+		$('#billing_container').show();
 	}
 	else
 	{
 		copy_shipping_address();
 		$('.bill').attr('disabled', true);
 		$('.bill').addClass('disabled');
+		$('#billing_container').hide();
 	}
 }
 
 function clear_billing_address()
 {
 	$('.bill').val('');
+	populate_zone_menu('bill')
 }
 
 function copy_shipping_address()
@@ -103,8 +106,6 @@ function save_customer()
 		{
 			//populate the information from ajax, so someone cannot use developer tools to edit the form after it's saved
 			$('#customer_info_fields').html(response.view);
-			
-			$('input:button, button').button();			
 			 // and update the summary to show proper tax information / discounts
 			 update_summary();
 		}
@@ -122,8 +123,10 @@ function save_customer()
 	
 	var address_type = 'ship';
 	$(document).ready(function(){
+		$()
 		$('.address_picker').click(function(){
-			$.colorbox({href:'#address_manager', inline:true, height:'400px'});
+		//	$.colorbox({href:'#address_manager', inline:true, height:'400px'});
+			$('#address_manager').modal().modal('show');
 			address_type = $(this).attr('rel');
 		});
 	});
@@ -218,211 +221,230 @@ else
 
 //form elements
 
-$b_company	= array('id'=>'bill_company', 'class'=>'bill input', 'name'=>'bill_company', 'value'=> @$customer['bill_address']['company']);
-$b_address1	= array('id'=>'bill_address1', 'class'=>'bill input bill_req', 'name'=>'bill_address1', 'value'=>@$customer['bill_address']['address1']);
-$b_address2	= array('id'=>'bill_address2', 'class'=>'bill input', 'name'=>'bill_address2', 'value'=> @$customer['bill_address']['address2']);
-$b_first	= array('id'=>'bill_firstname', 'class'=>'bill input bill_req', 'name'=>'bill_firstname', 'value'=> @$customer['bill_address']['firstname']);
-$b_last		= array('id'=>'bill_lastname', 'class'=>'bill input bill_req', 'name'=>'bill_lastname', 'value'=> @$customer['bill_address']['lastname']);
-$b_email	= array('id'=>'bill_email', 'class'=>'bill input bill_req', 'name'=>'bill_email', 'value'=>@$customer['bill_address']['email']);
-$b_phone	= array('id'=>'bill_phone', 'class'=>'bill input bill_req', 'name'=>'bill_phone', 'value'=> @$customer['bill_address']['phone']);
-$b_city		= array('id'=>'bill_city', 'class'=>'bill input bill_req', 'name'=>'bill_city', 'value'=>@$customer['bill_address']['city']);
-$b_zip		= array('id'=>'bill_zip', 'maxlength'=>'10', 'class'=>'bill input bill_req', 'name'=>'bill_zip', 'value'=> @$customer['bill_address']['zip']);
+$b_company	= array('id'=>'bill_company', 'class'=>'bill span6', 'name'=>'bill_company', 'value'=> @$customer['bill_address']['company']);
+$b_address1	= array('id'=>'bill_address1', 'class'=>'bill span3 bill_req', 'name'=>'bill_address1', 'value'=>@$customer['bill_address']['address1']);
+$b_address2	= array('id'=>'bill_address2', 'class'=>'bill span3', 'name'=>'bill_address2', 'value'=> @$customer['bill_address']['address2']);
+$b_first	= array('id'=>'bill_firstname', 'class'=>'bill span3 bill_req', 'name'=>'bill_firstname', 'value'=> @$customer['bill_address']['firstname']);
+$b_last		= array('id'=>'bill_lastname', 'class'=>'bill span3 bill_req', 'name'=>'bill_lastname', 'value'=> @$customer['bill_address']['lastname']);
+$b_email	= array('id'=>'bill_email', 'class'=>'bill span3 bill_req', 'name'=>'bill_email', 'value'=>@$customer['bill_address']['email']);
+$b_phone	= array('id'=>'bill_phone', 'class'=>'bill span3 bill_req', 'name'=>'bill_phone', 'value'=> @$customer['bill_address']['phone']);
+$b_city		= array('id'=>'bill_city', 'class'=>'bill span2 bill_req', 'name'=>'bill_city', 'value'=>@$customer['bill_address']['city']);
+$b_zip		= array('id'=>'bill_zip', 'maxlength'=>'10', 'class'=>'bill span1 bill_req', 'name'=>'bill_zip', 'value'=> @$customer['bill_address']['zip']);
 
 
-$s_company	= array('id'=>'ship_company', 'class'=>'ship input', 'name'=>'ship_company', 'value'=> @$customer['ship_address']['company']);
-$s_address1	= array('id'=>'ship_address1', 'class'=>'ship input ship_req', 'name'=>'ship_address1', 'value'=>@$customer['ship_address']['address1']);
-$s_address2	= array('id'=>'ship_address2', 'class'=>'ship input', 'name'=>'ship_address2', 'value'=> @$customer['ship_address']['address2']);
-$s_first	= array('id'=>'ship_firstname', 'class'=>'ship input ship_req', 'name'=>'ship_firstname', 'value'=> @$customer['ship_address']['firstname']);
-$s_last		= array('id'=>'ship_lastname', 'class'=>'ship input ship_req', 'name'=>'ship_lastname', 'value'=> @$customer['ship_address']['lastname']);
-$s_email	= array('id'=>'ship_email', 'class'=>'ship input ship_req', 'name'=>'ship_email', 'value'=>@$customer['ship_address']['email']);
-$s_phone	= array('id'=>'ship_phone', 'class'=>'ship input ship_req', 'name'=>'ship_phone', 'value'=> @$customer['ship_address']['phone']);
-$s_city		= array('id'=>'ship_city', 'class'=>'ship input ship_req', 'name'=>'ship_city', 'value'=>@$customer['ship_address']['city']);
-$s_zip		= array('id'=>'ship_zip', 'maxlength'=>'10', 'class'=>'ship input ship_req', 'name'=>'ship_zip', 'value'=> @$customer['ship_address']['zip']);
+$s_company	= array('id'=>'ship_company', 'class'=>'ship span6', 'name'=>'ship_company', 'value'=> @$customer['ship_address']['company']);
+$s_address1	= array('id'=>'ship_address1', 'class'=>'ship span3 ship_req', 'name'=>'ship_address1', 'value'=>@$customer['ship_address']['address1']);
+$s_address2	= array('id'=>'ship_address2', 'class'=>'ship span3 ', 'name'=>'ship_address2', 'value'=> @$customer['ship_address']['address2']);
+$s_first	= array('id'=>'ship_firstname', 'class'=>'ship span3 ship_req', 'name'=>'ship_firstname', 'value'=> @$customer['ship_address']['firstname']);
+$s_last		= array('id'=>'ship_lastname', 'class'=>'ship span3 ship_req', 'name'=>'ship_lastname', 'value'=> @$customer['ship_address']['lastname']);
+$s_email	= array('id'=>'ship_email', 'class'=>'ship span3 ship_req', 'name'=>'ship_email', 'value'=>@$customer['ship_address']['email']);
+$s_phone	= array('id'=>'ship_phone', 'class'=>'ship span3 ship_req', 'name'=>'ship_phone', 'value'=> @$customer['ship_address']['phone']);
+$s_city		= array('id'=>'ship_city', 'class'=>'ship span2 ship_req', 'name'=>'ship_city', 'value'=>@$customer['ship_address']['city']);
+$s_zip		= array('id'=>'ship_zip', 'maxlength'=>'10', 'class'=>'ship span1 ship_req', 'name'=>'ship_zip', 'value'=> @$customer['ship_address']['zip']);
 
 ?>
-
-	<div id="customer_error_box" class="error" style="display:none"></div>
+	<div id="customer_error_box" class="alert alert-error" style="display:none">
+		<?php echo $this->session->flashdata('additional_details_message');?>
+	</div>
 	<form id="customer_info_form">
-		<h3><?php echo lang('customer_information');?></h3>
-		<div id="shipping_address">
-			<div class="form_wrap">
-				<div style="font-weight:bold"><?php echo lang('shipping_address');?></div>
-			</div>
-			<div class="form_wrap">
-				<?php if($this->Customer_model->is_logged_in(false, false)) : ?>
-				<div>
-					<input class="address_picker" type="button" value="<?php echo lang('choose_address');?>" rel="ship" />
-				</div>
-				<?php endif; ?>
-			</div>
-			
-			<div class="form_wrap">
-				<input type="hidden" name="ship_address_id" id="ship_address_id" />
-				<div class="shorter">
-					<?php echo lang('address_company');?><br/>
-					<?php echo form_input($s_company);?>
-				</div>
-				<div class="shorter">
-					<?php echo lang('address_firstname');?><b class="r"> *</b><br/>
-					<?php echo form_input($s_first);?>
-				</div>
-				<div class="shorter">
-					<?php echo lang('address_lastname');?><b class="r"> *</b><br/>
-					<?php echo form_input($s_last);?>
-				</div>
-			</div>
-			
-			<div class="form_wrap">
-				<div class="shorter">
-					<?php echo lang('address_email');?><b class="r"> *</b><br/>
-					<?php echo form_input($s_email);?>
-				</div>
-				<div class="shorter">
-					<?php echo lang('address_phone');?><b class="r"> *</b><br/>
-					<?php echo form_input($s_phone);?>
-				</div>
-			</div>
-			
-			<div class="form_wrap">
-				<div class="longer">
-					<?php echo lang('address');?><b class="r"> *</b><br/>
-					<?php echo form_input($s_address1).'<br/>'.form_input($s_address2);?>
-				</div>
-			</div>
-			
-			<div class="form_wrap">
-				<div>
-					<?php echo lang('address_city');?><b class="r"> *</b><br/>
-					<?php echo form_input($s_city);?>
-				</div>
-				<div>
-					<?php echo lang('address_postcode');?><b class="r"> *</b><br/>
-					<?php echo form_input($s_zip);?>
-				</div>
-			</div>
-			
-			<div class="form_wrap">
-				<div>
-					<?php echo lang('address_country');?><b class="r"> *</b><br/>
-					<?php echo form_dropdown('ship_country_id',$countries, @$customer['ship_address']['country_id'], 'id="ship_country_id" class="ship input ship_req"');?>
-				</div>
-				<div>
-					<?php echo lang('address_state');?><b class="r"> *</b><br/>
-					<?php echo form_dropdown('ship_zone_id',$ship_zone_menu, @$customer['ship_address']['zone_id'], 'id="ship_zone_id" class="ship input ship_req"');?>
-				</div>
-			</div>
-			<div class="clear"></div>
-			<div class="form_wrap">
-				<input type="checkbox" id="different_address" name="ship_to_bill_address" value="yes" <?php echo set_checkbox('ship_to_bill_address', 'yes', @$customer['ship_to_bill_address']);?> onclick="toggle_billing_address_form(this.checked)"> <?php echo lang('use_address_for_billing');?>
+		<div class="row">
+			<div class="span12">
+				<h2 style="margin:0px;"><?php echo lang('shipping_address');?>
+					<?php if($this->Customer_model->is_logged_in(false, false)) : ?>
+						<input class="address_picker btn btn-inverse" type="button" value="<?php echo lang('choose_address');?>" rel="ship" />
+					<?php endif; ?>
+				</h2>
 			</div>
 		</div>
-		
-		<div id="billing_address">
-			<div class="form_wrap">
-				<div style="font-weight:bold"><?php echo lang('billing_address')?></div>
-			</div>
-			<div class="form_wrap">
-				<?php if($this->Customer_model->is_logged_in(false, false)) : ?>
-				<div>
-					<input class="address_picker" type="button" value="<?php echo lang('choose_address');?>" rel="bill" />
+		<div class="row">
+			<div class="span6">
+				<div class="row">
+					<div class="span6">
+						<label><?php echo lang('address_company');?></label>
+						<?php echo form_input($s_company);?>
+					</div>
 				</div>
-				<?php endif; ?>
-			</div>
-			<div class="form_wrap">
-				<input type="hidden" name="bill_address_id" id="bill_address_id" />
-				<div class="shorter">
-					<?php echo lang('address_company');?><br/>
-					<?php echo form_input($b_company);?>
+				<div class="row">
+					<div class="span3">
+						<label><?php echo lang('address_firstname');?><b class="r"> *</b></label>
+						<?php echo form_input($s_first);?>
+					</div>
+					<div class="span3">
+						<label><?php echo lang('address_lastname');?><b class="r"> *</b></label>
+						<?php echo form_input($s_last);?>
+					</div>
 				</div>
-				<div class="shorter">
-					<?php echo lang('address_firstname');?><b class="r"> *</b><br/>
-					<?php echo form_input($b_first);?>
-				</div>
-				<div class="shorter">
-					<?php echo lang('address_lastname');?><b class="r"> *</b><br/>
-					<?php echo form_input($b_last);?>
-				</div>
-			</div>
-				
-			<div class="form_wrap">
-				<div class="shorter">
-					<?php echo lang('address_email');?><b class="r"> *</b><br/>
-					<?php echo form_input($b_email);?>
-				</div>
-				<div class="shorter">
-					<?php echo lang('address_phone');?><b class="r"> *</b><br/>
-					<?php echo form_input($b_phone);?>
-				</div>
-			</div>
-			
-			<div class="form_wrap">
-				<div class="longer">
-					<?php echo lang('address');?><b class="r"> *</b><br/>
-					<?php echo form_input($b_address1).'<br/>'.form_input($b_address2);?>
-				</div>
-			</div>
-				
-			<div class="form_wrap">
-				<div>
-					<?php echo lang('address_city');?><b class="r"> *</b><br/>
-					<?php echo form_input($b_city);?>
-				</div>
-	
-				<div>
-					<?php echo lang('address_postcode');?><b class="r"> *</b><br/>
-					<?php echo form_input($b_zip);?>
-				</div>
-			</div>
-			<div class="form_wrap">
-				<div>
-					<?php echo lang('address_country');?><b class="r"> *</b><br/>
-					<?php echo form_dropdown('bill_country_id',$countries, @$customer['bill_address']['country_id'], 'id="bill_country_id" class="bill input bill_req"');?>
-				</div>
-				<div>
-					<?php echo lang('address_state');?><b class="r"> *</b><br/>
-					<?php echo form_dropdown('bill_zone_id',$bill_zone_menu, @$customer['bill_address']['zone_id'], 'id="bill_zone_id" class="bill input bill_req"');?>
-				</div>
-			</div>
-			<div class="clear"></div>
-		</div>
-		
-	</form>
-	
-	<br style="clear:both;"/>
-	<table style="margin-top:10px;">
-		<tr>
-			<td><input type="button" value="<?php echo lang('form_continue');?>" onclick="save_customer()"/></td>
-			<td><img id="save_customer_loader" alt="loading" src="<?php echo base_url('images/ajax-loader.gif');?>" style="display:none;"/></td>
-		</tr>
-	</table>
-	
+				<div class="row">
+					<div class="span2">
+						<label><?php echo lang('address_email');?><b class="r"> *</b></label>
+						<?php echo form_input($s_email);?>
+					</div>
 
+					<div class="span2 offset1">
+						<label><?php echo lang('address_phone');?><b class="r"> *</b></label>
+						<?php echo form_input($s_phone);?>
+					</div>
+				</div>
+			</div>
+			<div class="span6">
+				<div class="row">
+					<div class="span6">
+						<label><?php echo lang('address_country');?><b class="r"> *</b></label>
+						<?php echo form_dropdown('ship_country_id',$countries, @$customer['ship_address']['country_id'], 'id="ship_country_id" class="ship span6 ship_req"');?>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="span3">
+						<label><?php echo lang('address1');?><b class="r"> *</b></label>
+						<?php echo form_input($s_address1);?>
+					</div>
+					<div class="span3">
+						<label><?php echo lang('address2');?></label>
+						<?php echo form_input($s_address2);?>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="span2">
+						<label><?php echo lang('address_city');?><b class="r"> *</b></label>
+						<?php echo form_input($s_city);?>
+					</div>
+					<div class="span3">
+						<label><?php echo lang('address_state');?><b class="r"> *</b></label>
+						<?php echo form_dropdown('ship_zone_id',$ship_zone_menu, @$customer['ship_address']['zone_id'], 'id="ship_zone_id" class="ship span3 ship_req"');?>
+					</div>
+					<div class="span1">
+						<label><?php echo lang('address_postcode');?><b class="r"> *</b></label>
+						<?php echo form_input($s_zip);?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span6">
+				<label class="checkbox">
+					<input type="checkbox" id="different_address" name="ship_to_bill_address" value="yes" <?php echo set_checkbox('ship_to_bill_address', 'yes', @$customer['ship_to_bill_address']);?> onclick="toggle_billing_address_form(this.checked)">
+					<?php echo lang('use_address_for_billing');?>
+				</label>
+			</div>
+		</div>
+
+		<div class="row" id="billing_container" style="margin-top:20px;">
+			
+			<div class="span12">
+				<h2 style="margin:0px;"><?php echo lang('billing_address');?>
+					
+					<?php if($this->Customer_model->is_logged_in(false, false)) : ?>
+						<input class="address_picker btn btn-inverse" type="button" value="<?php echo lang('choose_address');?>" rel="bill" />
+					<?php endif; ?>
+				</h2>
+			</div>
+			
+			<div class="span6">
+				<div class="row">
+					<div class="span5">
+						<label><?php echo lang('address_company');?></label>
+						<?php echo form_input($b_company);?>
+					</div>
+				</div>
+				<div class="row">
+					<div class="span2">
+						<label><?php echo lang('address_firstname');?><b class="r"> *</b></label>
+						<?php echo form_input($b_first);?>
+					</div>
+					<div class="span2 offset1">
+						<label><?php echo lang('address_lastname');?><b class="r"> *</b></label>
+						<?php echo form_input($b_last);?>
+					</div>
+				</div>
+				<div class="row">
+					<div class="span2">
+						<label><?php echo lang('address_email');?><b class="r"> *</b></label>
+						<?php echo form_input($b_email);?>
+					</div>
+
+					<div class="span2 offset1">
+						<label><?php echo lang('address_phone');?><b class="r"> *</b></label>
+						<?php echo form_input($b_phone);?>
+					</div>
+				</div>
+			</div>
+			<div class="span6">
+				<div class="row">
+					<div class="span6">
+						<label><?php echo lang('address_country');?><b class="r"> *</b></label>
+						<?php echo form_dropdown('bill_country_id',$countries, @$customer['bill_address']['country_id'], 'id="bill_country_id" class="bill span6 bill_req"');?>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="span3">
+						<label><?php echo lang('address1');?><b class="r"> *</b></label>
+						<?php echo form_input($b_address1);?>
+					</div>
+					<div class="span3">
+						<label><?php echo lang('address2');?></label>
+						<?php echo form_input($b_address2);?>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="span2">
+						<label><?php echo lang('address_city');?><b class="r"> *</b></label>
+						<?php echo form_input($b_city);?>
+					</div>
+					<div class="span3">
+						<label><?php echo lang('address_state');?><b class="r"> *</b></label>
+						<?php echo form_dropdown('bill_zone_id',$bill_zone_menu, @$customer['bill_address']['zone_id'], 'id="bill_zone_id" class="bill span3 bill_req"');?>
+					</div>
+					<div class="span1">
+						<label><?php echo lang('address_postcode');?><b class="r"> *</b></label>
+						<?php echo form_input($b_zip);?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span12" style="text-align:center">
+				<input class="btn btn-large btn-primary" type="button" value="<?php echo lang('form_continue');?>" onclick="save_customer()"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span12" style="text-align:center">
+				<img id="save_customer_loader" alt="loading" src="<?php echo theme_img('ajax-loader.gif');?>" style="display:none;"/>
+			</div>
+		</div>
+	</form>
 
 <?php if($this->Customer_model->is_logged_in(false, false)) : ?>
-<div id="stored_addresses" style="display:none;">
-	<div id="address_manager">
-		<h3 style="text-align:center;"><?php echo lang('your_addresses');?></h3>
-		<script type="text/javascript">
-		$(document).ready(function(){
-			$('#address_list .my_account_address:even').addClass('address_bg');
-		});
-		</script>
-		<div id="address_list">
-			
-		<?php
-		$c = 1;
-		foreach($customer_addresses as $a):?>
-			<div class="my_account_address" id="address_<?php echo $a['id'];?>">
-				<div class="address_toolbar">
-					<input type="button" class="choose_address" onclick="populate_address(<?php echo $a['id'];?>); $.colorbox.close()" value="<?php echo lang('form_choose');?>" />
-				</div>
-				<?php
-				$b	= $a['field_data'];
-				echo nl2br(format_address($b));
-				?>
-			</div>
-		<?php endforeach;?>
-		</div>
+
+<div class="modal hide" id="address_manager">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3><?php echo lang('your_addresses');?></h3>
+	</div>
+	<div class="modal-body">
+		<p>
+			<table class="table table-striped">
+			<?php
+			$c = 1;
+			foreach($customer_addresses as $a):?>
+				<tr>
+					<td>
+						<?php
+						$b	= $a['field_data'];
+						echo nl2br(format_address($b));
+						?>
+					</td>
+					<td style="width:100px;"><input type="button" class="btn btn-primary choose_address pull-right" onclick="populate_address(<?php echo $a['id'];?>);" data-dismiss="modal" value="<?php echo lang('form_choose');?>" /></td>
+				</tr>
+			<?php endforeach;?>
+			</table>
+		</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">Close</a>
 	</div>
 </div>
 <?php endif;?>

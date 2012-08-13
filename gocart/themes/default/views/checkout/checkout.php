@@ -1,28 +1,15 @@
 <?php include(APPPATH.'themes/'.$this->config->item('theme').'/views/header.php'); ?>
 <script type="text/javascript">
-$(document).ready(function() {
-	$('.continue_shopping').buttonset();
 
-	// higlight  fields
-	$('.input').focus(function(){
-		$(this).addClass('input_hover');
-	});
-	
-	// higlight fields
-	$('.input').blur(function(){
-		$(this).removeClass('input_hover');
-	});
-	
+$(document).ready(function() {
 	<?php if(isset($customer['ship_address'])):?>
 		$.post('<?php echo site_url('checkout/customer_details');?>', function(data){
 			//populate the form with their information
 			$('#customer_info_fields').html(data);
-			$('input:button, input:submit, button').button();
 		});
 	<?php else:	?>
 		get_customer_form();
 	<?php endif;?>
-
 });
 
 function get_customer_form()
@@ -33,11 +20,10 @@ function get_customer_form()
 	$('#submit_button_container').hide();
 	
 	//remove the shipping and payment forms
-	$('#shipping_payment_container').html('<div class="checkout_block"><img alt="loading" src="<?php echo base_url('images/ajax-loader.gif');?>"/><br style="clear:both;"/></div>').hide();
+	$('#shipping_payment_container').html('<div class="checkout_block"><img alt="loading" src="<?php echo theme_img('ajax-loader.gif');?>"/><br style="clear:both;"/></div>').hide();
 	$.post('<?php echo site_url('checkout/customer_form'); ?>', function(data){
 		//populate the form with their information
 		$('#customer_info_fields').html(data);
-		$('input:button, input:submit, button').button();
 		update_summary();
 		
 	});
@@ -118,7 +104,6 @@ function clear_errors()
 // shipping cost visual calculator
 function set_shipping_cost()
 {
-		
 	clear_errors();
 	
 	$.post('<?php echo site_url('checkout/save_shipping_method');?>', {shipping:$(':radio[name$="shipping_input"]:checked').val()}, function(response)
@@ -135,7 +120,7 @@ function set_chosen_payment_method(value)
 // Set payment info
 function submit_payment_method()
 {
-	
+	$('#submit-form-loader').show();
 	clear_errors();
 	
 	errors = false;
@@ -173,6 +158,7 @@ function submit_payment_method()
 	// stop here if we have problems
 	if(errors)
 	{
+		$('#submit-form-loader').hide();
 		return false;
 	}
 
@@ -196,7 +182,7 @@ function save_order()
 				if(typeof response != "object")
 				{
 					display_error('payment', '<?php echo lang('error_save_payment') ?>');
-
+					$('#submit-form-loader').hide();
 					return;
 				}
 
@@ -208,6 +194,8 @@ function save_order()
 				else if(response.status=='error')
 				{
 					display_error('payment', response.error);
+					$('#submit-form-loader').hide();
+					return;
 				}
 
 			}, 'json');
@@ -230,37 +218,43 @@ function update_summary()
 
 
 </script>
-<div class="continue_shopping">
-	<?php if(!$this->Customer_model->is_logged_in(false, false)) : ?>
-		<input type="button" onclick="window.location='<?php echo site_url('checkout/login');?>'" value="<?php echo lang('form_login');?>" />
-		<input type="button" onclick="window.location='<?php echo site_url('checkout/register');?>'" value="<?php echo lang('register_now');?>"/>
-	<?php endif;?>
-	<input type="button" onclick="window.location='<?php echo base_url();?>'" value="<?php echo lang('continue_shopping');?>"/>
+
+<div class="row">
+	<div class="span12" style="margin-bottom:10px;">
+		<div class="btn-group pull-right">
+			<?php if(!$this->Customer_model->is_logged_in(false, false)) : ?>
+				<input class="btn" type="button" onclick="window.location='<?php echo site_url('checkout/login');?>'" value="<?php echo lang('form_login');?>" />
+				<input class="btn" type="button" onclick="window.location='<?php echo site_url('checkout/register');?>'" value="<?php echo lang('register_now');?>"/>
+			<?php endif;?>
+			<input class="btn" type="button" onclick="window.location='<?php echo base_url();?>'" value="<?php echo lang('continue_shopping');?>"/>
+		</div>
+	</div>
 </div>
 
-<div class="checkout_block">
-	<div id="customer_info_fields">
-		<h3><?php echo lang('customer_information');?></h3>
-		<img alt="loading" src="<?php echo base_url('images/ajax-loader.gif');?>"/>
+<div class="row" style="margin-bottom:10px;">
+	<div class="span12" id="customer_info_fields" style="border-bottom:4px solid #ddd; padding-bottom:15px;">
+		<img alt="loading" src="<?php echo theme_img('ajax-loader.gif');?>"/>
 	</div>
-	<br style="clear:both;"/>
 </div>
 
 <div id="shipping_payment_container" style="display:none;">
-	<div class="checkout_block">
-		<img alt="loading" src="<?php echo base_url('images/ajax-loader.gif');?>"/>
-		<br style="clear:both;"/>
-	</div>
+	<img alt="loading" src="<?php echo theme_img('ajax-loader.gif');?>"/>
 </div>
 
 <div id="summary_section">
-	<?php  include('summary.php'); ?>
+<?php  include('summary.php'); ?>
 </div>
-<div id="submit_button_container" style="display:none; text-align:center; padding-top:10px;">
+
+<div id="submit_button_container" style="display:none; text-align:center; padding-top:10px; clear:both;">
 	<form id="order_submit_form" action="<?php echo site_url('checkout/place_order'); ?>" method="post">
 		<input type="hidden" name="process_order" value="true">
-		<input style="padding:10px 15px; font-size:16px;" type="button" onclick="submit_payment_method()" value="<?php echo lang('submit_order');?>" />
+
+		<div style="text-align:center; margin:10px; display:none;" id="submit-form-loader">
+			<img alt="loading" src="<?php echo theme_img('ajax-loader.gif');?>"/>
+		</div>
+		<input style="padding:10px 15px; font-size:16px;" type="button" class="btn btn-primary btn-large" onclick="submit_payment_method()" value="<?php echo lang('submit_order');?>" />
 	</form>
 </div>
+
 
 <?php include(APPPATH.'themes/'.$this->config->item('theme').'/views/footer.php'); ?>

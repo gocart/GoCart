@@ -1,7 +1,7 @@
 <?php echo '<?php  if ( ! defined(\'BASEPATH\')) exit(\'No direct script access allowed\');';?>
 
 // GoCart Theme
-$config['theme']			= 'bootstrap';
+$config['theme']			= 'default';
 
 // SSL support
 $config['ssl_support']		= <?php echo ($ssl_support)?'true':'false';?>;

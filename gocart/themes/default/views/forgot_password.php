@@ -1,22 +1,29 @@
-<?php 
-$additional_header_info = '<style type="text/css">#page_title {text-align:center;}</style>';
-include('header.php'); ?>
+<?php include('header.php'); ?>
 
-<div id="login_container_wrap">
-		<div id="login_container">
-		<?php echo form_open('secure/forgot_password') ?>
-			<table>
-				<tr>
-					<td><?php echo lang('email');?></td>
-					<td><input type="text" name="email" class="gc_login_input"/></td>
-				</tr>
-			</table>
-			<div class="center">
-					<input type="hidden" value="submitted" name="submitted"/>
-					<input type="submit" value="Reset Password" name="<?php echo lang('form_submit');?>"/>
-			</div>
+<div class="row" style="margin-top:50px;">
+	<div class="span6 offset3">
+		<div class="page-header">
+			<h1><?php echo lang('forgot_password');?></h1>
+		</div>
+		<?php echo form_open('secure/forgot_password', 'class="form-horizontal"') ?>
+				<fieldset>
+				
+					<div class="control-group">
+						<label class="control-label" for="email"><?php echo lang('email');?></label>
+						<div class="controls">
+							<input type="text" name="email" class="span3"/>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls">
+							<input type="hidden" value="submitted" name="submitted"/>
+							<input type="submit" value="<?php echo lang('reset_password');?>" name="submit" class="btn btn-primary"/>
+						</div>
+					</div>
+				</fieldset>
 		</form>
-		<div id="login_form_links">
+		<div style="text-align:center;">
 			<a href="<?php echo site_url('secure/login'); ?>"><?php echo lang('return_to_login');?></a>
 		</div>
 	</div>
