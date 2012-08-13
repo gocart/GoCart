@@ -1,80 +1,90 @@
 <?php
 
 $f_id		= array('id'=>'f_id', 'style'=>'display:none;', 'name'=>'id', 'value'=> set_value('id',$id));
-$f_company	= array('id'=>'f_company', 'class'=>'input', 'name'=>'company', 'value'=> set_value('company',$company));
-$f_address1	= array('id'=>'f_address1', 'class'=>'input', 'name'=>'address1', 'value'=>set_value('address1',$address1));
-$f_address2	= array('id'=>'f_address2', 'class'=>'input', 'name'=>'address2', 'value'=> set_value('address2',$address2));
-$f_first	= array('id'=>'f_firstname', 'class'=>'input', 'name'=>'firstname', 'value'=> set_value('firstname',$firstname));
-$f_last		= array('id'=>'f_lastname', 'class'=>'input', 'name'=>'lastname', 'value'=> set_value('lastname',$lastname));
-$f_email	= array('id'=>'f_email', 'class'=>'input', 'name'=>'email', 'value'=>set_value('email',$email));
-$f_phone	= array('id'=>'f_phone', 'class'=>'input', 'name'=>'phone', 'value'=> set_value('phone',$phone));
-$f_city		= array('id'=>'f_city', 'class'=>'input', 'name'=>'city', 'value'=>set_value('city',$city));
-$f_zip		= array('id'=>'f_zip', 'maxlength'=>'10', 'class'=>'bill input', 'name'=>'zip', 'value'=> set_value('zip',$zip));
+$f_company	= array('id'=>'f_company', 'class'=>'span12', 'name'=>'company', 'value'=> set_value('company',$company));
+$f_address1	= array('id'=>'f_address1', 'class'=>'span12', 'name'=>'address1', 'value'=>set_value('address1',$address1));
+$f_address2	= array('id'=>'f_address2', 'class'=>'span12', 'name'=>'address2', 'value'=> set_value('address2',$address2));
+$f_first	= array('id'=>'f_firstname', 'class'=>'span12', 'name'=>'firstname', 'value'=> set_value('firstname',$firstname));
+$f_last		= array('id'=>'f_lastname', 'class'=>'span12', 'name'=>'lastname', 'value'=> set_value('lastname',$lastname));
+$f_email	= array('id'=>'f_email', 'class'=>'span12', 'name'=>'email', 'value'=>set_value('email',$email));
+$f_phone	= array('id'=>'f_phone', 'class'=>'span12', 'name'=>'phone', 'value'=> set_value('phone',$phone));
+$f_city		= array('id'=>'f_city', 'class'=>'span12', 'name'=>'city', 'value'=>set_value('city',$city));
+$f_zip		= array('id'=>'f_zip', 'maxlength'=>'10', 'class'=>'span12', 'name'=>'zip', 'value'=> set_value('zip',$zip));
 
 echo form_input($f_id);
 
 ?>
-<div id="form_error" class="error" style="display:none;"></div>
+<div class="modal" id="my-modal">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3><?php echo lang('address_form');?></h3>
+	</div>
+	<div class="modal-body">
+		<div class="alert allert-error hide" id="form-error">
+			<a class="close" data-dismiss="alert">×</a>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<label><?php echo lang('address_company');?></label>
+				<?php echo form_input($f_company);?>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<label><?php echo lang('address_firstname');?></label>
+				<?php echo form_input($f_first);?>
+			</div>
+			<div class="span6">
+				<label><?php echo lang('address_lastname');?></label>
+				<?php echo form_input($f_last);?>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<label><?php echo lang('address_email');?></label>
+				<?php echo form_input($f_email);?>
+			</div>
+			<div class="span6">
+				<label><?php echo lang('address_phone');?></label>
+				<?php echo form_input($f_phone);?>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<label><?php echo lang('address');?></label>
+				<?php
+				echo form_input($f_address1);
+				echo form_input($f_address2);
+				?>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<label><?php echo lang('address_country');?></label>
+				<?php echo form_dropdown('country_id', $countries_menu, set_value('country_id', $country_id), 'id="f_country_id" class="span12"');?>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span4">
+				<label><?php echo lang('address_city');?></label>
+				<?php echo form_input($f_city);?>
+			</div>
+			<div class="span6">
+				<label><?php echo lang('address_state');?></label>
+				<?php echo form_dropdown('zone_id', $zones_menu, set_value('zone_id', $zone_id), 'id="f_zone_id" class="span12"');?>
+			</div>
+			<div class="span2">
+				<label><?php echo lang('address_postcode');?></label>
+				<?php echo form_input($f_zip);?>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">Close</a>
+		<a href="#" class="btn btn-primary" type="button" onclick="save_address(); return false;"><?php echo lang('form_submit');?></a>
+	</div>
+</div>
 
-	<div class="form_wrap">
-		<div>
-			<?php echo lang('address_company');?><br/>
-			<?php echo form_input($f_company);?>
-		</div>
-		<div>
-			<?php echo lang('address_firstname');?><b class="r"> *</b><br/>
-			<?php echo form_input($f_first);?>
-		</div>
-		<div>
-			<?php echo lang('address_lastname');?><b class="r"> *</b><br/>
-			<?php echo form_input($f_last);?>
-		</div>
-	</div>
-
-	<div class="form_wrap">
-		<div>
-			<?php echo lang('address_email');?><b class="r"> *</b><br/>
-			<?php echo form_input($f_email);?>
-		</div>
-		<div>
-			<?php echo lang('address_phone');?><b class="r"> *</b><br/>
-			<?php echo form_input($f_phone);?>
-		</div>
-	</div>
-
-	<div class="form_wrap">
-		<div>
-			<?php echo lang('address');?><b class="r"> *</b><br/>
-			<?php echo form_input($f_address1).'<br/>'.form_input($f_address2);?>
-		</div>
-	</div>
-
-	<div class="form_wrap">
-		<div>
-			<?php echo lang('address_city');?><b class="r"> *</b><br/>
-			<?php echo form_input($f_city);?>
-		</div>
-		<div>
-			<?php echo lang('address_postcode');?><b class="r"> *</b><br/>
-			<?php echo form_input($f_zip);?>
-		</div>
-	</div>
-		
-	<div class="form_wrap">
-		<div>
-			<?php echo lang('address_country');?><br/>
-			<?php echo form_dropdown('country_id', $countries_menu, set_value('country_id', $country_id), 'style="width:200px; display:block;" id="f_country_id" class="input"');?>
-		</div>
-		<div>
-			<?php echo lang('address_state');?><br/>
-			<?php echo form_dropdown('zone_id', $zones_menu, set_value('zone_id', $zone_id), 'style="width:200px; display:block;" id="f_zone_id" class="input"');?>
-		</div>
-	</div>
-	<div class="clear"></div>
-	<div class="center">
-		<input type="button" value="Submit" onclick="save_address(); return false;"/>
-	</div>
-	
 <script type="text/javascript">
 $(function(){
 	$('#f_country_id').change(function(){
@@ -105,9 +115,7 @@ function save_address()
 			}
 			else
 			{
-				$('#form_error').show().html(data);
-				//call resize twice to fix a wierd bug where the height is overcompensated
-				$.fn.colorbox.resize();
+				$('#form-error').html(data).show();
 			}
 		});
 }
