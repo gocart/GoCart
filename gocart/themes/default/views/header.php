@@ -55,13 +55,13 @@ if(isset($additional_header_info))
 								<?php endforeach;?>
 							</ul>
 							
-							<?php foreach($this->pages as $page):?>
+							<?php foreach($this->pages as $menu_page):?>
 
 								<li>
-								<?php if(empty($page->content)):?>
-									<a href="<?php echo $page->url;?>" <?php if($page->new_window ==1){echo 'target="_blank"';} ?>><?php echo $page->menu_title;?></a>
+								<?php if(empty($menu_page->content)):?>
+									<a href="<?php echo $menu_page->url;?>" <?php if($menu_page->new_window ==1){echo 'target="_blank"';} ?>><?php echo $menu_page->menu_title;?></a>
 								<?php else:?>
-									<a href="<?php echo site_url($page->slug);?>"><?php echo $page->menu_title;?></a>
+									<a href="<?php echo site_url($menu_page->slug);?>"><?php echo $menu_page->menu_title;?></a>
 								<?php endif;?>
 								</li>
 								
