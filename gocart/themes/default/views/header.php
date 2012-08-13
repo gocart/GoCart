@@ -12,38 +12,15 @@
 <meta name="Description" content="Go Cart is an open source shopping cart built on the Code Igniter framework">
 <?php endif;?>
 
-<link href="<?php echo base_url('gocart/themes/'.$this->config->item('theme').'/css/styles.css');?>" type="text/css" rel="stylesheet"/> 
+<?php echo theme_css('bootstrap.min.css', true);?>
+<?php echo theme_css('bootstrap-responsive.min.css', true);?>
+<?php echo theme_css('styles.css', true);?>
 
-<link type="text/css" href="<?php echo base_url('js/jquery/theme/smoothness/jquery-ui-1.8.16.custom.css');?>" rel="stylesheet" />
-<script type="text/javascript" src="<?php echo base_url('js/jquery/jquery-1.7.1.min.js');?>"></script>
-<script type="text/javascript" src="<?php echo base_url('js/jquery/jquery-ui-1.8.16.custom.min.js');?>"></script>
-
-<link type="text/css" href="<?php echo base_url('js/jquery/colorbox/colorbox.css');?>" rel="stylesheet" />
-<script type="text/javascript" src="<?php echo base_url('js/jquery/colorbox/jquery.colorbox-min.js');?>"></script>
-<script type="text/javascript" src="<?php echo base_url('js/jquery/equal_heights.js');?>"></script>
-
-<script type="text/javascript"> 
- 
-    $(document).ready(function(){ 	
-		$('input:submit, input:button, button, .btn').button();
-		$('input:text, input:password').addClass('input');
-    }); 
- 
-</script>
-
-
-<script type="text/javascript"> 
-var $buoop = {} 
-$buoop.ol = window.onload; 
-window.onload=function(){ 
- try {if ($buoop.ol) $buoop.ol();}catch (e) {} 
- var e = document.createElement("script"); 
- e.setAttribute("type", "text/javascript"); 
- e.setAttribute("src", "https://browser-update.org/update.js"); 
- document.body.appendChild(e); 
-} 
-</script> 
-
+<?php echo theme_js('jquery-1.7.2.min.js', true);?>
+<?php echo theme_js('jquery-ui-1.8.19.custom.min.js', true);?>
+<?php echo theme_js('bootstrap.min.js', true);?>
+<?php echo theme_js('squard.js', true);?>
+<?php echo theme_js('equal_heights.js', true);?>
 
 <?php
 //with this I can put header data in the header instead of in the body.
@@ -54,180 +31,135 @@ if(isset($additional_header_info))
 
 ?>
 </head>
+
 <body>
-<div id="top_menu_container" class="full_wrap">
-	<div class="wide_wrap">
-		<ul id="top_menu" class="right">	
-		<?php
-		function page_loop($pages, $layer, $first=false)
-		{
-			if($first)
-			{
-				echo '<ul'.$first.'>';
-			}
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+
+				<!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
 			
+				<a class="brand" href="<?php echo site_url();?>"><?php echo $this->config->item('company_name');?></a>
+				
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Catalog <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<?php foreach($this->categories as $cat_menu):?>
+								<li><a href="<?php echo site_url($cat_menu['category']->slug);?>"><?php echo $cat_menu['category']->name;?></a></li>
+								<?php endforeach;?>
+							</ul>
+							
+							<?php foreach($this->pages as $page):?>
 
-			foreach($pages as $page):?>
-
-				<li>
-				<?php if(empty($page->content)):?>
-					<a href="<?php echo $page->url;?>" <?php if($page->new_window ==1){echo 'target="_blank"';} ?>><?php echo $page->menu_title;?></a>
-				<?php else:?>
-					<a href="<?php echo site_url($page->slug);?>"><?php echo $page->menu_title;?></a>
-				<?php endif;
-				if($layer == 1)
-				{
-					$next = $layer+1;
-					if(!empty($page->children))
-					{
-						page_loop($page->children, $next, ' class="first"');
-					}
-				}
-				else
-				{
-					$next = $layer+1;
-					if(!empty($page->children))
-					{
-						page_loop($page->children, $next, ' class="nav"');
-					}
-				}?>
-				</li>
-			<?php	
-			endforeach;
-			if($first)
-			{
-				echo '</ul>';
-			}
-			
-		}
-		page_loop($this->pages, 1);
-		
-		?>
-		
-		<?php if($this->Customer_model->is_logged_in(false, false)):?>
-			<li class="bold begin_user_menu"><a href="<?php echo site_url('secure/logout');?>"><?php echo lang('logout');?></a></li>
-			<li class="bold"><a href="<?php echo  site_url('secure/my_account');?>"><?php echo lang('my_account')?></a></li>
-			<li class="bold"><a href="<?php echo  site_url('secure/my_downloads');?>"><?php echo lang('my_downloads')?></a></li>
-		<?php else: ?>
-			<li class="bold begin_user_menu"><a href="<?php echo site_url('secure/login');?>"><?php echo lang('login');?></a></li>
-		<?php endif; ?>
-		<li class="bold">
-			<a href="<?php echo site_url('cart/view_cart');?>">
-			<?php
-			if ($this->go_cart->total_items()==0)
-			{
-				echo lang('empty_cart');
-			}
-			else
-			{
-				if($this->go_cart->total_items() > 1)
-				{
-					echo sprintf (lang('multiple_items'), $this->go_cart->total_items());
-				}
-				else
-				{
-					echo sprintf (lang('single_item'), $this->go_cart->total_items());
-				}
-			}
-			?>
-			</a>
-		</li>
-			
-		</ul>
-	</div>
-	
-	<div class="clear"></div>
-</div>
-
-<div class="full_wrap">
-	<div id="header" class="wide_wrap">
-
-		<div id="search_form" class="right">
-			<?php echo form_open('cart/search');?>
-				<input type="text" name="term"/>
-				<button type="submit"><?php echo lang('form_search');?></button>
-			</form>
+								<li>
+								<?php if(empty($page->content)):?>
+									<a href="<?php echo $page->url;?>" <?php if($page->new_window ==1){echo 'target="_blank"';} ?>><?php echo $page->menu_title;?></a>
+								<?php else:?>
+									<a href="<?php echo site_url($page->slug);?>"><?php echo $page->menu_title;?></a>
+								<?php endif;?>
+								</li>
+								
+							<?php endforeach;?>
+					</ul>
+					
+					<ul class="nav pull-right">
+						
+						<?php if($this->Customer_model->is_logged_in(false, false)):?>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href="<?php echo  site_url('secure/my_account');?>"><?php echo lang('my_account')?></a></li>
+									<li><a href="<?php echo  site_url('secure/my_downloads');?>"><?php echo lang('my_downloads')?></a></li>
+									<li class="divider"></li>
+									<li><a href="<?php echo site_url('secure/logout');?>"><?php echo lang('logout');?></a></li>
+								</ul>
+							</li>
+						<?php else: ?>
+							<li><a href="<?php echo site_url('secure/login');?>"><?php echo lang('login');?></a></li>
+						<?php endif; ?>
+							<li>
+								<a href="<?php echo site_url('cart/view_cart');?>">
+								<?php
+								if ($this->go_cart->total_items()==0)
+								{
+									echo lang('empty_cart');
+								}
+								else
+								{
+									if($this->go_cart->total_items() > 1)
+									{
+										echo sprintf (lang('multiple_items'), $this->go_cart->total_items());
+									}
+									else
+									{
+										echo sprintf (lang('single_item'), $this->go_cart->total_items());
+									}
+								}
+								?>
+								</a>
+							</li>
+					</ul>
+					
+					<?php echo form_open('cart/search', 'class="navbar-search pull-right"');?>
+						<input type="text" name="term" class="search-query span2" placeholder="Search"/>
+					</form>
+				</div>
+			</div>
 		</div>
-		
-		<a href="<?php echo base_url();?>">
-			<img src="<?php echo base_url('images/logo.png');?>" alt="<?php echo $this->config->item('company_name'); ?>">
-		</a>
-		
 	</div>
-</div>
-
-<div class="wide_wrap">
 	
-	<img src="<?php echo base_url('images/menu_left_wrap.gif');?>" alt="left" class="main_menu_left_wrap"/>
-	<img src="<?php echo base_url('images/menu_right_wrap.gif');?>" alt="right" class="main_menu_right_wrap"/>
-	
-	<div id="main_menu">
-		<ul id="nav">
-		<?php
-		function display_categories($cats, $layer, $first='')
-		{
-			if($first)
-			{
-				echo '<ul'.$first.'>';
-			}
-			
-			foreach ($cats as $cat)
-			{
-
-				echo '<li><a href="'.site_url($cat['category']->slug).'">'.$cat['category']->name.'</a>'."\n";
-				if (sizeof($cat['children']) > 0)
-				{
-					if($layer == 1)
-					{
-						$next = $layer+1;
-						display_categories($cat['children'], $next, ' class="first"');
-					}
-					else
-					{
-						$next = $layer+1;
-						display_categories($cat['children'], $next, ' class="nav"');
-					}
-				}
-				echo '</li>';
-			}
-			if($first)
-			{
-				echo '</ul>';
-			}	
-		}
-			
-		display_categories($this->categories, 1);
-		
-		
-		
-		if($gift_cards_enabled):?>
-			<li><a href="<?php echo site_url('cart/giftcard');?>"><?php echo lang('giftcard');?></a></li>
+	<div class="container">
+		<?php if(!empty($base_url) && is_array($base_url)):?>
+			<div class="row">
+				<div class="span12">
+					<ul class="breadcrumb">
+						<?php
+						$url_path	= '';
+						$count	 	= 1;
+						foreach($base_url as $bc):
+							$url_path .= '/'.$bc;
+							if($count == count($base_url)):?>
+								<li class="active"><?php echo $bc;?></li>
+							<?php else:?>
+								<li><a href="<?php echo site_url($url_path);?>"><?php echo $bc;?></a></li> <span class="divider">/</span>
+							<?php endif;
+							$count++;
+						endforeach;?>
+ 					</ul>
+				</div>
+			</div>
 		<?php endif;?>
-		</ul>
 		
-		<br class="clear" />
-	</div>
-</div>
-
-<div class="wide_wrap">
-	<div class="content_wrap">
-		<?php if (!empty($page_title)):?><h1><?php echo $page_title; ?></h1><?php endif;?>
-	
-		<?php
-		if ($this->session->flashdata('message'))
-		{
-			echo '<div class="gmessage">'.$this->session->flashdata('message').'</div>';
-		}
-		if ($this->session->flashdata('error'))
-		{
-			echo '<div class="error">'.$this->session->flashdata('error').'</div>';
-		}
-		if (!empty($error))
-		{
-			echo '<div class="error">'.$error.'</div>';
-		}
+		<?php if ($this->session->flashdata('message')):?>
+			<div class="alert alert-info">
+				<a class="close" data-dismiss="alert">×</a>
+				<?php echo $this->session->flashdata('message');?>
+			</div>
+		<?php endif;?>
+		
+		<?php if ($this->session->flashdata('error')):?>
+			<div class="alert alert-error">
+				<a class="close" data-dismiss="alert">×</a>
+				<?php echo $this->session->flashdata('error');?>
+			</div>
+		<?php endif;?>
+		
+		<?php if (!empty($error)):?>
+			<div class="alert alert-error">
+				<a class="close" data-dismiss="alert">×</a>
+				<?php echo $error;?>
+			</div>
+		<?php endif;?>
+		
 		
 
+<?php
 /*
 End header.php file
 */

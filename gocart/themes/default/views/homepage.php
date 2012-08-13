@@ -1,83 +1,57 @@
-<?php ob_start();?>
+<?php include('header.php'); ?>
+
+<div class="row">
+	<div class="span12">
+		<div id="myCarousel" class="carousel slide">
+			<!-- Carousel items -->
+			<div class="carousel-inner">
+				<?php
+				$active_banner	= 'active ';
+				foreach($banners as $banner):?>
+					<div class="<?php echo $active_banner;?>item">
+						<?php
+						
+						$banner_image	= '<img src="'.base_url('uploads/'.$banner->image).'" />';
+						if($banner->link)
+						{
+							$target=false;
+							if($banner->new_window)
+							{
+								$target=' target="_blank"';
+							}
+							echo '<a href="'.$banner->link.'"'.$target.'>'.$banner_image.'</a>';
+						}
+						else
+						{
+							echo $banner_image;
+						}
+						?>
+					
+					</div>
+				<?php 
+				$active_banner = false;
+				endforeach;?>
+			</div>
+			<!-- Carousel nav -->
+			<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+			<a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+		</div>
+	</div>
+</div>
+
 <script type="text/javascript">
-var rotate;
-$(document).ready(function(){
-	$('.banner_container').each(function(item)
-	{
-		if(item != 0)
-		{
-			$(this).hide();
-		}
-	});
-	if($('.banner_container').size() > 1)
-	{
-		rotate_banner();
-	}
-	
+$('.carousel').carousel({
+  interval: 5000
 });
-
-var cnt	= 0;
-
-function rotate_banner()
-{
-	//stop the animations from going nuts when returning from minimize
-	$('.banner_container:eq('+cnt+')').fadeOut();
-	cnt++;
-	if(cnt == $('.banner_container').size())
-	{
-		cnt = 0;
-	}
-	$('.banner_container:eq('+cnt+')').fadeIn(function(){
-		setTimeout("rotate_banner()", 3000);
-	});
-}
 </script>
 
-<?php
-$ads_javascript	= ob_get_contents();
-ob_end_clean();
 
-
-$additional_header_info = $ads_javascript;
-
-include('header.php'); ?>
-
-<div id="banners">
-	<?php 
-	$banner_count	= 1;
-	foreach ($banners as $banner)
-	{
-		echo '<div class="banner_container">';
+<div class="row">
+	<?php foreach($boxes as $box):?>
+	<div class="span3">
+		<?php
 		
-		if($banner->link != '')
-		{
-			$target	= false;
-			if($banner->new_window)
-			{
-				$target = 'target="_blank"';
-			}
-			echo '<a href="'.$banner->link.'" '.$target.' >';
-		}
-		echo '<img class="banners_img'.$banner_count.'" src="'.base_url('uploads/'.$banner->image).'" />';
-		
-		if($banner->link != '')
-		{
-			echo '</a>';
-		}
-
-		echo '</div>';
-
-		$banner_count++;
-	}
-	?>
-</div><!--ads end-->
-
-<div id="homepage_boxes">
-	<?php 
-	foreach ($boxes as $box)
-	{
-		echo '<div class="box_container">';
-		
+		$box_image	= '<img class="responsiveImage" src="'.base_url('uploads/'.$box->image).'" />';
 		if($box->link != '')
 		{
 			$target	= false;
@@ -85,18 +59,15 @@ include('header.php'); ?>
 			{
 				$target = 'target="_blank"';
 			}
-			echo '<a href="'.$box->link.'" '.$target.' >';
+			echo '<a href="'.$box->link.'" '.$target.' >'.$box_image.'</a>';
 		}
-		echo '<img src="'.base_url('uploads/'.$box->image).'" />';
-		
-		if($box->link != '')
+		else
 		{
-			echo '</a>';
+			echo $box_image;
 		}
-
-		echo '</div>';
-	}
-	?>
+		?>
+	</div>
+	<?php endforeach;?>
 </div>
 
 <?php include('footer.php'); ?>
