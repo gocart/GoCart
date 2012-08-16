@@ -9,7 +9,6 @@ class My_Router extends CI_Router
 	
 	// this is here to add an additional layer to the routing system.
 	//If a route isn't found in the routes config file. then it will scan the database for a matching route.
-	
 	function _parse_routes()
 	{
 		$segments	= $this->uri->segments;
@@ -45,22 +44,12 @@ class My_Router extends CI_Router
 		
 		//look through the database for a route that matches and apply the same logic as above :-)
 		//load the database connection information
-		include(APPPATH.'config/database.php');
-		
-		if($db[$active_group]['pconnect'])
-		{
-			mysql_pconnect($db[$active_group]['hostname'],$db[$active_group]['username'],$db[$active_group]['password']);	
-		}
-		else
-		{
-			mysql_connect($db[$active_group]['hostname'],$db[$active_group]['username'],$db[$active_group]['password']);	
-		}
-		
-		mysql_select_db($db[$active_group]['database']) or die("Unable to select database");
+		require_once BASEPATH.'database/DB'.EXT;
 		
 		if(count($segments) == 1)
 		{
-			$row	= $this->_get_db_route($db[$active_group]['dbprefix'], $segments[0]);
+			$row	= $this->_get_db_route($segments[0]);
+			
 			if(!empty($row))
 			{
 				return $this->_set_request(explode('/', $row['route']));
@@ -71,7 +60,7 @@ class My_Router extends CI_Router
 			$segments	= array_reverse($segments);
 			//start with the end just to make sure we're not a multi-tiered category or category/product combo before moving to the second segment
 			//we could stop people from naming products or categories after numbers, but that would be limiting their use.
-			$row		= $this->_get_db_route($db[$active_group]['dbprefix'], $segments[0]);
+			$row	= $this->_get_db_route($segments[0]);
 			//set a pagination flag. If this is set true in the next if statement we'll know that the first row is segment is possibly a page number
 			$page_flag	= false;
 			if($row)
@@ -81,7 +70,7 @@ class My_Router extends CI_Router
 			else
 			{
 				//this is the second go
-				$row		= $this->_get_db_route($db[$active_group]['dbprefix'], $segments[1]);
+				$row	= $this->_get_db_route($segments[1]);
 				$page_flag	= true;
 			}
 			
@@ -111,11 +100,8 @@ class My_Router extends CI_Router
 		$this->_set_request($this->uri->segments);
 	}
 	
-	function _get_db_route($prefix, $slug)
+	function _get_db_route($slug)
 	{
-		$query	= 'SELECT * FROM '.$prefix.'routes WHERE slug=\''.mysql_escape_string($slug).'\' LIMIT 1';
-		$query	= mysql_query($query);
-		return mysql_fetch_assoc($query);
-		
+		return DB()->where('slug',$slug)->get('routes')->row_array();
 	}
 }
