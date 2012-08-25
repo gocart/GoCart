@@ -49,6 +49,7 @@ $lang['digital_products_desc']		= 'Associate downloadable files with this produc
 $lang['fixed_quantity_note']		= '(This restricts someone from adding multiple copies of the item to their cart.)';
 $lang['quantity_in_stock_note']		= '(This figure will only be used if the product is marked "Track Stock")';
 $lang['filter_by_category']			= 'Filter by Category';
+$lang['select_a_category']			= 'Search for a Category';
 $lang['inventory']					= 'Inventory';
 
 //option form elements
