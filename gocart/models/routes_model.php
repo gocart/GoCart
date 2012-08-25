@@ -134,15 +134,18 @@ class Routes_model extends CI_Model {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/**
+	 * Find a route based on the slug
+	 * 
+	 * @param string $slug Slug string
+	 * 
+	 * @return array Details of the slug
+	 */
+	function get_route($slug)
+	{
+		return $this->db->where('slug', $slug)->get('routes')->row_array();
+		
+	}//end get_route()
 	
 	
 	function get_all()

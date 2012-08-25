@@ -46,7 +46,7 @@ class Cart extends CI_Controller {
 		
 	}
 
-	function index()
+	function cart()
 	{
 		$this->load->model(array('Banner_model', 'box_model'));
 		$this->load->helper('directory');
@@ -598,4 +598,42 @@ class Cart extends CI_Controller {
 			redirect('cart/view_cart');
 		}
 	}
+
+	
+	/**
+	 * Overrides the basic controller and checks if the requested method exists.
+	 * If not it checks the database routes table and if one is found it executes it.
+	 * 
+	 * @param string $method Requested method
+	 * @param array  $params Parameter array
+	 * 
+	 * @return string Output of the function call or show a 404 page
+	 */
+	public function _remap($method, $params = array())
+	{
+		$uri = trim(uri_string(), '/');
+		if (empty($uri))
+		{
+			$method = 'cart';
+		}
+		
+		if (method_exists($this, $method))
+		{
+			return call_user_func_array(array($this, $method), $params);
+		}
+		else
+		{
+			$this->load->model('routes_model');
+			$route = $this->routes_model->get_route($uri);
+
+			if (!empty($route))
+			{
+				$route_segs = explode('/', $route['route']);
+				return call_user_func_array(array($route_segs[0], $route_segs[1]), array($route_segs[2]));
+			}
+		}//end if
+		
+		show_404();
+		
+	}//end _remap()
 }
