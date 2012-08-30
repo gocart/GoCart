@@ -1186,6 +1186,7 @@ class go_cart {
 
 						
 		// Process any per-item operations
+		$download_package = array(); //create digital package array
 		foreach ($this->_cart_contents['items'] as $item)
 		{
 			
@@ -1205,17 +1206,11 @@ class go_cart {
 			}
 
 			
-			// Process Downloadable Product
-			$download_package = array();
+			// Process Downloadable Products
 			if(!empty($item['file_list']))
 			{
 				// compile a list of all the items that can be downloaded for this order
 				$download_package[] = $item['file_list'];
-			}
-			if(!empty($download_package))
-			{
-				// create the record, send the email
-				$this->CI->Digital_Product_model->add_download_package($download_package, $order_id);
 			}
 			
 			//deduct any quantities from the database
@@ -1226,6 +1221,12 @@ class go_cart {
 				$product_quantity	= array('id'=>$product->id, 'quantity'=>$new_quantity);
 				$this->CI->Product_model->save($product_quantity);
 			}
+		}
+		//add the digital packages to the database
+		if(!empty($download_package))
+		{
+			// create the record, send the email
+			$this->CI->Digital_Product_model->add_download_package($download_package, $order_id);
 		}
 			
 			
