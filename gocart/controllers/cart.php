@@ -90,7 +90,7 @@ class Cart extends CI_Controller {
 		if(!$code)
 		{
 			//if the term is in post, save it to the db and give me a reference
-			$term		= $this->input->post('term');
+			$term		= $this->input->post('term', true);
 			$code		= $this->Search_model->record_term($term);
 			
 			// no code? redirect so we can have the code in place for the sorting.
