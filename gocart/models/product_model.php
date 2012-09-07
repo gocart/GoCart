@@ -106,14 +106,10 @@ Class Product_model extends CI_Model
 		//if we are provided a category_id, then get products according to category
 		if ($category_id)
 		{
-			$this->db->select('category_products.*')->from('category_products')->join('products', 'category_products.product_id=products.id')->where(array('category_id'=>$category_id, 'enabled'=>1));
+			$this->db->select('category_products.*, LEAST(IFNULL(NULLIF(saleprice, 0), price), price) as sort_price', false)->from('category_products')->join('products', 'category_products.product_id=products.id')->where(array('category_id'=>$category_id, 'enabled'=>1));
 			$this->db->order_by($by, $sort);
 			
 			$result	= $this->db->limit($limit)->offset($offset)->get()->result();
-			
-			//$this->db->order_by('sequence', 'ASC');
-			//$result	= $this->db->get_where('category_products', array('enabled'=>1,'category_id'=>$category_id), $limit, $offset);
-			//$result	= $result->result();
 
 			$contents	= array();
 			$count		= 0;
@@ -141,7 +137,6 @@ Class Product_model extends CI_Model
 			}
 			return $return;
 		}
-
 	}
 	
 	function count_all_products()
@@ -337,21 +332,18 @@ Class Product_model extends CI_Model
 	function search_products($term, $limit=false, $offset=false, $by=false, $sort=false)
 	{
 		$results		= array();
-
-		//I know this is the round about way of doing things and is not the fastest. but it is thus far the easiest.
-
+		
+		$this->db->select('*, LEAST(IFNULL(NULLIF(saleprice, 0), price), price) as sort_price', false);
 		//this one counts the total number for our pagination
-		$this->db->like('name', $term);
-		$this->db->or_like('description', $term);
-		$this->db->or_like('excerpt', $term);
-		$this->db->or_like('sku', $term);
+		$this->db->where('enabled', 1);
+		$this->db->where('(name LIKE "%'.$term.'%" OR description LIKE "%'.$term.'%" OR excerpt LIKE "%'.$term.'%" OR sku LIKE "%'.$term.'%")');
 		$results['count']	= $this->db->count_all_results('products');
 
+
+		$this->db->select('*, LEAST(IFNULL(NULLIF(saleprice, 0), price), price) as sort_price', false);
 		//this one gets just the ones we need.
-		$this->db->like('name', $term);
-		$this->db->or_like('description', $term);
-		$this->db->or_like('excerpt', $term);
-		$this->db->or_like('sku', $term);
+		$this->db->where('enabled', 1);
+		$this->db->where('(name LIKE "%'.$term.'%" OR description LIKE "%'.$term.'%" OR excerpt LIKE "%'.$term.'%" OR sku LIKE "%'.$term.'%")');
 		
 		if($by && $sort)
 		{
