@@ -333,6 +333,7 @@ class Cart extends CI_Controller {
 		$product_id		= $this->input->post('id');
 		$quantity 		= $this->input->post('quantity');
 		$post_options 	= $this->input->post('option');
+		$cartkey		= $this->input->post('cartkey');
 		
 		// Get a cart-ready product array
 		$product = $this->Product_model->get_cart_ready_product($product_id, $quantity);
