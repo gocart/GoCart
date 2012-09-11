@@ -258,22 +258,6 @@ Class order_model extends CI_Model
 
 	}
 	
-	function save_item($data)
-	{
-		if (isset($data['id']) && $data['id'] != 0)
-		{
-			$this->db->where('id', $data['id']);
-			$this->db->update('items', $data);
-			
-			return $data['id'];
-		}
-		else
-		{
-			$this->db->insert('items', $data);
-			return $this->db->insert_id();
-		}
-	}
-	
 	function get_best_sellers($start, $end)
 	{
 		if(!empty($start))
