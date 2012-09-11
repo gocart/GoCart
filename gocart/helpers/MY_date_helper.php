@@ -27,32 +27,6 @@ function format_date($date){
 	}
 }
 
-function format_datetime($datetime)
-{
-	$d	= explode(' ', format_date($datetime));
-	
-	$t	= $d[2];
-	
-	$t	= explode(':', $t);
-	
-	$ap	= 'am';
-	if($t[0] > 12)
-	{
-		$t[0] = $t[0]-12;
-		$ap	= 'pm';
-	}
-	elseif($t[0] == 0)
-	{
-		$t[0] = 12;
-	}
-	elseif ($t[0] == 12)
-	{
-		$ap = 'pm';
-	}
-	
-	return $d[0].' '.$d[1].', '.$d[3].' at '.$t[0].':'.$t[1].$ap;
-}
-
 function reverse_format($date)
 {
 	if(empty($date)) 
