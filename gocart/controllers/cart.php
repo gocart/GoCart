@@ -357,7 +357,6 @@ class Cart extends CI_Controller {
 			{
 				//we don't have this much in stock
 				$this->session->set_flashdata('error', sprintf(lang('not_enough_stock'), $stock->name, $stock->quantity));
-				$this->session->set_flashdata('cartkey', $cartkey);
 				$this->session->set_flashdata('quantity', $quantity);
 				$this->session->set_flashdata('option_values', $post_options);
 
@@ -373,8 +372,6 @@ class Cart extends CI_Controller {
 		// don't add the product if we are missing required option values
 		if( ! $status['validated'])
 		{
-			//if the cartkey does not exist, this will simply be blank
-			$this->session->set_flashdata('cartkey', $cartkey);
 			$this->session->set_flashdata('quantity', $quantity);
 			$this->session->set_flashdata('error', $status['message']);
 			$this->session->set_flashdata('option_values', $post_options);
