@@ -80,7 +80,7 @@ if ($term):?>
 <table class="table table-striped">
     <thead>
 		<tr>
-			<th><input type="checkbox" id="gc_check_all" /> <button type="submit" class="btn btn-danger"><i class="icon-trash icon-white"></i></button></th>
+			<th><input type="checkbox" id="gc_check_all" /> <button type="submit" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i></button></th>
 			<th><?php echo sort_url('order', 'order_number', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
 			<th><?php echo sort_url('bill_to', 'bill_lastname', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
 			<th><?php echo sort_url('ship_to', 'ship_lastname', $sort_by, $sort_order, $code, $this->config->item('admin_folder')); ?></th>
