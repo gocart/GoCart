@@ -23,24 +23,14 @@ echo $download_section;
 	?>
 	<div class="span4">
 		<h3><?php echo ($ship != $bill)?lang('shipping_information'):lang('shipping_and_billing');?></h3>
-		<?php echo (!empty($ship['company']))?$ship['company'].'<br/>':'';?>
-		<?php echo $ship['firstname'].' '.$ship['lastname'];?> <br/>
-		<?php echo $ship['address1'];?><br>
-		<?php echo (!empty($ship['address2']))?$ship['address2'].'<br/>':'';?>
-		<?php echo $ship['city'].', '.$ship['zone'].' '.$ship['zip'];?><br/>
-
+		<?php echo format_address($ship, TRUE);?><br/>
 		<?php echo $ship['email'];?><br/>
 		<?php echo $ship['phone'];?>
 	</div>
 	<?php if($ship != $bill):?>
 	<div class="span4">
 		<h3><?php echo lang('billing_information');?></h3>
-		<?php echo (!empty($bill['company']))?$bill['company'].'<br/>':'';?>
-		<?php echo $bill['firstname'].' '.$bill['lastname'];?> <br/>
-		<?php echo $bill['address1'];?><br>
-		<?php echo (!empty($bill['address2']))?$bill['address2'].'<br/>':'';?>
-		<?php echo $bill['city'].', '.$bill['zone'].' '.$bill['zip'];?><br/>
-
+		<?php echo format_address($bill, TRUE);?><br/>
 		<?php echo $bill['email'];?><br/>
 		<?php echo $bill['phone'];?>
 	</div>
