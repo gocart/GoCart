@@ -28,7 +28,7 @@ $config['weight_unit']	    = 'LB'; // LB, KG, etc
 $config['dimension_unit']   = 'IN'; // FT, CM, etc
 
 // site logo path (for packing slip)
-$config['site_logo']		= '/images/logo.png';
+$config['site_logo']		= '/assets/img/logo.png';
 
 //change the name of the admin controller folder 
 $config['admin_folder']		= 'admin';
