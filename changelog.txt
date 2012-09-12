@@ -16,6 +16,11 @@ Version 2.0
 		- Sortable products on front end (in the bootstrap theme)
 		- Breadcrumbs
 		- Routing system improved for optimum scalability
+		- New custom built wysiwyg editor (replaced TinyMCE) with CI based file manager
+		- Did a lot of file cleanup
+		- Supporting alternate thousands separator and decimal separators (via gocart config file)
+		- Supporting currency symbol on right or left (via gocart config file)
+		- XSS filtering on front end search
 		
 	
 	Bug Fixes
@@ -30,6 +35,11 @@ Version 2.0
 		- Fixed meta tag code in the default theme header.
 		- Fixed login redirect for expired customer sessions (thanks Dinesh)
 
+	Other
+
+		- Eliminated many unused files and functions
+		- Utilizing address_format more places (and added a <br> flag)
+		
 
 Version 1.2.3
 -------------
