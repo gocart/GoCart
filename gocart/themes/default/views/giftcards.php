@@ -4,7 +4,7 @@
 <div class="row" style="margin-top:20px;">
 	<div class="span4">
 		<div id="primary-img">
-			<img src="<?php echo base_url('images/giftcard.gif');?>" alt="Giftcard"/>
+			<?php echo theme_img('giftcard.jpg', lang('giftcard'));?>
 		</div>
 	</div>
 	<div class="span8">

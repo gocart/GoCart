@@ -56,7 +56,7 @@
 				<?php foreach($products as $product):?>
 					<li class="span3 product">
 						<?php
-						$photo	= '<img src="'.base_url('images/nopicture.png').'" alt="'.lang('no_image_available').'"/>';
+						$photo	= theme_img('no_picture.png', lang('no_image_available'));
 						$product->images	= array_values($product->images);
 				
 						if(!empty($product->images[0]))

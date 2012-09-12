@@ -11,7 +11,7 @@
 		<div class="row">
 			<div class="span4" id="primary-img">
 				<?php
-				$photo	= '<img src="'.base_url('images/nopicture.png').'" alt="'.lang('no_image_available').'"/>';
+				$photo	= theme_img('no_picture.png', lang('no_image_available'));
 				$product->images	= array_values($product->images);
 
 				if(!empty($product->images[0]))
@@ -57,7 +57,7 @@
 						<?php foreach($product->related_products as $relate):?>
 							<li class="span2 product">
 								<?php
-								$photo	= '<img src="'.base_url('images/nopicture.png').'" alt="'.lang('no_image_available').'"/>';
+								$photo	= theme_img('no_picture.png', lang('no_image_available'));
 						
 						
 						
