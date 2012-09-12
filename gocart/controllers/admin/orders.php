@@ -10,7 +10,7 @@ class Orders extends Admin_Controller {
 		$this->load->model('Order_model');
 		$this->load->model('Search_model');
 		$this->load->model('location_model');
-		$this->load->helper(array('formatting', 'utility'));
+		$this->load->helper(array('formatting'));
 		$this->lang->load('order');
 	}
 	
