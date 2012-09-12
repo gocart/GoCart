@@ -20,17 +20,12 @@ $ship	= $customer['ship_address'];
 		<h2 style="margin-left:0px;"><?php echo ($ship != $bill)? lang('shipping_address'):lang('shipping_and_billing');?></h2>
 		
 		<p>
-		<?php echo (!empty($ship['company']))?$ship['company'].'<br/>':'';?>
-		<?php echo $ship['firstname'].' '.$ship['lastname'];?> <br/>
-		<?php echo $ship['address1'];?><br>
-		<?php echo (!empty($ship['address2']))?$ship['address2'].'<br/>':'';?>
-		<?php echo $ship['city'].', '.$ship['zone'].' '.$ship['zip'];?><br/>
-		<?php echo $ship['country'];?>
+			<?php echo format_address($ship, true);?>
 		</p>
 		
 		<p>
-		<?php echo $ship['email'];?><br/>
-		<?php echo $ship['phone'];?>
+			<?php echo $ship['email'];?><br/>
+			<?php echo $ship['phone'];?>
 		</p>
 	</div>
 	
@@ -40,17 +35,12 @@ $ship	= $customer['ship_address'];
 			<h2 style="margin-left:0px;"><?php echo lang('billing_address');?></h2>
 
 			<p>
-			<?php echo (!empty($bill['company']))?$bill['company'].'<br/>':'';?>
-			<?php echo $bill['firstname'].' '.$bill['lastname'];?> <br/>
-			<?php echo $bill['address1'];?><br>
-			<?php echo (!empty($bill['address2']))?$bill['address2'].'<br/>':'';?>
-			<?php echo $bill['city'].', '.$bill['zone'].' '.$bill['zip'];?><br/>
-			<?php echo $bill['country'];?>
+				<?php echo format_address($bill, true);?>
 			</p>
 
 			<p>
-			<?php echo $bill['email'];?><br/>
-			<?php echo $bill['phone'];?>
+				<?php echo $bill['email'];?><br/>
+				<?php echo $bill['phone'];?>
 			</p>
 		</div>
 	<?php endif;?>
