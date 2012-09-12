@@ -152,7 +152,7 @@ $confirm	= array('id'=>'confirm', 'class'=>'span2', 'name'=>'confirm', 'value'=>
 						<td>
 							<?php
 							$b	= $a['field_data'];
-							echo nl2br(format_address($b));
+							echo format_address($b, true);
 							?>
 						</td>
 						<td>
