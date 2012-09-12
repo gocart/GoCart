@@ -35,3 +35,24 @@ function my_character_limiter($str, $n = 500, $end_char = '&#8230;')
 
 	return $output;
 }
+
+
+//used by the giftcard feature
+function generate_code($length=16)
+{
+	$vowels = '0123';
+	$consonants = '456789ABCDEF';
+ 
+	$password = '';
+	$alt = time() % 2;
+	for ($i = 0; $i < $length; $i++) {
+		if ($alt == 1) {
+			$password .= $consonants[(rand() % strlen($consonants))];
+			$alt = 0;
+		} else {
+			$password .= $vowels[(rand() % strlen($vowels))];
+			$alt = 1;
+		}
+	}
+	return $password;
+}

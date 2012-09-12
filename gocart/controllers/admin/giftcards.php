@@ -53,9 +53,7 @@ class Giftcards extends Admin_Controller {
 		}
 		else
 		{
-			$this->load->helper('utility_helper');
-			
-			$save['code'] = generate_code(); // from the utility helper
+			$save['code'] = generate_code(); // from the string helper
 			$save['to_email'] = $this->input->post('to_email');
 			$save['to_name'] = $this->input->post('to_name');
 			$save['from'] = $this->input->post('from');

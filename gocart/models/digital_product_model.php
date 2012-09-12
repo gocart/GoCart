@@ -137,8 +137,6 @@ Class Digital_Product_Model extends CI_Model {
 	//  that can be sent to non registered customers
 	function add_download_package($package, $order_id)
 	{
-		$this->load->helper('utility_helper');
-		
 		// get customer stuff
 		$customer = $this->go_cart->customer();
 		if(!empty($customer['id']))
