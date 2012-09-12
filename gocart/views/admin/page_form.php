@@ -22,12 +22,9 @@
 				
 				<label for="content"><?php echo lang('content');?></label>
 				<?php
-				$data	= array('id'=>'content', 'name'=>'content', 'class'=>'span12 tinyMCE', 'value'=>set_value('content', $content));
+				$data	= array('id'=>'content', 'name'=>'content', 'class'=>'span12 goedit', 'value'=>set_value('content', $content));
 				echo form_textarea($data);
 				?>
-				
-				<label></label>
-				<input class="btn" type="button" onclick="toggleEditor('content'); return false;" value="<?php echo lang('toggle_wysiwyg');?>" />
 			</fieldset>
 		</div>
 

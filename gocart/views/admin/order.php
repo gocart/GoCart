@@ -9,15 +9,6 @@
 </div>
 
 <script type="text/javascript">
-
-$(document).ready(function(){
-	tinyMCE.init({
-		mode : "textareas",
-		theme : "simple",
-		editor_selector : "mceSimple",
-		width: '100%'
-	});
-});
 // store message content in JS to eliminate the need to do an ajax call with every selection
 var messages = <?php
 	$messages	= array();
@@ -49,7 +40,8 @@ function set_canned_message(id)
 {
 	// update the customer name variable before setting content	
 	$('#msg_subject').val(messages[id]['subject'].replace(/{customer_name}/g, customer_names[$('#recipient_name').val()]));
-	tinyMCE.execCommand('mceSetContent', false, messages[id]['content'].replace(/{customer_name}/g, customer_names[$('#recipient_name').val()]));
+	//hard coding this. Adding additional editors to the page will likely break it.
+	$('#goedit_0').html(messages[id]['content'].replace(/{customer_name}/g, customer_names[$('#recipient_name').val()]));
 }	
 </script>
 
@@ -89,7 +81,7 @@ function set_canned_message(id)
 				<input type="text" name="subject" size="40" id="msg_subject" class="span12"/>
 
 				<label><?php echo lang('message');?></label>
-				<textarea id="content_editor" name="content" class="mceSimple span12"></textarea>
+				<textarea id="content_editor" name="content" class="span12 goedit"></textarea>
 
 				<div class="form-actions">
 					<input type="submit" class="btn btn-primary" value="<?php echo lang('send_message');?>" />

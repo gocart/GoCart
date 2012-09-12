@@ -22,11 +22,9 @@
 				
 				<label for="description"><?php echo lang('description');?></label>
 				<?php
-				$data	= array('id'=>'description', 'name'=>'description', 'class'=>'span12 tinyMCE', 'value'=>set_value('description', $description));
+				$data	= array('id'=>'description', 'name'=>'description', 'class'=>'span12 goedit', 'value'=>set_value('description', $description));
 				echo form_textarea($data);
 				?>
-				<label></label>
-				<input class="btn" type="button" onclick="toggleEditor('description'); return false;" value="<?php echo lang('toggle_wysiwyg');?>" />
 			</fieldset>
 		</div>
 
