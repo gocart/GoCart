@@ -58,7 +58,7 @@ function areyousure()
 			<th></th>
 		</tr>
 	</thead>
-	<?php echo (count($boxes) < 1)?'<tr><td style="text-align:center;" colspan="4">'.lang('no_boxes').'</td></tr>':''?>
+	<?php echo (count($boxes) < 1)?'<tr><td style="text-align:center;" colspan="5">'.lang('no_boxes').'</td></tr>':''?>
 
 	<?php if($boxes):?>
 	<tbody id="boxes_sortable">
