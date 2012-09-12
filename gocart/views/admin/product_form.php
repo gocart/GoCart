@@ -1,5 +1,4 @@
 <?php include('header.php');
-
 $GLOBALS['option_value_count']		= 0;
 ?>
 <style type="text/css">
@@ -7,6 +6,7 @@ $GLOBALS['option_value_count']		= 0;
 	.sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; height: 18px; }
 	.sortable li>span { position: absolute; margin-left: -1.3em; margin-top:.4em; }
 </style>
+
 <script type="text/javascript">
 //<![CDATA[
 
@@ -18,14 +18,10 @@ $(document).ready(function() {
 	<?php if($id) : ?>
 	//options related
 	var ct	= $('#option_list').children().size();
-	
 	// set initial count
 	option_count = <?php echo count($product_options); ?>;
-	
 	<?php endif; ?>
-	
-	
-	
+
 	photos_sortable();
 });
 
@@ -99,12 +95,12 @@ function remove_option(id)
 				
 				<div class="row">
 					<div class="span8">
+						
 						<?php
-						$data	= array('id'=>'description', 'name'=>'description', 'class'=>'span8 tinyMCE', 'value'=>set_value('description', $description));
+						$data	= array('id'=>'description', 'name'=>'description', 'class'=>'span8 goedit', 'value'=>set_value('description', $description));
 						echo form_textarea($data);
 						?>
-						<label></label>
-						<input class="btn pull-right" type="button" onclick="toggleEditor('description'); return false;" value="Toggle WYSIWYG" />
+						
 					</div>
 				</div>
 				
@@ -214,7 +210,7 @@ function remove_option(id)
 			<div class="tab-pane" id="product_categories">
 				<div class="row">
 					<div class="span8">
-						<label><strong><?php echo lang('select_a_category');?></strong></label>
+						<label><strong><?php echo lang('select_a_product');?></strong></label>
 					</div>
 				</div>
 				<div class="row">
@@ -607,7 +603,7 @@ function add_option($po, $count)
 {
 	ob_start();
 	?>
-	<tr class="span8" id="option-<?php echo $count;?>">
+	<tr id="option-<?php echo $count;?>">
 		<td>
 			<a class="handle btn btn-mini"><i class="icon-align-justify"></i></a>
 			<strong><a class="option_title" href="#option-form-<?php echo $count;?>"><?php echo $po->type;?> <?php echo (!empty($po->name))?' : '.$po->name:'';?></a></strong>
@@ -766,13 +762,8 @@ function photos_sortable()
 		scroll: true
 	});
 }
-
-
-
 //]]>
 </script>
-
-
 <?php
 function related_items($id, $name) {
 	return '
