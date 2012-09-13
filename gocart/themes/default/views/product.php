@@ -174,10 +174,17 @@
 								}
 								else
 								{
-									$value	= $option->values[0]->value;
-									if($posted_options && isset($posted_options[$option->id]))
+									if(isset($option->values[0]))
 									{
-										$value	= $posted_options[$option->id];
+										$value	= $option->values[0]->value;
+										if($posted_options && isset($posted_options[$option->id]))
+										{
+											$value	= $posted_options[$option->id];
+										}
+									}
+									else
+									{
+										$value = false;
 									}
 								}
 
