@@ -20,6 +20,7 @@ Version 2.0
 		- Supporting alternate thousands separator and decimal separators (via gocart config file)
 		- Supporting currency symbol on right or left (via gocart config file)
 		- XSS filtering on front end search
+		- Using CodeIgniter migrations library for DB updates
 		
 	
 	Bug Fixes
