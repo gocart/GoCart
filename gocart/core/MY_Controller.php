@@ -11,5 +11,6 @@ class Admin_Controller extends CI_Controller
 		
 		//load the base language file
 		$this->lang->load('admin_common');
+		$this->lang->load('goedit');
 	}
 }
