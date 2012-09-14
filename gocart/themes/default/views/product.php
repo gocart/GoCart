@@ -90,7 +90,7 @@
 										<span class="price_reg"><?php echo lang('product_price');?> <?php echo format_currency($relate->price); ?></span>
 									<?php endif; ?>
 								</div>
-			                    <?php if((bool)$relate->track_stock && $relate->quantity < 1) { ?>
+			                    <?php if((bool)$relate->track_stock && $relate->quantity < 1 && config_item('inventory_enabled')) { ?>
 									<div class="stock_msg"><?php echo lang('out_of_stock');?></div>
 								<?php } ?>
 							</li>
@@ -132,9 +132,9 @@
 			<div class="span4 sku-pricing">
 				<?php if(!empty($product->sku)):?><div><?php echo lang('sku');?>: <?php echo $product->sku; ?></div><?php endif;?>&nbsp;
 			</div>
-			<?php if((bool)$product->track_stock && $product->quantity < 1):?>
+			<?php if((bool)$product->track_stock && $product->quantity < 1 && config_item('inventory_enabled')):?>
 			<div class="span4 out-of-stock">
-				<div>Out of Stock</div>
+				<div><?php echo lang('out_of_stock');?></div>
 			</div>
 			<?php endif;?>
 		</div>
@@ -256,7 +256,7 @@
 					<div class="control-group">
 						<label class="control-label"><?php echo lang('quantity') ?></label>
 						<div class="controls">
-							<?php if($this->config->item('allow_os_purchase') || !(bool)$product->track_stock || $product->quantity > 0) : ?>
+							<?php if(!config_item('inventory_enabled') || config_item('allow_os_purchase') || !(bool)$product->track_stock || $product->quantity > 0) : ?>
 								<?php if(!$product->fixed_quantity) : ?>
 									<input class="span2" type="text" name="quantity" value=""/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<?php endif; ?>
