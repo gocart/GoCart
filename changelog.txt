@@ -1,3 +1,12 @@
+Version 2.0.1
+	Release date: TBA
+	
+	Bug Fixes
+	
+		- Eliminated code remnant from product page
+		- Fixed an error in the product view related to options with no option.
+	
+	
 Version 2.0
 -------------
 	Release date: September 13, 2012
