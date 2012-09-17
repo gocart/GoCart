@@ -1,4 +1,5 @@
-<?php
+<?php 
+// Single page checkout controller
 
 class Checkout extends Front_Controller {
 	
@@ -26,15 +27,18 @@ class Checkout extends Front_Controller {
 
 	function index()
 	{
-		//double check the inventory of each item before proceeding to checkout
-		$inventory_check	= $this->go_cart->check_inventory();
+		if(!config_item('allow_os_purchase'))
+			
+			//double check the inventory of each item before proceeding to checkout
+			$inventory_check	= $this->go_cart->check_inventory();
 
-		if($inventory_check && !config_item('allow_os_purchase'))
-		{
-			//OOPS we have an error. someone else has gotten the scoop on our customer and bought products out from under them!
-			//we need to redirect them to the view cart page and let them know that the inventory is no longer there.
-			$this->session->set_flashdata('error', $inventory_check);
-			redirect('cart/view_cart');
+			if($inventory_check)
+			{
+				//OOPS we have an error. someone else has gotten the scoop on our customer and bought products out from under them!
+				//we need to redirect them to the view cart page and let them know that the inventory is no longer there.
+				$this->session->set_flashdata('error', $inventory_check);
+				redirect('cart/view_cart');
+			}
 		}
 		$this->load->model('Customer_model');
 		
