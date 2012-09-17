@@ -1,5 +1,4 @@
-<?php 
-// Single page checkout controller
+<?php
 
 class Checkout extends Front_Controller {
 	
@@ -7,7 +6,6 @@ class Checkout extends Front_Controller {
 	{
 		parent::__construct();
 		
-		//force SSL if needed
 		force_ssl();
 		
 		//make sure the cart isn't empty
@@ -30,14 +28,14 @@ class Checkout extends Front_Controller {
 	{
 		//double check the inventory of each item before proceeding to checkout
 		$inventory_check	= $this->go_cart->check_inventory();
-		if($inventory_check)
+
+		if($inventory_check && !config_item('allow_os_purchase'))
 		{
 			//OOPS we have an error. someone else has gotten the scoop on our customer and bought products out from under them!
 			//we need to redirect them to the view cart page and let them know that the inventory is no longer there.
 			$this->session->set_flashdata('error', $inventory_check);
 			redirect('cart/view_cart');
 		}
-		
 		$this->load->model('Customer_model');
 		
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
