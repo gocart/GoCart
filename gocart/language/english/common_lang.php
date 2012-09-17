@@ -11,9 +11,9 @@ Common Language
 
 
 /*******************
-    
+
     Site front end
-  
+
  *******************/
 
 //common terms
@@ -194,7 +194,7 @@ $lang['login_failed']				= 'Authentication Failed!';
 $lang['go_to_login']				= 'Go to Login';
 
 $lang['account_registration']			= 'Account Registration';
-$lang['registration_thanks']			= 'thanks for registering %s!';
+$lang['registration_thanks']			= 'Thanks for registering %s!';
 $lang['error_email']					= 'The requested email is already in use.';
 $lang['error_no_account_record']		= 'There is no record of your account.';
 $lang['message_new_password']			= 'A new password has been generated and sent to your email.';
