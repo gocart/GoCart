@@ -28,7 +28,7 @@ class Checkout extends Front_Controller {
 	function index()
 	{
 		if(!config_item('allow_os_purchase'))
-			
+		{	
 			//double check the inventory of each item before proceeding to checkout
 			$inventory_check	= $this->go_cart->check_inventory();
 
