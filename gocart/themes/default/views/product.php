@@ -171,20 +171,22 @@
 										<?php endforeach;?>
 										<?php echo $required;?>
 									</div>
-								<?php elseif($option->type == 'checklist'):
-									foreach ($option->values as $values):
+								<?php elseif($option->type == 'checklist'):?>
+									<div class="controls">
+										<?php foreach ($option->values as $values):
 
-										$checked = '';
-										if(in_array($values->id, $value))
-										{
-											$checked = ' checked="checked"';
-										}?>
-										<label class="checkbox">
-											<input<?php echo $checked;?> type="checkbox" name="option[<?php echo $option->id;?>][]" value="<?php echo $values->id;?>"/>
-											<?php echo($values->price != 0)?' (+'.format_currency($values->price).') ':''; echo $values->name;?>
-										</label>
-									<?php endforeach ?>
-									<?php echo $required;?>
+											$checked = '';
+											if(in_array($values->id, $value))
+											{
+												$checked = ' checked="checked"';
+											}?>
+											<label class="checkbox">
+												<input<?php echo $checked;?> type="checkbox" name="option[<?php echo $option->id;?>][]" value="<?php echo $values->id;?>"/>
+												<?php echo($values->price != 0)?'(+'.format_currency($values->price).') ':''; echo $values->name;?>
+											</label>
+										<?php endforeach ?>
+										<?php echo $required;?>
+									</div>
 								<?php endif;?>
 								</div>
 						<?php endforeach;?>
