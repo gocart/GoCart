@@ -10,41 +10,33 @@
 
 		<div class="row">
 			<div class="span4" id="primary-img">
-				<?php
-				$photo	= theme_img('no_picture.png', lang('no_image_available'));
-				$product->images	= array_values($product->images);
+				<div class="thumbnail">
+					<?php
+					$photo	= theme_img('no_picture.png', lang('no_image_available'));
+					$product->images	= array_values($product->images);
 
-				if(!empty($product->images[0]))
-				{
-					$primary	= $product->images[0];
-					foreach($product->images as $photo)
-					{
-						if(isset($photo->primary))
-						{
-							$primary	= $photo;
-						}
-					}
-
-					$photo	= '<img class="responsiveImage" src="'.base_url('uploads/images/medium/'.$primary->filename).'" alt="'.$product->seo_title.'"/>';
-				}
-				echo $photo
-				?>
+					// Output the primary image
+					if(!empty($product->images[0])):
+						$primary = $product->images[0];
+					?>
+						<img class="responsiveImage" src="<?php echo base_url('uploads/images/medium/'.$primary->filename) ?>" alt="<?php echo $product->seo_title; ?>"/>
+						<h3><?php echo $primary->alt;?></h3>
+						<p><?php echo $primary->caption;?></p>
+					<?php
+					else:
+						echo $photo;
+					endif;
+					?>
+				</div>
 			</div>
 		</div>
-		<?php if(!empty($primary->caption)):?>
-		<div class="row">
-			<div class="span4" id="product_caption">
-				<?php echo $primary->caption;?>
-			</div>
-		</div>
-		<?php endif;?>
 		<?php if(count($product->images) > 1):?>
 		<div class="row">
 			<ul class="thumbnails product-images">
 				<?php foreach($product->images as $image):?>
 				<li class="span1">
 					<div class="thumbnail">
-						<img onclick="$(this).squard('390', $('#primary-img'));" src="<?php echo base_url('uploads/images/medium/'.$image->filename);?>"/>
+						<img onclick="$(this).squard('390', $('#primary-img .thumbnail'));" src="<?php echo base_url('uploads/images/medium/'.$image->filename);?>" data-alt="<?php echo $image->alt;?>" data-caption="<?php echo $image->caption;?>" />
 					</div>
 				</li>
 				<?php endforeach;?>
@@ -103,7 +95,7 @@
 							$required	= '';
 							if($option->required)
 							{
-								$required = ' <p class="help-block">Required</p>';
+								$required = ' <span class="label label-important">Required</span>';
 							}
 							?>
 							<div class="control-group">
