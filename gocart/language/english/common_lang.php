@@ -70,7 +70,7 @@ $lang['check_out']				= 'Check Out';
 
 $lang['sort_by_name_asc']		= 'Sort by name A to Z';
 $lang['sort_by_name_desc']		= 'Sort by name Z to A';
-$lang['sort_by_price_asc']		= 'Sort by price Low to Hight';
+$lang['sort_by_price_asc']		= 'Sort by price Low to High';
 $lang['sort_by_price_desc']		= 'Sort by price High to Low';
 
 $lang['products']				= 'Products';
