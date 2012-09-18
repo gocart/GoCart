@@ -148,7 +148,7 @@
 											}?>
 
 											<option<?php echo $selected;?> value="<?php echo $values->id;?>">
-												<?php echo($values->price != 0)?'('.format_currency($values->price).') ':''; echo $values->name;?>
+												<?php echo($values->price != 0)?' (+'.format_currency($values->price).') ':''; echo $values->name;?>
 											</option>
 
 										<?php endforeach;?>
@@ -166,7 +166,7 @@
 											}?>
 											<label class="radio">
 												<input<?php echo $checked;?> type="radio" name="option[<?php echo $option->id;?>]" value="<?php echo $values->id;?>"/>
-												<?php echo $option->name;?> <?php echo($values->price != 0)?'('.format_currency($values->price).') ':''; echo $values->name;?>
+												<?php echo $values->name; echo($values->price != 0)?' (+'.format_currency($values->price).') ':''; ?>
 											</label>
 										<?php endforeach;?>
 										<?php echo $required;?>
@@ -181,7 +181,7 @@
 										}?>
 										<label class="checkbox">
 											<input<?php echo $checked;?> type="checkbox" name="option[<?php echo $option->id;?>][]" value="<?php echo $values->id;?>"/>
-											<?php echo($values->price != 0)?'('.format_currency($values->price).') ':''; echo $values->name;?>
+											<?php echo($values->price != 0)?' (+'.format_currency($values->price).') ':''; echo $values->name;?>
 										</label>
 									<?php endforeach ?>
 									<?php echo $required;?>
