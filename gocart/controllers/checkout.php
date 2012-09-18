@@ -431,13 +431,12 @@ class Checkout extends Front_Controller {
 			}
 		}
 		
+		//load the payment module
+		$this->load->add_package_path(APPPATH.'packages/payment/'.$payment['module'].'/');
+		$this->load->library($payment['module']);
+		
 		// Is payment bypassed? (total is zero, or processed flag is set)
 		if($this->go_cart->total() > 0 && ! isset($payment['confirmed'])) {
-			
-			//load the payment module
-			$this->load->add_package_path(APPPATH.'packages/payment/'.$payment['module'].'/');
-			$this->load->library($payment['module']);
-			
 			//run the payment
 			$error_status	= $this->$payment['module']->process_payment();
 			if($error_status !== false)
