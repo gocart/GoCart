@@ -1,33 +1,13 @@
 <?php 
 // Single page checkout controller
 
-class Checkout extends CI_Controller {
-
-	//we collect the categories automatically with each load rather than for each function
-	//this just cuts the codebase down a bit
-	var $categories	= '';
+class Checkout extends Front_Controller {
 	
-	//this is so there will be a breadcrumb on every page even if it is blank
-	//the breadcrumbs currently suck. on a product page if you refresh, you lose the path
-	//will have to find a better way for these, but it's not a priority
-	var $breadcrumb	= '';	
-	
-	//load all the pages into this variable so we can call it from all the methods
-	var $pages = '';
-	
-	// determine whether to display gift card link on all cart pages
-	var $gift_cards_enabled = false; 
-	
-	// construct 
 	function __construct()
 	{
 		parent::__construct();
 		
 		force_ssl();
-		
-		$this->load->helper(array('formatting_helper', 'form_helper'));
-		$this->load->model(array('Page_model', 'Settings_model', 'Location_model'));
-		$this->load->library('Go_cart');
 		
 		//make sure the cart isn't empty
 		if($this->go_cart->total_items()==0)
@@ -35,44 +15,31 @@ class Checkout extends CI_Controller {
 			redirect('cart/view_cart');
 		}
 		
-		//fill in our variables
-		$this->categories	= $this->Category_model->get_categories_tierd(0);
-		$this->pages		= $this->Page_model->get_pages();	
-		$gc_setting			= $this->Settings_model->get_settings('gift_cards');
-		
-		if(isset($gc_setting['enabled']) && (bool)$gc_setting['enabled'])
-		{
-			$this->gift_cards_enabled = true;
-		}
-		
-		if ($this->config->item('require_login'))
+		//is the user required to be logged in?
+		if (config_item('require_login'))
 		{
 			$this->Customer_model->is_logged_in('checkout');
 		}
 		
-		//load the theme package
-		$this->load->add_package_path(APPPATH.'themes/'.$this->config->item('theme').'/');
+		//load the location model
+		$this->load->model(array('Location_model'));
 	}
 
 	function index()
 	{
-		
-		//everytime they try to checkout, see if they have something in their cart
-		//this will redirect them to the empty cart page if they have already confirmed their order, and had their cart wiped from the session
-		if ($this->go_cart->total_items()==0){
-			redirect('cart/view_cart');
+		if(!config_item('allow_os_purchase'))
+		{	
+			//double check the inventory of each item before proceeding to checkout
+			$inventory_check	= $this->go_cart->check_inventory();
+
+			if($inventory_check)
+			{
+				//OOPS we have an error. someone else has gotten the scoop on our customer and bought products out from under them!
+				//we need to redirect them to the view cart page and let them know that the inventory is no longer there.
+				$this->session->set_flashdata('error', $inventory_check);
+				redirect('cart/view_cart');
+			}
 		}
-		
-		//double check the inventory of each item before proceeding to checkout
-		$inventory_check	= $this->go_cart->check_inventory();
-		if($inventory_check)
-		{
-			//OOPS we have an error. someone else has gotten the scoop on our customer and bought products out from under them!
-			//we need to redirect them to the view cart page and let them know that the inventory is no longer there.
-			$this->session->set_flashdata('error', $inventory_check);
-			redirect('cart/view_cart');
-		}
-		
 		$this->load->model('Customer_model');
 		
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
@@ -464,13 +431,12 @@ class Checkout extends CI_Controller {
 			}
 		}
 		
+		//load the payment module
+		$this->load->add_package_path(APPPATH.'packages/payment/'.$payment['module'].'/');
+		$this->load->library($payment['module']);
+		
 		// Is payment bypassed? (total is zero, or processed flag is set)
 		if($this->go_cart->total() > 0 && ! isset($payment['confirmed'])) {
-			
-			//load the payment module
-			$this->load->add_package_path(APPPATH.'packages/payment/'.$payment['module'].'/');
-			$this->load->library($payment['module']);
-			
 			//run the payment
 			$error_status	= $this->$payment['module']->process_payment();
 			if($error_status !== false)
