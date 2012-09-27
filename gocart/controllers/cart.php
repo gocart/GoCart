@@ -39,7 +39,7 @@ class Cart extends Front_Controller {
 		$data['page_title']			= $data['page']->title;
 		
 		$data['meta']				= $data['page']->meta;
-		$data['seo_title']			= $data['page']->seo_title;
+		$data['seo_title']			= (!empty($data['page']->seo_title))?$data['page']->seo_title:$data['page']->title;
 		
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		
@@ -184,8 +184,7 @@ class Cart extends Front_Controller {
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		
 		$data['meta']		= $data['category']->meta;
-		$data['seo_title']	= $data['category']->seo_title;
-		
+		$data['seo_title']	= (!empty($data['category']->seo_title))?$data['category']->seo_title:$data['category']->name;
 		$data['page_title']	= $data['category']->name;
 		
 		$sort_array = array(
@@ -274,7 +273,7 @@ class Cart extends Front_Controller {
 
 		$data['page_title']			= $data['product']->name;
 		$data['meta']				= $data['product']->meta;
-		$data['seo_title']			= $data['product']->seo_title;
+		$data['seo_title']			= (!empty($data['product']->seo_title))?$data['product']->seo_title:$data['product']->name;
 			
 		if($data['product']->images == 'false')
 		{
