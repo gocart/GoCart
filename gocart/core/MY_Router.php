@@ -12,8 +12,7 @@ class My_Router extends CI_Router
 	function _parse_routes()
 	{
 		$segments	= $this->uri->segments;
-		$segments	= array_splice($segments, -2, 2);
-		
+
 		// Turn the segment array into a URI string
 		$uri = implode('/', $segments);
 		
@@ -42,6 +41,12 @@ class My_Router extends CI_Router
 			}
 		}
 		
+		// now try the GoCart specific routing
+		$segments = array_splice($segments, -2, 2);
+
+		// Turn the segment array into a URI string
+		$uri = implode('/', $segments);
+
 		//look through the database for a route that matches and apply the same logic as above :-)
 		//load the database connection information
 		require_once BASEPATH.'database/DB'.EXT;
