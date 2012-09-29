@@ -1,4 +1,4 @@
-<?php include('header.php');
+<?php
 
 echo form_open_multipart($this->config->item('admin_folder').'/digital_products/form/'.$id); ?>
 

@@ -1,4 +1,4 @@
-<?php include('header.php');
+<?php 
 $GLOBALS['option_value_count']		= 0;
 ?>
 <style type="text/css">

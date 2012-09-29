@@ -1,4 +1,4 @@
-<?php include('header.php');?>
+
 
 <style type="text/css">
 	.img-thumbnail {
