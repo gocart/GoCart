@@ -32,7 +32,8 @@ class Giftcards extends Admin_Controller {
 			$data['gift_cards']['enabled'] = false;
 		}
 		
-		$this->load->view($this->config->item('admin_folder').'/giftcards', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('giftcards', $data);
 		
 	}
 	
@@ -49,7 +50,8 @@ class Giftcards extends Admin_Controller {
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/giftcard_form', $data);
+			$this->template->title($data['page_title'], config_item('company_name'));
+			$this->template->build('giftcard_form', $data);
 		}
 		else
 		{
@@ -148,7 +150,8 @@ class Giftcards extends Admin_Controller {
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/giftcards_settings', $data);
+			$this->template->title($data['page_title'], config_item('company_name'));
+			$this->template->build('giftcards_settings', $data);
 		}
 		else
 		{

@@ -17,7 +17,8 @@ class Locations extends Admin_Controller {
 		$data['page_title']	= lang('countries');
 		$data['locations']	= $this->Location_model->get_countries();
 		
-		$this->load->view($this->config->item('admin_folder').'/countries', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('countries', $data);
 	}
 	
 	function organize_countries()
@@ -69,7 +70,8 @@ class Locations extends Admin_Controller {
 	
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/country_form', $data);
+			$this->template->title($data['page_title'], config_item('company_name'));
+			$this->template->build('country_form', $data);
 		}
 		else
 		{
@@ -159,7 +161,8 @@ class Locations extends Admin_Controller {
 		
 		$data['page_title']	= sprintf(lang('country_zones'), $data['country']->name);
 
-		$this->load->view($this->config->item('admin_folder').'/country_zones', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('country_zones', $data);
 	}
 	
 	function zone_form($id = false)
@@ -202,7 +205,8 @@ class Locations extends Admin_Controller {
 	
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/country_zone_form', $data);
+			$this->template->title($data['page_title'], config_item('company_name'));
+			$this->template->build('country_zone_form', $data);
 		}
 		else
 		{
@@ -240,7 +244,8 @@ class Locations extends Admin_Controller {
 		
 		$data['page_title']		= sprintf(lang('zone_areas_for'), $data['zone']->name);
 		
-		$this->load->view($this->config->item('admin_folder').'/country_zone_areas', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('country_zone_areas', $data);
 	}
 
 	function delete_zone_area($id = false)
@@ -305,7 +310,8 @@ class Locations extends Admin_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/country_zone_area_form', $data);
+			$this->template->title($data['page_title'], config_item('company_name'));
+			$this->template->build('country_zone_area_form', $data);
 		}
 		else
 		{

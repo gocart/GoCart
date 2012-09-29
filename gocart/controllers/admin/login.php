@@ -50,7 +50,9 @@ class Login extends CI_Controller {
 				redirect($this->config->item('admin_folder').'/login');
 			}
 		}
-		$this->load->view($this->config->item('admin_folder').'/login', $data);
+
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('login', $data);
 	}
 	
 	function logout()

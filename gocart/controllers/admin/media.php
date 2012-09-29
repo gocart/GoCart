@@ -34,7 +34,8 @@ class Media extends Admin_Controller
 		
 		natcasesort($data['files']);
 		
-		$this->load->view(config_item('admin_folder').'/iframe/media', $data);
+		$this->template->set_layout('ajax');
+		$this->template->build('iframe/media', $data);
 	}
 	
 	function embed()
@@ -52,15 +53,18 @@ class Media extends Admin_Controller
 			redirect(config_item('admin_folder').'/media/index/');
 		}
 
-		$this->load->view(config_item('admin_folder').'/iframe/header', $data);
-		$this->load->view(config_item('admin_folder').'/iframe/embed', $data);
-		$this->load->view(config_item('admin_folder').'/iframe/footer', $data);
+		$this->template->set_layout('ajax');
+		$this->template
+				->set_partial('part1', '/iframe/header', $data)
+				->set_partial('part2', '/iframe/embed', $data)
+				->build('/iframe/footer', $data);
 	
 	}
 	
 	function edit_image()
 	{
-		$this->load->view(config_item('admin_folder').'/iframe/edit_image');
+		$this->template->set_layout('ajax');
+		$this->template->build('/iframe/edit_image', $data);
 	}
 	
 	function create_subfolder()

@@ -65,8 +65,18 @@ class Admin_Controller extends CI_Controller
 		$this->load->library('auth');
 		$this->auth->is_logged_in(uri_string());
 		
+		// load the template config file and library
+		$this->load->config('template');
+		$this->load->library('Template');
+		$this->template->set_theme('admin');
+
 		//load the base language file
 		$this->lang->load('admin_common');
 		$this->lang->load('goedit');
+
+		// create partials for the header and footer
+		$this->template->set('admin_url', site_url($this->config->item('admin_folder')).'/');
+		$this->template->set_partial('header', 'header');
+		$this->template->set_partial('footer', 'footer');
 	}
 }
