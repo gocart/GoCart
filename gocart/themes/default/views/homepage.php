@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <div class="row">
 	<div class="span12">
 		<div id="myCarousel" class="carousel slide">
@@ -69,5 +67,3 @@ $('.carousel').carousel({
 	</div>
 	<?php endforeach;?>
 </div>
-
-<?php include('footer.php'); ?>

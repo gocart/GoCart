@@ -20,7 +20,8 @@ class Cart extends Front_Controller {
 		$data['boxes']				= $this->box_model->get_homepage_boxes(4);
 		$data['homepage']			= true;
 		
-		$this->load->view('homepage', $data);
+		$this->template->title(config_item('company_name'));
+		$this->template->build('homepage', $data);
 	}
 
 	function page($id = false)
@@ -39,11 +40,14 @@ class Cart extends Front_Controller {
 		$data['page_title']			= $data['page']->title;
 		
 		$data['meta']				= $data['page']->meta;
-		$data['seo_title']			= (!empty($data['page']->seo_title))?$data['page']->seo_title:$data['page']->title;
+		$data['seo_title']			= (!empty($data['page']->seo_title)) ? $data['page']->seo_title : $data['page']->title;
 		
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		
-		$this->load->view('page', $data);
+		$this->template->title($data['seo_title'], config_item('company_name'));
+		$this->template->set('meta', $data['page']->meta);
+		$this->template->build('page', $data);
+
 	}
 	
 	function search($code=false, $page = 0)
@@ -97,10 +101,12 @@ class Cart extends Front_Controller {
 		}
 		
 
+		$view_file = 'category';
+		
 		if(empty($term))
 		{
 			//if there is still no search term throw an error
-			$this->load->view('search_error', $data);
+			$view_file = 'search_error';
 		}
 		else
 		{
@@ -147,8 +153,10 @@ class Cart extends Front_Controller {
 				$p->images	= (array)json_decode($p->images);
 				$p->options	= $this->Option_model->get_product_options($p->id);
 			}
-			$this->load->view('category', $data);
 		}
+		
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build($view_file, $data);
 	}
 	
 	function category($id)
@@ -184,7 +192,7 @@ class Cart extends Front_Controller {
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		
 		$data['meta']		= $data['category']->meta;
-		$data['seo_title']	= (!empty($data['category']->seo_title))?$data['category']->seo_title:$data['category']->name;
+		$data['seo_title']	= (!empty($data['category']->seo_title)) ? $data['category']->seo_title : $data['category']->name;
 		$data['page_title']	= $data['category']->name;
 		
 		$sort_array = array(
@@ -243,14 +251,15 @@ class Cart extends Front_Controller {
 			$p->options	= $this->Option_model->get_product_options($p->id);
 		}
 		
-		$this->load->view('category', $data);
+		$this->template->title($data['seo_title'], config_item('company_name'));
+		$this->template->set('meta', $data['category']->meta);
+		$this->template->build('category', $data);
 	}
 	
 	function product($id)
 	{
 		//get the product
 		$data['product']	= $this->Product_model->get_product($id);
-		
 		
 		if(!$data['product'] || $data['product']->enabled==0)
 		{
@@ -266,14 +275,12 @@ class Cart extends Front_Controller {
 		
 		$related			= $data['product']->related_products;
 		$data['related']	= array();
-		
-
 				
 		$data['posted_options']	= $this->session->flashdata('option_values');
 
 		$data['page_title']			= $data['product']->name;
 		$data['meta']				= $data['product']->meta;
-		$data['seo_title']			= (!empty($data['product']->seo_title))?$data['product']->seo_title:$data['product']->name;
+		$data['seo_title']			= (!empty($data['product']->seo_title)) ? $data['product']->seo_title : $data['product']->name;
 			
 		if($data['product']->images == 'false')
 		{
@@ -286,7 +293,9 @@ class Cart extends Front_Controller {
 
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 					
-		$this->load->view('product', $data);
+		$this->template->title($data['seo_title'], config_item('company_name'));
+		$this->template->set('meta', $data['product']->meta);
+		$this->template->build('product', $data);
 	}
 	
 	
@@ -363,7 +372,9 @@ class Cart extends Front_Controller {
 		$data['page_title']	= 'View Cart';
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		
-		$this->load->view('view_cart', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->set('full_width', TRUE);
+		$this->template->build('view_cart', $data);
 	}
 	
 	function remove_item($key)
@@ -519,9 +530,10 @@ class Cart extends Front_Controller {
 		if ($this->form_validation->run() == FALSE)
 		{
 			$data['error']				= validation_errors();
-			$data['page_title']			= lang('giftcard');
 			$data['gift_cards_enabled']	= $this->gift_cards_enabled;
-			$this->load->view('giftcards', $data);
+
+			$this->template->title(lang('giftcard'), config_item('company_name'));
+			$this->template->build('giftcards', $data);
 		}
 		else
 		{

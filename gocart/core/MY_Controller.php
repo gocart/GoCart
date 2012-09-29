@@ -18,6 +18,10 @@ class Front_Controller extends CI_Controller {
 
 		//load GoCart library
 		$this->load->library('Go_cart');
+		
+		// load the template config file and library
+		$this->load->config('template');
+		$this->load->library('Template');
 
 		//load needed models
 		$this->load->model(array('Page_model', 'Product_model', 'Digital_Product_model', 'Gift_card_model', 'Option_model', 'Order_model', 'Settings_model'));
@@ -40,8 +44,12 @@ class Front_Controller extends CI_Controller {
 			$this->gift_cards_enabled = false;
 		}
 		
+		// create partials for the header and footer
+		$this->template->set_partial('header', 'header');
+		$this->template->set_partial('footer', 'footer');
+
 		//load the theme package
-		$this->load->add_package_path(APPPATH.'themes/'.$this->config->item('theme').'/');
+//		$this->load->add_package_path(APPPATH.'themes/'.$this->config->item('theme').'/');
 	}
 	
 	

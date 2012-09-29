@@ -23,6 +23,9 @@ class Checkout extends Front_Controller {
 		
 		//load the location model
 		$this->load->model(array('Location_model'));
+
+		$this->template->set('full_width', TRUE);
+
 	}
 
 	function index()
@@ -58,7 +61,8 @@ class Checkout extends Front_Controller {
 		//$data['ads']		= $this->banner_model->get_banners(true);
 		$data['categories']	= $this->Category_model->get_categories_tierd(0);		
 		
-		$this->load->view('checkout/checkout', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('checkout/checkout', $data);
 	}
 	
 	function login()
@@ -125,9 +129,11 @@ class Checkout extends Front_Controller {
 		$this->load->model('Page_model');
 		$details['deadline_content']	= $this->Page_model->get_page(144);
 		
-		$this->load->view('checkout/shipping_form', $ship);
-		$this->load->view('checkout/additional_details_form', $details);
-		$this->load->view('checkout/payment_form', $pay);
+		$this->template->set_layout('ajax');
+		$this->template
+				->set_partial('part1', 'checkout/shipping_form', $ship)
+				->set_partial('part2', 'checkout/additional_details_form', $details)
+				->build('checkout/payment_form', $pay);
 	}
 	
 	function save_additional_details()
@@ -145,7 +151,8 @@ class Checkout extends Front_Controller {
 	
 	function customer_details()
 	{
-		$this->load->view('checkout/customer_details_static', array('customer'=>$this->go_cart->customer()));
+		$this->template->set_layout('ajax');
+		$this->template->build('checkout/customer_details_static', array('customer'=>$this->go_cart->customer()));
 	}
 	
 	function customer_form()
@@ -167,7 +174,9 @@ class Checkout extends Front_Controller {
 		{
 			$data['customer']['ship_to_bill_address'] = false;
 		}
-		$this->load->view('checkout/customer_details', $data);
+
+		$this->template->set_layout('ajax');
+		$this->template->build('checkout/customer_details', $data);
 	}
 	
 	// Validate & Save guest (non-logged in) customer address information
@@ -324,7 +333,8 @@ class Checkout extends Front_Controller {
 			$return = array('status'=>'success');
 			
 			//customer details
-			$return['view'] = $this->load->view('checkout/customer_details_static', array('customer'=>$customer), true);
+			$this->template->set_layout('ajax');
+			$return['view'] = $this->template->build('checkout/customer_details_static', array('customer'=>$customer), true);
 			
 			//shipping/payment information
 			echo json_encode($return);
@@ -354,7 +364,8 @@ class Checkout extends Front_Controller {
 	
 	function order_summary()
 	{
-		$this->load->view('checkout/summary');
+		$this->template->set_layout('ajax');
+		$this->template->build('checkout/summary');
 	}
 	
 	function save_payment_method()
@@ -387,7 +398,8 @@ class Checkout extends Front_Controller {
 		$data['shipping'] = $this->go_cart->shipping_method();
 		$data['payment'] = $this->go_cart->payment_method();
 		
-		$this->load->view('checkout/sconfirm', $data);
+		$this->template->set_layout('ajax');
+		$this->template->build('checkout/sconfirm', $data);
 	}
 	
 	function place_order()
@@ -508,7 +520,8 @@ class Checkout extends Front_Controller {
 		$row['content'] = str_replace('{site_name}', $this->config->item('company_name'), $row['content']);
 			
 		// {order_summary}
-		$row['content'] = str_replace('{order_summary}', $this->load->view('order_email', $data, true), $row['content']);
+		$this->template->set_layout('ajax');
+		$row['content'] = str_replace('{order_summary}', $this->template->build('order_email', $data, true), $row['content']);
 		
 		// {download_section}
 		$row['content'] = str_replace('{download_section}', $download_section, $row['content']);
@@ -542,7 +555,10 @@ class Checkout extends Front_Controller {
 		$data['download_section']	= $download_section;
 		
 		// show final confirmation page
-		$this->load->view('order_placed', $data);
+		$this->template->set_layout(config_item('layout'));
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->set('full_width', TRUE);
+		$this->template->build('order_placed', $data);
 		
 		//remove the cart from the session
 		$this->go_cart->destroy();

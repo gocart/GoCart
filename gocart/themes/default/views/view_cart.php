@@ -1,5 +1,3 @@
-<?php include('header.php');?>
-
 <?php if ($this->go_cart->total_items()==0):?>
 	<div class="alert alert-info">
 		<a class="close" data-dismiss="alert">×</a>
@@ -179,5 +177,3 @@
 
 </form>
 <?php endif; ?>
-
-<?php include('footer.php'); ?>

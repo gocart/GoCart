@@ -4,8 +4,5 @@
 		</p>
 		<p>&copy; <?php echo date('Y')?> Clear Sky Designs &bull; All Rights Reserved</p>
 	</footer>
-</div>
+</div> <!-- container -->
 
-
-</body>
-</html>
