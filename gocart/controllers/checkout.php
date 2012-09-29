@@ -541,10 +541,22 @@ class Checkout extends Front_Controller {
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		$data['download_section']	= $download_section;
 		
+		// get all cart information before destroying the cart session info
+		$data['go_cart']['group_discount']      = $this->go_cart->group_discount();
+		$data['go_cart']['subtotal']            = $this->go_cart->subtotal();
+		$data['go_cart']['coupon_discount']     = $this->go_cart->coupon_discount();
+		$data['go_cart']['order_tax']           = $this->go_cart->order_tax();
+		$data['go_cart']['discounted_subtotal'] = $this->go_cart->discounted_subtotal();
+		$data['go_cart']['shipping_cost']       = $this->go_cart->shipping_cost();
+		$data['go_cart']['gift_card_discount']  = $this->go_cart->gift_card_discount();
+		$data['go_cart']['total']               = $this->go_cart->total();
+		$data['go_cart']['contents']            = $this->go_cart->contents();
+
+		//remove the cart from the session
+		$this->go_cart->destroy();
+
 		// show final confirmation page
 		$this->load->view('order_placed', $data);
 		
-		//remove the cart from the session
-		$this->go_cart->destroy();
 	}
 }
