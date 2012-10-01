@@ -1,5 +1,31 @@
 <?php
-class Front_Controller extends CI_Controller {
+
+/**
+ * The base controller which is used by the Front and the Admin controllers
+ */
+class Base_Controller extends CI_Controller
+{
+	
+	public function __construct()
+	{
+		
+		parent::__construct();
+
+		// load the migrations class
+		$this->load->library('migration');
+	
+		// Migrate to the latest migration file found
+		if ( ! $this->migration->latest())
+		{
+			log_message('error', 'The migration failed');
+		}
+		
+	}//end __construct()
+	
+}//end Base_Controller
+
+class Front_Controller extends Base_Controller
+{
 	
 	//we collect the categories automatically with each load rather than for each function
 	//this just cuts the codebase down a bit
@@ -47,7 +73,7 @@ class Front_Controller extends CI_Controller {
 	
 }
 
-class Admin_Controller extends CI_Controller 
+class Admin_Controller extends Base_Controller 
 {
 	function __construct()
 	{
