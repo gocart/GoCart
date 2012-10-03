@@ -1,7 +1,5 @@
 <?php
-
 class Categories extends Admin_Controller {	
-	
 	function __construct()
 	{		
 		parent::__construct();
@@ -84,7 +82,7 @@ class Categories extends Admin_Controller {
 		
 		$config['upload_path']		= 'uploads/images/full';
 		$config['allowed_types']	= 'gif|jpg|png';
-		$config['max_size']			= $this->config->item('size_limit');
+		$config['max_size']		= $this->config->item('size_limit');
 		$config['max_width']		= '1024';
 		$config['max_height']		= '768';
 		$config['encrypt_name']		= true;
@@ -100,10 +98,10 @@ class Categories extends Admin_Controller {
 		$data['page_title']		= lang('category_form');
 		
 		//default values are empty if the customer is new
-		$data['id']				= '';
+		$data['id']			= '';
 		$data['name']			= '';
 		$data['slug']			= '';
-		$data['description']	= '';
+		$data['description']		= '';
 		$data['excerpt']		= '';
 		$data['sequence']		= '';
 		$data['image']			= '';
@@ -129,10 +127,10 @@ class Categories extends Admin_Controller {
 			$this->category_name	= $this->input->post('slug', $category->slug);
 			
 			//set values to db values
-			$data['id']				= $category->id;
+			$data['id']			= $category->id;
 			$data['name']			= $category->name;
 			$data['slug']			= $category->slug;
-			$data['description']	= $category->description;
+			$data['description']		= $category->description;
 			$data['excerpt']		= $category->excerpt;
 			$data['sequence']		= $category->sequence;
 			$data['parent_id']		= $category->parent_id;
@@ -162,7 +160,7 @@ class Categories extends Admin_Controller {
 		{
 			
 			
-			$uploaded	= $this->upload->do_upload('image');
+			$uploaded = $this->upload->do_upload('image');
 			
 			if ($id)
 			{
@@ -206,40 +204,40 @@ class Categories extends Admin_Controller {
 			
 			if($uploaded)
 			{
-				$image			= $this->upload->data();
+				$image		= $this->upload->data();
 				$save['image']	= $image['file_name'];
 				
 				$this->load->library('image_lib');
 				
 				//this is the larger image
-				$config['image_library'] = 'gd2';
-				$config['source_image'] = 'uploads/images/full/'.$save['image'];
-				$config['new_image']	= 'uploads/images/medium/'.$save['image'];
-				$config['maintain_ratio'] = TRUE;
-				$config['width'] = 600;
-				$config['height'] = 500;
+				$config['image_library']	= 'gd2';
+				$config['source_image']		= 'uploads/images/full/'.$save['image'];
+				$config['new_image']		= 'uploads/images/medium/'.$save['image'];
+				$config['maintain_ratio']	= TRUE;
+				$config['width']		= 600;
+				$config['height']		= 500;
 				$this->image_lib->initialize($config);
 				$this->image_lib->resize();
 				$this->image_lib->clear();
 
 				//small image
-				$config['image_library'] = 'gd2';
-				$config['source_image'] = 'uploads/images/medium/'.$save['image'];
-				$config['new_image']	= 'uploads/images/small/'.$save['image'];
-				$config['maintain_ratio'] = TRUE;
-				$config['width'] = 300;
-				$config['height'] = 300;
+				$config['image_library']	= 'gd2';
+				$config['source_image']		= 'uploads/images/medium/'.$save['image'];
+				$config['new_image']		= 'uploads/images/small/'.$save['image'];
+				$config['maintain_ratio']	= TRUE;
+				$config['width']		= 300;
+				$config['height']		= 300;
 				$this->image_lib->initialize($config); 
 				$this->image_lib->resize();
 				$this->image_lib->clear();
 
 				//cropped thumbnail
-				$config['image_library'] = 'gd2';
-				$config['source_image'] = 'uploads/images/small/'.$save['image'];
-				$config['new_image']	= 'uploads/images/thumbnails/'.$save['image'];
-				$config['maintain_ratio'] = TRUE;
-				$config['width'] = 150;
-				$config['height'] = 150;
+				$config['image_library']	= 'gd2';
+				$config['source_image']		= 'uploads/images/small/'.$save['image'];
+				$config['new_image']		= 'uploads/images/thumbnails/'.$save['image'];
+				$config['maintain_ratio']	= TRUE;
+				$config['width']		= 150;
+				$config['height']		= 150;
 				$this->image_lib->initialize($config); 	
 				$this->image_lib->resize();	
 				$this->image_lib->clear();
@@ -262,35 +260,35 @@ class Categories extends Admin_Controller {
 			$this->load->model('Routes_model');
 			if($id)
 			{
-				$slug	= $this->Routes_model->validate_slug($slug, $category->route_id);
+				$slug		= $this->Routes_model->validate_slug($slug, $category->route_id);
 				$route_id	= $category->route_id;
 			}
 			else
 			{
-				$slug	= $this->Routes_model->validate_slug($slug);
+				$slug		= $this->Routes_model->validate_slug($slug);
 				
 				$route['slug']	= $slug;	
 				$route_id	= $this->Routes_model->save($route);
 			}
 			
-			$save['id']				= $id;
-			$save['name']			= $this->input->post('name');
+			$save['id']		= $id;
+			$save['name']		= $this->input->post('name');
 			$save['description']	= $this->input->post('description');
-			$save['excerpt']		= $this->input->post('excerpt');
-			$save['parent_id']		= intval($this->input->post('parent_id'));
-			$save['sequence']		= intval($this->input->post('sequence'));
-			$save['seo_title']		= $this->input->post('seo_title');
-			$save['meta']			= $this->input->post('meta');
+			$save['excerpt']	= $this->input->post('excerpt');
+			$save['parent_id']	= intval($this->input->post('parent_id'));
+			$save['sequence']	= intval($this->input->post('sequence'));
+			$save['seo_title']	= $this->input->post('seo_title');
+			$save['meta']		= $this->input->post('meta');
 
-			$save['route_id']		= intval($route_id);
-			$save['slug']			= $slug;
+			$save['route_id']	= intval($route_id);
+			$save['slug']		= $slug;
 			
-			$category_id	= $this->Category_model->save($save);
+			$category_id		= $this->Category_model->save($save);
 			
 			//save the route
-			$route['id']	= $route_id;
-			$route['slug']	= $slug;
-			$route['route']	= 'cart/category/'.$category_id.'';
+			$route['id']		= $route_id;
+			$route['slug']		= $slug;
+			$route['route']		= 'cart/category/'.$category_id.'';
 			
 			$this->Routes_model->save($route);
 			
@@ -304,7 +302,7 @@ class Categories extends Admin_Controller {
 	function delete($id)
 	{
 		
-		$category	= $this->Category_model->get_category($id);
+		$category = $this->Category_model->get_category($id);
 		//if the category does not exist, redirect them to the customer list with an error
 		if ($category)
 		{
