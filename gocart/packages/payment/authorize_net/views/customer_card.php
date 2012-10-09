@@ -148,7 +148,7 @@ payment_method.authorize_net = function()
 		</div>
 		<div>
 			<?php echo lang('cvv_code') ?><b class="r"> *</b><br/>
-			<input style="width:30px;"name="x_card_code" type="text" class="pmt_required textfield input" id="x_card_code" maxlength="3" value="<?php echo @$cc_data["x_card_code"] ?>" />
+			<input style="width:30px;"name="x_card_code" type="text" class="pmt_required textfield input" id="x_card_code" maxlength="4" value="<?php echo @$cc_data["x_card_code"] ?>" />
 		</div>
 	</div>
 	<br style="clear:both;">
