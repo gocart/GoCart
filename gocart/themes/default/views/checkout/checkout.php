@@ -1,4 +1,67 @@
-<?php include(APPPATH.'themes/'.$this->config->item('theme').'/views/header.php'); ?>
+
+<style type="text/css">
+	.checkout-stage {
+		padding:10px;
+		background-color:#f2f2f2;
+		color:#bbbbbb;
+		border:1px solid #eee;
+		text-shadow: 0px 1px 0px #ffffff;
+		font-family:'Helvetica Neue',Helvetica, Arial, sans-serif;
+		font-weight:300;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		font-size:25px;
+	}
+	.checkout-loading {
+		text-align:center;
+		margin:30px 0px;
+	}
+</style>
+<div class="row">
+	<div class="span12" style="margin-bottom:10px;">
+		<div class="btn-group pull-right">
+			<?php if(!$this->Customer_model->is_logged_in(false, false)) : ?>
+				<input class="btn" type="button" onclick="window.location='<?php echo site_url('checkout/login');?>'" value="<?php echo lang('form_login');?>" />
+				<input class="btn" type="button" onclick="window.location='<?php echo site_url('checkout/register');?>'" value="<?php echo lang('register_now');?>"/>
+			<?php endif;?>
+			<input class="btn" type="button" onclick="window.location='<?php echo site_url();?>'" value="<?php echo lang('continue_shopping');?>"/>
+		</div>
+	</div>
+</div>
+
+<div class="checkout-stage">
+	<?php echo lang('customer_information');?>
+</div>
+<div id="customer-info-container">
+	
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		get_customer_info_form();
+	});
+	
+	function get_customer_info_form()
+	{
+		//place holder text
+		$('#customer-info-container').addClass('checkout-loading').html('<img class="loading" src="<?php echo theme_img('ajax-loader.gif');?>"/> <?php echo lang('loading');?>');
+		
+		$.post('<?php echo site_url('checkout/customer_form'); ?>', function(data) {
+			$('#customer-info-container').removeClass('checkout-loading').html(data);
+		});
+	}
+</script>
+
+
+
+
+
+
+
+
+
+
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -255,6 +318,3 @@ function update_summary()
 		<input style="padding:10px 15px; font-size:16px;" type="button" class="btn btn-primary btn-large" onclick="submit_payment_method()" value="<?php echo lang('submit_order');?>" />
 	</form>
 </div>
-
-
-<?php include(APPPATH.'themes/'.$this->config->item('theme').'/views/footer.php'); ?>
