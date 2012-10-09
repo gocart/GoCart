@@ -86,8 +86,6 @@ class go_cart {
 		$this->_cart_contents['shipping_total'] 			= 0;
 		// tax
 		$this->_cart_contents['tax'] 						= 0;
-						
-		
 		
 		// We want to preserve the cart items and properties, but reset total values when recalculating
 		if( ! $totals_only) 
@@ -108,6 +106,7 @@ class go_cart {
 			// shipping details container
 			$this->_cart_contents['shipping']['method']	= false;  // defaults
 			$this->_cart_contents['shipping']['price']	= false;
+			$this->_cart_contents['shipping']['code']	= false;
 			
 			// This is the list of gift cards that are attached to the cart
 			//   to be applied toward a price reduction
@@ -150,6 +149,10 @@ class go_cart {
 	
 	private function _insert($item)
 	{
+		//on update clear the payments & shipping
+		$this->clear_payment();
+		$this->clear_shipping();
+		
 		// Was any cart data passed? No? Bah...
 		if ( ! is_array($item) OR count($item) == 0)
 		{
@@ -254,6 +257,10 @@ class go_cart {
 	
 	private function _update($cartkey, $quantity)
 	{
+		//on update clear the payments & shipping
+		$this->clear_payment();
+		$this->clear_shipping();
+		
 		if(!isset($this->_cart_contents['items'][$cartkey]))
 		{
 			return false;
@@ -400,8 +407,7 @@ class go_cart {
 					
 					// apply coupon discount for free shipping, whole order discount, or product level
 					if ($coupon['reduction_target'] =="shipping") {
-						//$this->_cart_contents['requires_shipping'] = false;
-						// Remember what code was used for free shipping			
+						// Remember what code was used for free shipping
 						$this->_cart_contents['free_shipping_coupon'] = $coupon_code;
 						
 						$is_applied = true;
@@ -566,6 +572,10 @@ class go_cart {
 	// Attach a Gift Card discount to the order
 	private function _attach_gift_card($gc_code)
 	{
+		//on when attaching a gitcard reset payments and shipping
+		$this->clear_payment();
+		$this->clear_shipping();
+		
 		// enabled?
 		if( ! $this->gift_cards_enabled) return;
 		
@@ -696,7 +706,7 @@ class go_cart {
 					$this_price = $val['price'];
 				}
 				
-				// Deal with shippable 
+				// Deal with shippable (if shipping is disabled in the config then go with that!)
 				if ( $val['shippable']== 1 )
 				{
 					// shipping insurable value & weight
@@ -717,6 +727,7 @@ class go_cart {
 				$val['subtotal'] = ($this_price * $val['quantity']);
 			
 			}
+			
 			// total products in the cart
 			$this->_cart_contents['total_items'] = count($this->_cart_contents['items']);	
 			
@@ -870,7 +881,9 @@ class go_cart {
 		{
 			return FALSE;
 		}
-				
+		
+		//reset payment options so they get reset if someone adds a product at a later time
+		
 		// You can either insert a single product using a one-dimensional array, 
 		// or multiple products using a multi-dimensional one. The way we
 		// determine the array type is by looking for a required array key named "id"
@@ -923,6 +936,10 @@ class go_cart {
 		
 		$error = '';
 		$message = '';
+		
+		//on update clear the payments & shipping
+		$this->clear_payment();
+		$this->clear_shipping();
 		
 		// insert any coupons that might be sent
 		if($coupon_code) 
@@ -984,10 +1001,6 @@ class go_cart {
 		{
 			$this->_save_cart();
 		}
-		
-		//clear the shipping after the cart is updated.
-		//This will ensure the rates need to be reset if they would differ
-		$this->clear_shipping();
 
 		return $response;
 	}
@@ -1003,34 +1016,35 @@ class go_cart {
 		return $this->_cart_contents['downloads'];
 	}
 	
-	//save additional settings
-	function set_additional_details($data)
+	//save additional setting
+	function set_additional_detail($key, $data)
 	{
-		$this->_cart_contents['additional_details']	= $data;
+		$this->_cart_contents[$key]	= $data;
 		$this->_save_cart(false);
 	}
 	
-	function additional_details()
+	//grab a detail
+	function get_additional_detail($key)
 	{
-		if(isset($this->_cart_contents['additional_details']))
+		if(isset($this->_cart_contents[$key]))
 		{
-			return $this->_cart_contents['additional_details'];
+			return $this->_cart_contents[$key];
 		}
 		else
 		{
-			//return the array blank
-			return array('referral'=>''
-						,'shipping_notes'=>''
-						);
+			return false;
+		}
+	}
+	
+	// set shipping details
+	function set_shipping($method, $price, $code)
+	{
+		if(!is_numeric($price))
+		{
+			return false;
 		}
 		
-	}
-	// set shipping details
-	function set_shipping($method, $price)
-	{
-		if(!is_numeric($price)) return false;
-		
-		$this->_cart_contents['shipping'] = array('method'=>$method, 'price'=> (float) $price);
+		$this->_cart_contents['shipping'] = array('method'=>$method, 'price'=> (float) $price, 'code'=>$code);
 		
 		//update cart - recalculate
 		$this->_save_cart();
@@ -1039,10 +1053,19 @@ class go_cart {
 	//remove shipping details
 	function clear_shipping()
 	{
-		$this->_cart_contents['shipping']['method']	= "No Shipping";  // defaults
-		$this->_cart_contents['shipping']['price']	= 0.00;
+		$this->_cart_contents['shipping']['method']	= false;
+		$this->_cart_contents['shipping']['price']	= false;
+		$this->_cart_contents['shipping']['code']	= false;
 		
 		$this->_save_cart();
+	}
+	
+	function clear_payment()
+	{
+		$this->_cart_contents['payment'] = false;
+		
+		// save cart - no recalculation necessary
+		$this->_save_cart(false);
 	}
 	
 	function set_payment($module, $description)
@@ -1135,8 +1158,6 @@ class go_cart {
 		//shipping information
 		$save['shipping_method']	= $this->_cart_contents['shipping']['method'];
 		$save['shipping']			= $this->_cart_contents['shipping']['price'];
-		//I will add a shipping notes feature later
-		//$data['shipping_notes']		= $this->_cart_contents['shipping_notes'];
 		
 		//add in the other charges
 		$save['tax']				= $this->_cart_contents['tax'];
@@ -1161,9 +1182,8 @@ class go_cart {
 		}
 		
 		//save additional details
-		$details				= $this->additional_details();
-		$save['referral']		= $details['referral'];
-		$save['shipping_notes']	= $details['shipping_notes'];
+		$save['referral']		= $this->get_additional_detail('referral');
+		$save['shipping_notes']	= $this->get_additional_detail('shipping_notes');
 		
 		//ordered_on datetime stamp
 		$save['ordered_on']			= date('Y-m-d H:i:s');	
@@ -1355,20 +1375,28 @@ class go_cart {
 		}
 	}
 	
-	// return array
-	function payment_method()
-	{
-		return $this->_cart_contents['payment'];
-	}	
-	
 	function shipping_method()
 	{
 		return $this->_cart_contents['shipping'];
 	}
+	
 	function shipping_cost()
 	{
 		return $this->_cart_contents['shipping']['price'];
 	}
+	
+	function shipping_code()
+	{
+		return $this->_cart_contents['shipping']['code'];
+	}
+	
+	// return array
+	function payment_method()
+	{
+		return $this->_cart_contents['payment'];
+	}
+	
+	
 
 	function get_custom_charges()
 	{
