@@ -11,10 +11,10 @@ Common Language
 
 
 /*******************
-    
-    Site front end
-  
- *******************/
+
+Site front end
+
+*******************/
 
 //common terms
 $lang['login']					= 'Login';
@@ -46,7 +46,7 @@ $lang['form_search']			= 'Search';
 $lang['form_cancel']			= 'Cancel';
 $lang['form_add_to_cart']		= 'Add to Cart';
 $lang['form_update_cart']		= 'Update Cart';
-$lang['form_checkout']			= 'Checkout &raquo;';
+$lang['form_checkout']			= 'Checkout';
 $lang['form_continue']			= 'Continue';
 $lang['form_choose']			= 'Choose';
 $lang['form_edit']				= 'Edit';
@@ -56,6 +56,10 @@ $lang['form_view']				= 'View';
 $lang['form_save']				= 'Save';
 $lang['form_from']				= 'From';
 $lang['form_to']				= 'to';
+
+$lang['step_1']					= 'Step 1';
+$lang['step_2']					= 'Step 2';
+$lang['free_shipping_basic']	= 'Free Shipping (basic)';
 
 $lang['search']					= 'Search';
 $lang['search_error']			= 'Your did not supply a search term!';
@@ -85,6 +89,7 @@ $lang['choose_option']			= 'Choose an Option';
 $lang['tab_description']		= 'Description';
 $lang['tab_related_products']	= 'Related Products';
 
+$lang['loading']					= 'Loading&hellip;';
 $lang['coupon_label']				= 'If you have a coupon, enter the code here:';
 $lang['gift_card_label']			= 'If you have a Gift Certificate, enter the code here:';
 $lang['apply_gift_card']			= 'Apply Gift Card';
@@ -118,7 +123,7 @@ $lang['group_discount']				= 'Group Discount';
 $lang['subtotal']					= 'Subtotal';
 $lang['cart_total']					= "Total";
 $lang['coupon_discount']			= 'Coupon Discount';
-$lang['gift_card_discount']			= 'Gift Card Discont';
+$lang['gift_card_discount']			= 'Gift Card Discount';
 $lang['discounted_subtotal']		= 'Discounted Subtotal';
 $lang['shipping']					= 'Shipping';
 $lang['tax']						= 'Tax';
@@ -127,16 +132,22 @@ $lang['grand_total']				= 'Grand Total';
 $lang['address_manager']			= 'Address Manager';
 $lang['address_form']				= 'Address Form';
 $lang['your_addresses']				= 'Your Addresses';
+$lang['address_button']				= 'Change Address';
+$lang['shipping_address_button']	= 'Change Shipping Address';
+$lang['billing_address_button']		= 'Change Billing Address';
+$lang['shipping_method_button']		= 'Change Shipping Method';
+$lang['billing_method_button']		= 'Change Billing Method';
 $lang['shipping_and_billing']		= 'Shipping &amp; Billing Information';
 $lang['billing_address']			= 'Billing Address';
 $lang['choose_billing_address']		= 'Choose Your Billing Address';
-$lang['use_address_for_billing']	= 'Use this address for billing';
+$lang['use_address_for_shipping']	= 'Use this address for shipping';
 $lang['shipping_address']			= 'Shipping Address';
 $lang['shipping_information']		= 'Shipping Information';
 $lang['billing_information']		= 'Billing Information';
 $lang['choose_shipping_address']	= 'Choose Your Shipping Address';
 $lang['choose_address']				= 'Choose Address';
 $lang['ship_to_address']			= 'Ship to this address';
+$lang['contact_info']				= 'Contact Info';
 $lang['address_company']			= 'Company';
 $lang['address']					= 'Address';
 $lang['address1']					= 'Address 1';
@@ -155,7 +166,7 @@ $lang['default']					= 'Default';
 $lang['additional_order_details']	= 'Additional Order Details';
 $lang['additional_details']			= 'Additional Details';
 $lang['heard_about']				= 'How did you hear about us: ';
-$lang['shipping_instructions']		= 'Shipping Instructions: ';
+$lang['shipping_instructions']		= 'Shipping Notes';
 
 //checkout confirmation
 $lang['thank_you']					= 'Thanks for shopping with '; // terminates with company/site name, defined in gocart config as 'company_name'
@@ -200,6 +211,7 @@ $lang['error_no_account_record']		= 'There is no record of your account.';
 $lang['message_new_password']			= 'A new password has been generated and sent to your email.';
 $lang['message_account_updated']		= 'Your account has been updated';
 
+$lang['error_invalid_shipping_method']		= 'Please select a valid shipping method.';
 $lang['delete_address_confirmation']		= 'Are you sure you want to delete this address?';
 $lang['error_must_have_address']			= 'You Must leave at least 1 address in the Address Manager.';
 $lang['account_information']				= 'Account Information';
@@ -220,7 +232,6 @@ $lang['order_number']						= 'Order Number';
 $lang['order_status']						= 'Status';
 $lang['add_address']						= 'Add Address';
 $lang['no_order_history']					= 'You have no orders in your account history.';
-
 
 //cart library messages
 $lang['coupon_not_apply']					= 'The coupon code you entered does not apply to any products in your cart.';
