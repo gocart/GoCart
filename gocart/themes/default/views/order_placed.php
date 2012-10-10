@@ -41,7 +41,6 @@ echo $download_section;
 	<div class="span4">
 		<h3><?php echo lang('additional_details');?></h3>
 		<?php
-		extract($additional_details);
 		if(!empty($referral)):?><div><strong><?php echo lang('heard_about');?></strong> <?php echo $referral;?></div><?php endif;?>
 		<?php if(!empty($shipping_notes)):?><div><strong><?php echo lang('shipping_instructions');?></strong> <?php echo $shipping_notes;?></div><?php endif;?>
 	</div>
