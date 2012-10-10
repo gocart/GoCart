@@ -269,7 +269,7 @@ class Checkout extends Front_Controller {
 				$customer['ship_to_bill_address'] = 'true';
 				$customer['bill_address'] = $customer['ship_address'];
 				
-				$customer['default_billing_address'] = @$customer['default_shipping_address'];
+				$customer['default_billing_address'] = isset($customer['default_shipping_address']) ? $customer['default_shipping_address'] : array();
   			}
  			else 
  			{
