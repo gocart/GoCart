@@ -90,7 +90,9 @@ class Secure extends Front_Controller {
 		//$data['ads']		= $this->banner_model->get_banners(true);
 		$data['categories']	= $this->Category_model->get_categories_tierd(0);
 			
-		$this->load->view('login', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->set('full_width', TRUE);
+		$this->template->build('login', $data);
 	}
 	
 	function logout()
@@ -161,7 +163,9 @@ class Secure extends Front_Controller {
 			
 			$data['error'] = validation_errors();
 			
-			$this->load->view('register', $data);
+			$this->template->title($data['page_title'], config_item('company_name'));
+			$this->template->set('full_width', TRUE);
+			$this->template->build('register', $data);
 		}
 		else
 		{
@@ -290,7 +294,9 @@ class Secure extends Front_Controller {
 		$data['categories']	= $this->Category_model->get_categories_tierd();
 		
 		
-		$this->load->view('forgot_password', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->set('full_width', TRUE);
+		$this->template->build('forgot_password', $data);
 	}
 	
 	function my_account($offset=0)
@@ -386,7 +392,9 @@ class Secure extends Front_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view('my_account', $data);
+			$this->template->title($data['page_title'], config_item('company_name'));
+			$this->template->set('full_width', TRUE);
+			$this->template->build('my_account', $data);
 		}
 		else
 		{
@@ -420,7 +428,9 @@ class Secure extends Front_Controller {
 		if($code!==false)
 		{
 			$data['downloads'] = $this->Digital_Product_model->get_downloads_by_code($code);
-		} else {
+		}
+		else
+		{
 			$this->Customer_model->is_logged_in();
 			
 			$customer = $this->go_cart->customer();
@@ -432,7 +442,9 @@ class Secure extends Front_Controller {
 		
 		$data['page_title'] = lang('my_downloads');
 		
-		$this->load->view('my_downloads', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->set('full_width', TRUE);
+		$this->template->build('my_downloads', $data);
 	}
 	
 	
@@ -475,8 +487,9 @@ class Secure extends Front_Controller {
 
 			$customer['bill_address'] = $this->Customer_model->get_address($id);
 			$customer['default_billing_address'] = $id;
-		} else {
-
+		}
+		else
+		{
 			$save['default_shipping_address'] = $id;
 
 			$customer['ship_address'] = $this->Customer_model->get_address($id);
@@ -557,7 +570,9 @@ class Secure extends Front_Controller {
 		{
 			//if there is no set ID, the get the zones of the first country in the countries menu
 			$data['zones_menu']	= $this->location_model->get_zones_menu(array_shift(array_keys($data['countries_menu'])));
-		} else {
+		}
+		else
+		{
 			$data['zones_menu']	= $this->location_model->get_zones_menu($data['country_id']);
 		}
 
@@ -583,7 +598,8 @@ class Secure extends Front_Controller {
 			}
 			else
 			{
-				$this->load->view('address_form', $data);
+				$this->template->set_layout('ajax');
+				$this->template->build('address_form', $data);
 			}
 		}
 		else

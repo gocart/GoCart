@@ -20,8 +20,10 @@ class Admin extends Admin_Controller
 		$data['page_title']	= lang('admins');
 		$data['admins']		= $this->auth->get_admin_list();
 
-		$this->load->view($this->config->item('admin_folder').'/admins', $data);
+		$this->template->title(lang('admins'), config_item('company_name'));
+		$this->template->build('admins', $data);
 	}
+	
 	function delete($id)
 	{
 		//even though the link isn't displayed for an admin to delete themselves, if they try, this should stop them.
@@ -36,6 +38,7 @@ class Admin extends Admin_Controller
 		$this->session->set_flashdata('message', lang('message_user_deleted'));
 		redirect($this->config->item('admin_folder').'/admin');
 	}
+	
 	function form($id = false)
 	{
 		force_ssl();
@@ -85,7 +88,8 @@ class Admin extends Admin_Controller
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/admin_form', $data);
+			$this->template->title($data['page_title'], config_item('company_name'));
+			$this->template->build('admin_form', $data);
 		}
 		else
 		{

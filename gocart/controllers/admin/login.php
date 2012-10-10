@@ -10,6 +10,14 @@ class Login extends CI_Controller {
 		
 		$this->load->library('Auth');
 		$this->lang->load('login');
+		
+		$this->load->config('template');
+		$this->load->library('Template');
+		$this->template->set_theme('admin');
+		// create partials for the header and footer
+		$this->template->set('admin_url', site_url($this->config->item('admin_folder')).'/');
+		$this->template->set_partial('header', 'header');
+		$this->template->set_partial('footer', 'footer');
 	}
 
 	function index()
@@ -50,7 +58,9 @@ class Login extends CI_Controller {
 				redirect($this->config->item('admin_folder').'/login');
 			}
 		}
-		$this->load->view($this->config->item('admin_folder').'/login', $data);
+
+		$this->template->title(config_item('company_name'));
+		$this->template->build('login', $data);
 	}
 	
 	function logout()

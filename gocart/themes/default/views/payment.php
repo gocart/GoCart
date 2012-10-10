@@ -1,4 +1,3 @@
-<?php include('header.php'); ?>
 <?php if(validation_errors()): ?>
 <div class="gc_reg_error"><?php echo validation_errors(); ?></div>
 <?php endif; ?>
@@ -57,4 +56,3 @@ function set_payment(value) {
 
 }
 </script>
-<?php include('footer.php');

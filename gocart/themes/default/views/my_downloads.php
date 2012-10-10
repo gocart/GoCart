@@ -1,5 +1,3 @@
-<?php include('header.php') ?>
-
 <?php
 $counter	= 0;
 if(!empty($downloads)) : ?>
@@ -78,5 +76,3 @@ function count_down(key){
 }
 
 </script>
-
-<?php include('footer.php'); ?>

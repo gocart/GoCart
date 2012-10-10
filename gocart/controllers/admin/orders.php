@@ -99,7 +99,8 @@ class Orders extends Admin_Controller {
 		$data['sort_by']	= $sort_by;
 		$data['sort_order']	= $sort_order;
 				
-		$this->load->view($this->config->item('admin_folder').'/orders', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('orders', $data);
 	}
 	
 	function export()
@@ -189,7 +190,8 @@ class Orders extends Admin_Controller {
 			}
 		}
 		
-		$this->load->view($this->config->item('admin_folder').'/order', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('order', $data);
 		
 	}
 	
@@ -198,7 +200,8 @@ class Orders extends Admin_Controller {
 		$this->load->helper('date');
 		$data['order']		= $this->Order_model->get_order($order_id);
 		
-		$this->load->view($this->config->item('admin_folder').'/packing_slip.php', $data);
+		$this->template->set_layout('ajax');
+		$this->template->build('packing_slip', $data);
 	}
 	
 	function edit_status()

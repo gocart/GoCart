@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <?php echo form_open('cart/giftcard');?>
 <div class="row" style="margin-top:20px;">
 	<div class="span4">
@@ -108,4 +106,3 @@
 </div>
 
 </form>
-<?php include('footer.php'); ?>

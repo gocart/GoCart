@@ -44,6 +44,10 @@ class Front_Controller extends Base_Controller
 
 		//load GoCart library
 		$this->load->library('Go_cart');
+		
+		// load the template config file and library
+		$this->load->config('template');
+		$this->load->library('Template');
 
 		//load needed models
 		$this->load->model(array('Page_model', 'Product_model', 'Digital_Product_model', 'Gift_card_model', 'Option_model', 'Order_model', 'Settings_model'));
@@ -66,8 +70,12 @@ class Front_Controller extends Base_Controller
 			$this->gift_cards_enabled = false;
 		}
 		
+		// create partials for the header and footer
+		$this->template->set_partial('header', 'header');
+		$this->template->set_partial('footer', 'footer');
+
 		//load the theme package
-		$this->load->add_package_path(APPPATH.'themes/'.$this->config->item('theme').'/');
+//		$this->load->add_package_path(APPPATH.'themes/'.$this->config->item('theme').'/');
 	}
 	
 	
@@ -83,8 +91,18 @@ class Admin_Controller extends Base_Controller
 		$this->load->library('auth');
 		$this->auth->is_logged_in(uri_string());
 		
+		// load the template config file and library
+		$this->load->config('template');
+		$this->load->library('Template');
+		$this->template->set_theme('admin');
+
 		//load the base language file
 		$this->lang->load('admin_common');
 		$this->lang->load('goedit');
+
+		// create partials for the header and footer
+		$this->template->set('admin_url', site_url($this->config->item('admin_folder')).'/');
+		$this->template->set_partial('header', 'header');
+		$this->template->set_partial('footer', 'footer');
 	}
 }

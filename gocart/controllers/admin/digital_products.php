@@ -15,7 +15,8 @@ Class Digital_Products extends Admin_Controller {
 		$data['page_title'] = lang('dgtl_pr_header');
 		$data['file_list']	= $this->digital_product_model->get_list();
 		
-		$this->load->view($this->config->item('admin_folder').'/digital_products', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('digital_products', $data);
 	}
 	
 	function form($id=0)
@@ -43,10 +44,11 @@ Class Digital_Products extends Admin_Controller {
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/digital_product_form', $data);
-		} else {
-		
-			
+			$this->template->title($data['page_title'], config_item('company_name'));
+			$this->template->build('digital_product_form', $data);
+		}
+		else
+		{
 			if($id==0)
 			{
 				$data['file_name'] = false;
@@ -61,7 +63,9 @@ Class Digital_Products extends Admin_Controller {
 				if($this->upload->do_upload())
 				{
 					$upload_data	= $this->upload->data();
-				} else {
+				}
+				else
+				{
 					$data['error']	= $this->upload->display_errors();
 					$this->load->view($this->config->item('admin_folder').'/digital_product_form', $data);
 					return;
@@ -69,7 +73,9 @@ Class Digital_Products extends Admin_Controller {
 				
 				$save['filename']	= $upload_data['file_name'];
 				$save['size']		= $upload_data['file_size'];
-			} else {
+			}
+			else
+			{
 				$save['id']			= $id;
 			}
 			

@@ -58,7 +58,8 @@ class Customers extends Admin_Controller {
 		$data['field']	= $field;
 		$data['by']		= $by;
 		
-		$this->load->view($this->config->item('admin_folder').'/customers', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('customers', $data);
 	}
 	
 	function export_xml()
@@ -145,7 +146,8 @@ class Customers extends Admin_Controller {
 				
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/customer_form', $data);
+			$this->template->title($data['page_title'], config_item('company_name'));
+			$this->template->build('customer_form', $data);
 		}
 		else
 		{
@@ -189,7 +191,8 @@ class Customers extends Admin_Controller {
 		
 		$data['page_title']	= sprintf(lang('addresses_for'), $data['customer']->firstname.' '.$data['customer']->lastname);
 		
-		$this->load->view($this->config->item('admin_folder').'/customer_addresses', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('customer_addresses', $data);
 	}
 	
 	function delete($id = false)
@@ -243,7 +246,8 @@ class Customers extends Admin_Controller {
 		$data['page_title']	= 'Order List';
 		$data['orders']		= $this->Order_model->get_orders($status);
 		
-		$this->load->view($this->config->item('admin_folder').'/order_list', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('order_list', $data);
 	}
 	
 	
@@ -259,8 +263,9 @@ class Customers extends Admin_Controller {
 		}
 		
 		$data['sub_list']	= $sub_list;
-		
-		$this->load->view($this->config->item('admin_folder').'/customer_subscriber_list', $data);
+
+		$this->template->set_layout('ajax');
+		$this->template->build('customer_subscriber_list', $data);
 	}	
 	
 	//  customer groups
@@ -269,7 +274,8 @@ class Customers extends Admin_Controller {
 		$data['groups']		= $this->Customer_model->get_groups();
 		$data['page_title']	= lang('customer_groups');
 		
-		$this->load->view($this->config->item('admin_folder').'/customer_groups', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('customer_groups', $data);
 	}
 	
 	function edit_group($id=0)
@@ -301,7 +307,8 @@ class Customers extends Admin_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/customer_group_form', $data);
+			$this->template->title($data['page_title'], config_item('company_name'));
+			$this->template->build('customer_group_form', $data);
 		}
 		else
 		{
@@ -352,7 +359,8 @@ class Customers extends Admin_Controller {
 	{
 		$data['address_list'] = $this->Customer_model->get_address_list($customer_id);
 		
-		$this->load->view($this->config->item('admin_folder').'/address_list', $data);
+		$this->template->set_layout('ajax');
+		$this->template->build('address_list', $data);
 	}
 	
 	function address_form($customer_id, $id = false)
@@ -393,6 +401,7 @@ class Customers extends Admin_Controller {
 			//if there is no set ID, the get the zones of the first country in the countries menu
 			$data['zones_menu']	= $this->Location_model->get_zones_menu(array_shift(array_keys($data['countries_menu'])));
 		}
+		
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('company', 'lang:company', 'trim|max_length[128]');
 		$this->form_validation->set_rules('firstname', 'lang:firstname', 'trim|required|max_length[32]');
@@ -408,7 +417,8 @@ class Customers extends Admin_Controller {
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/customer_address_form', $data);
+			$this->template->title($data['page_title'], config_item('company_name'));
+			$this->template->build('customer_address_form', $data);
 		}
 		else
 		{

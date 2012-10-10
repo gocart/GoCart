@@ -1,4 +1,3 @@
-<?php include(APPPATH.'themes/'.$this->config->item('theme').'/views/header.php'); ?>
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -255,6 +254,3 @@ function update_summary()
 		<input style="padding:10px 15px; font-size:16px;" type="button" class="btn btn-primary btn-large" onclick="submit_payment_method()" value="<?php echo lang('submit_order');?>" />
 	</form>
 </div>
-
-
-<?php include(APPPATH.'themes/'.$this->config->item('theme').'/views/footer.php'); ?>

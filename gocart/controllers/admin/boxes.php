@@ -18,7 +18,8 @@ class Boxes extends Admin_Controller
 		$data['boxes']		= $this->Box_model->get_boxes();
 		$data['page_title']	= lang('boxes');
 		
-		$this->load->view($this->config->item('admin_folder').'/boxes', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('boxes', $data);
 	}
 	
 	function delete($id)
@@ -80,7 +81,8 @@ class Boxes extends Admin_Controller
 		if ($this->form_validation->run() == false)
 		{
 			$data['error'] = validation_errors();
-			$this->load->view($this->config->item('admin_folder').'/box_form', $data);
+			$this->template->title($data['page_title'], config_item('company_name'));
+			$this->template->build('box_form', $data);
 		}
 		else
 		{	
@@ -118,7 +120,8 @@ class Boxes extends Admin_Controller
 				if(!$uploaded)
 				{
 					$data['error']	= $this->upload->display_errors();
-					$this->load->view($this->config->item('admin_folder').'/box_form', $data);
+					$this->template->title($data['page_title'], config_item('company_name'));
+					$this->template->build('box_form', $data);
 					return; //end script here if there is an error
 				}
 			}

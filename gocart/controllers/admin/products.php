@@ -83,7 +83,8 @@ class Products extends Admin_Controller {
 		
 		$this->pagination->initialize($config);
 		
-		$this->load->view($this->config->item('admin_folder').'/products', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('products', $data);
 	}
 	
 	//basic category search
@@ -278,7 +279,8 @@ class Products extends Admin_Controller {
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/product_form', $data);
+			$this->template->title($data['page_title'], config_item('company_name'));
+			$this->template->build('product_form', $data);
 		}
 		else
 		{
@@ -412,7 +414,8 @@ class Products extends Admin_Controller {
 	{
 		$data['file_name'] = false;
 		$data['error']	= false;
-		$this->load->view($this->config->item('admin_folder').'/iframe/product_image_uploader', $data);
+		$this->template->set_layout('ajax');
+		$this->template->build('iframe/product_image_uploader', $data);
 	}
 	
 	function product_image_upload()
@@ -486,7 +489,9 @@ class Products extends Admin_Controller {
 		{
 			$data['error'] = $this->upload->display_errors();
 		}
-		$this->load->view($this->config->item('admin_folder').'/iframe/product_image_uploader', $data);
+
+		$this->template->set_layout('ajax');
+		$this->template->build('iframe/product_image_uploader', $data);
 	}
 	
 	function delete($id = false)

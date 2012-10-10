@@ -1,5 +1,3 @@
-<?php include('header.php');?>
-
 <?php if(validation_errors()):?>
 <div class="alert allert-error">
 	<a class="close" data-dismiss="alert">×</a>
@@ -225,4 +223,3 @@ $confirm	= array('id'=>'confirm', 'class'=>'span2', 'name'=>'confirm', 'value'=>
 
 <div id="address-form-container" class="hide">
 </div>
-<?php include('footer.php');

@@ -1,7 +1,6 @@
 <?php
 $additional_header_info = '<style type="text/css">#gc_page_title {text-align:center;}</style>';
-include('header.php'); ?>
-<?php
+
 $company	= array('id'=>'bill_company', 'class'=>'span6', 'name'=>'company', 'value'=> set_value('company'));
 $first		= array('id'=>'bill_firstname', 'class'=>'span3', 'name'=>'firstname', 'value'=> set_value('firstname'));
 $last		= array('id'=>'bill_lastname', 'class'=>'span3', 'name'=>'lastname', 'value'=> set_value('lastname'));
@@ -77,4 +76,3 @@ $phone		= array('id'=>'bill_phone', 'class'=>'span3', 'name'=>'phone', 'value'=>
 		</div>
 	</div>
 </div>
-<?php include('footer.php');

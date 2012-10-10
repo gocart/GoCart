@@ -71,7 +71,8 @@ class Settings extends Admin_Controller {
 		$data['canned_messages'] = $this->Messages_model->get_list();
 		
 		$data['page_title']	= lang('settings');
-		$this->load->view($this->config->item('admin_folder').'/settings', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('settings', $data);
 	}
 	
 	function canned_message_form($id=false)
@@ -105,7 +106,8 @@ class Settings extends Admin_Controller {
 		{
 			$data['errors'] = validation_errors();
 			
-			$this->load->view($this->config->item('admin_folder').'/canned_message_form', $data);
+			$this->template->title($data['page_title'], config_item('company_name'));
+			$this->template->build('canned_message_form', $data);
 		}
 		else
 		{

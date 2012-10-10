@@ -20,7 +20,8 @@ class Banners extends Admin_Controller
 		$data['banners']		= $this->Banner_model->get_banners();
 		$data['page_title']		= lang('banners');
 		
-		$this->load->view($this->config->item('admin_folder').'/banners', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('banners', $data);
 	}
 	
 	function organize()
@@ -84,7 +85,8 @@ class Banners extends Admin_Controller
 		if ($this->form_validation->run() == false)
 		{
 			$data['error'] = validation_errors();
-			$this->load->view($this->config->item('admin_folder').'/banner_form', $data);
+			$this->template->title($data['page_title'], config_item('company_name'));
+			$this->template->build('banner_form', $data);
 		}
 		else
 		{	
@@ -122,7 +124,8 @@ class Banners extends Admin_Controller
 				if(!$uploaded)
 				{
 					$data['error']	= $this->upload->display_errors();
-					$this->load->view($this->config->item('admin_folder').'/banner_form', $data);
+					$this->template->title($data['page_title'], config_item('company_name'));
+					$this->template->build('banner_form', $data);
 					return; //end script here if there is an error
 				}
 			}

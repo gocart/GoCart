@@ -20,7 +20,8 @@ class Coupons extends Admin_Controller {
 		$data['page_title']	= lang('coupons');
 		$data['coupons']	= $this->Coupon_model->get_coupons();
 		
-		$this->load->view($this->config->item('admin_folder').'/coupons', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('coupons', $data);
 	}
 	
 	
@@ -111,7 +112,9 @@ class Coupons extends Admin_Controller {
 					$checked = "checked='checked'";
 				}
 				$data['product_rows']  .= 	"<td><input type='checkbox' name='product[]' value='". $products[$x]->id ."' $checked><td><td> ". $products[$x]->name ."</td></tr>";
-			} else {
+			}
+			else
+			{
 				$data['product_rows']  .= 	"<td> </td></tr>";
 			}
 			
@@ -121,7 +124,8 @@ class Coupons extends Admin_Controller {
 	
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/coupon_form', $data);
+			$this->template->title($data['page_title'], config_item('company_name'));
+			$this->template->build('coupon_form', $data);
 		}
 		else
 		{

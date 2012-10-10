@@ -23,7 +23,8 @@ class Reports extends Admin_Controller {
 	{
 		$data['page_title']	= lang('reports');
 		$data['years']		= $this->Order_model->get_sales_years();
-		$this->load->view($this->config->item('admin_folder').'/reports', $data);
+		$this->template->title($data['page_title'], config_item('company_name'));
+		$this->template->build('reports', $data);
 	}
 	
 	function best_sellers()
@@ -32,14 +33,16 @@ class Reports extends Admin_Controller {
 		$end	= $this->input->post('end');
 		$data['best_sellers']	= $this->Order_model->get_best_sellers($start, $end);
 		
-		$this->load->view($this->config->item('admin_folder').'/reports/best_sellers', $data);	
+		$this->template->set_layout('ajax');
+		$this->template->build('reports/best_sellers', $data);
 	}
 	
 	function sales()
 	{
 		$year			= $this->input->post('year');
 		$data['orders']	= $this->Order_model->get_gross_monthly_sales($year);
-		$this->load->view($this->config->item('admin_folder').'/reports/sales', $data);	
+		$this->template->set_layout('ajax');
+		$this->template->build('reports/sales', $data);
 	}
 
 }
