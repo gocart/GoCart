@@ -1,10 +1,23 @@
 <?php 
-function format_address($fields, $br=false)
+
+/**
+ * Return a formatted address
+ * 
+ * @param mixed   $fields       Array or Object of address fields
+ * @param string  $field_prefix Optional prefix to use on the fields
+ * @param boolean $br           Convert the new line chars Yes/No
+ * 
+ * @return string
+ */
+function format_address($fields, $field_prefix = '', $br=FALSE)
 {
 	if(empty($fields))
 	{
 		return ;
 	}
+	
+	// convert from an object to an array
+	$fields = (array)$fields;
 	
 	// Default format
 	$default = "{firstname} {lastname}\n{company}\n{address_1}\n{address_2}\n{city}, {zone} {postcode}\n{country}";
@@ -12,32 +25,36 @@ function format_address($fields, $br=false)
 	// Fetch country record to determine which format to use
 	$CI = &get_instance();
 	$CI->load->model('location_model');
-	$c_data = $CI->location_model->get_country($fields['country_id']);
+	$c_data = $CI->location_model->get_country($fields[$field_prefix.'country_id']);
 	
 	if(empty($c_data->address_format))
 	{
 		$formatted	= $default;
-	} else {
+	}
+	else
+	{
 		$formatted	= $c_data->address_format;
 	}
 
-	$formatted		= str_replace('{firstname}', $fields['firstname'], $formatted);
-	$formatted		= str_replace('{lastname}',  $fields['lastname'], $formatted);
-	$formatted		= str_replace('{company}',  $fields['company'], $formatted);
+	$formatted = str_replace('{firstname}', $fields[$field_prefix.'firstname'], $formatted);
+	$formatted = str_replace('{lastname}', $fields[$field_prefix.'lastname'], $formatted);
+	$formatted = str_replace('{company}', $fields[$field_prefix.'company'], $formatted);
 	
-	$formatted		= str_replace('{address_1}', $fields['address1'], $formatted);
-	$formatted		= str_replace('{address_2}', $fields['address2'], $formatted);
-	$formatted		= str_replace('{city}', $fields['city'], $formatted);
-	$formatted		= str_replace('{zone}', $fields['zone'], $formatted);
-	$formatted		= str_replace('{postcode}', $fields['zip'], $formatted);
-	$formatted		= str_replace('{country}', $fields['country'], $formatted);
+	$formatted = str_replace('{address_1}', $fields[$field_prefix.'address1'], $formatted);
+	$formatted = str_replace('{address_2}', $fields[$field_prefix.'address2'], $formatted);
+	$formatted = str_replace('{city}', $fields[$field_prefix.'city'], $formatted);
+	$formatted = str_replace('{zone}', $fields[$field_prefix.'zone'], $formatted);
+	$formatted = str_replace('{postcode}', $fields[$field_prefix.'zip'], $formatted);
+	$formatted = str_replace('{country}', $fields[$field_prefix.'country'], $formatted);
 	
 	// remove any extra new lines resulting from blank company or address line
-	$formatted		= preg_replace('`[\r\n]+`',"\n",$formatted);
-	if($br)
+	$formatted = preg_replace('`[\r\n]+`',"\n",$formatted);
+	
+	if($br === TRUE)
 	{
 		$formatted	= nl2br($formatted);
 	}
+	
 	return $formatted;
 	
 }
