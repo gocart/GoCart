@@ -152,7 +152,7 @@ $confirm	= array('id'=>'confirm', 'class'=>'span2', 'name'=>'confirm', 'value'=>
 						<td>
 							<?php
 							$b	= $a['field_data'];
-							echo format_address($b, true);
+							echo format_address($b, '', TRUE);
 							?>
 						</td>
 						<td>
