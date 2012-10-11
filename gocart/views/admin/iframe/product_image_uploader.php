@@ -1,11 +1,11 @@
 <?php include('header.php');?>
 
 <script type="text/javascript">
-
+/*
 $(window).ready(function(){
 	$('#iframe_uploader', window.parent.document).height($('body').height());	
 });
-
+*/
 
 <?php if($file_name):?>
 	parent.add_product_image('<?php echo $file_name;?>');
