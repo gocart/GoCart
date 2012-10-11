@@ -23,14 +23,14 @@ echo $download_section;
 	?>
 	<div class="span4">
 		<h3><?php echo ($ship != $bill)?lang('shipping_information'):lang('shipping_and_billing');?></h3>
-		<?php echo format_address($ship, TRUE);?><br/>
+		<?php echo format_address($ship, '', TRUE);?><br/>
 		<?php echo $ship['email'];?><br/>
 		<?php echo $ship['phone'];?>
 	</div>
 	<?php if($ship != $bill):?>
 	<div class="span4">
 		<h3><?php echo lang('billing_information');?></h3>
-		<?php echo format_address($bill, TRUE);?><br/>
+		<?php echo format_address($bill, '', TRUE);?><br/>
 		<?php echo $bill['email'];?><br/>
 		<?php echo $bill['phone'];?>
 	</div>
