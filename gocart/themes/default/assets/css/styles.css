@@ -2,6 +2,11 @@ body {
 	margin-top:60px;
 }
 
+.carousel .item > img {
+    margin: 0px auto;
+}
+
+
 @media (max-width: 979px) {
 	body {
 		margin-top:0px;
