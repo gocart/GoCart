@@ -90,7 +90,7 @@
 										<span class="price_reg"><?php echo lang('product_price');?> <?php echo format_currency($relate->price); ?></span>
 									<?php endif; ?>
 								</div>
-			                    <?php if((bool)$relate->track_stock && $relate->quantity < 1) { ?>
+			                    <?php if((bool)$relate->track_stock && $relate->quantity < 1 && config_item('inventory_enabled')) { ?>
 									<div class="stock_msg"><?php echo lang('out_of_stock');?></div>
 								<?php } ?>
 							</li>
@@ -132,9 +132,9 @@
 			<div class="span4 sku-pricing">
 				<?php if(!empty($product->sku)):?><div><?php echo lang('sku');?>: <?php echo $product->sku; ?></div><?php endif;?>&nbsp;
 			</div>
-			<?php if((bool)$product->track_stock && $product->quantity < 1):?>
+			<?php if((bool)$product->track_stock && $product->quantity < 1 && config_item('inventory_enabled')):?>
 			<div class="span4 out-of-stock">
-				<div>Out of Stock</div>
+				<div><?php echo lang('out_of_stock');?></div>
 			</div>
 			<?php endif;?>
 		</div>
@@ -174,10 +174,17 @@
 								}
 								else
 								{
-									$value	= $option->values[0]->value;
-									if($posted_options && isset($posted_options[$option->id]))
+									if(isset($option->values[0]))
 									{
-										$value	= $posted_options[$option->id];
+										$value	= $option->values[0]->value;
+										if($posted_options && isset($posted_options[$option->id]))
+										{
+											$value	= $posted_options[$option->id];
+										}
+									}
+									else
+									{
+										$value = false;
 									}
 								}
 
@@ -249,7 +256,7 @@
 					<div class="control-group">
 						<label class="control-label"><?php echo lang('quantity') ?></label>
 						<div class="controls">
-							<?php if($this->config->item('allow_os_purchase') || !(bool)$product->track_stock || $product->quantity > 0) : ?>
+							<?php if(!config_item('inventory_enabled') || config_item('allow_os_purchase') || !(bool)$product->track_stock || $product->quantity > 0) : ?>
 								<?php if(!$product->fixed_quantity) : ?>
 									<input class="span2" type="text" name="quantity" value=""/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<?php endif; ?>
@@ -273,99 +280,6 @@
 		
 	</div>
 </div>
-
-
-<?php echo form_open('cart/add_to_cart');?>
-
-<div id="product_right">	
-
-	
-
-		
-	</form>
-	<div class="tabs">
-		<ul>
-			<li><a href="#description_tab"><?php echo lang('tab_description');?></a></li>
-			<?php if(!empty($product->related)):?><li><a href="#related_tab"><?php echo lang('tab_related_products');?></a></li><?php endif;?>
-		</ul>
-
-		
-		<?php if(!empty($product->related)):?>
-		<div id="related_tab">
-			<?php
-			$cat_counter=1;
-			foreach($product->related as $product):
-				if($cat_counter == 1):?>
-
-				<div class="category_container">
-
-				<?php endif;?>
-
-				<div class="category_box">
-					<div class="thumbnail">
-						<?php
-						$photo	= '<img src="'.base_url('images/nopicture.png').'" alt="'.lang('no_image_available').'"/>';
-						$product->images	= array_values($product->images);
-
-						if(!empty($product->images[0]))
-						{
-							$primary	= $product->images[0];
-							foreach($product->images as $photo)
-							{
-								if(isset($photo->primary))
-								{
-									$primary	= $photo;
-								}
-							}
-
-							$photo	= '<img src="'.base_url('uploads/images/thumbnails/'.$primary->filename).'" alt="'.$product->seo_title.'"/>';
-						}
-						?>
-						<a href="<?php echo site_url($product->slug); ?>">
-							<?php echo $photo; ?>
-						</a>
-					</div>
-					<div class="gc_product_name">
-						<a href="<?php echo site_url($product->slug); ?>"><?php echo $product->name;?></a>
-					</div>
-					<?php if($product->excerpt != ''): ?>
-					<div class="excerpt"><?php echo $product->excerpt; ?></div>
-					<?php endif; ?>
-					<div>
-						<?php if($product->saleprice > 0):?>
-							<span class="gc_price_slash"><?php echo lang('product_price');?> <?php echo $product->price; ?></span>
-							<span class="gc_price_sale"><?php echo lang('product_sale');?> <?php echo $product->saleprice; ?></span>
-						<?php else: ?>
-							<span class="gc_price_reg"><?php echo lang('product_price');?> <?php echo $product->price; ?></span>
-						<?php endif; ?>
-	                    <?php if((bool)$product->track_stock && $product->quantity < 1) { ?>
-							<div class="gc_stock_msg"><?php echo lang('out_of_stock');?></div>
-						<?php } ?>
-					</div>
-				</div>
-			
-				<?php 
-				$cat_counter++;
-				if($cat_counter == 5):?>
-			
-				
-				</div>
-
-				<?php 
-				$cat_counter = 1;
-				endif;
-			endforeach;
-		
-			if($cat_counter != 1):?>
-					<br class="clear"/>
-				</div>
-			<?php endif;?>
-		</div>
-		<?php endif;?>
-	</div>
-
-</div>
-
 <script type="text/javascript"><!--
 $(function(){ 
 	$('.category_container').each(function(){
