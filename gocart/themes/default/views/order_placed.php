@@ -23,14 +23,14 @@ echo $download_section;
 	?>
 	<div class="span4">
 		<h3><?php echo ($ship != $bill)?lang('shipping_information'):lang('shipping_and_billing');?></h3>
-		<?php echo format_address($ship, '', TRUE);?><br/>
+		<?php echo format_address($ship, TRUE);?><br/>
 		<?php echo $ship['email'];?><br/>
 		<?php echo $ship['phone'];?>
 	</div>
 	<?php if($ship != $bill):?>
 	<div class="span4">
 		<h3><?php echo lang('billing_information');?></h3>
-		<?php echo format_address($bill, '', TRUE);?><br/>
+		<?php echo format_address($bill, TRUE);?><br/>
 		<?php echo $bill['email'];?><br/>
 		<?php echo $bill['phone'];?>
 	</div>
@@ -71,71 +71,71 @@ echo $download_section;
 	</thead>
 	
 	<tfoot>
-		<?php if($go_cart['group_discount'] > 0)  : ?> 
+		<?php if($this->go_cart->group_discount() > 0)  : ?> 
 		<tr>
 			<td colspan="5"><strong><?php echo lang('group_discount');?></strong></td>
-			<td><?php echo format_currency(0-$go_cart['group_discount']); ?></td>
+			<td><?php echo format_currency(0-$this->go_cart->group_discount()); ?></td>
 		</tr>
 		<?php endif; ?>
 
 		<tr>
 			<td colspan="5"><strong><?php echo lang('subtotal');?></strong></td>
-			<td><?php echo format_currency($go_cart['subtotal']); ?></td>
+			<td><?php echo format_currency($this->go_cart->subtotal()); ?></td>
 		</tr>
 		
-		<?php if($go_cart['coupon_discount'] > 0)  : ?> 
+		<?php if($this->go_cart->coupon_discount() > 0)  : ?> 
 		<tr>
 			<td colspan="5"><strong><?php echo lang('coupon_discount');?></strong></td>
-			<td><?php echo format_currency(0-$go_cart['coupon_discount']); ?></td>
+			<td><?php echo format_currency(0-$this->go_cart->coupon_discount()); ?></td>
 		</tr>
 
-		<?php if($go_cart['order_tax'] != 0) : // Only show a discount subtotal if we still have taxes to add (to show what the tax is calculated from) ?> 
+		<?php if($this->go_cart->order_tax() != 0) : // Only show a discount subtotal if we still have taxes to add (to show what the tax is calculated from) ?> 
 		<tr>
 			<td colspan="5"><strong><?php echo lang('discounted_subtotal');?></strong></td>
-			<td><?php echo format_currency($go_cart['discounted_subtotal']); ?></td>
+			<td><?php echo format_currency($this->go_cart->discounted_subtotal()); ?></td>
 		</tr>
 		<?php endif;
 
 		endif; ?>
 		<?php // Show shipping cost if added before taxes
-		if($this->config->item('tax_shipping') && $go_cart['shipping_cost']>0) : ?>
+		if($this->config->item('tax_shipping') && $this->go_cart->shipping_cost()>0) : ?>
 		<tr>
 			<td colspan="5"><strong><?php echo lang('shipping');?></strong></td>
-			<td><?php echo format_currency($go_cart['shipping_cost']); ?></td>
+			<td><?php echo format_currency($this->go_cart->shipping_cost()); ?></td>
 		</tr>
 		<?php endif ?>
 		
-		<?php if($go_cart['order_tax'] != 0) : ?> 
+		<?php if($this->go_cart->order_tax() != 0) : ?> 
 		<tr>
 			<td colspan="5"><strong><?php echo lang('taxes');?></strong></td>
-			<td><?php echo format_currency($go_cart['order_tax']); ?></td>
+			<td><?php echo format_currency($this->go_cart->order_tax()); ?></td>
 		</tr>
 		<?php endif;?>
 		
 		<?php // Show shipping cost if added after taxes
-		if(!$this->config->item('tax_shipping') && $go_cart['shipping_cost']>0) : ?>
+		if(!$this->config->item('tax_shipping') && $this->go_cart->shipping_cost()>0) : ?>
 		<tr>
 			<td colspan="5"><strong><?php echo lang('shipping');?></strong></td>
-			<td><?php echo format_currency($go_cart['shipping_cost']); ?></td>
+			<td><?php echo format_currency($this->go_cart->shipping_cost()); ?></td>
 		</tr>
 		<?php endif;?>
 		
-		<?php if($go_cart['gift_card_discount'] != 0) : ?> 
+		<?php if($this->go_cart->gift_card_discount() != 0) : ?> 
 		<tr>
 			<td colspan="5"><strong><?php echo lang('gift_card');?></strong></td>
-			<td><?php echo format_currency(0-$go_cart['gift_card_discount']); ?></td>
+			<td><?php echo format_currency(0-$this->go_cart->gift_card_discount()); ?></td>
 		</tr>
 		<?php endif;?>
 		<tr> 
 			<td colspan="5"><strong><?php echo lang('grand_total');?></strong></td>
-			<td><?php echo format_currency($go_cart['total']); ?></td>
+			<td><?php echo format_currency($this->go_cart->total()); ?></td>
 		</tr>
 	</tfoot>
 
 	<tbody>
 	<?php
 	$subtotal = 0;
-	foreach ($go_cart['contents'] as $cartkey=>$product):?>
+	foreach ($this->go_cart->contents() as $cartkey=>$product):?>
 		<tr>
 			<td><?php echo $product['sku'];?></td>
 			<td><?php echo $product['name']; ?></td>

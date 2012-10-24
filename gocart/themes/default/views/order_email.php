@@ -18,17 +18,27 @@ if($customer['company'] != '')
 	<tr>
 		<td>
 			<strong><?php echo lang('billing_address');?></strong><br/>
-			<?php $bill = $customer['bill_address'];?>
-			<strong><?php echo nl2br(format_address($bill));?></strong><br/>
-			<?php echo $bill['email'];?><br/>
-			<?php echo $bill['phone'];?><br/>
+			<?php 		$bill = $customer['bill_address'];
+					  	 
+					  	 if(!empty($bill['company'])) echo $bill['company'].'<br>';
+					  	 echo $bill['firstname'].' '.$bill['lastname'].' &lt;'.$bill['email'].'&gt;<br>';
+					  	 echo $bill['phone'].'<br>';
+					  	 echo $bill['address1'].'<br>';
+					  	 if(!empty($bill['address2'])) echo $bill['address2'].'<br>';
+					  	 echo $bill['city'].', '.$bill['zone'].' '.$bill['zip'];
+			?> <br/>
 		</td>
 		<td>
 			<strong><?php echo lang('shipping_address');?></strong><br/>
-			<?php $ship = $customer['ship_address']; ?>
-			<strong><?php echo nl2br(format_address($ship));?></strong><br/>
-			<?php echo $ship['email'];?><br/>
-			<?php echo $ship['phone'];?><br/>
+			<?php 		$ship = $customer['ship_address'];
+					  	 
+					  	 if(!empty($ship['company'])) echo $ship['company'].'<br>';
+					  	 echo $ship['firstname'].' '.$ship['lastname'].' &lt;'.$ship['email'].'&gt;<br>';
+					  	 echo $ship['phone'].'<br>';
+					  	 echo $ship['address1'].'<br>';
+					  	 if(!empty($ship['address2'])) echo $ship['address2'].'<br>';
+					  	 echo $ship['city'].', '.$ship['zone'].' '.$ship['zip'];
+		?> <br/>
 		</td>
 		<td>
 			<strong><?php echo lang('payment_information');?></strong><br/>

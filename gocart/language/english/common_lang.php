@@ -11,9 +11,9 @@ Common Language
 
 
 /*******************
-    
+
     Site front end
-  
+
  *******************/
 
 //common terms
@@ -70,7 +70,7 @@ $lang['check_out']				= 'Check Out';
 
 $lang['sort_by_name_asc']		= 'Sort by name A to Z';
 $lang['sort_by_name_desc']		= 'Sort by name Z to A';
-$lang['sort_by_price_asc']		= 'Sort by price Low to Hight';
+$lang['sort_by_price_asc']		= 'Sort by price Low to High';
 $lang['sort_by_price_desc']		= 'Sort by price High to Low';
 
 $lang['products']				= 'Products';
@@ -116,7 +116,7 @@ $lang['quantity']					= 'Quantity';
 $lang['totals']						= 'Totals';
 $lang['group_discount']				= 'Group Discount';
 $lang['subtotal']					= 'Subtotal';
-$lang['cart_total']					= "Total";
+$lang['cart_total']					= 'Total';
 $lang['coupon_discount']			= 'Coupon Discount';
 $lang['gift_card_discount']			= 'Gift Card Discont';
 $lang['discounted_subtotal']		= 'Discounted Subtotal';
@@ -194,7 +194,7 @@ $lang['login_failed']				= 'Authentication Failed!';
 $lang['go_to_login']				= 'Go to Login';
 
 $lang['account_registration']			= 'Account Registration';
-$lang['registration_thanks']			= 'thanks for registering %s!';
+$lang['registration_thanks']			= 'Thanks for registering %s!';
 $lang['error_email']					= 'The requested email is already in use.';
 $lang['error_no_account_record']		= 'There is no record of your account.';
 $lang['message_new_password']			= 'A new password has been generated and sent to your email.';

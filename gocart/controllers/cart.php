@@ -1,13 +1,49 @@
 <?php
 
-class Cart extends Front_Controller {
+class Cart extends CI_Controller {
+
+	//we collect the categories automatically with each load rather than for each function
+	//this just cuts the codebase down a bit
+	var $categories	= '';
+
+	//load all the pages into this variable so we can call it from all the methods
+	var $pages = '';
+
+	// determine whether to display gift card link on all cart pages
+	//  This is Not the place to enable gift cards. It is a setting that is loaded during instantiation.
+	var $gift_cards_enabled;
+
+	var $header_text;
 
 	function __construct()
 	{
 		parent::__construct();
-		
+
 		//make sure we're not always behind ssl
 		remove_ssl();
+
+		$this->load->library('Go_cart');
+		$this->load->model(array('Page_model', 'Product_model', 'Digital_Product_model', 'Gift_card_model', 'Option_model', 'Order_model', 'Settings_model'));
+		$this->load->helper(array('form_helper', 'formatting_helper'));
+
+		//fill in our variables
+		$this->categories	= $this->Category_model->get_categories_tierd(0);
+		$this->pages		= $this->Page_model->get_pages();
+
+		// check if giftcards are enabled
+		$gc_setting = $this->Settings_model->get_settings('gift_cards');
+		if(!empty($gc_setting['enabled']) && $gc_setting['enabled']==1)
+		{
+			$this->gift_cards_enabled = true;
+		}
+		else
+		{
+			$this->gift_cards_enabled = false;
+		}
+
+		//load the theme package
+		$this->load->add_package_path(APPPATH.'themes/'.$this->config->item('theme').'/');
+
 	}
 
 	function index()
@@ -19,7 +55,7 @@ class Cart extends Front_Controller {
 		$data['banners']			= $this->Banner_model->get_homepage_banners(5);
 		$data['boxes']				= $this->box_model->get_homepage_boxes(4);
 		$data['homepage']			= true;
-		
+
 		$this->load->view('homepage', $data);
 	}
 
@@ -33,30 +69,31 @@ class Cart extends Front_Controller {
 		}
 		$this->load->model('Page_model');
 		$data['base_url']			= $this->uri->segment_array();
-		
+
 		$data['fb_like']			= true;
 
 		$data['page_title']			= $data['page']->title;
-		
+
+		// olimortimer - Always set a default title
+		$data['seo_title']			= $data['page']->seo_title ? $data['page']->seo_title : $data['page']->title;
 		$data['meta']				= $data['page']->meta;
-		$data['seo_title']			= (!empty($data['page']->seo_title))?$data['page']->seo_title:$data['page']->title;
-		
+
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
-		
+
 		$this->load->view('page', $data);
 	}
-	
+
 	function search($code=false, $page = 0)
 	{
 		$this->load->model('Search_model');
-		
+
 		//check to see if we have a search term
 		if(!$code)
 		{
 			//if the term is in post, save it to the db and give me a reference
 			$term		= $this->input->post('term', true);
 			$code		= $this->Search_model->record_term($term);
-			
+
 			// no code? redirect so we can have the code in place for the sorting.
 			// I know this isn't the best way...
 			redirect('cart/search/'.$code.'/'.$page);
@@ -66,7 +103,7 @@ class Cart extends Front_Controller {
 			//if we have the md5 string, get the term
 			$term	= $this->Search_model->get_term($code);
 		}
-		
+
 		if(empty($term))
 		{
 			//if there is still no search term throw an error
@@ -76,10 +113,10 @@ class Cart extends Front_Controller {
 		}
 		$data['page_title']			= lang('search');
 		$data['gift_cards_enabled']	= $this->gift_cards_enabled;
-		
+
 		//fix for the category view page.
 		$data['base_url']			= array();
-		
+
 		$sort_array = array(
 							'name/asc' => array('by' => 'name', 'sort'=>'ASC'),
 							'name/desc' => array('by' => 'name', 'sort'=>'DESC'),
@@ -87,7 +124,7 @@ class Cart extends Front_Controller {
 							'price/desc' => array('by' => 'price', 'sort'=>'DESC'),
 							);
 		$sort_by	= array('by'=>false, 'sort'=>false);
-	
+
 		if(isset($_GET['by']))
 		{
 			if(isset($sort_array[$_GET['by']]))
@@ -95,7 +132,7 @@ class Cart extends Front_Controller {
 				$sort_by	= $sort_array[$_GET['by']];
 			}
 		}
-		
+
 
 		if(empty($term))
 		{
@@ -104,16 +141,16 @@ class Cart extends Front_Controller {
 		}
 		else
 		{
-	
+
 			$data['page_title']	= 'Search';
 			$data['gift_cards_enabled'] = $this->gift_cards_enabled;
-		
+
 			//set up pagination
 			$this->load->library('pagination');
 			$config['base_url']		= base_url().'cart/search/'.$code.'/';
 			$config['uri_segment']	= 4;
 			$config['per_page']		= 20;
-			
+
 			$config['first_link'] = 'First';
 			$config['first_tag_open'] = '<li>';
 			$config['first_tag_close'] = '</li>';
@@ -136,11 +173,11 @@ class Cart extends Front_Controller {
 			$config['next_link'] = '&raquo;';
 			$config['next_tag_open'] = '<li>';
 			$config['next_tag_close'] = '</li>';
-			
+
 			$result					= $this->Product_model->search_products($term, $config['per_page'], $page, $sort_by['by'], $sort_by['sort']);
 			$config['total_rows']	= $result['count'];
 			$this->pagination->initialize($config);
-	
+
 			$data['products']		= $result['products'];
 			foreach ($data['products'] as &$p)
 			{
@@ -150,21 +187,21 @@ class Cart extends Front_Controller {
 			$this->load->view('category', $data);
 		}
 	}
-	
+
 	function category($id)
 	{
 		//get the category
 		$data['category']			= $this->Category_model->get_category($id);
-				
+
 		if (!$data['category'])
 		{
 			show_404();
 		}
-		
+
 		//set up pagination
 		$segments	= $this->uri->total_segments();
 		$base_url	= $this->uri->segment_array();
-		
+
 		if($data['category']->slug == $base_url[count($base_url)])
 		{
 			$page	= 0;
@@ -175,18 +212,20 @@ class Cart extends Front_Controller {
 			$page	= array_splice($base_url, -1, 1);
 			$page	= $page[0];
 		}
-		
+
 		$data['base_url']	= $base_url;
 		$base_url			= implode('/', $base_url);
-		
+
 		$data['subcategories']		= $this->Category_model->get_categories($data['category']->id);
 		$data['product_columns']	= $this->config->item('product_columns');
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
-		
+
+		// olimortimer - Always set a default title
+		$data['seo_title']	= $data['category']->seo_title ? $data['category']->seo_title : $data['category']->name;
 		$data['meta']		= $data['category']->meta;
-		$data['seo_title']	= (!empty($data['category']->seo_title))?$data['category']->seo_title:$data['category']->name;
+
 		$data['page_title']	= $data['category']->name;
-		
+
 		$sort_array = array(
 							'name/asc' => array('by' => 'products.name', 'sort'=>'ASC'),
 							'name/desc' => array('by' => 'products.name', 'sort'=>'DESC'),
@@ -194,7 +233,7 @@ class Cart extends Front_Controller {
 							'price/desc' => array('by' => 'products.price', 'sort'=>'DESC'),
 							);
 		$sort_by	= array('by'=>'sequence', 'sort'=>'ASC');
-	
+
 		if(isset($_GET['by']))
 		{
 			if(isset($sort_array[$_GET['by']]))
@@ -202,14 +241,14 @@ class Cart extends Front_Controller {
 				$sort_by	= $sort_array[$_GET['by']];
 			}
 		}
-		
+
 		//set up pagination
 		$this->load->library('pagination');
 		$config['base_url']		= site_url($base_url);
 		$config['uri_segment']	= $segments;
 		$config['per_page']		= 24;
 		$config['total_rows']	= $this->Product_model->count_products($data['category']->id);
-		
+
 		$config['first_link'] = 'First';
 		$config['first_tag_open'] = '<li>';
 		$config['first_tag_close'] = '</li>';
@@ -221,10 +260,10 @@ class Cart extends Front_Controller {
 		$config['full_tag_close'] = '</ul></div>';
 		$config['cur_tag_open'] = '<li class="active"><a href="#">';
 		$config['cur_tag_close'] = '</a></li>';
-		
+
 		$config['num_tag_open'] = '<li>';
 		$config['num_tag_close'] = '</li>';
-		
+
 		$config['prev_link'] = '&laquo;';
 		$config['prev_tag_open'] = '<li>';
 		$config['prev_tag_close'] = '</li>';
@@ -232,9 +271,9 @@ class Cart extends Front_Controller {
 		$config['next_link'] = '&raquo;';
 		$config['next_tag_open'] = '<li>';
 		$config['next_tag_close'] = '</li>';
-		
+
 		$this->pagination->initialize($config);
-		
+
 		//grab the products using the pagination lib
 		$data['products']	= $this->Product_model->get_products($data['category']->id, $config['per_page'], $page, $sort_by['by'], $sort_by['sort']);
 		foreach ($data['products'] as &$p)
@@ -242,39 +281,39 @@ class Cart extends Front_Controller {
 			$p->images	= (array)json_decode($p->images);
 			$p->options	= $this->Option_model->get_product_options($p->id);
 		}
-		
+
 		$this->load->view('category', $data);
 	}
-	
+
 	function product($id)
 	{
 		//get the product
 		$data['product']	= $this->Product_model->get_product($id);
-		
-		
+
+
 		if(!$data['product'] || $data['product']->enabled==0)
 		{
 			show_404();
 		}
-		
+
 		$data['base_url']			= $this->uri->segment_array();
-		
+
 		// load the digital language stuff
 		$this->lang->load('digital_product');
-		
+
 		$data['options']	= $this->Option_model->get_product_options($data['product']->id);
-		
+
 		$related			= $data['product']->related_products;
 		$data['related']	= array();
-		
 
-				
 		$data['posted_options']	= $this->session->flashdata('option_values');
 
 		$data['page_title']			= $data['product']->name;
+
+		// olimortimer - Always set a default title
+		$data['seo_title']			= $data['product']->seo_title ? $data['product']->seo_title : $data['product']->name;
 		$data['meta']				= $data['product']->meta;
-		$data['seo_title']			= (!empty($data['product']->seo_title))?$data['product']->seo_title:$data['product']->name;
-			
+
 		if($data['product']->images == 'false')
 		{
 			$data['product']->images = array();
@@ -285,26 +324,26 @@ class Cart extends Front_Controller {
 		}
 
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
-					
+
 		$this->load->view('product', $data);
 	}
-	
-	
+
+
 	function add_to_cart()
 	{
 		// Get our inputs
 		$product_id		= $this->input->post('id');
 		$quantity 		= $this->input->post('quantity');
 		$post_options 	= $this->input->post('option');
-		
+
 		// Get a cart-ready product array
 		$product = $this->Product_model->get_cart_ready_product($product_id, $quantity);
-		
+
 		//if out of stock purchase is disabled, check to make sure there is inventory to support the cart.
 		if(!$this->config->item('allow_os_purchase') && (bool)$product['track_stock'])
 		{
 			$stock	= $this->Product_model->get_product($product_id);
-			
+
 			//loop through the products in the cart and make sure we don't have this in there already. If we do get those quantities as well
 			$items		= $this->go_cart->contents();
 			$qty_count	= $quantity;
@@ -315,7 +354,7 @@ class Cart extends Front_Controller {
 					$qty_count = $qty_count + $item['quantity'];
 				}
 			}
-			
+
 			if($stock->quantity < $qty_count)
 			{
 				//we don't have this much in stock
@@ -327,53 +366,53 @@ class Cart extends Front_Controller {
 			}
 		}
 
-		// Validate Options 
+		// Validate Options
 		// this returns a status array, with product item array automatically modified and options added
 		//  Warning: this method receives the product by reference
 		$status = $this->Option_model->validate_product_options($product, $post_options);
-		
+
 		// don't add the product if we are missing required option values
 		if( ! $status['validated'])
 		{
 			$this->session->set_flashdata('quantity', $quantity);
 			$this->session->set_flashdata('error', $status['message']);
 			$this->session->set_flashdata('option_values', $post_options);
-		
+
 			redirect($this->Product_model->get_slug($product_id));
-		
+
 		} else {
-		
+
 			//Add the original option vars to the array so we can edit it later
 			$product['post_options']	= $post_options;
-			
+
 			//is giftcard
 			$product['is_gc']			= false;
-			
+
 			// Add the product item to the cart, also updates coupon discounts automatically
 			$this->go_cart->insert($product);
-		
+
 			// go go gadget cart!
 			redirect('cart/view_cart');
 		}
 	}
-	
+
 	function view_cart()
 	{
-		
+
 		$data['page_title']	= 'View Cart';
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
-		
+
 		$this->load->view('view_cart', $data);
 	}
-	
+
 	function remove_item($key)
 	{
 		//drop quantity to 0
 		$this->go_cart->update_cart(array($key=>0));
-		
+
 		redirect('cart/view_cart');
 	}
-	
+
 	function update_cart($redirect = false)
 	{
 		//if redirect isn't provided in the URL check for it in a form field
@@ -381,13 +420,13 @@ class Cart extends Front_Controller {
 		{
 			$redirect = $this->input->post('redirect');
 		}
-		
+
 		// see if we have an update for the cart
 		$item_keys		= $this->input->post('cartkey');
 		$coupon_code	= $this->input->post('coupon_code');
 		$gc_code		= $this->input->post('gc_code');
-			
-			
+
+
 		//get the items in the cart and test their quantities
 		$items			= $this->go_cart->contents();
 		$new_key_list	= array();
@@ -414,7 +453,7 @@ class Cart extends Front_Controller {
 			if(!$this->config->item('allow_os_purchase') && (bool)$product['track_stock'])
 			{
 				$stock	= $this->Product_model->get_product($product['id']);
-			
+
 				//loop through the new quantities and tabluate any products with the same product id
 				$qty_count	= $quantity;
 				foreach($new_key_list as $item_key=>$item_quantity)
@@ -452,7 +491,7 @@ class Cart extends Front_Controller {
 				$this->go_cart->update_cart(array($key=>$quantity));
 			}
 		}
-		
+
 		//if we don't have a quantity error, run the update
 		if(!isset($response['error']))
 		{
@@ -464,8 +503,8 @@ class Cart extends Front_Controller {
 		{
 			$response['error'] = '<p>'.lang('error_updating_cart').'</p>'.$response['error'];
 		}
-		
-		
+
+
 		//check for errors again, there could have been a new error from the update cart function
 		if(isset($response['error']))
 		{
@@ -475,7 +514,7 @@ class Cart extends Front_Controller {
 		{
 			$this->session->set_flashdata('message', $response['message']);
 		}
-		
+
 		if($redirect)
 		{
 			redirect($redirect);
@@ -486,36 +525,36 @@ class Cart extends Front_Controller {
 		}
 	}
 
-	
+
 	/***********************************************************
 			Gift Cards
 			 - this function handles adding gift cards to the cart
 	***********************************************************/
-	
+
 	function giftcard()
 	{
 		if(!$this->gift_cards_enabled) redirect('/');
-		
+
 		// Load giftcard settings
 		$gc_settings = $this->Settings_model->get_settings("gift_cards");
-				
+
 		$this->load->library('form_validation');
-		
+
 		$data['allow_custom_amount']	= (bool) $gc_settings['allow_custom_amount'];
 		$data['preset_values']			= explode(",",$gc_settings['predefined_card_amounts']);
-		
+
 		if($data['allow_custom_amount'])
 		{
 			$this->form_validation->set_rules('custom_amount', 'lang:custom_amount', 'numeric');
 		}
-		
+
 		$this->form_validation->set_rules('amount', 'lang:amount', 'required');
 		$this->form_validation->set_rules('preset_amount', 'lang:preset_amount', 'numeric');
 		$this->form_validation->set_rules('gc_to_name', 'lang:recipient_name', 'trim|required');
 		$this->form_validation->set_rules('gc_to_email', 'lang:recipient_email', 'trim|required|valid_email');
 		$this->form_validation->set_rules('gc_from', 'lang:sender_email', 'trim|required');
 		$this->form_validation->set_rules('message', 'lang:custom_greeting', 'trim|required');
-		
+
 		if ($this->form_validation->run() == FALSE)
 		{
 			$data['error']				= validation_errors();
@@ -525,11 +564,11 @@ class Cart extends Front_Controller {
 		}
 		else
 		{
-			
+
 			// add to cart
-			
+
 			$card['price'] = set_value(set_value('amount'));
-			
+
 			$card['id']				= -1; // just a placeholder
 			$card['sku']			= lang('giftcard');
 			$card['base_price']		= $card['price']; // price gets modified by options, show the baseline still...
@@ -543,16 +582,16 @@ class Cart extends Front_Controller {
 			$card['fixed_quantity'] = true;
 			$card['is_gc']			= true; // !Important
 			$card['track_stock']	= false; // !Imporortant
-			
+
 			$card['gc_info'] = array("to_name"	=> set_value('gc_to_name'),
 									 "to_email"	=> set_value('gc_to_email'),
 									 "from"		=> set_value('gc_from'),
 									 "personal_message"	=> set_value('message')
 									 );
-			
+
 			// add the card data like a product
 			$this->go_cart->insert($card);
-			
+
 			redirect('cart/view_cart');
 		}
 	}

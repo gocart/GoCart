@@ -20,7 +20,7 @@ $ship	= $customer['ship_address'];
 		<h2 style="margin-left:0px;"><?php echo ($ship != $bill)? lang('shipping_address'):lang('shipping_and_billing');?></h2>
 		
 		<p>
-			<?php echo format_address($ship, '', TRUE);?>
+			<?php echo format_address($ship, true);?>
 		</p>
 		
 		<p>
@@ -35,7 +35,7 @@ $ship	= $customer['ship_address'];
 			<h2 style="margin-left:0px;"><?php echo lang('billing_address');?></h2>
 
 			<p>
-				<?php echo format_address($bill, '', TRUE);?>
+				<?php echo format_address($bill, true);?>
 			</p>
 
 			<p>

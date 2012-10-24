@@ -103,13 +103,25 @@ function set_canned_message(id)
 	</div>
 	<div class="span4">
 		<h3><?php echo lang('billing_address');?></h3>
-		<?php echo nl2br(format_address($order, 'bill_'));?><br/>
+		<?php echo (!empty($order->bill_company))?$order->bill_company.'<br/>':'';?>
+		<?php echo $order->bill_firstname.' '.$order->bill_lastname;?> <br/>
+		<?php echo $order->bill_address1;?><br>
+		<?php echo (!empty($order->bill_address2))?$order->bill_address2.'<br/>':'';?>
+		<?php echo $order->bill_city.', '.$order->bill_zone.' '.$order->bill_zip;?><br/>
+		<?php echo $order->bill_country;?><br/>
+		
 		<?php echo $order->bill_email;?><br/>
 		<?php echo $order->bill_phone;?>
 	</div>
 	<div class="span4">
 		<h3><?php echo lang('shipping_address');?></h3>
-		<?php echo nl2br(format_address($order, 'ship_'));?><br/>
+		<?php echo (!empty($order->ship_company))?$order->ship_company.'<br/>':'';?>
+		<?php echo $order->ship_firstname.' '.$order->ship_lastname;?> <br/>
+		<?php echo $order->ship_address1;?><br>
+		<?php echo (!empty($order->ship_address2))?$order->ship_address2.'<br/>':'';?>
+		<?php echo $order->ship_city.', '.$order->ship_zone.' '.$order->ship_zip;?><br/>
+		<?php echo $order->ship_country;?><br/>
+		
 		<?php echo $order->ship_email;?><br/>
 		<?php echo $order->ship_phone;?>
 	</div>
