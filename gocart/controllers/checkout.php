@@ -373,7 +373,7 @@ class Checkout extends Front_Controller {
 		}
 
 		/* see if shipping is required and set. */
-		if(config_item('require_shipping') && $this->go_cart->requires_shipping())
+		if(config_item('require_shipping') && $this->go_cart->requires_shipping() && $this->_get_shipping_methods())
 		{
 			$code	= $this->validate_shipping_option($this->go_cart->shipping_code());
 
