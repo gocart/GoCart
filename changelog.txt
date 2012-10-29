@@ -9,6 +9,7 @@ Version 2.0.1
 	
 		- Eliminated code remnant from product page
 		- Fixed an error in the product view related to options with no option.
+		- Fixed migrations to not break on install
 	
 	
 Version 2.0
