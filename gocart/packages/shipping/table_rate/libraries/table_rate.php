@@ -50,15 +50,15 @@ class table_rate
 			}
 
 			//sort rates highest "From" to lowest
-			krsort($rate['rates']);
+			krsort($rate['rates'], SORT_NUMERIC);
 
 			if ($rate['method'] == 'weight')
 			{
 				foreach ($rate['rates'] as $key => $val)
 				{
-					$return[$rate['name']] = $val;
 					if($key <= $order_weight)
 					{
+						$return[$rate['name']] = $val;
 						break;
 					}
 				}
@@ -67,10 +67,9 @@ class table_rate
 			{
 				foreach ($rate['rates'] as $key => $val)
 				{
-					
-					$return[$rate['name']] = $val;
 					if($key <= $order_price)
 					{
+						$return[$rate['name']] = $val;
 						break;
 					}
 				}
@@ -179,7 +178,7 @@ class table_rate
 			{
 				$new_rates[$r['from']]	= $r['rate'];
 			}
-			ksort($new_rates);
+			ksort($new_rates, SORT_NUMERIC);
 		}
 		return $new_rates;
 	}
@@ -195,7 +194,6 @@ class table_rate
 			{
 				$rates[$table][$value] = $_POST['rate'][$table][$key];
 			}
-		
 			// sort the list
 			krsort($rates[$table]);
 		}
