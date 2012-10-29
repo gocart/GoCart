@@ -11,6 +11,9 @@ Version 2.0.1
 		- Fixed an error in the product view related to options with no option.
 		- Fixed migrations to not break on install
 	
+	Other
+		
+		- Various changes to go_cart.php library to function better with multi-page checkout
 	
 Version 2.0
 -------------
