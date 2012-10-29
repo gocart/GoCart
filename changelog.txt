@@ -1,6 +1,10 @@
 Version 2.0.1
 	Release date: TBA
 	
+	Features
+
+		- Replaced single page checkout with multi page checkout for ease of development changes.	
+
 	Bug Fixes
 	
 		- Eliminated code remnant from product page
