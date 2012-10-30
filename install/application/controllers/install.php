@@ -109,6 +109,8 @@ class Install extends CI_Controller {
 
 				//setup the gocart config file
 				$settings					= array();
+				$settings['theme']  = $this->input->post('theme');
+				$settings['subtheme']  = $this->input->post('subtheme');				
 				$settings['company_name']	= $this->input->post('company_name');
 				$settings['address1']		= $this->input->post('address1');
 				$settings['address2']		= $this->input->post('address2');

@@ -43,6 +43,14 @@
 			</fieldset>
 			
 			<fieldset>
+				<legend>Choose Theme</legend>
+				
+				<label for="theme">Theme</label> <?php echo form_dropdown('theme', array('twitterbootstrap'=>'Twitter Bootstrap Theme'),'twitterbootstrap');?>
+				<label for="subtheme">Sub Theme</label> <?php echo form_dropdown('subtheme', array('amelia'=>'Amelia','cerulean'=>'Cerulean','cyborg'=>'Cyborg','default'=>'Default','journal'=>'Journal','readable'=>'Readable','simplex'=>'Simplex','slate'=>'Slate','spacelab'=>'Spacelab','spruce'=>'Spruce','superhero'=>'Superhero','united'=>'United'),'default');?>
+				
+			</fieldset>	
+			
+			<fieldset>
 				<legend>Admin Information</legend>
 				
 				<label for="login">Admin Email</label> <?php echo form_input(array('class'=>'span8', 'name'=>'admin_email', 'value'=>set_value('admin_email') ));?>
