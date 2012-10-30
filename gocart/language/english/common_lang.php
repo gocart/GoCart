@@ -99,7 +99,6 @@ $lang['error_save_payment']			= 'There was a problem saving your payment method'
 $lang['error_choose_payment']		= 'Please choose a payment method';
 $lang['error_choose_shipping']		= 'Please choose a shipping method';
 $lang['continue_shopping']			= 'Continue Shopping';
-$lang['form_login']					= 'Log In';
 $lang['register_now']				= 'Register Now';
 $lang['submit_order']				= 'Submit Order';
 $lang['edit_customer_information']	= 'Edit Customer Information';
