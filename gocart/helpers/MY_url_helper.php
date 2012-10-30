@@ -69,6 +69,12 @@ function theme_js($uri, $tag=false)
 //you can fill the tag field in to spit out a link tag, setting tag to a string will fill in the media attribute
 function theme_css($uri, $tag=false)
 {
+	var $cssasset = '';
+	// Bootswatch Themes for Twitter Bootstrap Theme
+	if($CI->config->item('theme') == 'twitterbootstrap')
+	{
+		$cssasset =  $CI->config->item('subtheme').'/' ;
+	}
 	if($tag)
 	{
 		$media=false;
@@ -76,8 +82,8 @@ function theme_css($uri, $tag=false)
 		{
 			$media = 'media="'.$tag.'"';
 		}
-		return '<link href="'.theme_url('assets/css/'.$uri).'" type="text/css" rel="stylesheet" '.$media.'/>';
+		return '<link href="'.theme_url('assets/css/'.$cssasset.$uri).'" type="text/css" rel="stylesheet" '.$media.'/>';
 	}
 	
-	return theme_url('assets/css/'.$uri);
+	return theme_url('assets/css/'.$cssasset.$uri);
 }
