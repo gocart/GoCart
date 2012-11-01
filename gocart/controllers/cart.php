@@ -105,7 +105,7 @@ class Cart extends Front_Controller {
 		else
 		{
 	
-			$data['page_title']	= 'Search';
+			$data['page_title']	= lang('search');
 			$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		
 			//set up pagination
