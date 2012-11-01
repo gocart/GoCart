@@ -80,7 +80,7 @@ echo form_input($f_id);
 		</div>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn" data-dismiss="modal">Close</a>
+		<a href="#" class="btn" data-dismiss="modal"><?php echo lang('close');?></a>
 		<a href="#" class="btn btn-primary" type="button" onclick="save_address(); return false;"><?php echo lang('form_submit');?></a>
 	</div>
 </div>

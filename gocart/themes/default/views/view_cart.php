@@ -165,13 +165,13 @@
 				<input id="redirect_path" type="hidden" name="redirect" value=""/>
 	
 				<?php if(!$this->Customer_model->is_logged_in(false,false)): ?>
-					<input class="btn" type="submit" onclick="$('#redirect_path').val('checkout/login');" value="Login"/>
-					<input class="btn" type="submit" onclick="$('#redirect_path').val('checkout/register');" value="Register"/>
+					<input class="btn" type="submit" onclick="$('#redirect_path').val('checkout/login');" value="<?php echo lang('login');?>"/>
+					<input class="btn" type="submit" onclick="$('#redirect_path').val('checkout/register');" value="<?php echo lang('register_now');?>"/>
 				<?php endif; ?>
 					<input class="btn" type="submit" value="<?php echo lang('form_update_cart');?>"/>
 					
 			<?php if ($this->Customer_model->is_logged_in(false,false) || !$this->config->item('require_login')): ?>
-				<input class="btn btn-large btn-primary" type="submit" onclick="$('#redirect_path').val('checkout');" value="Checkout &raquo;"/>
+				<input class="btn btn-large btn-primary" type="submit" onclick="$('#redirect_path').val('checkout');" value="<?php echo lang('form_checkout');?>"/>
 			<?php endif; ?>
 			
 		</div>
