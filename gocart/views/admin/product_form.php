@@ -117,7 +117,7 @@ function remove_option(id)
 				<div class="row">
 					<div class="span8">
 						<fieldset>
-							<legend>Inventory</legend>
+							<legend><?php echo lang('inventory');?></legend>
 							<div class="row" style="padding-top:10px;">
 								<div class="span3">
 									<label for="track_stock"><?php echo lang('track_stock');?> </label>
