@@ -80,7 +80,7 @@ $(document).ready(function(){
 			
 			<div class="nav-collapse">
 				<ul class="nav">
-					<li><a href="<?php echo $admin_url;?>">Home</a></li>
+					<li><a href="<?php echo $admin_url;?>"><?php echo lang('common_home');?></a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('common_sales') ?> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -130,7 +130,7 @@ $(document).ready(function(){
 				</ul>
 				<ul class="nav pull-right">
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Actions <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('common_actions');?> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="<?php echo site_url($this->config->item('admin_folder').'/dashboard');?>"><?php echo lang('common_dashboard') ?></a></li>
 							<li><a href="<?php echo site_url();?>"><?php echo lang('common_front_end') ?></a></li>
