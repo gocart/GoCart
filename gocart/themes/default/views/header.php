@@ -47,7 +47,7 @@ if(isset($additional_header_info))
 				
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Catalog <b class="caret"></b></a>
+						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('catalog');?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<?php foreach($this->categories as $cat_menu):?>
 								<li><a href="<?php echo site_url($cat_menu['category']->slug);?>"><?php echo $cat_menu['category']->name;?></a></li>
