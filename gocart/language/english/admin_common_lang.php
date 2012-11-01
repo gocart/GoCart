@@ -29,6 +29,8 @@ $lang['common_alert']				= 'Alert';
 $lang['common_log_out']				= 'Log Out';
 $lang['common_front_end']			= 'Front End';
 $lang['common_dashboard']			= 'Dashboard';
+$lang['common_home']				= 'Home';
+$lang['common_actions']				= 'Actions';
 
 //buttons
 $lang['save']						= 'Save';
