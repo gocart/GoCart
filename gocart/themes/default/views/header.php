@@ -47,7 +47,7 @@ if(isset($additional_header_info))
 				
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Catalog <b class="caret"></b></a>
+						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('catalog');?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<?php foreach($this->categories as $cat_menu):?>
 								<li><a href="<?php echo site_url($cat_menu['category']->slug);?>"><?php echo $cat_menu['category']->name;?></a></li>
@@ -71,7 +71,7 @@ if(isset($additional_header_info))
 						
 						<?php if($this->Customer_model->is_logged_in(false, false)):?>
 							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('account');?> <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li><a href="<?php echo  site_url('secure/my_account');?>"><?php echo lang('my_account')?></a></li>
 									<li><a href="<?php echo  site_url('secure/my_downloads');?>"><?php echo lang('my_downloads')?></a></li>
@@ -106,7 +106,7 @@ if(isset($additional_header_info))
 					</ul>
 					
 					<?php echo form_open('cart/search', 'class="navbar-search pull-right"');?>
-						<input type="text" name="term" class="search-query span2" placeholder="Search"/>
+						<input type="text" name="term" class="search-query span2" placeholder="<?php echo lang('search');?>"/>
 					</form>
 				</div>
 			</div>
