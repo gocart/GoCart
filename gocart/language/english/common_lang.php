@@ -31,6 +31,7 @@ $lang['no']						= 'No';
 $lang['download_link']			= 'Click here to access your downloads!';
 $lang['catalog']				= 'Catalog';
 $lang['account']				= 'Account';
+$lang['close']					= 'Close';
 
 $lang['empty_cart']				= 'Your cart is empty';
 $lang['single_item']			= 'There is %d item in your cart';
