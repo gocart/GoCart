@@ -106,7 +106,7 @@ if(isset($additional_header_info))
 					</ul>
 					
 					<?php echo form_open('cart/search', 'class="navbar-search pull-right"');?>
-						<input type="text" name="term" class="search-query span2" placeholder="Search"/>
+						<input type="text" name="term" class="search-query span2" placeholder="<?php echo lang('search');?>"/>
 					</form>
 				</div>
 			</div>
