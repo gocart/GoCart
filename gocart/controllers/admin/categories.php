@@ -110,6 +110,7 @@ class Categories extends Admin_Controller {
 		$data['seo_title']		= '';
 		$data['meta']			= '';
 		$data['parent_id']		= 0;
+		$data['error']			= '';
 		
 		//create the photos array for later use
 		$data['photos']		= array();
