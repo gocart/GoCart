@@ -556,9 +556,19 @@ class go_cart {
 					$this->_cart_contents['whole_order_discount_cp'] = $code; // track which code we use
 				}
 			}
-			$total_discount = $temp;
-		}
-		
+            // coupon discounts and whole order discounts can be cumulated
+			$total_discount += $temp;
+            $total_whole_order_discount = $temp;
+
+            // iterate products and apply calculated whole order discount % to taxable ones
+            $whole_order_discount_ratio = $total_whole_order_discount / (float)$this->_cart_contents['cart_subtotal'];
+            foreach ($this->_cart_contents['items'] as $product){
+                if ($product['taxable'] == 1){
+                    $taxable_discount += $whole_order_discount_ratio * (float)$product['price'];
+                }
+            }
+
+		}		
 		
 		$this->_cart_contents['cp_discounted_subtotal'] = $this->_cart_contents['cart_subtotal'] - $total_discount;
 		$this->_cart_contents['coupon_discount'] = $total_discount;
