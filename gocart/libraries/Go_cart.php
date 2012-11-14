@@ -525,7 +525,7 @@ class go_cart {
 					// store the total discount in the item details, for future reference
 					$this->_cart_contents['items'][$product_index[$x]]['total_coupon_discount'] += $collapsed[$x];
 					// taxable?
-					if( $this->_cart_contents['items'][$product_index[$x]]['shippable'] == 1 )
+					if( $this->_cart_contents['items'][$product_index[$x]]['taxable'] == 1 )
 					{
 						$taxable_discount +=  $collapsed[$x];
 					}
