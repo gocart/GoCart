@@ -91,6 +91,7 @@ $lang['available_options']		= 'Available Options';
 $lang['choose_option']			= 'Choose an Option';
 $lang['tab_description']		= 'Description';
 $lang['tab_related_products']	= 'Related Products';
+$lang['subcategories']			= 'Subcategories';
 
 $lang['loading']					= 'Loading&hellip;';
 $lang['coupon_label']				= 'If you have a coupon, enter the code here:';
