@@ -24,7 +24,7 @@
 		<div class="span3">
 			<ul class="nav nav-list well">
 				<li class="nav-header">
-				Subcategories
+				<?php echo lang('subcategories');?>
 				</li>
 				
 				<?php foreach($subcategories as $subcategory):?>
