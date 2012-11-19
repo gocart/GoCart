@@ -561,10 +561,12 @@ class go_cart {
             $total_whole_order_discount = $temp;
 
             // iterate products and apply calculated whole order discount % to taxable ones
-            $whole_order_discount_ratio = $total_whole_order_discount / (float)$this->_cart_contents['cart_subtotal'];
-            foreach ($this->_cart_contents['items'] as $product){
-                if ($product['taxable'] == 1){
-                    $taxable_discount += $whole_order_discount_ratio * (float)$product['price'];
+            if ($this->_cart_contents['cart_subtotal'] > 0){
+                $whole_order_discount_ratio = $total_whole_order_discount / (float)$this->_cart_contents['cart_subtotal'];
+                foreach ($this->_cart_contents['items'] as $product){
+                    if ($product['taxable'] == 1){
+                        $taxable_discount += $whole_order_discount_ratio * (float)$product['price'] * (int)$product['quantity'];
+                    }
                 }
             }
 
