@@ -1,5 +1,13 @@
-Version 2.0.1
-	Release date: TBA
+Version 2.1.1
+-------------
+	Release date: November 29 2012
+
+	Bug Fixes
+		- Fixed installation redirect (only affected some servers)
+
+Version 2.1
+-------------
+	Release date: October 29, 2012
 	
 	Features
 
