@@ -4,6 +4,7 @@ Version 2.1.1
 
 	Bug Fixes
 		- Fixed installation redirect (only affected some servers)
+		- Added/Cleaned several instances of static text to the lanugage files
 
 Version 2.1
 -------------
@@ -11,7 +12,7 @@ Version 2.1
 	
 	Features
 
-		- Replaced single page checkout with multi page checkout for ease of development changes.	
+		- Replaced single page checkout with multi page checkout for ease of development changes
 
 	Bug Fixes
 	
