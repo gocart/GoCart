@@ -4,7 +4,7 @@
 if(!file_exists(dirname($_SERVER['SCRIPT_FILENAME']).'/gocart/config/gocart.php'))
 {
 	$folder = (dirname($_SERVER['PHP_SELF'])=='index.php') ? dirname($_SERVER['PHP_SELF']) : '';
-	$path	= rtrim($_SERVER['HTTP_HOST'].$folder, '/\\').'/';	
+	$path	= rtrim($_SERVER['HTTP_HOST'].$folder, '/\\').'/';
 	header('Location: http://'.$path.'install');
 	die;
 }
@@ -44,7 +44,7 @@ if (defined('ENVIRONMENT'))
 		case 'development':
 			error_reporting(E_ALL);
 		break;
-	
+
 		case 'testing':
 		case 'production':
 			error_reporting(0);
