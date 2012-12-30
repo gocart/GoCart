@@ -5,7 +5,11 @@ class Migration_gocart extends CI_migration {
 	public function up()
 	{
 		//eliminate heard_about from orders tbale
-		$this->dbforge->drop_column('orders', 'heard_about');
+		if($this->db->field_exists('heard_about', 'orders'))
+		{
+			$this->dbforge->drop_column('orders', 'heard_about');
+		}
+		
 		
 		//update the notes field to be NULL by default
 		$fields	= array('notes'=>array(  'type'			=> 'text'

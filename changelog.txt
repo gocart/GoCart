@@ -1,3 +1,20 @@
+Version 2.0.1
+	Release date: TBA
+	
+	Features
+
+		- Replaced single page checkout with multi page checkout for ease of development changes.	
+
+	Bug Fixes
+	
+		- Eliminated code remnant from product page
+		- Fixed an error in the product view related to options with no option.
+		- Fixed migrations to not break on install
+	
+	Other
+		
+		- Various changes to go_cart.php library to function better with multi-page checkout
+	
 Version 2.0
 -------------
 	Release date: September 13, 2012

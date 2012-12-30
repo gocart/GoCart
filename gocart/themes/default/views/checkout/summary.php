@@ -1,19 +1,3 @@
-<script>
-$(function() {
-	// keep the cart total up to date for other JS functionality
-	cart_total = <?php echo $this->go_cart->total(); ?>;
-	
-	if(cart_total==0)
-	{
-		$('#payment_section_container').hide();
-		$('#no_payment_necessary').show();
-	} else {
-		$('#payment_section_container').show();
-		$('#no_payment_necessary').hide();
-	}
-});
-</script>
-
 	<table class="table table-striped table-bordered">
 		<thead>
 			<thead>

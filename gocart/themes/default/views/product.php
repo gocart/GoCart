@@ -7,7 +7,7 @@
 </script>
 <div class="row">
 	<div class="span4">
-
+		
 		<div class="row">
 			<div class="span4" id="primary-img">
 				<?php
@@ -40,21 +40,69 @@
 		<?php endif;?>
 		<?php if(count($product->images) > 1):?>
 		<div class="row">
-			<ul class="thumbnails product-images">
+			<div class="span4 product-images">
 				<?php foreach($product->images as $image):?>
-				<li class="span1">
-					<div class="thumbnail">
-						<img onclick="$(this).squard('390', $('#primary-img'));" src="<?php echo base_url('uploads/images/medium/'.$image->filename);?>"/>
-					</div>
-				</li>
+				<img class="span1" onclick="$(this).squard('390', $('#primary-img'));" src="<?php echo base_url('uploads/images/medium/'.$image->filename);?>"/>
 				<?php endforeach;?>
-			</ul>
+			</div>
 		</div>
 		<?php endif;?>
+		
+			<?php if(!empty($product->related_products)):?>
+			<div class="related_products">
+				<div class="row">
+					<div class="span4">
+						<h3 style="margin-top:20px;"><?php echo lang('related_products_title');?></h3>
+						<ul class="thumbnails">	
+						<?php foreach($product->related_products as $relate):?>
+							<li class="span2 product">
+								<?php
+								$photo	= theme_img('no_picture.png', lang('no_image_available'));
+						
+						
+						
+								$relate->images	= array_values((array)json_decode($relate->images));
+						
+								if(!empty($relate->images[0]))
+								{
+									$primary	= $relate->images[0];
+									foreach($relate->images as $photo)
+									{
+										if(isset($photo->primary))
+										{
+											$primary	= $photo;
+										}
+									}
 
+									$photo	= '<img src="'.base_url('uploads/images/thumbnails/'.$primary->filename).'" alt="'.$relate->seo_title.'"/>';
+								}
+								?>
+								<a class="thumbnail" href="<?php echo site_url($relate->slug); ?>">
+									<?php echo $photo; ?>
+								</a>
+								<h5 style="margin-top:5px;"><a href="<?php echo site_url($relate->slug); ?>"><?php echo $relate->name;?></a></h5>
+
+								<div class="price_container">
+									<?php if($relate->saleprice > 0):?>
+										<span class="price_slash"><?php echo lang('product_reg');?> <?php echo format_currency($relate->price); ?></span>
+										<span class="price_sale"><?php echo lang('product_sale');?> <?php echo format_currency($relate->saleprice); ?></span>
+									<?php else: ?>
+										<span class="price_reg"><?php echo lang('product_price');?> <?php echo format_currency($relate->price); ?></span>
+									<?php endif; ?>
+								</div>
+			                    <?php if((bool)$relate->track_stock && $relate->quantity < 1 && config_item('inventory_enabled')) { ?>
+									<div class="stock_msg"><?php echo lang('out_of_stock');?></div>
+								<?php } ?>
+							</li>
+						<?php endforeach;?>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<?php endif;?>
 	</div>
 	<div class="span8">
-
+		
 		<div class="row">
 			<div class="span8">
 				<div class="page-header">
@@ -73,24 +121,24 @@
 				</div>
 			</div>
 		</div>
-
+		
 		<div class="row">
 			<div class="span8">
 				<?php echo $product->excerpt;?>
 			</div>
 		</div>
-
+		
 		<div class="row" style="margin-top:15px; margin-bottom:15px;">
 			<div class="span4 sku-pricing">
 				<?php if(!empty($product->sku)):?><div><?php echo lang('sku');?>: <?php echo $product->sku; ?></div><?php endif;?>&nbsp;
 			</div>
-			<?php if((bool)$product->track_stock && $product->quantity < 1):?>
+			<?php if((bool)$product->track_stock && $product->quantity < 1 && config_item('inventory_enabled')):?>
 			<div class="span4 out-of-stock">
-				<div>Out of Stock</div>
+				<div><?php echo lang('out_of_stock');?></div>
 			</div>
 			<?php endif;?>
 		</div>
-
+		
 		<div class="row">
 			<div class="span8">
 				<div class="product-cart-form">
@@ -126,10 +174,17 @@
 								}
 								else
 								{
-									$value	= $option->values[0]->value;
-									if($posted_options && isset($posted_options[$option->id]))
+									if(isset($option->values[0]))
 									{
-										$value	= $posted_options[$option->id];
+										$value	= $option->values[0]->value;
+										if($posted_options && isset($posted_options[$option->id]))
+										{
+											$value	= $posted_options[$option->id];
+										}
+									}
+									else
+									{
+										$value = false;
 									}
 								}
 
@@ -197,107 +252,39 @@
 								</div>
 						<?php endforeach;?>
 					<?php endif;?>
-
+					
 					<div class="control-group">
 						<label class="control-label"><?php echo lang('quantity') ?></label>
 						<div class="controls">
-							<?php if($this->config->item('allow_os_purchase') || !(bool)$product->track_stock || $product->quantity > 0) : ?>
+							<?php if(!config_item('inventory_enabled') || config_item('allow_os_purchase') || !(bool)$product->track_stock || $product->quantity > 0) : ?>
 								<?php if(!$product->fixed_quantity) : ?>
 									<input class="span2" type="text" name="quantity" value=""/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<?php endif; ?>
-								<button class="btn btn-success btn-large" type="submit" value="submit"><i class="icon-shopping-cart icon-white"></i> <?php echo lang('form_add_to_cart');?></button>
+								<button class="btn btn-primary btn-large" type="submit" value="submit"><i class="icon-shopping-cart icon-white"></i> <?php echo lang('form_add_to_cart');?></button>
 							<?php endif;?>
 						</div>
 					</div>
-
+					
 					</fieldset>
 					</form>
 				</div>
-
+	
 			</div>
 		</div>
-
+		
 		<div class="row" style="margin-top:15px;">
 			<div class="span8">
-				<ul class="nav nav-tabs">
-					<li class="active"><a href="#description_tab" data-toggle="tab"><?php echo lang('tab_description');?></a></li>
-					<?php if(!empty($product->related_products)):?>
-						<li><a href="#related_tab" data-toggle="tab"><?php echo lang('tab_related_products');?></a></li>
-					<?php endif;?>
-				</ul>
-
-				<div class="tab-content">
-					<div class="tab-pane active" id="description_tab">
-						<?php echo $product->description; ?>
-					</div>
-					<div class="tab-pane" id="related_tab">
-
-						<?php if(!empty($product->related_products)):?>
-						<div class="related_products">
-							<div class="row">
-								<div class="span7">
-									<h3 style="margin-top:20px;"><?php echo lang('related_products_title');?></h3>
-									<ul class="thumbnails">
-									<?php foreach($product->related_products as $relate):?>
-										<li class="span2 product">
-											<?php
-											$photo	= theme_img('no_picture.png', lang('no_image_available'));
-
-											$relate->images	= array_values((array)json_decode($relate->images));
-
-											if(!empty($relate->images[0]))
-											{
-												$primary	= $relate->images[0];
-												foreach($relate->images as $photo)
-												{
-													if(isset($photo->primary))
-													{
-														$primary	= $photo;
-													}
-												}
-
-												$photo	= '<img src="'.base_url('uploads/images/thumbnails/'.$primary->filename).'" alt="'.$relate->seo_title.'"/>';
-											}
-											?>
-											<a class="thumbnail" href="<?php echo site_url($relate->slug); ?>">
-												<?php echo $photo; ?>
-											</a>
-											<h5 style="margin-top:5px;"><a href="<?php echo site_url($relate->slug); ?>"><?php echo $relate->name;?></a></h5>
-
-											<div class="price_container">
-												<?php if($relate->saleprice > 0):?>
-													<span class="price_slash"><?php echo lang('product_reg');?> <?php echo format_currency($relate->price); ?></span>
-													<span class="price_sale"><?php echo lang('product_sale');?> <?php echo format_currency($relate->saleprice); ?></span>
-												<?php else: ?>
-													<span class="price_reg"><?php echo lang('product_price');?> <?php echo format_currency($relate->price); ?></span>
-												<?php endif; ?>
-											</div>
-											<?php if((bool)$relate->track_stock && $relate->quantity < 1) { ?>
-												<div class="stock_msg"><?php echo lang('out_of_stock');?></div>
-											<?php } ?>
-										</li>
-									<?php endforeach;?>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<?php endif;?>
-
-					</div>
-
-				</div>
-
+				<?php echo $product->description; ?>
 			</div>
 		</div>
-
+		
 	</div>
 </div>
-
 <script type="text/javascript"><!--
-$(function(){
+$(function(){ 
 	$('.category_container').each(function(){
 		$(this).children().equalHeights();
-	});
+	});	
 });
 //--></script>
 
