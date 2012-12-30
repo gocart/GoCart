@@ -15,9 +15,9 @@ Class Page_model extends CI_Model
 		foreach($result as $page)
 		{
 
-			// olimortimer - Set a class to active if we're on the current page (Bootstrap menu)
+			// Allows us to set a class to active if we're on / in the current category
 			if($this->uri->segment(1) == $page->slug) {
-				$page->active = 'class="active"';
+				$page->active = true;
 			} else {
 				$page->active = false;
 			}

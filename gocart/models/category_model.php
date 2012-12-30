@@ -32,9 +32,9 @@ Class Category_model extends CI_Model
 		foreach ($result as $category)
 		{
 
-			// olimortimer - Set a class to active if we're on / in the current category (Bootstrap menu)
+			// Allows us to set a class to active if we're on / in the current category
 			if($this->uri->segment(1) == $category->slug) {
-				$category->active = 'class="active"';
+				$category->active = true;
 			} else {
 				$category->active = false;
 			}
