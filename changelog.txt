@@ -4,7 +4,7 @@ Version 2.1.1
 
 	Bug Fixes
 		- Fixed installation redirect (only affected some servers)
-		- Added/Cleaned several instances of static text to the lanugage files
+		- Added/Cleaned several instances of static text to the language files
 
 Version 2.1
 -------------
