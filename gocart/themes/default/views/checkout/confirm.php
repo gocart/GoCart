@@ -3,7 +3,7 @@
 </div>
 	
 <?php include('order_details.php');?>
-<?php include('summary.php');?>
+<?php include('cart_summary.php'); ?>
 
 <div class="row">
 	<div class="span12">
