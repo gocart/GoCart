@@ -6,14 +6,14 @@
 		<?php echo lang('empty_view_cart');?>
 	</div>
 <?php else: ?>
-	
+
 	<div class="page-header">
 		<h2><?php echo lang('your_cart');?></h2>
 	</div>
 	<?php echo form_open('cart/update_cart', array('id'=>'update_cart_form'));?>
-	
+
 	<table class="table table-bordered table-striped">
-		
+
 		<thead>
 			<tr>
 				<th style="width:10%;"><?php echo lang('sku');?></th>
@@ -24,9 +24,9 @@
 				<th style="width:8%;"><?php echo lang('totals');?></th>
 			</tr>
 		</thead>
-		
+
 		<tfoot>
-			<?php if($this->go_cart->group_discount() > 0)  : ?> 
+			<?php if($this->go_cart->group_discount() > 0)  : ?>
 			<tr>
 				<td colspan="5"><strong><?php echo lang('group_discount');?></strong></td>
 				<td><?php echo format_currency(0-$this->go_cart->group_discount()); ?></td>
@@ -37,21 +37,21 @@
 				<td colspan="5"><strong><?php echo lang('subtotal');?></strong></td>
 				<td><?php echo format_currency($this->go_cart->subtotal()); ?></td>
 			</tr>
-			
-			<?php if($this->go_cart->coupon_discount() > 0)  : ?> 
+
+			<?php if($this->go_cart->coupon_discount() > 0)  : ?>
 			<tr>
 				<td colspan="5"><strong><?php echo lang('coupon_discount');?></strong></td>
 				<td><?php echo format_currency(0-$this->go_cart->coupon_discount()); ?></td>
 			</tr>
-			
-			<?php if($this->go_cart->order_tax() != 0) : // Only show a discount subtotal if we still have taxes to add (to show what the tax is calculated from) ?> 
+
+			<?php if($this->go_cart->order_tax() != 0) : // Only show a discount subtotal if we still have taxes to add (to show what the tax is calculated from) ?>
 			<tr>
 				<td colspan="5"><strong><?php echo lang('discounted_subtotal');?></strong></td>
 				<td><?php echo format_currency($this->go_cart->discounted_subtotal()); ?></td>
 			</tr>
 
 			<?php endif;
-			endif; 
+			endif;
 			// Custom Charges
 			$charges = $this->go_cart->get_custom_charges();
 			if(!empty($charges)):
@@ -59,11 +59,11 @@
 					<tr>
 						<td colspan="5"><strong><?php echo $name?></strong></td>
 						<td><?php echo format_currency($price); ?></td>
-					</tr>	
-					
+					</tr>
+
 			<?php endforeach;
 			endif;
-           
+
             // Show shipping cost if added before taxes
 			if($this->config->item('tax_shipping') && $this->go_cart->shipping_cost()>0) : ?>
 				<tr>
@@ -71,13 +71,13 @@
 				<td><?php echo format_currency($this->go_cart->shipping_cost()); ?></td>
 			</tr>
 			<?php endif ?>
-			<?php if($this->go_cart->order_tax() != 0) : ?> 
+			<?php if($this->go_cart->order_tax() != 0) : ?>
 			<tr>
 				<td colspan="5"><strong><?php echo lang('taxes');?></strong></td>
 				<td><?php echo format_currency($this->go_cart->order_tax()); ?></td>
 			</tr>
 			<?php endif;   ?>
-			
+
 			<?php // Show shipping cost if added after taxes
 			if(!$this->config->item('tax_shipping') && $this->go_cart->shipping_cost()>0) : ?>
 				<tr>
@@ -85,15 +85,15 @@
 				<td><?php echo format_currency($this->go_cart->shipping_cost()); ?></td>
 			</tr>
 			<?php endif ?>
-			
-			<?php if($this->go_cart->gift_card_discount() != 0) : ?> 
+
+			<?php if($this->go_cart->gift_card_discount() != 0) : ?>
 			<tr>
 				<td colspan="5"><strong><?php echo lang('gift_card_discount');?></strong></td>
 				<td><?php echo format_currency(0-$this->go_cart->gift_card_discount()); ?></td>
 			</tr>
 			<?php endif;?>
 
-			<tr class="cart_total"> 
+			<tr class="cart_total">
 				<td colspan="5"><strong><?php echo lang('cart_total');?></strong></td>
 				<td><?php echo format_currency($this->go_cart->total()); ?></td>
 			</tr>
@@ -117,10 +117,10 @@
 								foreach($value as $item)
 									echo '- '.$item.'<br/>';
 								echo '</div>';
-							} 
-							else 
+							}
+							else
 							{
-								echo '<div>'.$name.':'.$value.'</div>';
+								echo '<div>'.$name.': '.$value.'</div>';
 							}
 						}
 					}
@@ -142,38 +142,38 @@
 				</td>
 				<td><?php echo format_currency($product['price']*$product['quantity']); ?></td>
 			</tr>
-				
+
 		<?php endforeach; ?>
 		</tbody>
 	</table>
-	
-	
+
+
 	<div class="row">
 		<div class="span5">
 			<label><?php echo lang('coupon_label');?></label>
 			<input type="text" name="coupon_code" class="span3" style="margin:0px;">
 			<input class="span2 btn" type="submit" value="<?php echo lang('apply_coupon');?>"/>
-			
+
 			<?php if($gift_cards_enabled):?>
 				<label style="margin-top:15px;"><?php echo lang('gift_card_label');?></label>
 				<input type="text" name="gc_code" class="span3" style="margin:0px;">
 				<input class="span2 btn"  type="submit" value="<?php echo lang('apply_gift_card');?>"/>
 			<?php endif;?>
 		</div>
-		
+
 		<div class="span7" style="text-align:right;">
 				<input id="redirect_path" type="hidden" name="redirect" value=""/>
-	
+
 				<?php if(!$this->Customer_model->is_logged_in(false,false)): ?>
 					<input class="btn" type="submit" onclick="$('#redirect_path').val('checkout/login');" value="<?php echo lang('login');?>"/>
 					<input class="btn" type="submit" onclick="$('#redirect_path').val('checkout/register');" value="<?php echo lang('register_now');?>"/>
 				<?php endif; ?>
 					<input class="btn" type="submit" value="<?php echo lang('form_update_cart');?>"/>
-					
+
 			<?php if ($this->Customer_model->is_logged_in(false,false) || !$this->config->item('require_login')): ?>
 				<input class="btn btn-large btn-primary" type="submit" onclick="$('#redirect_path').val('checkout');" value="<?php echo lang('form_checkout');?>"/>
 			<?php endif; ?>
-			
+
 		</div>
 	</div>
 
