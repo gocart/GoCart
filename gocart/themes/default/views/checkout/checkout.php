@@ -305,7 +305,7 @@ function update_summary()
 </div>
 
 <div id="summary_section">
-<?php include('cart_table.php'); ?>
+<?php include('cart_summary.php'); ?>
 </div>
 
 <div id="submit_button_container" style="display:none; text-align:center; padding-top:10px; clear:both;">
