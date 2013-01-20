@@ -50,23 +50,25 @@ if(isset($additional_header_info))
 						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('catalog');?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<?php foreach($this->categories as $cat_menu):?>
-								<li <?php echo $cat_menu['category']->active ? 'class="active"' : false; ?>><a href="<?php echo site_url($cat_menu['category']->slug);?>"><?php echo $cat_menu['category']->name;?></a></li>
+								<li><a href="<?php echo site_url($cat_menu['category']->slug);?>"><?php echo $cat_menu['category']->name;?></a></li>
 								<?php endforeach;?>
 							</ul>
 							
-						<?php foreach($this->pages as $menu_page):?>
-							<li <?php echo $menu_page->active ? 'class="active"' : false; ?>>
-							<?php if(empty($menu_page->content)):?>
-								<a href="<?php echo $menu_page->url;?>" <?php if($menu_page->new_window ==1){echo 'target="_blank"';} ?>><?php echo $menu_page->menu_title;?></a>
-							<?php else:?>
-								<a href="<?php echo site_url($menu_page->slug);?>"><?php echo $menu_page->menu_title;?></a>
-							<?php endif;?>
-							</li>
-						<?php endforeach;?>
+							<?php foreach($this->pages as $menu_page):?>
+
+								<li>
+								<?php if(empty($menu_page->content)):?>
+									<a href="<?php echo $menu_page->url;?>" <?php if($menu_page->new_window ==1){echo 'target="_blank"';} ?>><?php echo $menu_page->menu_title;?></a>
+								<?php else:?>
+									<a href="<?php echo site_url($menu_page->slug);?>"><?php echo $menu_page->menu_title;?></a>
+								<?php endif;?>
+								</li>
+								
+							<?php endforeach;?>
 					</ul>
-
+					
 					<ul class="nav pull-right">
-
+						
 						<?php if($this->Customer_model->is_logged_in(false, false)):?>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('account');?> <b class="caret"></b></a>
@@ -102,7 +104,7 @@ if(isset($additional_header_info))
 								</a>
 							</li>
 					</ul>
-
+					
 					<?php echo form_open('cart/search', 'class="navbar-search pull-right"');?>
 						<input type="text" name="term" class="search-query span2" placeholder="<?php echo lang('search');?>"/>
 					</form>
@@ -110,7 +112,7 @@ if(isset($additional_header_info))
 			</div>
 		</div>
 	</div>
-
+	
 	<div class="container">
 		<?php if(!empty($base_url) && is_array($base_url)):?>
 			<div class="row">
@@ -128,33 +130,33 @@ if(isset($additional_header_info))
 							<?php endif;
 							$count++;
 						endforeach;?>
-					</ul>
+ 					</ul>
 				</div>
 			</div>
 		<?php endif;?>
-
+		
 		<?php if ($this->session->flashdata('message')):?>
 			<div class="alert alert-info">
 				<a class="close" data-dismiss="alert">×</a>
 				<?php echo $this->session->flashdata('message');?>
 			</div>
 		<?php endif;?>
-
+		
 		<?php if ($this->session->flashdata('error')):?>
 			<div class="alert alert-error">
 				<a class="close" data-dismiss="alert">×</a>
 				<?php echo $this->session->flashdata('error');?>
 			</div>
 		<?php endif;?>
-
+		
 		<?php if (!empty($error)):?>
 			<div class="alert alert-error">
 				<a class="close" data-dismiss="alert">×</a>
 				<?php echo $error;?>
 			</div>
 		<?php endif;?>
-
-
+		
+		
 
 <?php
 /*
