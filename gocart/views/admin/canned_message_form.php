@@ -18,7 +18,7 @@
 	
 	<label for="description"></label>
 	<?php
-	$data	= array('id'=>'description', 'name'=>'content', 'class'=>'span12 goedit', 'value'=>set_value('content', $content));
+	$data	= array('id'=>'description', 'name'=>'content', 'class'=>'redactor', 'value'=>set_value('content', $content));
 	echo form_textarea($data);
 	?>
 	
