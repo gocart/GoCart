@@ -24,7 +24,7 @@
 		<div class="span3">
 			<ul class="nav nav-list well">
 				<li class="nav-header">
-				<?php echo lang('subcategories');?>
+				Subcategories
 				</li>
 				
 				<?php foreach($subcategories as $subcategory):?>
@@ -81,12 +81,12 @@
 						<div class="excerpt"><?php echo $product->excerpt; ?></div>
 						<?php endif; ?>
 						<div>
-						<div class="price_container">
+						<div>
 							<?php if($product->saleprice > 0):?>
-								<span class="price_slash"><?php echo lang('product_reg');?> <?php echo format_currency($product->price); ?></span>
-								<span class="price_sale"><?php echo lang('product_sale');?> <?php echo format_currency($product->saleprice); ?></span>
+								<span class="price-slash"><?php echo lang('product_reg');?> <?php echo format_currency($product->price); ?></span>
+								<span class="price-sale"><?php echo lang('product_sale');?> <?php echo format_currency($product->saleprice); ?></span>
 							<?php else: ?>
-								<span class="price_reg"><?php echo lang('product_price');?> <?php echo format_currency($product->price); ?></span>
+								<span class="price-reg"><?php echo lang('product_price');?> <?php echo format_currency($product->price); ?></span>
 							<?php endif; ?>
 						</div>
 		                    <?php if((bool)$product->track_stock && $product->quantity < 1) { ?>
