@@ -97,7 +97,7 @@ function remove_option(id)
 					<div class="span8">
 						
 						<?php
-						$data	= array('id'=>'description', 'name'=>'description', 'class'=>'span8 goedit', 'value'=>set_value('description', $description));
+						$data	= array('name'=>'description', 'class'=>'redactor', 'value'=>set_value('description', $description));
 						echo form_textarea($data);
 						?>
 						
