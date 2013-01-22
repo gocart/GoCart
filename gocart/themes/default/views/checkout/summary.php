@@ -135,8 +135,24 @@
 							?>
 					</td>
 					
-					<td>
-						<?php echo $product['quantity'];?>
+					<td style="white-space:nowrap">
+						<?php if($this->uri->segment(1) == 'cart'): ?>
+							<?php if(!(bool)$product['fixed_quantity']):?>
+								<div class="control-group">
+									<div class="controls">
+										<div class="input-append">
+											<input class="span1" style="margin:0px;" name="cartkey[<?php echo $cartkey;?>]"  value="<?php echo $product['quantity'] ?>" size="3" type="text"><button class="btn btn-danger" type="button" onclick="if(confirm('<?php echo lang('remove_item');?>')){window.location='<?php echo site_url('cart/remove_item/'.$cartkey);?>';}"><i class="icon-remove icon-white"></i></button>
+										</div>
+									</div>
+								</div>
+							<?php else:?>
+								<?php echo $product['quantity'] ?>
+								<input type="hidden" name="cartkey[<?php echo $cartkey;?>]" value="1"/>
+								<button class="btn btn-danger" type="button" onclick="if(confirm('<?php echo lang('remove_item');?>')){window.location='<?php echo site_url('cart/remove_item/'.$cartkey);?>';}"><i class="icon-remove icon-white"></i></button>
+							<?php endif;?>
+						<?php else: ?>
+							<?php echo $product['quantity'] ?>
+						<?php endif;?>
 					</td>
 					<td><?php echo format_currency($product['price']*$product['quantity']); ?></td>
 				</tr>
