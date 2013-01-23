@@ -525,7 +525,7 @@ class go_cart {
 					// store the total discount in the item details, for future reference
 					$this->_cart_contents['items'][$product_index[$x]]['total_coupon_discount'] += $collapsed[$x];
 					// taxable?
-					if( $this->_cart_contents['items'][$product_index[$x]]['shippable'] == 1 )
+					if( $this->_cart_contents['items'][$product_index[$x]]['taxable'] == 1 )
 					{
 						$taxable_discount +=  $collapsed[$x];
 					}
@@ -556,7 +556,20 @@ class go_cart {
 					$this->_cart_contents['whole_order_discount_cp'] = $code; // track which code we use
 				}
 			}
-			$total_discount = $temp;
+			// coupon discounts and whole order discounts can be cumulated
+			$total_discount += $temp;
+			$total_whole_order_discount = $temp;
+
+			// iterate products and apply calculated whole order discount % to taxable ones
+			if ($this->_cart_contents['cart_subtotal'] > 0){
+			$whole_order_discount_ratio = $total_whole_order_discount / (float)$this->_cart_contents['cart_subtotal'];
+			foreach ($this->_cart_contents['items'] as $product)
+			{
+				if ($product['taxable'] == 1)
+				{
+					$taxable_discount += $whole_order_discount_ratio * (float)$product['price'] * (int)$product['quantity'];
+				}
+			}
 		}
 		
 		
