@@ -1,22 +1,25 @@
 Version 2.2
 -------------
-	Release date: TBA
+	Release date: January 23, 2013
 
 	Features
 	
 		- Replaced experimental "GoEdit" with RedactorJS (RedactorJS is distributable with GoCart but NOT OPEN SOURCE http://imperavi.com/redactor/).
 		- Updated jQuery to 1.9 and jQuery UI to 1.10.
-		
+		- Updated media manager to function with redactor.
 	
 	Bug Fixes
-		- Fixed Issue #72 Missing data['error'] in admin Category.
+		- Fixed Issue #72 Missing data['error'] in admin Category. (thanks dronord)
 		- Fixed product image upload on firefox.
 		- Made CSS classes match other ones used through the system.
+		- Fixed Issue #75 compute tax for whole order coupon (thanks abulte)
+		- Fixed some language errors (thanks olimortimer)
 		
 	Other
 		- Update to the GoCart license.
-		- Related producs come at the bottom of mobile devices now.
-
+		- Merged licenses from various parts of gocart into a single file "licences.txt"
+		- Related products come at the bottom of mobile devices now.
+		- Added instructional text to installation regarding the database.
 
 Version 2.1.1
 -------------
