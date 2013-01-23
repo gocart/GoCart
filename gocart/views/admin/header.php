@@ -8,11 +8,13 @@
 <link href="<?php echo base_url('assets/css/bootstrap-responsive.min.css');?>" rel="stylesheet" type="text/css" />
 <link type="text/css" href="<?php echo base_url('assets/css/jquery-ui.css');?>" rel="stylesheet" />
 <link type="text/css" href="<?php echo base_url('assets/css/redactor.css');?>" rel="stylesheet" />
+<link type="text/css" href="<?php echo base_url('assets/css/file-browser.css');?>" rel="stylesheet" />
 
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.js');?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js');?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.min.js');?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/redactor.min.js');?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/file-browser.js');?>"></script>
 
 <?php if($this->auth->is_logged_in(false, false)):?>
 	
@@ -54,7 +56,10 @@
 $(document).ready(function(){
 	$('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
 	
-	$('.redactor').redactor();
+	$('.redactor').redactor({
+		focus: true,
+		plugins: ['fileBrowser']
+	});
 });
 </script>
 <?php endif;?>
