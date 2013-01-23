@@ -1,22 +1,27 @@
 <?php include('header.php');?>
 
 <style type="text/css">
-	.img-thumbnail {
-		height:64px;
+	tr.ui-draggable-dragging {display: block !important}
+	.file, .img {
+		cursor:pointer;
+	}
+	.file-icon {
+		width:32px;
+	}
+	.file-icon img {
+		max-height:32px;
+		max-width:32px;
+	}
+	.btns {
+		text-align:right !important;
 	}
 	
-	div.img-thumbnail {
-		width:64px;
+	.btns i {
+		cursor:pointer;
+	}
+	
+	.img-thumbnail {
 		height:64px;
-		display:block;
-		margin:auto;
-		background-image:url('<?php echo base_url('assets/img/folder.png');?>');
-	}
-	div.img-thumbnail-hover {
-		background-image:url('<?php echo base_url('assets/img/folder-hover.png');?>');
-	}
-	.navbar .nav li.img-thumbnail-hover a,li.img-thumbnail-hover a:hover{
-		color:#2470b7;
 	}
 
  	#upload-field {
@@ -49,6 +54,13 @@
 		padding:0px;
 	}
 	body {padding:0px}
+	td {
+		vertical-align:middle !important;
+	}
+	.modal {
+		top:20px;
+		margin-top:0px;
+	}
 </style>
 <div class="navbar navbar-inverse">
 	<div class="navbar-inner">
@@ -57,13 +69,13 @@
 				<?php
 				if(!empty($root))
 				{
-					echo '<li class="droppable" title=""><a href="'.site_url(config_item('admin_folder').'/media').'"><i class="icon-home icon-white"></i> '.lang('goedit_root').'</a></li>';
+					echo '<li><a href="'.site_url(config_item('admin_folder').'/media').'"><i class="icon-home icon-white"></i> '.lang('goedit_root').'</a></li>';
 					$back_link	= explode('/', $root);
 					array_pop($back_link);
 					$path	= '';
 					foreach($back_link as $bl): $path.= $bl.'/';?>
 					<li><a>/</a></li>
-					<li class="droppable" title="<?php echo $path;?>"><a href="<?php echo site_url(config_item('admin_folder').'/media/index/'.$path);?>"><?php echo $bl;?></a></li>
+					<li title="<?php echo $path;?>"><a href="<?php echo site_url(config_item('admin_folder').'/media/index/'.$path);?>"><?php echo $bl;?></a></li>
 					<?php endforeach;
 				}
 				?>
@@ -119,51 +131,50 @@ if(function_exists('validation_errors') && validation_errors() != '')
 	</div>
 <?php endif; ?>
 
-<div class="row-fluid">
+<table class="table">
+	<?php
 
-	<div class="span12" style="text-align:center;">
+	$image_extensions	= array('jpg', 'jpeg', 'gif', 'png');
+
+	foreach($files as $f):?>
 		<?php
+		$uri_root	= $root;
+		if(!empty($root))
+		{
+			$uri_root	.= '/';
+		}
+		?>
+		<tr>
+		<?php
+		if(is_dir($this->path.'/'.$root.'/'.$f)):?>
+				<td class="file-icon" title="<?php echo $uri_root.$f;?>">
+					<a href="<?php echo site_url(config_item('admin_folder').'/media/index/'.$uri_root.$f);?>"><img src="<?php echo base_url('/assets/img/folder.png');?>" alt="<?php echo htmlentities($f);?>"></a>
+				</td>
+				<td><a href="<?php echo site_url(config_item('admin_folder').'/media/index/'.$uri_root.$f);?>"><?php echo $f;?></a></td>
+				<td class="btns">
+					<i onclick="rename('<?php echo $f;?>');" class="icon-pencil"></i>
+				</td>
 
-		$image_extensions	= array('jpg', 'jpeg', 'gif', 'png');
-
-		foreach($files as $f):?>
-			<?php
-			$uri_root	= $root;
-			if(!empty($root))
-			{
-				$uri_root	.= '/';
-			}
-			?>
-			<div class="span3 draggable" style="overflow:hidden;" title="<?php echo $f;?>">
-
-			<?php
-			if(is_dir($this->path.'/'.$root.'/'.$f)):?>
-					<div class="img-thumbnail droppable" title="<?php echo $uri_root.$f;?>">
-						<img src="<?php echo base_url('assets/img/media-loader.gif');?>" style="margin:37px auto 0px auto; display:none;">
-					</div>
-					<div class="btn-group" style="margin-top:5px;">
-						<a href="<?php echo site_url(config_item('admin_folder').'/media/index/'.$uri_root.$f);?>" class="btn btn-mini"><?php echo $f;?></a>
-						<button class="btn btn-mini" onclick="rename('<?php echo $f;?>');"><i class="icon-pencil"></i></button>
-					</div>
-
-				<?php elseif(in_array(strtolower(pathinfo($f, PATHINFO_EXTENSION)), $image_extensions)):?>
-					<a href="<?php echo site_url(config_item('admin_folder').'/media/embed/'.$uri_root.$f);?>"><img class="img-thumbnail" src="<?php echo base_url('/uploads/wysiwyg/'.$uri_root.$f);?>" alt="<?php echo htmlentities($f);?>" /></a>
-					<div class="btn-group" style="margin-top:5px;">
-						<a href="<?php echo site_url(config_item('admin_folder').'/media/embed/'.$uri_root.$f);?>" class="btn btn-mini"><?php echo $f;?></a>
-						<button class="btn btn-mini" onclick="rename('<?php echo $f;?>');"><i class="icon-pencil"></i></button>
-					</div>
-				<?php else:?>
-					<a href="<?php echo site_url(config_item('admin_folder').'/media/embed/'.$uri_root.$f);?>" ><img class="img-thumbnail" src="<?php echo base_url('assets/img/file.png');?>" /></a>
-					<div class="btn-group" style="margin-top:5px;">
-						<a href="<?php echo site_url(config_item('admin_folder').'/media/index/'.$root.'/'.$f);?>" class="btn btn-mini"><?php echo $f;?></a>
-						<button class="btn btn-mini" onclick="rename('<?php echo $f;?>');"><i class="icon-pencil"></i></button>
-					</div>
-				<?php endif;?>
-			</div>
-		<?php endforeach;?>
-	</div>
-
-</div>
+			<?php elseif(in_array(strtolower(pathinfo($f, PATHINFO_EXTENSION)), $image_extensions)):?>
+				<td class="file-icon img">
+				<img src="<?php echo base_url('/uploads/wysiwyg/'.$uri_root.$f);?>" alt="<?php echo htmlentities($f);?>">
+				</td>
+				<td><?php echo $f;?></td>
+				<td class="btns">
+					<i onclick="rename('<?php echo $f;?>');" class="icon-pencil"></i>
+				</td>
+			<?php else:?>
+				<td class="file-icon file">
+					<img class="img-thumbnail" src="<?php echo base_url('assets/img/file.png');?>" onclick="insert_link('<?php echo $f;?>')">
+				</td>
+				<td><?php echo $f;?></td>
+				<td class="btns">
+					<i onclick="rename('<?php echo $f;?>');" class="icon-pencil"></i>
+				</td>
+			<?php endif;?>
+		</tr>
+	<?php endforeach;?>
+</table>
 
 <div class="modal" id="folder-name" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none;">
 
@@ -196,7 +207,7 @@ if(function_exists('validation_errors') && validation_errors() != '')
 
 						<input type="hidden" name="root" value="<?php echo $root;?>">
 						<input id="delete-filename" name="filename" type="hidden">
-						<button type="button" class="btn btn-inverse" onclick="$('#delete-warning').show(); $(this).hide();"> <i class="icon-trash icon-white"></i></button>
+						<button id="delbtn" type="button" class="btn btn-inverse" onclick="$('#delete-warning').show(); $('#delbtn').hide(); setTimeout('$(\'#delete-warning\').hide(); $(\'#delbtn\').show();', 5000);"> <i class="icon-trash icon-white"></i></button>
 					</div>
 				</div>
 			</div>
@@ -219,34 +230,16 @@ if(function_exists('validation_errors') && validation_errors() != '')
 		$('#upload-loader').show();
 		$('#upload-form').submit();
 	});
-
-	$('#upload-field').change(function(){
-		$('#upload-form')[0].submit().reset();
+	
+	$('.img').click(function(){
+		parent.redactor_instance.insertHtml($(this).html().trim());
+		parent.redactor_instance.modalClose();
 	});
-
-	$( ".draggable" ).draggable({ delay:200, revert: true, handle:'.img-thumbnail', zIndex:9999, opacity:.50 });
-	$( ".droppable" ).droppable({	hoverClass:'img-thumbnail-hover',
-									drop: function(event, ui) {
-
-										var t = $(this).children('img');
-										t.show();
-										$.post(	'<?php echo site_url(config_item('admin_folder').'/media/move_file');?>',
-												{	filename: ui.draggable.attr('title'),
-													move_to: $(this).attr('title'),
-													root: '<?php echo $root;?>'
-												},
-												function(data){
-													if(data)
-													{
-														ui.draggable.remove();
-													}
-													else
-													{
-														ui.draggable.draggable( "option", "revert", true )
-													}
-													t.hide();
-												}, 'json' );
-									}
-								});
+	
+	function insert_link(filename)
+	{
+		parent.redactor_instance.insertHtml(' <a href="<?php echo $this->path.'/'.$root;?>'+filename+'">'+filename+'</a> ');
+		parent.redactor_instance.modalClose();
+	}
 </script>
 <?php include('footer.php');
