@@ -1,8 +1,7 @@
 	<footer class="footer">
-		<p class="pull-right">
-			<a href="http://clearskydesigns.com" target="_blank"><img src="https://s3.amazonaws.com/clearsky/csd_full_dark.png" alt="Clear Sky Designs" /></a>
-		</p>
-		<p>&copy; <?php echo date('Y')?> Clear Sky Designs &bull; All Rights Reserved</p>
+
+		<div style="text-align:center;"><a href="http://gocartdv.com" target="_blank"><img src="<?php echo base_url('assets/img/driven-by-gocart.png');?>" alt="Driven By GoCart"></a></div>
+		
 	</footer>
 </div>
 
