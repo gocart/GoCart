@@ -29,20 +29,15 @@
 				}
 				echo $photo
 				?>
+				<h3><?php echo $primary->alt;?></h3>
+				<p><?php echo $primary->caption;?></p>
 			</div>
 		</div>
-		<?php if(!empty($primary->caption)):?>
-		<div class="row">
-			<div class="span4" id="product_caption">
-				<?php echo $primary->caption;?>
-			</div>
-		</div>
-		<?php endif;?>
 		<?php if(count($product->images) > 1):?>
 		<div class="row">
 			<div class="span4 product-images">
 				<?php foreach($product->images as $image):?>
-				<img class="span1" onclick="$(this).squard('390', $('#primary-img'));" src="<?php echo base_url('uploads/images/medium/'.$image->filename);?>"/>
+				<img class="span1" onclick="$(this).squard('390', $('#primary-img'));" src="<?php echo base_url('uploads/images/medium/'.$image->filename);?>" data-alt="<?php echo $image->alt;?>" data-caption="<?php echo $image->caption;?>" />
 				<?php endforeach;?>
 			</div>
 		</div>
