@@ -47,61 +47,8 @@
 			</div>
 		</div>
 		<?php endif;?>
-		
-			<?php if(!empty($product->related_products)):?>
-			<div class="related_products">
-				<div class="row">
-					<div class="span4">
-						<h3 style="margin-top:20px;"><?php echo lang('related_products_title');?></h3>
-						<ul class="thumbnails">	
-						<?php foreach($product->related_products as $relate):?>
-							<li class="span2 product">
-								<?php
-								$photo	= theme_img('no_picture.png', lang('no_image_available'));
-						
-						
-						
-								$relate->images	= array_values((array)json_decode($relate->images));
-						
-								if(!empty($relate->images[0]))
-								{
-									$primary	= $relate->images[0];
-									foreach($relate->images as $photo)
-									{
-										if(isset($photo->primary))
-										{
-											$primary	= $photo;
-										}
-									}
-
-									$photo	= '<img src="'.base_url('uploads/images/thumbnails/'.$primary->filename).'" alt="'.$relate->seo_title.'"/>';
-								}
-								?>
-								<a class="thumbnail" href="<?php echo site_url($relate->slug); ?>">
-									<?php echo $photo; ?>
-								</a>
-								<h5 style="margin-top:5px;"><a href="<?php echo site_url($relate->slug); ?>"><?php echo $relate->name;?></a></h5>
-
-								<div class="price_container">
-									<?php if($relate->saleprice > 0):?>
-										<span class="price_slash"><?php echo lang('product_reg');?> <?php echo format_currency($relate->price); ?></span>
-										<span class="price_sale"><?php echo lang('product_sale');?> <?php echo format_currency($relate->saleprice); ?></span>
-									<?php else: ?>
-										<span class="price_reg"><?php echo lang('product_price');?> <?php echo format_currency($relate->price); ?></span>
-									<?php endif; ?>
-								</div>
-			                    <?php if((bool)$relate->track_stock && $relate->quantity < 1 && config_item('inventory_enabled')) { ?>
-									<div class="stock_msg"><?php echo lang('out_of_stock');?></div>
-								<?php } ?>
-							</li>
-						<?php endforeach;?>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<?php endif;?>
 	</div>
-	<div class="span8">
+	<div class="span8 pull-right">
 		
 		<div class="row">
 			<div class="span8">
@@ -282,6 +229,59 @@
 		</div>
 		
 	</div>
+	
+	<?php if(!empty($product->related_products)):?>
+	<div class="related_products">
+		<div class="row">
+			<div class="span4">
+				<h3 style="margin-top:20px;"><?php echo lang('related_products_title');?></h3>
+				<ul class="thumbnails">	
+				<?php foreach($product->related_products as $relate):?>
+					<li class="span2 product">
+						<?php
+						$photo	= theme_img('no_picture.png', lang('no_image_available'));
+						
+						
+						
+						$relate->images	= array_values((array)json_decode($relate->images));
+						
+						if(!empty($relate->images[0]))
+						{
+							$primary	= $relate->images[0];
+							foreach($relate->images as $photo)
+							{
+								if(isset($photo->primary))
+								{
+									$primary	= $photo;
+								}
+							}
+
+							$photo	= '<img src="'.base_url('uploads/images/thumbnails/'.$primary->filename).'" alt="'.$relate->seo_title.'"/>';
+						}
+						?>
+						<a class="thumbnail" href="<?php echo site_url($relate->slug); ?>">
+							<?php echo $photo; ?>
+						</a>
+						<h5 style="margin-top:5px;"><a href="<?php echo site_url($relate->slug); ?>"><?php echo $relate->name;?></a></h5>
+
+						<div>
+							<?php if($relate->saleprice > 0):?>
+								<span class="price-slash"><?php echo lang('product_reg');?> <?php echo format_currency($relate->price); ?></span>
+								<span class="price-sale"><?php echo lang('product_sale');?> <?php echo format_currency($relate->saleprice); ?></span>
+							<?php else: ?>
+								<span class="price-reg"><?php echo lang('product_price');?> <?php echo format_currency($relate->price); ?></span>
+							<?php endif; ?>
+						</div>
+	                    <?php if((bool)$relate->track_stock && $relate->quantity < 1 && config_item('inventory_enabled')) { ?>
+							<div class="stock_msg"><?php echo lang('out_of_stock');?></div>
+						<?php } ?>
+					</li>
+				<?php endforeach;?>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<?php endif;?>
 </div>
 <script type="text/javascript"><!--
 $(function(){ 

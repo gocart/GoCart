@@ -8,9 +8,9 @@
 
 <div class="row">
 	
-	<div class="span4 offset4 well">
+	<div class="span4 offset4">
 		<div style="text-align:center;">
-			<img src="<?php echo base_url('assets/img/login_logo.png');?>"/>
+			<img src="<?php echo base_url('assets/img/login-logo.png');?>"/>
 		</div>
 	
 	<?php echo form_open($this->config->item('admin_folder').'/login') ?>
@@ -34,5 +34,7 @@
 		
 	</fieldset>
 	<?php echo  form_close(); ?>
-</body>
-</html>
+	</div>
+</div>
+
+<?php include('footer.php');?>

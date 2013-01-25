@@ -91,6 +91,7 @@ $lang['available_options']		= 'Available Options';
 $lang['choose_option']			= 'Choose an Option';
 $lang['tab_description']		= 'Description';
 $lang['tab_related_products']	= 'Related Products';
+$lang['subcategories']			= 'Subcategories';
 
 $lang['loading']					= 'Loading&hellip;';
 $lang['coupon_label']				= 'If you have a coupon, enter the code here:';
@@ -123,7 +124,7 @@ $lang['quantity']					= 'Quantity';
 $lang['totals']						= 'Totals';
 $lang['group_discount']				= 'Group Discount';
 $lang['subtotal']					= 'Subtotal';
-$lang['cart_total']					= "Total";
+$lang['cart_total']					= 'Total';
 $lang['coupon_discount']			= 'Coupon Discount';
 $lang['gift_card_discount']			= 'Gift Card Discount';
 $lang['discounted_subtotal']		= 'Discounted Subtotal';
@@ -167,7 +168,7 @@ $lang['message_address_saved']		= 'Your address has been saved!';
 $lang['default']					= 'Default';
 $lang['additional_order_details']	= 'Additional Order Details';
 $lang['additional_details']			= 'Additional Details';
-$lang['heard_about']				= 'How did you hear about us: ';
+$lang['heard_about']				= 'How did you hear about us?';
 $lang['shipping_instructions']		= 'Shipping Notes';
 
 //checkout confirmation
@@ -207,7 +208,7 @@ $lang['login_failed']				= 'Authentication Failed!';
 $lang['go_to_login']				= 'Go to Login';
 
 $lang['account_registration']			= 'Account Registration';
-$lang['registration_thanks']			= 'thanks for registering %s!';
+$lang['registration_thanks']			= 'Thanks for registering %s!';
 $lang['error_email']					= 'The requested email is already in use.';
 $lang['error_no_account_record']		= 'There is no record of your account.';
 $lang['message_new_password']			= 'A new password has been generated and sent to your email.';
