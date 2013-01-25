@@ -1,8 +1,43 @@
+Version 2.2.1
+-------------
+	Release date: January 25, 2013
+	
+	Bug Fix
+	
+		- Fixed PHP syntax error in Go_cart.php library
+
+
+Version 2.2
+-------------
+	Release date: January 23, 2013
+
+	Features
+	
+		- Replaced experimental "GoEdit" with RedactorJS (RedactorJS is distributable with GoCart but NOT OPEN SOURCE http://imperavi.com/redactor/).
+		- Updated jQuery to 1.9 and jQuery UI to 1.10.
+		- Updated media manager to function with redactor.
+	
+	Bug Fixes
+	
+		- Fixed Issue #72 Missing data['error'] in admin Category. (thanks dronord)
+		- Fixed product image upload on firefox.
+		- Made CSS classes match other ones used through the system.
+		- Fixed Issue #75 compute tax for whole order coupon (thanks abulte)
+		- Fixed some language errors (thanks olimortimer)
+		
+	Other
+	
+		- Update to the GoCart license.
+		- Merged licenses from various parts of gocart into a single file "licences.txt"
+		- Related products come at the bottom of mobile devices now.
+		- Added instructional text to installation regarding the database.
+
 Version 2.1.1
 -------------
 	Release date: November 29 2012
 
 	Bug Fixes
+	
 		- Fixed installation redirect (only affected some servers)
 		- Added/Cleaned several instances of static text to the language files
 
@@ -16,9 +51,9 @@ Version 2.1
 
 	Bug Fixes
 	
-		- Eliminated code remnant from product page
+		- Eliminated code remnant from product page.
 		- Fixed an error in the product view related to options with no option.
-		- Fixed migrations to not break on install
+		- Fixed migrations to not break on install.
 	
 	Other
 		
@@ -47,7 +82,6 @@ Version 2.0
 		- Supporting currency symbol on right or left (via gocart config file)
 		- XSS filtering on front end search
 		- Using CodeIgniter migrations library for DB updates
-		
 	
 	Bug Fixes
 	

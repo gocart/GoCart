@@ -16,13 +16,13 @@
 			<fieldset>
 				<label for="name"><?php echo lang('name');?></label>
 				<?php
-				$data	= array('id'=>'name', 'name'=>'name', 'value'=>set_value('name', $name), 'class'=>'span12');
+				$data	= array('name'=>'name', 'value'=>set_value('name', $name), 'class'=>'span12');
 				echo form_input($data);
 				?>
 				
 				<label for="description"><?php echo lang('description');?></label>
 				<?php
-				$data	= array('id'=>'description', 'name'=>'description', 'class'=>'span12 goedit', 'value'=>set_value('description', $description));
+				$data	= array('name'=>'description', 'class'=>'redactor', 'value'=>set_value('description', $description));
 				echo form_textarea($data);
 				?>
 			</fieldset>
@@ -58,7 +58,7 @@
 				
 				<label for="excerpt"><?php echo lang('excerpt');?> </label>
 				<?php
-				$data	= array('id'=>'excerpt', 'name'=>'excerpt', 'value'=>set_value('excerpt', $excerpt), 'class'=>'span12', 'rows'=>3);
+				$data	= array('name'=>'excerpt', 'value'=>set_value('excerpt', $excerpt), 'class'=>'span12', 'rows'=>3);
 				echo form_textarea($data);
 				?>
 

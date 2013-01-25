@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<div style="text-align:center; padding:20px;"><img src="<?php echo $subfolder;?>assets/img/login_logo.png" alt="GoCart"/></div>
+<div style="text-align:center; padding:20px;"><img src="<?php echo $subfolder;?>assets/img/login-logo.png" alt="GoCart"/></div>
 <div class="container">
 	<div class="row">
 		<div class="span8 offset2">
@@ -33,6 +33,11 @@
 
 			<fieldset>
 				<legend>Database Information</legend>
+				
+				<div class="alert alert-info">
+					<h4>Note&hellip;</h4>
+					<p>Installing GoCart will not create a database. It will simply fill your existing database with the appropriate tables and records required to run.</p>
+				</div>
 				
 				<label for="hostname">Hostname</label> <?php echo form_input(array('class'=>'span8', 'name'=>'hostname', 'value'=>set_value('hostname', 'localhost') ));?>
 				<label for="database">Database Name</label> <?php echo form_input(array('class'=>'span8', 'name'=>'database', 'value'=>set_value('database') ));?>
@@ -90,13 +95,7 @@
 </div>
 <hr>
 <div class="footer">
-	<!-- start here -->
-	<div style="text-align:center;">
-		<a href="http://clearskydesigns.com" style="border:0px;" target="_blank" title="Clear Sky Designs">
-			<img src="https://s3.amazonaws.com/clearsky/csd_full_dark.png" alt="Clear Sky Designs" />
-		</a>
-	</div>
-	<!-- end here -->
+	<div style="text-align:center;"><a href="http://gocartdv.com" target="_blank"><img src="<?php echo $subfolder;?>assets/img/driven-by-gocart.png" alt="Driven By GoCart"></a></div>
 </div>
 </body>
 </html>
