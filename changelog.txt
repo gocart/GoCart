@@ -1,3 +1,12 @@
+Version 2.2.1
+-------------
+	Release date: January 25, 2013
+	
+	Bug Fix
+	
+		- Fixed PHP syntax error in Go_cart.php library
+
+
 Version 2.2
 -------------
 	Release date: January 23, 2013
@@ -9,6 +18,7 @@ Version 2.2
 		- Updated media manager to function with redactor.
 	
 	Bug Fixes
+	
 		- Fixed Issue #72 Missing data['error'] in admin Category. (thanks dronord)
 		- Fixed product image upload on firefox.
 		- Made CSS classes match other ones used through the system.
@@ -16,6 +26,7 @@ Version 2.2
 		- Fixed some language errors (thanks olimortimer)
 		
 	Other
+	
 		- Update to the GoCart license.
 		- Merged licenses from various parts of gocart into a single file "licences.txt"
 		- Related products come at the bottom of mobile devices now.
@@ -26,6 +37,7 @@ Version 2.1.1
 	Release date: November 29 2012
 
 	Bug Fixes
+	
 		- Fixed installation redirect (only affected some servers)
 		- Added/Cleaned several instances of static text to the language files
 
