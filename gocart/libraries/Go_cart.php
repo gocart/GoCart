@@ -465,7 +465,7 @@ class go_cart {
 				
 			} else {
 				// message coupon already applied
-				return array('error'=>lang('coupon_already_applied'));				
+				return array('error'=>lang('coupon_already_applied'));
 			}
 		} else {
 			// invalid code error message
@@ -476,30 +476,31 @@ class go_cart {
 	
 	// Calculate the best possible discount within the product instance limitations for the whole cart
 	// return the discount amount
-	private function _calculate_coupon_discount() {
-	
+	private function _calculate_coupon_discount()
+	{
 		$total_discount = 0;
 		//keep tabs on how much is taxable
 		$taxable_discount = 0;
 		
 		// Get the sum of the product-level coupons
-		if( ! empty($this->_cart_contents['applied_coupons'])) {
+		if( ! empty($this->_cart_contents['applied_coupons']))
+		{
 			foreach($this->_cart_contents['applied_coupons'] as $code=>$discount_list)
 			{
-			
 				// The discount list is an array of arrays, indexed by cart key
 				//  we need to prep this list for a final discount aggregation
 				//  by collapsing this into a singular array of all product discounts
 				//  from which we will calculate the total discount per coupon
-				$collapsed = array();
-				$product_index = array();
+				$collapsed		= array();
+				$product_index	= array();
 				$x = 0; // we will use this to cross-index what discounts belong to what product
 						// so that we can separate taxable from non-taxable amounts
 				foreach($discount_list as $key=>$item)
 				{
-					foreach($item as $discount) {
-						$collapsed[$x] = $discount;
-						$product_index[$x] = $key;
+					foreach($item as $discount)
+					{
+						$collapsed[$x]		= $discount;
+						$product_index[$x]	= $key;
 						$x++;
 					}
 					// because each product can only have one coupon associated
@@ -514,7 +515,9 @@ class go_cart {
 				if($this->_cart_contents['coupon_list'][$code]['max_product_instances'] == 0 || count($collapsed)<=$this->_cart_contents['coupon_list'][$code]['max_product_instances'])
 				{
 					$maximum = count($collapsed); 
-				} else {
+				}
+				else
+				{
 					$maximum = $this->_cart_contents['coupon_list'][$code]['max_product_instances'];
 				}
 				
@@ -530,7 +533,6 @@ class go_cart {
 						$taxable_discount +=  $collapsed[$x];
 					}
 				}
-				
 			}
 		}
 		
@@ -547,11 +549,14 @@ class go_cart {
 				if(is_numeric($disc))
 				{
 					$discount_amount = $disc;
-				} else {
+				}
+				else
+				{
 					eval('$discount_amount=$subtotal'.$disc.';');
 				}
 				
-				if($discount_amount > $temp) {
+				if($discount_amount > $temp)
+				{
 					$temp = $discount_amount;
 					$this->_cart_contents['whole_order_discount_cp'] = $code; // track which code we use
 				}
@@ -562,16 +567,16 @@ class go_cart {
 
 			// iterate products and apply calculated whole order discount % to taxable ones
 			if ($this->_cart_contents['cart_subtotal'] > 0){
-			$whole_order_discount_ratio = $total_whole_order_discount / (float)$this->_cart_contents['cart_subtotal'];
-			foreach ($this->_cart_contents['items'] as $product)
-			{
-				if ($product['taxable'] == 1)
+				$whole_order_discount_ratio = $total_whole_order_discount / (float)$this->_cart_contents['cart_subtotal'];
+				foreach ($this->_cart_contents['items'] as $product)
 				{
-					$taxable_discount += $whole_order_discount_ratio * (float)$product['price'] * (int)$product['quantity'];
+					if ($product['taxable'] == 1)
+					{
+						$taxable_discount += $whole_order_discount_ratio * (float)$product['price'] * (int)$product['quantity'];
+					}
 				}
 			}
 		}
-		
 		
 		$this->_cart_contents['cp_discounted_subtotal'] = $this->_cart_contents['cart_subtotal'] - $total_discount;
 		$this->_cart_contents['coupon_discount'] = $total_discount;
