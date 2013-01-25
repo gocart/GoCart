@@ -14,23 +14,23 @@ img.responsiveImage
 	width: 100%;
 }
 
-.price_slash {
+.price-slash {
 	text-decoration:line-through;
 	font-size:.9em;
 	color:#999;
 }
 
-.price_sale {
+.price-sale {
 	font-weight:bold;
 	color:#ff753f;
 }
 
-.price_reg {
+.price-reg {
 	font-weight:bold;
 	color:#38586f;
 }
 
-.product_price {
+.product-price {
 	color:#ffa800;
 }
 
