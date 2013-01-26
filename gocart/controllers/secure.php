@@ -136,14 +136,14 @@ class Secure extends Front_Controller {
 		$data['state']		= '';
 		$data['zip']		= '';
 
-		$this->form_validation->set_rules('company', 'Company', 'trim|max_length[128]');
-		$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[128]|callback_check_email');
-		$this->form_validation->set_rules('phone', 'Phone', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|sha1');
-		$this->form_validation->set_rules('confirm', 'Confirm Password', 'required|matches[password]');
-		$this->form_validation->set_rules('email_subscribe', 'Subscribe', 'trim|numeric|max_length[1]');
+		$this->form_validation->set_rules('company', 'lang:company', 'trim|max_length[128]');
+		$this->form_validation->set_rules('firstname', 'lang:account_firstname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('lastname', 'lang:account_lastname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('email', 'lang:account_email', 'trim|required|valid_email|max_length[128]|callback_check_email');
+		$this->form_validation->set_rules('phone', 'lang:account_phone', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('password', 'lang:password', 'required|min_length[6]|sha1');
+		$this->form_validation->set_rules('confirm', 'lang:confirm_password', 'required|matches[password]');
+		$this->form_validation->set_rules('email_subscribe', 'lang:account_newsletter_subscribe', 'trim|numeric|max_length[1]');
 		
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -364,12 +364,12 @@ class Secure extends Front_Controller {
 		*/
 
 		$this->load->library('form_validation');	
-		$this->form_validation->set_rules('company', 'Company', 'trim|max_length[128]');
-		$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[128]|callback_check_email');
-		$this->form_validation->set_rules('phone', 'Phone', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('email_subscribe', 'Subscribe', 'trim|numeric|max_length[1]');
+		$this->form_validation->set_rules('company', 'lang:company', 'trim|max_length[128]');
+		$this->form_validation->set_rules('firstname', 'lang:account_firstname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('lastname', 'lang:account_lastname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('email', 'lang:address_email', 'trim|required|valid_email|max_length[128]|callback_check_email');
+		$this->form_validation->set_rules('phone', 'lang:account_phone', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('email_subscribe', 'lang:account_newsletter_subscribe', 'trim|numeric|max_length[1]');
 
 
 		if($this->input->post('password') != '' || $this->input->post('confirm') != '')
