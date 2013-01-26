@@ -336,14 +336,20 @@ Class Product_model extends CI_Model
 		$this->db->select('*, LEAST(IFNULL(NULLIF(saleprice, 0), price), price) as sort_price', false);
 		//this one counts the total number for our pagination
 		$this->db->where('enabled', 1);
-		$this->db->where('(name LIKE "%'.$term.'%" OR description LIKE "%'.$term.'%" OR excerpt LIKE "%'.$term.'%" OR sku LIKE "%'.$term.'%")');
+        $this->db->or_like('name', $term);
+        $this->db->or_like('description', $term);
+        $this->db->or_like('excerpt', $term);
+        $this->db->or_like('sku', $term);
 		$results['count']	= $this->db->count_all_results('products');
 
 
 		$this->db->select('*, LEAST(IFNULL(NULLIF(saleprice, 0), price), price) as sort_price', false);
 		//this one gets just the ones we need.
 		$this->db->where('enabled', 1);
-		$this->db->where('(name LIKE "%'.$term.'%" OR description LIKE "%'.$term.'%" OR excerpt LIKE "%'.$term.'%" OR sku LIKE "%'.$term.'%")');
+        $this->db->or_like('name', $term);
+        $this->db->or_like('description', $term);
+        $this->db->or_like('excerpt', $term);
+        $this->db->or_like('sku', $term);
 		
 		if($by && $sort)
 		{
