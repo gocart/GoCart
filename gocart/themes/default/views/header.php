@@ -13,13 +13,13 @@
 <?php endif;?>
 
 <?php echo theme_css('bootstrap.min.css', true);?>
-<?php echo theme_css('bootstrap-responsive.min.css', true);?>
 <?php echo theme_css('styles.css', true);?>
 
-<?php echo theme_js('jquery.js', true);?>
+<?php echo theme_js('jquery-1.9.1.min.js', true);?>
 <?php echo theme_js('bootstrap.min.js', true);?>
 <?php echo theme_js('squard.js', true);?>
 <?php echo theme_js('equal_heights.js', true);?>
+<?php echo theme_js('common.js', true);?>
 
 <?php
 //with this I can put header data in the header instead of in the body.
@@ -106,7 +106,7 @@ if(isset($additional_header_info))
 					</ul>
 					
 					<?php echo form_open('cart/search', 'class="navbar-search pull-right"');?>
-						<input type="text" name="term" class="search-query span2" placeholder="<?php echo lang('search');?>"/>
+						<input type="text" name="term" class="search-query span2" placeholder="<?php echo lang('search');?>" data-provide="typeahead" autocomplete="off">
 					</form>
 				</div>
 			</div>
