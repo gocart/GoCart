@@ -3,6 +3,9 @@
 class Install extends CI_Controller {
 
 	/**
+	 test
+	
+	
 	 * Index Page for this controller.
 	 *
 	 * Maps to the following URL
