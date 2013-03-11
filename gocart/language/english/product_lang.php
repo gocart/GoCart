@@ -67,7 +67,7 @@ $lang['required']					= 'Required';
 $lang['add_item']					= 'Add Option Item';
 
 //related products
-$lang['select_a_product']			= 'Search for a related product.';
+$lang['select_a_product']			= 'Search for a Related Product';
 $lang['add_related_product']		= 'Add Related Product';
 $lang['product_name']				= 'Product Name';
 
