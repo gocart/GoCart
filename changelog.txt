@@ -4,6 +4,7 @@ Version 2.2.2
 	Bug Fix
 	
 		- Remove ? from url on category sort when returning to default
+		- Added language support to secure.php (thx daneoshiga)
 
 Version 2.2.1
 -------------
