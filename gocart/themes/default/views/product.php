@@ -55,6 +55,9 @@
 				<div class="page-header">
 					<h2 style="font-weight:normal">
 						<?php echo $product->name;?>
+						<?php if($this->admin_session->userdata('admin')): ?>
+						<a class="btn" title="Edit Category" href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$product->id); ?>"><i class="icon-pencil"></i></a>
+						<?php endif; ?>
 						<span class="pull-right">
 							<?php if($product->saleprice > 0):?>
 								<small><?php echo lang('on_sale');?></small>
@@ -262,7 +265,11 @@
 						<a class="thumbnail" href="<?php echo site_url($relate->slug); ?>">
 							<?php echo $photo; ?>
 						</a>
-						<h5 style="margin-top:5px;"><a href="<?php echo site_url($relate->slug); ?>"><?php echo $relate->name;?></a></h5>
+						<h5 style="margin-top:5px;"><a href="<?php echo site_url($relate->slug); ?>"><?php echo $relate->name;?></a>
+						<?php if($this->admin_session->userdata('admin')): ?>
+						<a class="btn" title="Edit Category" href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$relate->id); ?>"><i class="icon-pencil"></i></a>
+						<?php endif; ?>
+						</h5>
 
 						<div>
 							<?php if($relate->saleprice > 0):?>
