@@ -6,6 +6,7 @@ Version 2.2.2
 		- Remove ? from url on category sort when returning to default
 		- Added language support to secure.php (thx daneoshiga)
 		- Fixed product form verbaige (thx olimortimer)
+		- Added require_shipping flag to gocart.php installation config file
 
 Version 2.2.1
 -------------
