@@ -1,3 +1,10 @@
+Version 2.2.2
+	Release date: TBD
+	
+	Bug Fix
+	
+		- Remove ? from url on category sort when returning to default
+
 Version 2.2.1
 -------------
 	Release date: January 25, 2013
