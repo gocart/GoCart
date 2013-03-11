@@ -68,3 +68,6 @@ $config['tax_address']		= 'ship';
 
 //do we tax the cost of shipping?
 $config['tax_shipping']		= false;
+
+//require shipping
+$confing['require_shipping'] = true;
