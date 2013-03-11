@@ -1,8 +1,13 @@
 <?php include('header.php'); ?>
 	
 	<div class="page-header">
-		<h1><?php echo $page_title; ?></h1>
+		<h1><?php echo $page_title; ?> 
+		<?php if($this->admin_session->userdata('admin')): ?>
+		<a class="btn" title="Edit Category" href="<?php echo  site_url($this->config->item('admin_folder').'/categories/form/'.$category->id); ?>"><i class="icon-pencil"></i></a>
+		<?php endif; ?></h1>
+		
 	</div>
+	
 	
 	<?php if(!empty($category->description)): ?>
 	<div class="row">
@@ -76,7 +81,10 @@
 						<a class="thumbnail" href="<?php echo site_url(implode('/', $base_url).'/'.$product->slug); ?>">
 							<?php echo $photo; ?>
 						</a>
-						<h5 style="margin-top:5px;"><a href="<?php echo site_url(implode('/', $base_url).'/'.$product->slug); ?>"><?php echo $product->name;?></a></h5>
+						<h5 style="margin-top:5px;"><a href="<?php echo site_url(implode('/', $base_url).'/'.$product->slug); ?>"><?php echo $product->name;?></a>
+						<?php if($this->admin_session->userdata('admin')): ?>
+						<a class="btn" title="Edit Category" href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$product->id); ?>"><i class="icon-pencil"></i></a>
+						<?php endif; ?></h5>
 						<?php if($product->excerpt != ''): ?>
 						<div class="excerpt"><?php echo $product->excerpt; ?></div>
 						<?php endif; ?>
