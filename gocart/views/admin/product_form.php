@@ -210,7 +210,7 @@ function remove_option(id)
 			<div class="tab-pane" id="product_categories">
 				<div class="row">
 					<div class="span8">
-						<label><strong><?php echo lang('select_a_product');?></strong></label>
+						<label><strong><?php echo lang('select_a_category');?></strong></label>
 					</div>
 				</div>
 				<div class="row">
