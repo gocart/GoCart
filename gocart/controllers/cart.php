@@ -150,6 +150,34 @@ class Cart extends Front_Controller {
 			$this->load->view('category', $data);
 		}
 	}
+
+	function ajax_search() {
+
+		if(!$this->input->get('query')) return false;
+
+		$this->load->model('Search_model');
+
+		// Add the search term to the results, so it appears as the first / default option
+		$code = $this->Search_model->record_term($this->input->get('query'));
+		$rows[] = array(
+			'name' => $this->input->get('query'),
+			'slug' => 'cart/search/'.$code.'/0'
+		);
+
+		// Search for products
+		$result = $this->Product_model->search_products($this->input->get('query'), $this->input->get('limit'), 0);
+
+		// Build the array of results
+		foreach($result['products'] as $product) {
+			$rows[] = array(
+				'name' => $product->name,
+				'slug' => $product->slug
+			);
+		}
+
+		echo json_encode($rows);
+
+	}
 	
 	function category($id)
 	{
