@@ -42,6 +42,9 @@ $config['new_customer_status']	= true;
 //do we require customers to log in 
 $config['require_login']		= false;
 
+//require shipping
+$confing['require_shipping'] = true;
+
 //default order status
 $config['order_status']			= 'Pending';
 
