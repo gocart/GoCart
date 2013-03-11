@@ -200,6 +200,7 @@ $lang['giftcard_excerpt']			= 'Gift Card for a friend<br/>To: %s';
 
 $lang['email']						= 'Email';
 $lang['password']					= 'Password';
+$lang['confirm_password']			= 'Confirm Password';
 $lang['return_to_login']			= 'Return to Login';
 $lang['forgot_password']			= 'Forgot Password';
 $lang['keep_me_logged_in']			= 'Keep me logged in!';
