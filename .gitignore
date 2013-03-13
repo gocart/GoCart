@@ -2,6 +2,7 @@
 uploads/*
 database.php
 config.php
+gocart/config/config.php
 gocart.php
 *.bak
 
