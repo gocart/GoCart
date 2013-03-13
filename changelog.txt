@@ -8,6 +8,10 @@ Version 2.2.2
 		- Fixed product form verbaige (thx olimortimer)
 		- Added require_shipping flag to gocart.php installation config file
 
+	Other
+	
+		- Improved tiered category code to reduce queries
+
 Version 2.2.1
 -------------
 	Release date: January 25, 2013
