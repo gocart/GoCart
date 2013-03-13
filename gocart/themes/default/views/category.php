@@ -16,7 +16,7 @@
 	<?php endif; ?>
 	
 	
-	<?php if((!isset($subcategories) || count($subcategories)==0) && (count($products) == 0)):?>
+	<?php if((!isset($this->categories[$category->id]) || count($this->categories[$category->id])==0) && (count($products) == 0)):?>
 		<div class="alert alert-info">
 			<a class="close" data-dismiss="alert">×</a>
 			<?php echo lang('no_products');?>
@@ -25,14 +25,14 @@
 	
 
 	<div class="row">
-		<?php if(isset($subcategories) && count($subcategories) > 0): ?>
+		<?php if(isset($this->categories[$category->id] ) && count($this->categories[$category->id]) > 0): ?>
 		<div class="span3">
 			<ul class="nav nav-list well">
 				<li class="nav-header">
 				Subcategories
 				</li>
 				
-				<?php foreach($subcategories as $subcategory):?>
+				<?php foreach($this->categories[$category->id] as $subcategory):?>
 					<li><a href="<?php echo site_url(implode('/', $base_url).'/'.$subcategory->slug); ?>"><?php echo $subcategory->name;?></a></li>
 				<?php endforeach;?>
 			</ul>

@@ -49,8 +49,8 @@ if(isset($additional_header_info))
 					<ul class="nav">
 						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('catalog');?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<?php foreach($this->categories as $cat_menu):?>
-								<li><a href="<?php echo site_url($cat_menu['category']->slug);?>"><?php echo $cat_menu['category']->name;?></a></li>
+								<?php foreach($this->categories[0] as $cat_menu):?>
+								<li><a href="<?php echo site_url($cat_menu->slug);?>"><?php echo $cat_menu->name;?></a></li>
 								<?php endforeach;?>
 							</ul>
 							
