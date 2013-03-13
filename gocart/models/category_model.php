@@ -24,18 +24,20 @@ Class Category_model extends CI_Model
 		return $categories;
 	}
 	
-	//this is for building a menu
-	function get_categories_tierd($parent=0)
+	function get_categories_tierd()
 	{
-		$categories	= array();
-		$result	= $this->get_categories($parent);
-		foreach ($result as $category)
-		{
-			$categories[$category->id]['category']	= $category;
-			$categories[$category->id]['children']	= $this->get_categories_tierd($category->id);
+		$this->db->order_by('sequence');
+		$this->db->order_by('name', 'ASC');
+		$categories = $this->db->get('categories')->result();
+		
+		$results	= array();
+		foreach($categories as $category) {
+			$results[$category->parent_id][$category->id] = $category;
 		}
-		return $categories;
+		
+		return $results;
 	}
+	
 	
 	function category_autocomplete($name, $limit)
 	{

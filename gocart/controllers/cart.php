@@ -179,7 +179,6 @@ class Cart extends Front_Controller {
 		$data['base_url']	= $base_url;
 		$base_url			= implode('/', $base_url);
 		
-		$data['subcategories']		= $this->Category_model->get_categories($data['category']->id);
 		$data['product_columns']	= $this->config->item('product_columns');
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		
