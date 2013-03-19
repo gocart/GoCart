@@ -7,6 +7,7 @@ Version 2.2.2
 		- Added language support to secure.php (thx daneoshiga)
 		- Fixed product form verbaige (thx olimortimer)
 		- Added require_shipping flag to gocart.php installation config file
+		- Fixed image upload error checking in admin/categories.php controller
 
 	Other
 	
