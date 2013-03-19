@@ -191,21 +191,18 @@ class Categories extends Admin_Controller {
 				}
 				
 			}
-			else
+			
+			if(!$uploaded)
 			{
-				if(!$uploaded)
+				$error	= $this->upload->display_errors();
+				if($error != lang('error_file_upload'))
 				{
-					$error	= $this->upload->display_errors();
-					if($error != lang('error_file_upload'))
-					{
-						$data['error']	.= $this->upload->display_errors();
-						$this->load->view($this->config->item('admin_folder').'/category_form', $data);
-						return; //end script here if there is an error
-					}
+					$data['error']	.= $this->upload->display_errors();
+					$this->load->view($this->config->item('admin_folder').'/category_form', $data);
+					return; //end script here if there is an error
 				}
 			}
-			
-			if($uploaded)
+			else
 			{
 				$image			= $this->upload->data();
 				$save['image']	= $image['file_name'];
