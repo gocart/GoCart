@@ -12,6 +12,7 @@ Version 2.2.2
 	Other
 	
 		- Improved tiered category code to reduce queries
+		- Added open in new window to image based anchors (in redactor.js)
 
 Version 2.2.1
 -------------
