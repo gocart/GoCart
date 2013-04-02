@@ -75,7 +75,7 @@ class Coupon_model extends CI_Model
 		
 		if($coupon['start_date'] != "0000-00-00")
 		{
-			$s_date = split("-", $coupon['start_date']);
+			$s_date = explode("-", $coupon['start_date']);
 			$start = mktime(0,0,0, $s_date[1], $s_date[2], $s_date[0]);
 		
 			$current = time();
@@ -85,7 +85,7 @@ class Coupon_model extends CI_Model
 		
 		if($coupon['end_date'] != "0000-00-00")
 		{
-			$e_date = split("-", $coupon['end_date']);
+			$e_date = explode("-", $coupon['end_date']);
 			$end = mktime(0,0,0, $e_date[1], (int) $e_date[2] +1 , $e_date[0]); // add a day to account for the end date as the last viable day
 		
 			$current = time();
