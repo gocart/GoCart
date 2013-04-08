@@ -21,16 +21,10 @@ function format_address($fields, $br=false)
 		$formatted	= $c_data->address_format;
 	}
 
-	$formatted		= str_replace('{firstname}', $fields['firstname'], $formatted);
-	$formatted		= str_replace('{lastname}',  $fields['lastname'], $formatted);
-	$formatted		= str_replace('{company}',  $fields['company'], $formatted);
-	
-	$formatted		= str_replace('{address_1}', $fields['address1'], $formatted);
-	$formatted		= str_replace('{address_2}', $fields['address2'], $formatted);
-	$formatted		= str_replace('{city}', $fields['city'], $formatted);
-	$formatted		= str_replace('{zone}', $fields['zone'], $formatted);
-	$formatted		= str_replace('{postcode}', $fields['zip'], $formatted);
-	$formatted		= str_replace('{country}', $fields['country'], $formatted);
+	$keys = preg_split("/[\s,{}]+/", $formatted);
+	foreach ($keys as $id=>$key) {
+		$formatted = array_key_exists($key, $fields) ? str_replace('{'.$key.'}', $fields[$key], $formatted) : str_replace('{'.$key.'}', '', $formatted);
+	}
 	
 	// remove any extra new lines resulting from blank company or address line
 	$formatted		= preg_replace('`[\r\n]+`',"\n",$formatted);
