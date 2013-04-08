@@ -211,61 +211,35 @@ function remove_option(id)
 				<div class="row">
 					<div class="span8">
 						<label><strong><?php echo lang('select_a_category');?></strong></label>
-					</div>
-				</div>
-				<div class="row">
-					<div class="span2" style="text-align:center">
-						<div class="row">
-							<div class="span2">
-								<input class="span2" type="text" id="category_search" />
-								<script type="text/javascript">
-								$('#category_search').keyup(function(){
-									$('#category_list').html('');
-									run_category_query();
-								});
-
-								function run_category_query()
-								{
-									$.post("<?php echo site_url($this->config->item('admin_folder').'/categories/category_autocomplete/');?>", { name: $('#category_search').val(), limit:10},
-										function(data) {
-
-											$('#category_list').html('');
-
-											$.each(data, function(index, value){
-
-												if($('#category_'+index).length == 0)
-												{
-													$('#category_list').append('<option id="category_item_'+index+'" value="'+index+'">'+value+'</option>');
-												}
-											});
-
-									}, 'json');
-								}
-								</script>
-							</div>
-						</div>
-						<div class="row">
-							<div class="span2">
-								<select class="span2" id="category_list" size="5" style="margin:0px;"></select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="span2" style="margin-top:8px;">
-								<a href="#" onclick="add_category(); return false;" class="btn" title="Add Category"><?php echo lang('add_category');?></a>
-							</div>
-						</div>
-					</div>
-					<div class="span6">
-						<table class="table table-striped" style="margin-top:10px;">
-							<tbody id="categories_container">
-							<?php							
-							foreach($product_categories as $cat)
+						<table class="table table-striped">
+						    <thead>
+								<tr>
+									<th colspan="2"><?php echo lang('name')?></th>
+								</tr>
+							</thead>
+						<?php
+						function list_categories($parent_id, $cats, $sub='', $product_categories) {
+			
+							foreach ($cats[$parent_id] as $cat):?>
+							<tr>
+								<td><?php echo  $sub.$cat->name; ?></td>
+								<td>
+									<input type="checkbox" name="categories[]" value="<?php echo $cat->id;?>" <?php echo(in_array($cat->id, $product_categories))?'checked="checked"':'';?>/>
+								</td>
+							</tr>
+							<?php
+							if (isset($cats[$cat->id]) && sizeof($cats[$cat->id]) > 0)
 							{
-								echo category($cat->id, $cat->name);
+								$sub2 = str_replace('&rarr;&nbsp;', '&nbsp;', $sub);
+									$sub2 .=  '&nbsp;&nbsp;&nbsp;&rarr;&nbsp;';
+								list_categories($cat->id, $cats, $sub2, $product_categories);
 							}
-							?>
-							</tbody>
-						</table>
+							endforeach;
+						}
+		
+						list_categories(0, $categories, '', $product_categories);
+						?>
+					</table>
 					</div>
 				</div>
 			</div>
@@ -722,33 +696,11 @@ function add_related_product()
 	}
 }
 
-function add_category()
-{
-	//if the related product is not already a related product, add it
-	if($('#categories_'+$('#category_list').val()).length == 0 && $('#category_list').val() != null)
-	{
-		<?php $new_item	 = str_replace(array("\n", "\t", "\r"),'',category("'+$('#category_list').val()+'", "'+$('#category_item_'+$('#category_list').val()).html()+'"));?>
-		var category = '<?php echo $new_item;?>';
-		$('#categories_container').append(category);
-		run_category_query();
-	}
-}
-
-
 function remove_related_product(id)
 {
 	if(confirm('<?php echo lang('confirm_remove_related');?>'))
 	{
 		$('#related_product_'+id).remove();
-		run_product_query();
-	}
-}
-
-function remove_category(id)
-{
-	if(confirm('<?php echo lang('confirm_remove_category');?>'))
-	{
-		$('#category_'+id).remove();
 		run_product_query();
 	}
 }
@@ -773,19 +725,6 @@ function related_items($id, $name) {
 					'.$name.'</td>
 				<td>
 					<a class="btn btn-danger pull-right btn-mini" href="#" onclick="remove_related_product('.$id.'); return false;"><i class="icon-trash icon-white"></i> '.lang('remove').'</a>
-				</td>
-			</tr>
-		';
-}
-
-function category($id, $name) {
-	return '
-			<tr id="category_'.$id.'">
-				<td>
-					<input type="hidden" name="categories[]" value="'.$id.'"/>
-					'.$name.'</td>
-				<td>
-					<a class="btn btn-danger pull-right btn-mini" href="#" onclick="remove_category('.$id.'); return false;"><i class="icon-trash icon-white"></i> '.lang('remove').'</a>
 				</td>
 			</tr>
 		';

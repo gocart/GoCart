@@ -139,8 +139,7 @@ class Products extends Admin_Controller {
 		$this->lang->load('digital_product');
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
-		//$data['categories']		= $this->Category_model->get_categories_tierd();
-		//$data['product_list']	= $this->Product_model->get_products();
+		$data['categories']		= $this->Category_model->get_categories_tierd();
 		$data['file_list']		= $this->Digital_Product_model->get_list();
 
 		$data['page_title']		= lang('product_form');
@@ -216,9 +215,19 @@ class Products extends Admin_Controller {
 			//make sure we haven't submitted the form yet before we pull in the images/related products from the database
 			if(!$this->input->post('submit'))
 			{
-				$data['product_categories']	= $product->categories;
+				
+				$data['product_categories']	= array();
+				foreach($product->categories as $product_category)
+				{
+					$data['product_categories'][] = $product_category->id;
+				}
+				
 				$data['related_products']	= $product->related_products;
 				$data['images']				= (array)json_decode($product->images);
+			}
+			else
+			{
+				
 			}
 		}
 		
