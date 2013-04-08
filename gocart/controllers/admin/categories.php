@@ -195,7 +195,7 @@ class Categories extends Admin_Controller {
 			if(!$uploaded)
 			{
 				$error	= $this->upload->display_errors();
-				if($error != lang('error_file_upload'))
+				if($_FILES['image']['error'] != 4)
 				{
 					$data['error']	.= $this->upload->display_errors();
 					$this->load->view($this->config->item('admin_folder').'/category_form', $data);
