@@ -65,17 +65,18 @@ class Checkout extends Front_Controller {
 
 		/*require a billing address*/
 		$this->form_validation->set_rules('address_id', 'Billing Address ID', 'numeric');
-		$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[128]');
-		$this->form_validation->set_rules('phone', 'Phone', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('company', 'Company', 'trim|max_length[128]');
-		$this->form_validation->set_rules('address1', 'Address 1', 'trim|required|max_length[128]');
-		$this->form_validation->set_rules('address2', 'Address 2', 'trim|max_length[128]');
-		$this->form_validation->set_rules('city', 'City', 'trim|required|max_length[128]');
-		$this->form_validation->set_rules('country_id', 'Country', 'trim|required|numeric');
-		$this->form_validation->set_rules('zone_id', 'State', 'trim|required|numeric');
+		$this->form_validation->set_rules('firstname', 'lang:address_firstname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('lastname', 'lang:address_lastname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('email', 'lang:address_email', 'trim|required|valid_email|max_length[128]');
+		$this->form_validation->set_rules('phone', 'lang:address_phone', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('company', 'lang:address_company', 'trim|max_length[128]');
+		$this->form_validation->set_rules('address1', 'lang:address1', 'trim|required|max_length[128]');
+		$this->form_validation->set_rules('address2', 'lang:address2', 'trim|max_length[128]');
+		$this->form_validation->set_rules('city', 'lang:address_city', 'trim|required|max_length[128]');
+		$this->form_validation->set_rules('country_id', 'lang:address_country', 'trim|required|numeric');
+		$this->form_validation->set_rules('zone_id', 'lang:address_state', 'trim|required|numeric');
 		
+			
 		/*if there is post data, get the country info and see if the zip code is required*/
 		if($this->input->post('country_id'))
 		{
