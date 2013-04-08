@@ -1,6 +1,10 @@
 Version 2.2.2
 	Release date: TBD
 	
+	Features
+		
+		- Added (for admins) edit buttons in the default theme that link to the appropriate edit pages in the admin panel.
+	
 	Bug Fix
 	
 		- Remove ? from url on category sort when returning to default
@@ -8,11 +12,16 @@ Version 2.2.2
 		- Fixed product form verbaige (thx olimortimer)
 		- Added require_shipping flag to gocart.php installation config file
 		- Fixed image upload error checking in admin/categories.php controller
+		- Updated PayPal Express config form to show live/sandbox config option.
+		- Fixed admin reports date ajax to send the correctly formatted date. (thanks onefriendaday)
 
 	Other
 	
 		- Improved tiered category code to reduce queries
+		- Changed Category controller to check for $_FILES upload error number rather than text match.
 		- Added open in new window to image based anchors (in redactor.js)
+		- Removed legacy tablerate shipping method
+		- Replaced ajax category search in the admin product form with a category tree.
 
 Version 2.2.1
 -------------
