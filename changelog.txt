@@ -14,6 +14,7 @@ Version 2.2.2
 		- Fixed image upload error checking in admin/categories.php controller
 		- Updated PayPal Express config form to show live/sandbox config option.
 		- Fixed admin reports date ajax to send the correctly formatted date. (thanks onefriendaday)
+		- Added translatable field names to checkout step 1.
 
 	Other
 	
