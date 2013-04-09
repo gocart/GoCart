@@ -7,7 +7,7 @@ function format_address($fields, $br=false)
 	}
 	
 	// Default format
-	$default = "{firstname} {lastname}\n{company}\n{address_1}\n{address_2}\n{city}, {zone} {postcode}\n{country}";
+	$default = "{firstname} {lastname}\n{company}\n{address_1}\n{address_2}\n{city}, {zone} {zip}\n{country}";
 	
 	// Fetch country record to determine which format to use
 	$CI = &get_instance();
@@ -29,7 +29,7 @@ function format_address($fields, $br=false)
 	$formatted		= str_replace('{address_2}', $fields['address2'], $formatted);
 	$formatted		= str_replace('{city}', $fields['city'], $formatted);
 	$formatted		= str_replace('{zone}', $fields['zone'], $formatted);
-	$formatted		= str_replace('{postcode}', $fields['zip'], $formatted);
+	$formatted		= str_replace('{zip}', $fields['zip'], $formatted);
 	$formatted		= str_replace('{country}', $fields['country'], $formatted);
 	
 	// remove any extra new lines resulting from blank company or address line

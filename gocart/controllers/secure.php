@@ -574,7 +574,7 @@ class Secure extends Front_Controller {
 		$this->form_validation->set_rules('city', 'lang:address:city', 'trim|required|max_length[32]');
 		$this->form_validation->set_rules('country_id', 'lang:address:country', 'trim|required|numeric');
 		$this->form_validation->set_rules('zone_id', 'lang:address:state', 'trim|required|numeric');
-		$this->form_validation->set_rules('zip', 'lang:address:postcode', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('zip', 'lang:address:zip', 'trim|required|max_length[32]');
 		
 		
 		if ($this->form_validation->run() == FALSE)

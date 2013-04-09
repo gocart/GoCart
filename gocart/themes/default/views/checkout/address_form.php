@@ -112,7 +112,7 @@ $last		= array('placeholder'=>lang('address_lastname'), 'class'=>'address span4'
 $email		= array('placeholder'=>lang('address_email'), 'class'=>'address span4', 'name'=>'email', 'value'=> set_value('email', @$customer[$address_form_prefix.'_address']['email']));
 $phone		= array('placeholder'=>lang('address_phone'), 'class'=>'address span4', 'name'=>'phone', 'value'=> set_value('phone', @$customer[$address_form_prefix.'_address']['phone']));
 $city		= array('placeholder'=>lang('address_city'), 'class'=>'address span3', 'name'=>'city', 'value'=> set_value('city', @$customer[$address_form_prefix.'_address']['city']));
-$zip		= array('placeholder'=>lang('address_postcode'), 'maxlength'=>'10', 'class'=>'address span2', 'name'=>'zip', 'value'=> set_value('zip', @$customer[$address_form_prefix.'_address']['zip']));
+$zip		= array('placeholder'=>lang('address_zip'), 'maxlength'=>'10', 'class'=>'address span2', 'name'=>'zip', 'value'=> set_value('zip', @$customer[$address_form_prefix.'_address']['zip']));
 
 
 ?>
@@ -195,7 +195,7 @@ $zip		= array('placeholder'=>lang('address_postcode'), 'maxlength'=>'10', 'class
 						<?php echo form_dropdown('zone_id',$zone_menu, @$customer[$address_form_prefix.'_address']['zone_id'], 'id="zone_id" class="address span3"');?>
 					</div>
 					<div class="span2">
-						<label class="placeholder"><?php echo lang('address_postcode');?><b class="r"> *</b></label>
+						<label class="placeholder"><?php echo lang('address_zip');?><b class="r"> *</b></label>
 						<?php echo form_input($zip);?>
 					</div>
 				</div>
