@@ -113,11 +113,11 @@ class table_rate
 		$this->CI->Settings_model->delete_settings('table_rate');
 	}
 	
-	function form($_POST	= false)
+	function form()
 	{ 
 		$this->CI->load->helper('form');
 		//this same function processes the form
-		if(!$_POST)
+		if(empty($_POST))
 		{
 			$settings				= $this->CI->Settings_model->get_settings('table_rate');
 			$settings['rates']		= unserialize($settings['rates']);
@@ -184,7 +184,7 @@ class table_rate
 	}
 	
 	
-	function organize_post_rates($_POST)
+	function organize_post_rates()
 	{
 		$rates	= array();
 		
