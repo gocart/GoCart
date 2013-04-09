@@ -11,7 +11,7 @@
 			<tbody>
 			<?php foreach($shipping_modules as $module=>$enabled): ?>
 				<tr>
-					<td><?php echo $module; ?></td>
+					<td><?php echo humanize($module); ?></td>
 					<td>
 						<span class="btn-group pull-right">
 					<?php if($enabled): ?>
@@ -40,7 +40,7 @@
 			<tbody>
 			<?php foreach($payment_modules as $module=>$enabled): ?>
 				<tr>
-					<td><?php echo $module; ?></td>
+					<td><?php echo humanize($module); ?></td>
 					<td>
 						<span class="btn-group pull-right">
 					<?php if($enabled): ?>
