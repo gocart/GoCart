@@ -42,7 +42,7 @@ class Locations extends Admin_Controller {
 		$data['iso_code_2']			= '';
 		$data['iso_code_3']			= '';
 		$data['status']				= false;
-		$data['postcode_required']	= false;
+		$data['zip_required']	= false;
 		$data['address_format']		= '';
 		$data['tax']				= 0;
 
@@ -63,7 +63,7 @@ class Locations extends Admin_Controller {
 		$this->form_validation->set_rules('iso_code_2', 'lang:iso_code_2', 'trim|required');
 		$this->form_validation->set_rules('iso_code_3', 'lang:iso_code_3', 'trim|required');
 		$this->form_validation->set_rules('address_format', 'lang:address_format', 'trim');
-		$this->form_validation->set_rules('postcode_required', 'lang:require_postcode', 'trim');
+		$this->form_validation->set_rules('zip_required', 'lang:require_zip', 'trim');
 		$this->form_validation->set_rules('tax', 'lang:tax', 'trim|numeric');
 		$this->form_validation->set_rules('status', 'lang:status', 'trim');		
 	
@@ -78,7 +78,7 @@ class Locations extends Admin_Controller {
 			$save['iso_code_2']			= $this->input->post('iso_code_2');
 			$save['iso_code_3']			= $this->input->post('iso_code_3');
 			$save['address_format']		= $this->input->post('address_format');
-			$save['postcode_required']	= $this->input->post('postcode_required');
+			$save['zip_required']	= $this->input->post('zip_required');
 			$save['status'] 			= $this->input->post('status');
 			$save['tax'] 				= $this->input->post('tax');
 

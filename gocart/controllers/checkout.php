@@ -81,7 +81,7 @@ class Checkout extends Front_Controller {
 		if($this->input->post('country_id'))
 		{
 			$country = $this->Location_model->get_country($this->input->post('country_id'));
-			if((bool)$country->postcode_required)
+			if((bool)$country->zip_required)
 			{
 				$this->form_validation->set_rules('zip', 'Zip', 'trim|required|max_length[10]');
 			}
@@ -176,14 +176,14 @@ class Checkout extends Front_Controller {
 		if($this->input->post('country_id'))
 		{
 			$country = $this->Location_model->get_country($this->input->post('country_id'));
-			if((bool)$country->postcode_required)
+			if((bool)$country->zip_required)
 			{
-				$this->form_validation->set_rules('zip', 'lang:address_postcode', 'trim|required|max_length[10]');
+				$this->form_validation->set_rules('zip', 'lang:address_zip', 'trim|required|max_length[10]');
 			}
 		}
 		else
 		{
-			$this->form_validation->set_rules('zip', 'lang:address_postcode', 'trim|max_length[10]');
+			$this->form_validation->set_rules('zip', 'lang:address_zip', 'trim|max_length[10]');
 		}
 
 		if ($this->form_validation->run() == false)

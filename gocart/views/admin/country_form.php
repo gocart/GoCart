@@ -27,8 +27,8 @@
 		echo form_textarea($data);
 		?>
 
-		<?php $postcode_required = array('name'=>'postcode_required', 'value'=>1, 'checked'=>set_checkbox('postcode_required', 1, (bool)$postcode_required));?>
-		<label class="checkbox"><?php echo form_checkbox($postcode_required); ?> <?php echo lang('require_postcode');?></label>
+		<?php $zip_required = array('name'=>'zip_required', 'value'=>1, 'checked'=>set_checkbox('zip_required', 1, (bool)$zip_required));?>
+		<label class="checkbox"><?php echo form_checkbox($zip_required); ?> <?php echo lang('require_zip');?></label>
 		
 		<label for="tax"><?php echo lang('tax');?></label>
 		<div class="input-append">

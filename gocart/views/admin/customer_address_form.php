@@ -70,7 +70,7 @@ $f_zip		= array('maxlength'=>'10', 'class'=>'span1', 'name'=>'zip', 'value'=> se
 			<?php echo form_dropdown('zone_id', $zones_menu, set_value('zone_id', $zone_id), 'id="f_zone_id" class="span3"');?>
 		</div>
 		<div class="span1">
-			<label><?php echo lang('postcode');?></label>
+			<label><?php echo lang('zip');?></label>
 			<?php echo form_input($f_zip);?>
 		</div>
 	</div>
