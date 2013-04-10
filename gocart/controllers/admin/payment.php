@@ -12,6 +12,7 @@ class Payment extends Admin_Controller {
 		$this->load->model('Settings_model');
 
 		$this->lang->load('settings');
+		$this->load->helper('inflector');
 	}
 	
 	function index()
@@ -82,7 +83,7 @@ class Payment extends Admin_Controller {
 			$data['form']		= $this->$module->form();
 		}
 		$data['module']		= $module;
-		$data['page_title']	= sprintf(lang('payment_settings'), $module);
+		$data['page_title']	= sprintf(lang('payment_settings'), humanize($module));
 		$this->load->view($this->config->item('admin_folder').'/payment_module_settings', $data);
 	}
 }
