@@ -385,7 +385,11 @@ class Cart extends Front_Controller {
 		$item_keys		= $this->input->post('cartkey');
 		$coupon_code	= $this->input->post('coupon_code');
 		$gc_code		= $this->input->post('gc_code');
-			
+		
+		if($coupon_code)
+		{
+			$coupon_code = strtolower($coupon_code);
+		}
 			
 		//get the items in the cart and test their quantities
 		$items			= $this->go_cart->contents();
