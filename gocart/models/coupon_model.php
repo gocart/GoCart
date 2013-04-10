@@ -24,11 +24,7 @@ coupons_products
 
 class Coupon_model extends CI_Model 
 {
-	function __construct()
-	{
-		parent::__construct();
-	}
-	
+
 	function save($coupon)
 	{
 		if(!$coupon['id']) 
@@ -52,8 +48,7 @@ class Coupon_model extends CI_Model
 	// update coupon
 	function update_coupon($id, $data)
 	{
-		$this->db->where('id', $id);
-		$this->db->update('coupons', $data);
+		$this->db->where('id', $id)->update('coupons', $data);
 	}
 	
 	// delete coupon
@@ -80,7 +75,10 @@ class Coupon_model extends CI_Model
 		
 			$current = time();
 		
-			if($current < $start) return false;
+			if($current < $start)
+			{
+				return false;
+			}
 		}
 		
 		if($coupon['end_date'] != "0000-00-00")
@@ -90,7 +88,10 @@ class Coupon_model extends CI_Model
 		
 			$current = time();
 		
-			if($current > $end) return false;
+			if($current > $end)
+			{
+				return false;
+			}
 		}
 		
 		return true;
@@ -99,38 +100,39 @@ class Coupon_model extends CI_Model
 	// increment coupon uses
 	function touch_coupon($code)
 	{
-		$this->db->where('code', $code);
-		$this->db->set('num_uses','num_uses+1', false);
-		$this->db->update('coupons');
+		$this->db->where('code', $code)->set('num_uses','num_uses+1', false)->update('coupons');
 	}
 	
 	// get coupons list, sorted by start_date (default), end_date
 	function get_coupons($sort=NULL) 
 	{
-		if($sort=='end_date') {
+		if($sort=='end_date')
+		{
 			$this->db->order_by('end_date');
-		} else {
+		}
+		else
+		{
 			$this->db->order_by('start_date');
 		}
-		$res = $this->db->get('coupons');
-		return $res->result();
+		return $this->db->get('coupons')->result();
 	}
 	
 	// get coupon details, by id
 	function get_coupon($id)
 	{
-		$this->db->where('id', $id);
-		$res = $this->db->get('coupons');
-		return $res->row();
+		return $this->db->where('id', $id)->get('coupons')->row();
 	}
 	
 	// get coupon details, by code
 	function get_coupon_by_code($code)
 	{
 		$this->db->where('code', $code);
-		$res = $this->db->get('coupons');
-		$return = $res->row_array();
-		if(!$return) return false;
+		$return = $this->db->get('coupons')->row_array();
+		
+		if(!$return)
+		{
+			return false;
+		}
 		$return['product_list'] = $this->get_product_ids($return['id']);
 		return $return;
 	}
@@ -140,21 +142,19 @@ class Coupon_model extends CI_Model
 	{
 		$this->db->select_max('sequence');
 		$this->db->where('coupon_id',$coupon_id);
-		$res = $this->db->get('coupons_products');
-		$res = $res->row();
+		$res = $this->db->get('coupons_products')->row();
 		return $res->sequence + 1;
 	}
 	
 	function check_code($str, $id=false)
 	{
 		$this->db->select('code');
-		$this->db->from('coupons');
 		$this->db->where('code', $str);
 		if ($id)
 		{
 			$this->db->where('id !=', $id);
 		}
-		$count = $this->db->count_all_results();
+		$count = $this->db->count_all_results('coupons');
 		
 		if ($count > 0)
 		{
@@ -171,7 +171,10 @@ class Coupon_model extends CI_Model
 	{
 		// get the next seq
 		if(is_null($seq))
+		{
 			$seq = $this->get_next_sequence($coupon_id);
+		}
+			
 			
 		$this->db->insert('coupons_products', array('coupon_id'=>$coupon_id, 'product_id'=>$prod_id, 'sequence'=>$seq));	
 	}
@@ -182,7 +185,9 @@ class Coupon_model extends CI_Model
 		$where = array('coupon_id'=>$coupon_id);
 		
 		if(!is_null($prod_id))
+		{
 			$where['product_id'] = $prod_id;
+		}
 			
 		$this->db->where($where);
 		$this->db->delete('coupons_products');
@@ -191,11 +196,9 @@ class Coupon_model extends CI_Model
 	// get list of products in coupon with full info
 	function get_products($coupon_id) 
 	{
-		$this->db->from('coupons_products');
 		$this->db->join("products", "product_id=products.id");
 		$this->db->where('coupon_id', $coupon_id);
-		$res = $this->db->get();
-		return $res->result();
+		return $this->db->get('coupons_products')->result();
 	}
 	
 	// Get list of product id's only - utility function
@@ -203,10 +206,11 @@ class Coupon_model extends CI_Model
 	{
 		$this->db->select('product_id');
 		$this->db->where('coupon_id', $coupon_id);
-		$res = $this->db->get('coupons_products');
-		$res = $res->result_array();
+		$res = $this->db->get('coupons_products')->result_array();
+
 		$list = array();
-		foreach($res as $item) {
+		foreach($res as $item)
+		{
 			array_push($list, $item["product_id"]);	
 		}
 		return $list;
@@ -218,6 +222,5 @@ class Coupon_model extends CI_Model
 		$this->db->where(array('coupon_id'=>$coupon_id, 'product_id'=>$prod_id));
 		$this->db->update('coupons_products', array('sequence'=>$seq));
 	}
-	
 	
 }	
