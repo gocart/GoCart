@@ -1,9 +1,10 @@
-Version 2.2.2
+Version 2.3
 	Release date: TBD
 	
 	Features
 		
 		- Added (for admins) edit buttons in the default theme that link to the appropriate edit pages in the admin panel.
+		- Humanize the Shipping and Payment Module Names (thanks onfriendaday)
 	
 	Bug Fix
 	
