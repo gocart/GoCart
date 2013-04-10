@@ -225,8 +225,7 @@ CREATE TABLE `prefix_download_package_files` (
 `file_id` int(11) NOT NULL,
 `downloads` int(11) NOT NULL,
 `link` varchar(32) NOT NULL,
-KEY `package_id` (`package_id`),
-KEY `package_id_2` (`package_id`)
+KEY `package_id` (`package_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- new query
