@@ -10,6 +10,7 @@ class Shipping extends Admin_Controller {
 		$this->auth->check_access('Admin', true);
 		$this->load->model('Settings_model');
 		$this->lang->load('settings');
+		$this->load->helper('inflector');
 	}
 	
 	function index()
@@ -80,7 +81,7 @@ class Shipping extends Admin_Controller {
 			$data['form']		= $this->$module->form();
 		}
 		$data['module']		= $module;
-		$data['page_title']	= sprintf(lang('shipping_settings'), $module);
+		$data['page_title']	= sprintf(lang('shipping_settings'), humanize($module));
 		$this->load->view($this->config->item('admin_folder').'/shipping_module_settings', $data);
 	}
 }

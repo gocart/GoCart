@@ -11,6 +11,7 @@ class Settings extends Admin_Controller {
 		$this->load->model('Settings_model');
 		$this->load->model('Messages_model');
 		$this->lang->load('settings');
+		$this->load->helper('inflector');
 	}
 	
 	function index()
