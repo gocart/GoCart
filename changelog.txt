@@ -16,6 +16,7 @@ Version 2.3
 		- Updated PayPal Express config form to show live/sandbox config option.
 		- Fixed admin reports date ajax to send the correctly formatted date. (thanks onefriendaday)
 		- Added translatable field names to checkout step 1.
+		- Removed redundant index from download_package_files table.
 
 	Other
 	
@@ -24,6 +25,8 @@ Version 2.3
 		- Added open in new window to image based anchors (in redactor.js)
 		- Removed legacy tablerate shipping method
 		- Replaced ajax category search in the admin product form with a category tree.
+		- Improved readablity of the coupon_model
+		- Upgraded to CodeIgniter 2.1.3
 
 Version 2.2.1
 -------------
