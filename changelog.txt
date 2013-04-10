@@ -17,6 +17,7 @@ Version 2.3
 		- Fixed admin reports date ajax to send the correctly formatted date. (thanks onefriendaday)
 		- Added translatable field names to checkout step 1.
 		- Removed redundant index from download_package_files table.
+		- Added strtolower to all coupon codes submitted on the front end to stop duplicate entries
 
 	Other
 	
