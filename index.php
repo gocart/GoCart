@@ -81,7 +81,7 @@ if (defined('ENVIRONMENT'))
  * NO TRAILING SLASH!
  *
  */
-	$application_folder = 'gocart';
+	$application_folder = 'application';
 
 /*
  * --------------------------------------------------------------------
