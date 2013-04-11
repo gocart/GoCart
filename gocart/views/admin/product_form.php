@@ -236,8 +236,12 @@ function remove_option(id)
 							}
 							endforeach;
 						}
-		
-						list_categories(0, $categories, '', $product_categories);
+						
+						if(isset($categories[0]))
+						{
+							list_categories(0, $categories, '', $product_categories);
+						}
+						
 						?>
 					</table>
 					</div>

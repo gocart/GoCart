@@ -49,7 +49,11 @@ function areyousure()
 			endforeach;
 		}
 		
-		list_categories(0, $categories);
+		if($categories[0])
+		{
+			list_categories(0, $categories);
+		}
+		
 		?>
 	</tbody>
 </table>
