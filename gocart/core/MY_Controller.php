@@ -17,7 +17,7 @@ class Base_Controller extends CI_Controller
 		// Migrate to the latest migration file found
 		if ( ! $this->migration->latest())
 		{
-			log_message('error', 'The migration failed');
+			echo $this->migration->error_string();
 		}
 		
 	}//end __construct()
@@ -43,7 +43,7 @@ class Front_Controller extends Base_Controller
 		parent::__construct();
 
 		//load GoCart library
-		$this->load->library('Go_cart');
+		$this->load->library(array('Go_cart', 'Banners'));
 
 		//load needed models
 		$this->load->model(array('Page_model', 'Product_model', 'Digital_Product_model', 'Gift_card_model', 'Option_model', 'Order_model', 'Settings_model'));
@@ -93,7 +93,7 @@ class Front_Controller extends Base_Controller
 	}
 	
 	/*
-	This function simple calls $this->load->view()
+	This function simply calls $this->load->view()
 	*/
 	function partial($view, $vars = array(), $string=false)
 	{
@@ -110,9 +110,11 @@ class Front_Controller extends Base_Controller
 
 class Admin_Controller extends Base_Controller 
 {
+	
+	private $template;
+	
 	function __construct()
 	{
-		
 		parent::__construct();
 		
 		$this->load->library('auth');
@@ -120,6 +122,40 @@ class Admin_Controller extends Base_Controller
 		
 		//load the base language file
 		$this->lang->load('admin_common');
-		$this->lang->load('goedit');
+		$this->lang->load('media');
+	}
+	
+	function view($view, $vars = array(), $string=false)
+	{
+		//if there is a template, use it.
+		$template	= '';
+		if($this->template)
+		{
+			$template	= $this->template.'_';
+		}
+
+		if($string)
+		{
+			$result	 = $this->load->view('admin/'.$template.'header', $vars, true);
+			$result	.= $this->load->view($view, $vars, true);
+			$result	.= $this->load->view('admin/'.$template.'footer', $vars, true);
+			
+			return $result;
+		}
+		else
+		{
+			$this->load->view('admin/'.$template.'header', $vars);
+			$this->load->view($view, $vars);
+			$this->load->view('admin/'.$template.'footer', $vars);
+		}
+		
+		//reset $this->template to blank
+		$this->template	= false;
+	}
+	
+	/* Template is a temporary prefix that lasts only for the next call to view */
+	function set_template($template)
+	{
+		$this->template	= $template;
 	}
 }

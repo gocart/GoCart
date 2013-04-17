@@ -114,7 +114,6 @@ $(document).ready(function(){
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('common_content') ?> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="<?php echo $admin_url;?>banners"><?php echo lang('common_banners') ?></a></li>
-							<li><a href="<?php echo $admin_url;?>boxes"><?php echo lang('common_boxes') ?></a></li>
 							<li><a href="<?php echo $admin_url;?>pages"><?php echo lang('common_pages') ?></a></li>
 						</ul>
 					</li>

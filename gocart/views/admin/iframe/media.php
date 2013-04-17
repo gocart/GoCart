@@ -69,7 +69,7 @@
 				<?php
 				if(!empty($root))
 				{
-					echo '<li><a href="'.site_url(config_item('admin_folder').'/media').'"><i class="icon-home icon-white"></i> '.lang('goedit_root').'</a></li>';
+					echo '<li><a href="'.site_url(config_item('admin_folder').'/media').'"><i class="icon-home icon-white"></i> '.lang('media_root').'</a></li>';
 					$back_link	= explode('/', $root);
 					array_pop($back_link);
 					$path	= '';
@@ -83,7 +83,7 @@
 			<?php echo form_open(config_item('admin_folder').'/media/create_subfolder/', 'class="navbar-form pull-right"');?>
 				<input type="hidden" name="root" value="<?php echo $root;?>">
 				<div class="input-append">
-					<input type="text" name="folder-name" class="input-small" placeholder="<?php echo lang('goedit_folder_name');?>">
+					<input type="text" name="folder-name" class="input-small" placeholder="<?php echo lang('media_folder_name');?>">
 					<button type="submit" class="btn">+<i class="icon-folder-close"></i></button>
 				</div>
 			</form>
@@ -92,10 +92,10 @@
 				<input type="hidden" name="root" value="<?php echo $root;?>">
 				<div class="upload-file-container">
 					<input type="file" name="userfile" size="20" id="upload-field"/>
-					<button type="button" class="btn"><?php echo lang('goedit_upload');?></button>
+					<button type="button" class="btn"><?php echo lang('media_upload');?></button>
 				</div>
 			</form>
-			<img src="<?php echo base_url('assets/img/media-loader.gif');?>" alt="<?php echo lang('goedit_loading');?>" id="upload-loader"/>
+			<img src="<?php echo base_url('assets/img/media-loader.gif');?>" alt="<?php echo lang('media_loading');?>" id="upload-loader"/>
 		</div>
 	</div>
 </div>
@@ -188,7 +188,7 @@ if(function_exists('validation_errors') && validation_errors() != '')
 					<input id="new-filename" name="new" type="text" class="span12">
 				</div>
 				<div class="row-fluid" style="margin-top:10px;">
-					<button type="submit" class="btn btn-large btn-block"><?php echo lang('goedit_rename');?></button>
+					<button type="submit" class="btn btn-large btn-block"><?php echo lang('media_rename');?></button>
 				</div>
 			</div>
 		</form>
@@ -199,10 +199,10 @@ if(function_exists('validation_errors') && validation_errors() != '')
 
 						<div id="delete-warning" style="text-align:center; display:none; padding-top:10px; margin-bottom:10px;">
 							<div class="alert alert-block">
-								<h4><?php echo lang('goedit_warning');?></h4>
-								<?php echo lang('goedit_warning_text');?>
+								<h4><?php echo lang('media_warning');?></h4>
+								<?php echo lang('media_warning_text');?>
 							</div>
-							<button type="submit" class="btn btn-danger btn-large btn-block"><?php echo lang('goedit_delete_button');?></button>
+							<button type="submit" class="btn btn-danger btn-large btn-block"><?php echo lang('media_delete_button');?></button>
 						</div>
 
 						<input type="hidden" name="root" value="<?php echo $root;?>">

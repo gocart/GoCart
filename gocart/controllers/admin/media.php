@@ -48,7 +48,7 @@ class Media extends Admin_Controller
 
 		if(!file_exists($this->path.'/'.$data['file']))
 		{
-			$this->set_flashdata('error', 'The requested file could not be found');
+			$this->set_flashdata('error', lang('media_file_not_found'));
 			redirect(config_item('admin_folder').'/media/index/');
 		}
 
@@ -70,21 +70,21 @@ class Media extends Admin_Controller
 		
 		if(empty($folder))
 		{
-			$this->session->set_flashdata('error', 'You must submit a folder name.');
+			$this->session->set_flashdata('error', lang('media_no_folder_name_error'));
 		}
 		elseif(file_exists($this->path.'/'.$root.'/'.$folder))
 		{
-			$this->session->set_flashdata('error', 'There requested folder name is already in use.');
+			$this->session->set_flashdata('error', lang('media_folder_name_in_use'));
 		}
 		else
 		{
 			if(mkdir($this->path.'/'.$root.'/'.$folder))
 			{
-				$this->session->set_flashdata('message', 'Your subfolder has been successfully created.');
+				$this->session->set_flashdata('message', lang('media_folder_created'));
 			}
 			else
 			{
-				$this->session->set_flashdata('error', 'There was an error creating your folder.');
+				$this->session->set_flashdata('error', lang('media_folder_creation_error'));
 			}
 		}
 		redirect(config_item('admin_folder').'/media/index/'.$root);
@@ -134,11 +134,11 @@ class Media extends Admin_Controller
 		if(!empty($new_filename) && !file_exists($new) && file_exists($old))
 		{
 			rename($old,$new);
-			$this->session->set_flashdata('message', 'Your file has been successfully renamed.');
+			$this->session->set_flashdata('message', lang('media_file_rename'));
 		}
 		else
 		{
-			$this->session->set_flashdata('error', 'There was an error renaming the requested file.');
+			$this->session->set_flashdata('error', lang('media_file_rename_error'));
 		}
 		
 		redirect(config_item('admin_folder').'/media/index/'.$root);
@@ -153,12 +153,12 @@ class Media extends Admin_Controller
 		{
 			delete_files($file, TRUE);
 			rmdir($file);
-			$this->session->set_flashdata('message', 'Your folder has been successfully deleted.');
+			$this->session->set_flashdata('message', lang('media_folder_delete'));
 		}
 		elseif(file_exists($file))
 		{
 			unlink($file);
-			$this->session->set_flashdata('message', 'Your file has been successfully deleted.');
+			$this->session->set_flashdata('message', lang('media_file_delete'));
 		}
 		
 		redirect(config_item('admin_folder').'/media/index/'.$root);
@@ -183,7 +183,7 @@ class Media extends Admin_Controller
 		}
 		else
 		{
-			$this->session->set_flashdata('message', 'Your file has been successfully uploaded.');
+			$this->session->set_flashdata('message', lang('media_file_uploaded'));
 			redirect(config_item('admin_folder').'/media/index/'.$root);
 		}
 	}
