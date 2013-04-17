@@ -5,6 +5,7 @@ Version 2.3
 		
 		- Added (for admins) edit buttons in the default theme that link to the appropriate edit pages in the admin panel.
 		- Humanize the Shipping and Payment Module Names (thanks onfriendaday)
+        - Replaced banners & boxes with the new Banner Collections
 	
 	Bug Fix
 	
@@ -18,6 +19,8 @@ Version 2.3
 		- Added translatable field names to checkout step 1.
 		- Removed redundant index from download_package_files table.
 		- Added strtolower to all coupon codes submitted on the front end to stop duplicate entries
+        - Added migrations / migration version to installation
+        - Added config_item check for inventory on the category view file.
 
 	Other
 	
