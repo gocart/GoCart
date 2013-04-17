@@ -1,3 +1,14 @@
+CREATE TABLE IF NOT EXISTS `prefix_migrations` (
+	`version` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- new query
+
+INSERT INTO `prefix_migrations` (`version`) VALUES
+(2);
+
+-- new query
+
 
 CREATE TABLE `prefix_admin` (
 `id` int(10) unsigned NOT NULL auto_increment,
@@ -11,31 +22,31 @@ PRIMARY KEY  (`id`)
 
 -- new query
 
-CREATE TABLE `prefix_banners` (
-`id` int(11) NOT NULL auto_increment,
-`title` varchar(128) NOT NULL default '',
-`enable_on` date NOT NULL default '0000-00-00',
-`disable_on` date NOT NULL default '0000-00-00',
-`image` varchar(64) NOT NULL,
-`link` varchar(128) default NULL,
-`new_window` tinyint(1) NOT NULL default '0',
-`sequence` int(11) NOT NULL default '0',
-PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `prefix_banners` (
+  `banner_id` int(9) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(128) NOT NULL DEFAULT '',
+  `enable_on` date NOT NULL DEFAULT '0000-00-00',
+  `disable_on` date NOT NULL DEFAULT '0000-00-00',
+  `image` varchar(64) NOT NULL,
+  `link` varchar(128) DEFAULT NULL,
+  `new_window` tinyint(1) NOT NULL DEFAULT '0',
+  `sequence` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`banner_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- new query
 
-CREATE TABLE `prefix_boxes` (
-`id` int(11) NOT NULL auto_increment,
-`title` varchar(128) NOT NULL default '',
-`enable_on` date NOT NULL default '0000-00-00',
-`disable_on` date NOT NULL default '0000-00-00',
-`image` varchar(64) NOT NULL,
-`link` varchar(128) default NULL,
-`new_window` tinyint(1) NOT NULL default '0',
-`sequence` int(11) NOT NULL default '0',
-PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `prefix_banner_collections` (
+  `banner_collection_id` int(4) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`banner_collection_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+-- new query
+
+INSERT INTO `prefix_banner_collections` (`banner_collection_id`, `name`) VALUES
+(1, 'Homepage Banners'),
+(2, 'Homepage Boxes');
 
 -- new query
 
