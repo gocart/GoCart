@@ -210,40 +210,42 @@ function remove_option(id)
 			<div class="tab-pane" id="product_categories">
 				<div class="row">
 					<div class="span8">
-						<label><strong><?php echo lang('select_a_category');?></strong></label>
-						<table class="table table-striped">
-						    <thead>
-								<tr>
-									<th colspan="2"><?php echo lang('name')?></th>
-								</tr>
-							</thead>
-						<?php
-						function list_categories($parent_id, $cats, $sub='', $product_categories) {
-			
-							foreach ($cats[$parent_id] as $cat):?>
-							<tr>
-								<td><?php echo  $sub.$cat->name; ?></td>
-								<td>
-									<input type="checkbox" name="categories[]" value="<?php echo $cat->id;?>" <?php echo(in_array($cat->id, $product_categories))?'checked="checked"':'';?>/>
-								</td>
-							</tr>
+						<?php if(isset($categories[0])):?>
+							<label><strong><?php echo lang('select_a_category');?></strong></label>
+							<table class="table table-striped">
+							    <thead>
+									<tr>
+										<th colspan="2"><?php echo lang('name')?></th>
+									</tr>
+								</thead>
 							<?php
-							if (isset($cats[$cat->id]) && sizeof($cats[$cat->id]) > 0)
-							{
-								$sub2 = str_replace('&rarr;&nbsp;', '&nbsp;', $sub);
-									$sub2 .=  '&nbsp;&nbsp;&nbsp;&rarr;&nbsp;';
-								list_categories($cat->id, $cats, $sub2, $product_categories);
+							function list_categories($parent_id, $cats, $sub='', $product_categories) {
+			
+								foreach ($cats[$parent_id] as $cat):?>
+								<tr>
+									<td><?php echo  $sub.$cat->name; ?></td>
+									<td>
+										<input type="checkbox" name="categories[]" value="<?php echo $cat->id;?>" <?php echo(in_array($cat->id, $product_categories))?'checked="checked"':'';?>/>
+									</td>
+								</tr>
+								<?php
+								if (isset($cats[$cat->id]) && sizeof($cats[$cat->id]) > 0)
+								{
+									$sub2 = str_replace('&rarr;&nbsp;', '&nbsp;', $sub);
+										$sub2 .=  '&nbsp;&nbsp;&nbsp;&rarr;&nbsp;';
+									list_categories($cat->id, $cats, $sub2, $product_categories);
+								}
+								endforeach;
 							}
-							endforeach;
-						}
 						
-						if(isset($categories[0]))
-						{
+						
 							list_categories(0, $categories, '', $product_categories);
-						}
 						
-						?>
-					</table>
+							?>
+						</table>
+					<?php else:?>
+						<div class="alert"><?php echo lang('no_available_categories');?></div>
+					<?php endif;?>
 					</div>
 				</div>
 			</div>

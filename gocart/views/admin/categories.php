@@ -49,7 +49,7 @@ function areyousure()
 			endforeach;
 		}
 		
-		if($categories[0])
+		if(isset($categories[0]))
 		{
 			list_categories(0, $categories);
 		}
