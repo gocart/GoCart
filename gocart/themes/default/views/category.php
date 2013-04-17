@@ -97,7 +97,7 @@
 								<span class="price-reg"><?php echo lang('product_price');?> <?php echo format_currency($product->price); ?></span>
 							<?php endif; ?>
 						</div>
-		                    <?php if((bool)$product->track_stock && $product->quantity < 1) { ?>
+		                    <?php if((bool)$product->track_stock && $product->quantity < 1 && config_item('inventory_enabled')) { ?>
 								<div class="stock_msg"><?php echo lang('out_of_stock');?></div>
 							<?php } ?>
 						</div>
