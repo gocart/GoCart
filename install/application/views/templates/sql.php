@@ -24,6 +24,7 @@ PRIMARY KEY  (`id`)
 
 CREATE TABLE IF NOT EXISTS `prefix_banners` (
   `banner_id` int(9) unsigned NOT NULL AUTO_INCREMENT,
+  `banner_collection_id` int(9) unsigned NOT NULL DEFAULT '0',
   `title` varchar(128) NOT NULL DEFAULT '',
   `enable_on` date NOT NULL DEFAULT '0000-00-00',
   `disable_on` date NOT NULL DEFAULT '0000-00-00',
