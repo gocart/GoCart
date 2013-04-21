@@ -709,6 +709,9 @@ class go_cart {
 			$coupon_total 	= 0;
 			$this->_cart_contents['requires_shipping'] = false; // Go back to default and redetermine if there is anything shippable
 			
+			// Lets calculate the total item quantity
+			$total_quantity = 0;
+
 			foreach ($this->_cart_contents['items'] as $key => &$val)
 			{
 				// Apply any group discount
@@ -743,11 +746,14 @@ class go_cart {
 				
 				// set product subtotal (NOT accounting for coupon discount yet)
 				$val['subtotal'] = ($this_price * $val['quantity']);
+
+				// Add to the total item quantity
+				$total_quantity += $val['quantity'];
 			
 			}
 			
 			// total products in the cart
-			$this->_cart_contents['total_items'] = count($this->_cart_contents['items']);	
+			$this->_cart_contents['total_items'] = $total_quantity;
 			
 			// Set the cart price totals ...
 			$this->_cart_contents['cart_subtotal'] = $total;
