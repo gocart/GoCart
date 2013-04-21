@@ -65,7 +65,7 @@ $lang['step_2']					= 'Step 2';
 $lang['free_shipping_basic']	= 'Free Shipping (basic)';
 
 $lang['search']					= 'Search';
-$lang['search_error']			= 'Your did not supply a search term!';
+$lang['search_error']			= 'You did not supply a search term';
 $lang['amount']					= 'Amount';
 $lang['custom_amount']			= 'Custom Amount';
 $lang['preset_amount']			= 'Preset Amount';
