@@ -23,6 +23,12 @@
 					echo $banner_image;
 				}
 				?>
+
+				<?php if($banner->name): ?>
+					<div class="carousel-caption">
+						<h4><?php echo $banner->name ?></h4>
+					</div>
+				<?php endif; ?>
 					
 			</div>
 		<?php 
@@ -34,8 +40,8 @@
 	//don't display the arrows if there is only one banner
 	if(count($banners) > 1):?>
 	<!-- Carousel nav -->
-	<a class="carousel-control left" href="#banners_<?php echo $id;?>" data-slide="prev">&lsaquo;</a>
-	<a class="carousel-control right" href="#banners_<?php echo $id;?>" data-slide="next">&rsaquo;</a>
+	<a class="carousel-control left" href="#carousel_<?php echo $id;?>" data-slide="prev">&lsaquo;</a>
+	<a class="carousel-control right" href="#carousel_<?php echo $id;?>" data-slide="next">&rsaquo;</a>
 	<?php endif;?>
 </div>
 
