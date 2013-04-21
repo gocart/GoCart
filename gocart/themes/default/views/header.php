@@ -51,7 +51,7 @@ if(isset($additional_header_info))
 						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('catalog');?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<?php foreach($this->categories[0] as $cat_menu):?>
-								<li><a href="<?php echo site_url($cat_menu->slug);?>"><?php echo $cat_menu->name;?></a></li>
+								<li <?php echo $cat_menu->active ? 'class="active"' : false; ?>><a href="<?php echo site_url($cat_menu->slug);?>"><?php echo $cat_menu->name;?></a></li>
 								<?php endforeach;?>
 							</ul>
 						</li>	
@@ -59,8 +59,7 @@ if(isset($additional_header_info))
 						endif;
 						
 						foreach($this->pages as $menu_page):?>
-
-							<li>
+							<li <?php echo $menu_page->active ? 'class="active"' : false; ?>>
 							<?php if(empty($menu_page->content)):?>
 								<a href="<?php echo $menu_page->url;?>" <?php if($menu_page->new_window ==1){echo 'target="_blank"';} ?>><?php echo $menu_page->menu_title;?></a>
 							<?php else:?>
