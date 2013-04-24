@@ -206,7 +206,7 @@ Class Option_model extends CI_Model
 						$price = '';
 						if($val->price > 0)
 						{
-							$price = ' ('.format_currency($val->price).')';
+							$price = ' (+'.format_currency($val->price).')';
 						}
 						$product['price'] 	= $product['price'] + $val->price;
 						$product['weight'] 	= $product['weight'] + $val->weight;
@@ -246,7 +246,7 @@ Class Option_model extends CI_Model
 					$price = '';
 					if($val->price > 0)
 					{
-						$price = ' ('.format_currency($val->price).')';
+						$price = ' (+'.format_currency($val->price).')';
 					}
 					
 					$product['options'][$option->name] = $option_value.$price;
@@ -276,7 +276,7 @@ Class Option_model extends CI_Model
 					$price = '';
 					if($val->price > 0)
 					{
-						$price = ' ('.format_currency($val->price).')';
+						$price = ' (+'.format_currency($val->price).')';
 					}
 					//add the option to the options
 					//$product['options'][$option->name] = $val->name.$price.$weight;
