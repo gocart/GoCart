@@ -65,7 +65,7 @@ $lang['step_2']					= 'Step 2';
 $lang['free_shipping_basic']	= 'Free Shipping (basic)';
 
 $lang['search']					= 'Search';
-$lang['search_error']			= 'Your did not supply a search term!';
+$lang['search_error']			= 'You did not supply a search term';
 $lang['amount']					= 'Amount';
 $lang['custom_amount']			= 'Custom Amount';
 $lang['preset_amount']			= 'Preset Amount';
@@ -92,6 +92,8 @@ $lang['choose_option']			= 'Choose an Option';
 $lang['tab_description']		= 'Description';
 $lang['tab_related_products']	= 'Related Products';
 $lang['subcategories']			= 'Subcategories';
+$lang['edit_category']			= 'Edit Category';
+$lang['edit_product']			= 'Edit Product';
 
 $lang['loading']					= 'Loading&hellip;';
 $lang['coupon_label']				= 'If you have a coupon, enter the code here:';
