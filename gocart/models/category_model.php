@@ -32,6 +32,14 @@ Class Category_model extends CI_Model
 		
 		$results	= array();
 		foreach($categories as $category) {
+
+			// Set a class to active, so we can highlight our current category
+			if($this->uri->segment(1) == $category->slug) {
+				$category->active = true;
+			} else {
+				$category->active = false;
+			}
+
 			$results[$category->parent_id][$category->id] = $category;
 		}
 		
