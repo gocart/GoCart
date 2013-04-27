@@ -65,10 +65,10 @@ class Cart extends Front_Controller {
 		if(empty($term))
 		{
 			//if there is still no search term throw an error
-			//if there is still no search term throw an error
 			$this->session->set_flashdata('error', lang('search_error'));
 			redirect('cart');
 		}
+
 		$data['page_title']			= lang('search');
 		$data['gift_cards_enabled']	= $this->gift_cards_enabled;
 		
@@ -91,15 +91,6 @@ class Cart extends Front_Controller {
 			}
 		}
 		
-
-		if(empty($term))
-		{
-			//if there is still no search term throw an error
-			$this->load->view('search_error', $data);
-		}
-		else
-		{
-	
 			$data['page_title']	= lang('search');
 			$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		
@@ -143,7 +134,6 @@ class Cart extends Front_Controller {
 				$p->options	= $this->Option_model->get_product_options($p->id);
 			}
 			$this->load->view('category', $data);
-		}
 	}
 	
 	function category($id)
