@@ -494,27 +494,6 @@ class Secure extends Front_Controller {
 		echo "1";
 	}
 	
-	
-	// this is a form partial for the checkout page
-	function checkout_address_manager()
-	{
-		$customer = $this->go_cart->customer();
-		
-		$data['customer_addresses'] = $this->Customer_model->get_address_list($customer['id']);
-	
-		$this->load->view('address_manager', $data);
-	}
-	
-	// this is a partial partial, to refresh the address manager
-	function address_manager_list_contents()
-	{
-		$customer = $this->go_cart->customer();
-		
-		$data['customer_addresses'] = $this->Customer_model->get_address_list($customer['id']);
-	
-		$this->load->view('address_manager_list_content', $data);
-	}
-	
 	function address_form($id = 0)
 	{
 		
