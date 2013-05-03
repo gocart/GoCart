@@ -1,5 +1,4 @@
-<?php include('header.php');
-
+<?php
 //set "code" for searches
 if(!$code)
 {
@@ -153,4 +152,3 @@ function areyousure()
 		</tbody>
 	</table>
 </form>
-<?php include('footer.php'); ?>

@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <script type="text/javascript">
 //<![CDATA[
 $(document).ready(function(){
@@ -64,5 +62,3 @@ function save_sortable()
 <?php endforeach; ?>
 	</tbody>
 </table>
-
-<?php include('footer.php');

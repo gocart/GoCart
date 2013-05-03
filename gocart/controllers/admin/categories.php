@@ -20,7 +20,7 @@ class Categories extends Admin_Controller {
 		$data['page_title']	= lang('categories');
 		$data['categories']	= $this->Category_model->get_categories_tierd();
 		
-		$this->load->view($this->config->item('admin_folder').'/categories', $data);
+		$this->view($this->config->item('admin_folder').'/categories', $data);
 	}
 	
 	//basic category search
@@ -70,7 +70,7 @@ class Categories extends Admin_Controller {
 		
 		$data['category_products']	= $this->Category_model->get_category_products_admin($id);
 		
-		$this->load->view($this->config->item('admin_folder').'/organize_category', $data);
+		$this->view($this->config->item('admin_folder').'/organize_category', $data);
 	}
 	
 	function process_organization($id)
@@ -157,7 +157,7 @@ class Categories extends Admin_Controller {
 		// validate the form
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/category_form', $data);
+			$this->view($this->config->item('admin_folder').'/category_form', $data);
 		}
 		else
 		{
@@ -198,7 +198,7 @@ class Categories extends Admin_Controller {
 				if($_FILES['image']['error'] != 4)
 				{
 					$data['error']	.= $this->upload->display_errors();
-					$this->load->view($this->config->item('admin_folder').'/category_form', $data);
+					$this->view($this->config->item('admin_folder').'/category_form', $data);
 					return; //end script here if there is an error
 				}
 			}

@@ -23,7 +23,7 @@ class Reports extends Admin_Controller {
 	{
 		$data['page_title']	= lang('reports');
 		$data['years']		= $this->Order_model->get_sales_years();
-		$this->load->view($this->config->item('admin_folder').'/reports', $data);
+		$this->view($this->config->item('admin_folder').'/reports', $data);
 	}
 	
 	function best_sellers()

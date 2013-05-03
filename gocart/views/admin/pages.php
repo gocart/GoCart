@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <script type="text/javascript">
 function areyousure()
 {
@@ -55,4 +53,3 @@ function areyousure()
 	</tbody>
 	<?php endif;?>
 </table>
-<?php include('footer.php');

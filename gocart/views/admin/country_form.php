@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <?php echo form_open($this->config->item('admin_folder').'/locations/country_form/'.$id); ?>
 
 <fieldset>
@@ -52,5 +50,3 @@ $('form').submit(function() {
 	$('.btn').attr('disabled', true).addClass('disabled');
 });
 </script>
-
-<?php include('footer.php');

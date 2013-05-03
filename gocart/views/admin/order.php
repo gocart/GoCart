@@ -1,4 +1,3 @@
-<?php include('header.php'); ?>
 <div class="row">
 	<div class="span12">
 		<div class="btn-group pull-right">
@@ -287,5 +286,3 @@ function set_canned_message(id)
 		</tr>
 	</tfoot>
 </table>
-
-<?php include('footer.php');

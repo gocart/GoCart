@@ -83,7 +83,7 @@ class Products extends Admin_Controller {
 		
 		$this->pagination->initialize($config);
 		
-		$this->load->view($this->config->item('admin_folder').'/products', $data);
+		$this->view($this->config->item('admin_folder').'/products', $data);
 	}
 	
 	//basic category search
@@ -287,7 +287,7 @@ class Products extends Admin_Controller {
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/product_form', $data);
+			$this->view($this->config->item('admin_folder').'/product_form', $data);
 		}
 		else
 		{
