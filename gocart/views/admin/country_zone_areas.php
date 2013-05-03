@@ -1,4 +1,3 @@
-<?php include('header.php'); ?>
 <script type="text/javascript">
 function areyousure()
 {
@@ -42,4 +41,3 @@ function areyousure()
 <?php endif;?>
 	</tbody>
 </table>
-<?php include('footer.php');

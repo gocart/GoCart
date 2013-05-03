@@ -99,7 +99,7 @@ class Orders extends Admin_Controller {
 		$data['sort_by']	= $sort_by;
 		$data['sort_order']	= $sort_order;
 				
-		$this->load->view($this->config->item('admin_folder').'/orders', $data);
+		$this->view($this->config->item('admin_folder').'/orders', $data);
 	}
 	
 	function export()
@@ -120,7 +120,7 @@ class Orders extends Admin_Controller {
 		
 	}
 	
-	function view($id)
+	function order($id)
 	{
 		$this->load->helper(array('form', 'date'));
 		$this->load->library('form_validation');
@@ -189,7 +189,7 @@ class Orders extends Admin_Controller {
 			}
 		}
 		
-		$this->load->view($this->config->item('admin_folder').'/order', $data);
+		$this->view($this->config->item('admin_folder').'/order', $data);
 		
 	}
 	

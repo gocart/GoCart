@@ -1,4 +1,4 @@
-<?php include('header.php');
+<?php
 $f_company	= array('name'=>'company','class'=>'span3', 'value'=> set_value('company',$company));
 $f_address1	= array('name'=>'address1', 'class'=>'span6','value'=>set_value('address1',$address1));
 $f_address2	= array('name'=>'address2', 'class'=>'span6','value'=> set_value('address2',$address2));
@@ -91,4 +91,3 @@ $f_zip		= array('maxlength'=>'10', 'class'=>'span1', 'name'=>'zip', 'value'=> se
 	});
 	</script>
 </form>
-<?php include('footer.php');

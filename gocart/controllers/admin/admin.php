@@ -20,7 +20,7 @@ class Admin extends Admin_Controller
 		$data['page_title']	= lang('admins');
 		$data['admins']		= $this->auth->get_admin_list();
 
-		$this->load->view($this->config->item('admin_folder').'/admins', $data);
+		$this->view($this->config->item('admin_folder').'/admins', $data);
 	}
 	function delete($id)
 	{
@@ -85,7 +85,7 @@ class Admin extends Admin_Controller
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/admin_form', $data);
+			$this->view($this->config->item('admin_folder').'/admin_form', $data);
 		}
 		else
 		{

@@ -1,5 +1,4 @@
-<?php require('header.php'); 
-	
+<?php
 	//set "code" for searches
 	if(!$code)
 	{
@@ -54,7 +53,7 @@ if ($term):?>
 	<div class="span12" style="border-bottom:1px solid #f5f5f5;">
 		<div class="row">
 			<div class="span4">
-				<?php echo $this->pagination->create_links();?>	
+				<?php echo $this->pagination->create_links();?>&nbsp;
 			</div>
 			<div class="span8">
 				<?php echo form_open($this->config->item('admin_folder').'/orders/index', 'class="form-inline" style="float:right"');?>
@@ -106,7 +105,7 @@ if ($term):?>
 		</td>
 		<td><div class="MainTableNotes"><?php echo format_currency($order->total); ?></div></td>
 		<td>
-			<a class="btn btn-small" style="float:right;"href="<?php echo site_url($this->config->item('admin_folder').'/orders/view/'.$order->id);?>"><i class="icon-search"></i> <?php echo lang('form_view')?></a>
+			<a class="btn btn-small" style="float:right;"href="<?php echo site_url($this->config->item('admin_folder').'/orders/order/'.$order->id);?>"><i class="icon-search"></i> <?php echo lang('form_view')?></a>
 		</td>
 	</tr>
     <?php endforeach; ?>
@@ -188,4 +187,3 @@ function hide_animation()
 	<img id="saving_animation" src="<?php echo base_url('assets/img/storing_animation.gif');?>" alt="saving" style="z-index:100001; margin-left:-32px; margin-top:-32px; position:fixed; left:50%; top:50%"/>
 	<div id="saving_text" style="text-align:center; width:100%; position:fixed; left:0px; top:50%; margin-top:40px; color:#fff; z-index:100001"><?php echo lang('saving');?></div>
 </div>
-<?php include('footer.php'); ?>

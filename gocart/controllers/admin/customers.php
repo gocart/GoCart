@@ -58,19 +58,15 @@ class Customers extends Admin_Controller {
 		$data['field']	= $field;
 		$data['by']		= $by;
 		
-		$this->load->view($this->config->item('admin_folder').'/customers', $data);
+		$this->view($this->config->item('admin_folder').'/customers', $data);
 	}
 	
 	function export_xml()
 	{
-		$this->load->helper('download_helper');
-		
 		$data['customers'] = (array)$this->Customer_model->get_customers();
 		
-
+		$this->load->helper('download_helper');
 		force_download_content('customers.xml',	$this->load->view($this->config->item('admin_folder').'/customers_xml', $data, true));
-		
-		//$this->load->view($this->config->item('admin_folder').'/customers_xml', $data);
 	}
 
 	function form($id = false)
@@ -145,7 +141,7 @@ class Customers extends Admin_Controller {
 				
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/customer_form', $data);
+			$this->view($this->config->item('admin_folder').'/customer_form', $data);
 		}
 		else
 		{
@@ -189,7 +185,7 @@ class Customers extends Admin_Controller {
 		
 		$data['page_title']	= sprintf(lang('addresses_for'), $data['customer']->firstname.' '.$data['customer']->lastname);
 		
-		$this->load->view($this->config->item('admin_folder').'/customer_addresses', $data);
+		$this->view($this->config->item('admin_folder').'/customer_addresses', $data);
 	}
 	
 	function delete($id = false)
@@ -243,7 +239,7 @@ class Customers extends Admin_Controller {
 		$data['page_title']	= 'Order List';
 		$data['orders']		= $this->Order_model->get_orders($status);
 		
-		$this->load->view($this->config->item('admin_folder').'/order_list', $data);
+		$this->view($this->config->item('admin_folder').'/order_list', $data);
 	}
 	
 	
@@ -269,7 +265,7 @@ class Customers extends Admin_Controller {
 		$data['groups']		= $this->Customer_model->get_groups();
 		$data['page_title']	= lang('customer_groups');
 		
-		$this->load->view($this->config->item('admin_folder').'/customer_groups', $data);
+		$this->view($this->config->item('admin_folder').'/customer_groups', $data);
 	}
 	
 	function edit_group($id=0)
@@ -301,7 +297,7 @@ class Customers extends Admin_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/customer_group_form', $data);
+			$this->view($this->config->item('admin_folder').'/customer_group_form', $data);
 		}
 		else
 		{
@@ -352,7 +348,7 @@ class Customers extends Admin_Controller {
 	{
 		$data['address_list'] = $this->Customer_model->get_address_list($customer_id);
 		
-		$this->load->view($this->config->item('admin_folder').'/address_list', $data);
+		$this->view($this->config->item('admin_folder').'/address_list', $data);
 	}
 	
 	function address_form($customer_id, $id = false)
@@ -408,7 +404,7 @@ class Customers extends Admin_Controller {
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/customer_address_form', $data);
+			$this->view($this->config->item('admin_folder').'/customer_address_form', $data);
 		}
 		else
 		{

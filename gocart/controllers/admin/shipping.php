@@ -82,6 +82,6 @@ class Shipping extends Admin_Controller {
 		}
 		$data['module']		= $module;
 		$data['page_title']	= sprintf(lang('shipping_settings'), humanize($module));
-		$this->load->view($this->config->item('admin_folder').'/shipping_module_settings', $data);
+		$this->view($this->config->item('admin_folder').'/shipping_module_settings', $data);
 	}
 }

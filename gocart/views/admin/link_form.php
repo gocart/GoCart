@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <?php echo form_open($this->config->item('admin_folder').'/pages/link_form/'.$id); ?>
 
 	<label for="menu_title"><?php echo lang('title');?> </label>
@@ -54,5 +52,3 @@
 		<input class="btn btn-primary" type="submit" value="<?php echo lang('save');?>"/>
 	</div>
 </form>
-
-<?php include('footer.php'); ?>

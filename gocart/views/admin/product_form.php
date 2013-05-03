@@ -1,6 +1,4 @@
-<?php include('header.php');
-$GLOBALS['option_value_count']		= 0;
-?>
+<?php $GLOBALS['option_value_count'] = 0;?>
 <style type="text/css">
 	.sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
 	.sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; height: 18px; }
@@ -735,5 +733,3 @@ function related_items($id, $name) {
 			</tr>
 		';
 }
-
-include('footer.php'); ?>

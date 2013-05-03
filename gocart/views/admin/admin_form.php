@@ -1,4 +1,3 @@
-<?php include('header.php'); ?>
 <?php echo form_open($this->config->item('admin_folder').'/admin/form/'.$id); ?>
 	
 		<label><?php echo lang('firstname');?></label>
@@ -52,4 +51,3 @@ $('form').submit(function() {
 	$('.btn').attr('disabled', true).addClass('disabled');
 });
 </script>
-<?php include('footer.php');
