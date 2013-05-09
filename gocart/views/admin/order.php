@@ -40,6 +40,7 @@ function set_canned_message(id)
 {
 	// update the customer name variable before setting content	
 	$('#msg_subject').val(messages[id]['subject'].replace(/{customer_name}/g, customer_names[$('#recipient_name').val()]));
+	$('.redactor').setCode( messages[id]['content'] );
 }	
 </script>
 
