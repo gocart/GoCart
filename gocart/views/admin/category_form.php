@@ -25,6 +25,9 @@
 				$data	= array('name'=>'description', 'class'=>'redactor', 'value'=>set_value('description', $description));
 				echo form_textarea($data);
 				?>
+
+				<label for="enabled"><?php echo lang('enabled');?> </label>
+				<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled)); ?>
 			</fieldset>
 		</div>
 
@@ -43,7 +46,7 @@
 				echo form_input($data);
 				?>
 				
-				<label for="slug"><?php echo lang('parent');?> </label>
+				<label for="parent_id"><?php echo lang('parent');?> </label>
 				<?php
 				$data	= array(0 => 'Top Level Category');
 				foreach($categories as $parent)

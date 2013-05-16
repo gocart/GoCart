@@ -15,6 +15,7 @@ function areyousure()
 		<tr>
 			<th><?php echo lang('category_id');?></th>
 			<th><?php echo lang('name')?></th>
+			<th><?php echo lang('enabled');?></th>
 			<th></th>
 		</tr>
 	</thead>
@@ -28,6 +29,7 @@ function areyousure()
 			<tr>
 				<td><?php echo  $cat->id; ?></td>
 				<td><?php echo  $sub.$cat->name; ?></td>
+				<td><?php echo ($cat->enabled == '1') ? lang('enabled') : lang('disabled'); ?></td>
 				<td>
 					<div class="btn-group" style="float:right">
 
