@@ -175,7 +175,9 @@ Class Product_model extends CI_Model
 				}
 				$where = true;
 			}
-		
+
+			$this->db->where('enabled', 1);
+
 			$result->related_products	= $this->db->get('products')->result();
 		}
 		else
