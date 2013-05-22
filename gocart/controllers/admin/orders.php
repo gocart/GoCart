@@ -230,7 +230,7 @@ class Orders extends Admin_Controller {
 		$this->email->send();
 		
 		$this->session->set_flashdata('message', lang('sent_notification_message'));
-		redirect($this->config->item('admin_folder').'/orders/view/'.$order_id);
+		redirect($this->config->item('admin_folder').'/orders/order/'.$order_id);
 	}
 	
 	function bulk_delete()
