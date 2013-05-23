@@ -44,9 +44,6 @@
 	
 </form>
 <script type="text/javascript">
-if ($.browser.webkit) {
-    $('input').attr('autocomplete', 'off');
-}
 $('form').submit(function() {
 	$('.btn').attr('disabled', true).addClass('disabled');
 });
