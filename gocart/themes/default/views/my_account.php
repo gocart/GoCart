@@ -33,12 +33,7 @@ $(document).ready(function(){
 				$('#address-form-container').html(data).modal('show');
 			}
 		);
-//		$.fn.colorbox({	href: '<?php echo site_url('secure/address_form'); ?>/'+$(this).attr('rel')});
 	});
-	
-	if ($.browser.webkit) {
-	    $('input:password').attr('autocomplete', 'off');
-	}
 });
 
 
