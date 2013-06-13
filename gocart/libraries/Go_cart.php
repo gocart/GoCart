@@ -1421,7 +1421,11 @@ class go_cart {
 		return $this->_cart_contents['custom_charges'];
 	}
 
-	function customer()
+	// Return the customer array, or the requested value (string or array)
+	// 	$this->go_cart->customer()
+	// 	$this->go_cart->customer('firstname')
+	// 	$this->go_cart->customer(array('bill_address', 'firstname'))
+	function customer($value = false)
 	{
 	
 		if(!$this->_cart_contents['customer'])
@@ -1430,7 +1434,36 @@ class go_cart {
 		}
 		else
 		{
-			return $this->_cart_contents['customer'];
+
+			// Set our customer
+			$customer = $this->_cart_contents['customer'];
+
+			// If we've requested a specific value
+			if($value) {
+
+				// If it's an array of values, then loop over each, to move down the customer array
+				if(is_array($value)) {
+
+					$return = $customer;
+					foreach($value as $v) {
+						if(isset($return[$v])) {
+							$return = $return[$v];
+						} else {
+							return $customer;
+						}
+					}
+
+					// ... to return the last requested value
+					return $return;
+
+				// ... otherwise, just return the requested value
+				} elseif(isset($customer[$value])) {
+					return $customer[$value];
+				}
+
+			}
+
+			return $customer;
 		}
 	}
 	
