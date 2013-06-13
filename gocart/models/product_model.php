@@ -162,20 +162,15 @@ Class Product_model extends CI_Model
 		if(!empty($related))
 		{
 			//build the where
-			$where = false;
+			$where = array();
 			foreach($related as $r)
 			{
-				if(!$where)
-				{
-					$this->db->where('id', $r);
-				}
-				else
-				{
-					$this->db->or_where('id', $r);
-				}
-				$where = true;
+				$where[] = '`id` = '.$r;
 			}
-		
+
+			$this->db->where('('.implode(' OR ', $where).')', null);
+			$this->db->where('enabled', 1);
+
 			$result->related_products	= $this->db->get('products')->result();
 		}
 		else
