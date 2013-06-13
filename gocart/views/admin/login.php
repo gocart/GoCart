@@ -1,3 +1,5 @@
+<?php include('header.php'); ?>
+
 <style type="text/css">
 	body {
 		margin-top:50px;
@@ -34,3 +36,5 @@
 	<?php echo  form_close(); ?>
 	</div>
 </div>
+
+<?php include('footer.php'); ?>
