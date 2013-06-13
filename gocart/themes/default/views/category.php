@@ -29,7 +29,7 @@
 		<div class="span3">
 			<ul class="nav nav-list well">
 				<li class="nav-header">
-				Subcategories
+				<?php echo lang('subcategories'); ?>
 				</li>
 				
 				<?php foreach($this->categories[$category->id] as $subcategory):?>
