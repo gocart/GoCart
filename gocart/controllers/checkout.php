@@ -439,6 +439,7 @@ class Checkout extends Front_Controller {
 		else
 		{
 			$this->form_validation->set_message('check_payment', $check);
+			return false;
 		}
 	}
 
