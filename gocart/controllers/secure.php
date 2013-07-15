@@ -449,10 +449,14 @@ class Secure extends Front_Controller {
 		}
 		
 		// validate download counter
-		if(intval($filedata->downloads) >= intval($filedata->max_downloads))
+		if($filedata->max_downloads > 0)
 		{
-			show_404();
+			if(intval($filedata->downloads) >= intval($filedata->max_downloads))
+			{
+				show_404();
+			}
 		}
+		
 		
 		// increment downloads counter
 		$this->Digital_Product_model->touch_download($link);
