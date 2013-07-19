@@ -101,3 +101,30 @@ img.responsiveImage
 .hide {
 	display:none;
 }
+
+.category_container .span3 {
+	padding-bottom:9999px;
+	margin-bottom:-9989px;
+	overflow:hidden;
+}
+
+.product-image {
+	display:table;
+	width:100%;
+}
+
+.product .thumbnail {
+	height:150px;
+	vertical-align:middle;
+	text-align:center;
+	display: table-cell;
+	width:100%;
+	vertical-align: middle; 
+	text-align: center; 
+}
+
+.product .thumbnail img {
+	max-height:150px;
+	display:inline;
+	margin:auto;
+}
