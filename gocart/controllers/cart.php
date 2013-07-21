@@ -41,6 +41,7 @@ class Cart extends Front_Controller {
 		$this->load->view('page', $data);
 	}
 	
+	
 	function search($code=false, $page = 0)
 	{
 		$this->load->model('Search_model');
@@ -138,12 +139,29 @@ class Cart extends Front_Controller {
 	
 	function category($id)
 	{
+		
 		//get the category
 		$data['category']			= $this->Category_model->get_category($id);
 				
 		if (!$data['category'])
 		{
 			show_404();
+		}
+		
+		//check for filter information
+		$data['filters'] = array();
+		if($this->input->get('filters'))
+		{
+			$data['filters'] = explode(',', $this->input->get('filters'));
+		}
+		if(count($data['filters'])>0)
+		{
+			$filtered = true;
+			$product_ids = $this->filter_model->get_filter_product_ids($data['filters'], $data['category']->id);
+			$product_count = count($product_ids);
+		} else {
+			$filtered = false;
+			$product_count = $this->Product_model->count_products($data['category']->id);
 		}
 		
 		//set up pagination
@@ -192,7 +210,7 @@ class Cart extends Front_Controller {
 		$config['base_url']		= site_url($base_url);
 		$config['uri_segment']	= $segments;
 		$config['per_page']		= 24;
-		$config['total_rows']	= $this->Product_model->count_products($data['category']->id);
+		$config['total_rows']	= $product_count;
 		
 		$config['first_link'] = 'First';
 		$config['first_tag_open'] = '<li>';
@@ -220,7 +238,13 @@ class Cart extends Front_Controller {
 		$this->pagination->initialize($config);
 		
 		//grab the products using the pagination lib
-		$data['products']	= $this->Product_model->get_products($data['category']->id, $config['per_page'], $page, $sort_by['by'], $sort_by['sort']);
+		if($filtered)
+		{
+			$data['products'] = $this->Product_model->get_filtered_products($product_ids, $config['per_page'], $page);
+		} else {
+			$data['products']	= $this->Product_model->get_products($data['category']->id, $config['per_page'], $page, $sort_by['by'], $sort_by['sort']);
+		}
+		
 		foreach ($data['products'] as &$p)
 		{
 			$p->images	= (array)json_decode($p->images);
