@@ -101,6 +101,49 @@ Class Product_model extends CI_Model
 		return $return;
 	}
 	
+	function get_filtered_products($product_ids, $limit = false, $offset = false)
+	{
+		
+		if(count($product_ids)==0)
+		{
+			return array();
+		}
+		
+		$this->db->select('id, LEAST(IFNULL(NULLIF(saleprice, 0), price), price) as sort_price', false)->from('products');
+		
+		if(count($product_ids)>1)
+		{
+			$querystr = '';
+			foreach($product_ids as $id)
+			{
+				$querystr .= 'id=\''.$id.'\' OR ';
+			}
+		
+			$querystr = substr($querystr, 0, -3);
+			
+			$this->db->where($querystr, null, false);
+			
+		} else {
+			$this->db->where('id', $product_ids[0]);
+		}
+		
+		$result	= $this->db->limit($limit)->offset($offset)->get()->result();
+
+		//die($this->db->last_query());
+
+		$contents	= array();
+		$count		= 0;
+		foreach ($result as $product)
+		{
+
+			$contents[$count]	= $this->get_product($product->id);
+			$count++;
+		}
+
+		return $contents;
+		
+	}
+	
 	function get_products($category_id = false, $limit = false, $offset = false, $by=false, $sort=false)
 	{
 		//if we are provided a category_id, then get products according to category
@@ -178,6 +221,7 @@ Class Product_model extends CI_Model
 			$result->related_products	= array();
 		}
 		$result->categories			= $this->get_product_categories($result->id);
+		$result->filters			= $this->get_product_filters($result->id);
 	
 		// group discount?
 		if($this->group_discount_formula) 
@@ -191,6 +235,11 @@ Class Product_model extends CI_Model
 	function get_product_categories($id)
 	{
 		return $this->db->where('product_id', $id)->join('categories', 'category_id = categories.id')->get('category_products')->result();
+	}
+	
+	function get_product_filters($id)
+	{
+		return $this->db->where('product_id', $id)->join('filters', 'filter_id = filters.id')->get('filter_products')->result();
 	}
 
 	function get_slug($id)
@@ -219,7 +268,7 @@ Class Product_model extends CI_Model
 		}
 	}
 
-	function save($product, $options=false, $categories=false)
+	function save($product, $options=false, $categories=false, $filters=false)
 	{
 		if ($product['id'])
 		{
@@ -295,6 +344,48 @@ Class Product_model extends CI_Model
 				foreach($categories as $c)
 				{
 					$this->db->insert('category_products', array('product_id'=>$id,'category_id'=>$c));
+				}
+			}
+		}
+		
+		if($filters !== false)
+		{
+			if($product['id'])
+			{
+				//get all the categories that the product is in
+				$fils	= $this->get_product_filters($id);
+				
+				//generate cat_id array
+				$ids	= array();
+				foreach($fils as $f)
+				{
+					$ids[]	= $f->id;
+				}
+
+				//eliminate categories that products are no longer in
+				foreach($ids as $f)
+				{
+					if(!in_array($f, $filters))
+					{
+						$this->db->delete('filter_products', array('product_id'=>$id,'filter_id'=>$f));
+					}
+				}
+				
+				//add products to new categories
+				foreach($filters as $f)
+				{
+					if(!in_array($f, $ids))
+					{
+						$this->db->insert('filter_products', array('product_id'=>$id,'filter_id'=>$f));
+					}
+				}
+			}
+			else
+			{
+				//new product add them all
+				foreach($filters as $f)
+				{
+					$this->db->insert('filter_products', array('product_id'=>$id,'filter_id'=>$f));
 				}
 			}
 		}
