@@ -160,6 +160,9 @@ if(isset($additional_header_info))
 		<?php endif;?>
 		
 		
+		<?php 
+			$this->load->view('filters_list', array('filters'=>$this->filter_model->get_filters_tierd())); 
+		?>
 
 <?php
 /*

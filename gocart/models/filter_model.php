@@ -24,7 +24,24 @@ Class filter_model extends CI_Model
 		return $filters;
 	}
 	
+	function get_filters_by_names($filter_list)
+	{
+		if(count($filter_list)==0)
+		{
+			return array();
+		}
+		
+		$querystr = '';
+		foreach($filter_list as $f)
+		{
+			$querystr .= ' slug=\''.$f.'\' OR';
+		}
+		$querystr = substr($querystr, 0, -2);
+		
+		return $this->db->select('name, slug')->from('filters')->where($querystr, null, false)->get()->result();
+	}
 	
+	// Retrieves the list of Ids for products that match a list of filters
 	function get_filter_product_ids($filter_list=array(), $category_id=false)
 	{
 		$filter_ids = array();

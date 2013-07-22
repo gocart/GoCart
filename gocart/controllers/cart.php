@@ -137,11 +137,43 @@ class Cart extends Front_Controller {
 			$this->load->view('category', $data);
 	}
 	
+	// Sends back a reformatted filter string to append to the URL
+	function changefilterstring()
+	{
+		$option 		= $this->input->post('option');
+		$value 			= $this->input->post('value');
+		$filter_string 	= $this->input->post('filters');
+		if($filter_string!='')
+		{
+			$active_filters = explode(',', $filter_string);
+		} else {
+			$active_filters = array();
+		}
+		if($option=='remove')
+		{
+			$new_filters = array();
+			foreach($active_filters as $f)
+			{
+				if($f!=$value) 
+				{
+					$new_filters[] = $f;
+				}
+			}
+		} else {
+			$new_filters = $active_filters;
+			if(!in_array($value, $active_filters))
+			{
+				$new_filters[] = $value;
+			}
+		}
+		echo implode(',', $new_filters);
+	}
+	
 	function category($id)
 	{
 		
 		//get the category
-		$data['category']			= $this->Category_model->get_category($id);
+		$data['category'] = $this->Category_model->get_category($id);
 				
 		if (!$data['category'])
 		{
@@ -149,15 +181,16 @@ class Cart extends Front_Controller {
 		}
 		
 		//check for filter information
-		$data['filters'] = array();
+		$filters = array();
 		if($this->input->get('filters'))
 		{
-			$data['filters'] = explode(',', $this->input->get('filters'));
+			$filters = explode(',', $this->input->get('filters'));
 		}
-		if(count($data['filters'])>0)
+		if(count($filters)>0)
 		{
 			$filtered = true;
-			$product_ids = $this->filter_model->get_filter_product_ids($data['filters'], $data['category']->id);
+			$data['filters'] = $this->filter_model->get_filters_by_names($filters);
+			$product_ids = $this->filter_model->get_filter_product_ids($filters, $data['category']->id);
 			$product_count = count($product_ids);
 		} else {
 			$filtered = false;
