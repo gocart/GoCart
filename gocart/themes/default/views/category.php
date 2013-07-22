@@ -38,6 +38,11 @@
 		</h2>
 	<?php elseif(count($products) > 0):?>
 		
+		<?php if(!empty($filters))
+			  {
+				  $this->load->view('filter_header', array('filters'=>$filters));
+			  } 
+		?>
 		<div class="row" style="margin-top:20px; margin-bottom:15px">
 			<div class="span6">
 				<?php echo $this->pagination->create_links();?>
