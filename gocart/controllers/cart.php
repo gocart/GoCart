@@ -241,6 +241,11 @@ class Cart extends Front_Controller {
 		//set up pagination
 		$this->load->library('pagination');
 		$config['base_url']		= site_url($base_url);
+		if ($filtered)
+		{
+			$config['suffix'] = '?filters='.$this->input->get('filters');
+			$config['first_url'] = $config['base_url'].$config['suffix'];
+		}
 		$config['uri_segment']	= $segments;
 		$config['per_page']		= 24;
 		$config['total_rows']	= $product_count;
@@ -254,7 +259,7 @@ class Cart extends Front_Controller {
 
 		$config['full_tag_open'] = '<div class="pagination"><ul>';
 		$config['full_tag_close'] = '</ul></div>';
-		$config['cur_tag_open'] = '<li class="active"><a href="#">';
+		$config['cur_tag_open'] = '<li class="active"><a href="">';
 		$config['cur_tag_close'] = '</a></li>';
 		
 		$config['num_tag_open'] = '<li>';
@@ -267,7 +272,7 @@ class Cart extends Front_Controller {
 		$config['next_link'] = '&raquo;';
 		$config['next_tag_open'] = '<li>';
 		$config['next_tag_close'] = '</li>';
-		
+				
 		$this->pagination->initialize($config);
 		
 		//grab the products using the pagination lib
