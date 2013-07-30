@@ -1,17 +1,13 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /*
-
 	USPS Domestic.
-	
 	For use in the USA 
-	
 */
 
 class usps_domestic
 {
 	var $CI;
-	
 	
 	var $testserver = 'http://testing.shippingapis.com/ShippingAPITest.dll';
 	var $liveserver	= 'http://production.shippingapis.com/ShippingAPI.dll';
@@ -26,50 +22,34 @@ class usps_domestic
 		$this->CI->lang->load('usps_domestic');
 		
 		$this->service_list = array(
-			// Domestic Services
-			"Express Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt;",
-			"Express Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; Hold For Pickup",
-			"Express Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; Sunday\/Holiday Delivery",
-			"Express Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; Flat Rate Envelope",
-			"Express Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; Flat Rate Envelope Hold For Pickup",
-			"Express Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; Sunday\/Holiday Delivery Flat Rate Envelope",
-			"Express Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; Legal Flat Rate Envelope",
-			"Express Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; Legal Flat Rate Envelope Hold For Pickup",
-			"Express Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; Sunday\/Holiday Delivery Legal Flat Rate Envelope",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt;",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; Large Flat Rate Box",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; Medium Flat Rate Box",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; Small Flat Rate Box",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; Flat Rate Envelope",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; Legal Flat Rate Envelope",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; Padded Flat Rate Envelope",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; Gift Card Flat Rate Envelope",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; Small Flat Rate Envelope",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; Window Flat Rate Envelope",
-			"Parcel Post&lt;sup&gt;&amp;reg;&lt;/sup&gt;",
-			"Media Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt;",
-			"Library Mail"
+			'Priority Mail Express 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt;', 
+			'Priority Mail Express 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Hold For Pickup', 
+			'Priority Mail Express 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Flat Rate Boxes', 
+			'Priority Mail Express 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Flat Rate Boxes Hold For Pickup', 
+			'Priority Mail Express 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Flat Rate Envelope', 
+			'Priority Mail Express 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Flat Rate Envelope Hold For Pickup', 
+			'Priority Mail Express 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Legal Flat Rate Envelope', 
+			'Priority Mail Express 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Legal Flat Rate Envelope Hold For Pickup', 
+			'Priority Mail Express 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Padded Flat Rate Envelope', 
+			'Priority Mail Express 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Padded Flat Rate Envelope Hold For Pickup', 
+			'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt;', 
+			'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Large Flat Rate Box', 
+			'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Medium Flat Rate Box', 
+			'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Small Flat Rate Box', 
+			'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Flat Rate Envelope', 
+			'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Legal Flat Rate Envelope', 
+			'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Padded Flat Rate Envelope', 
+			'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Gift Card Flat Rate Envelope', 
+			'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Small Flat Rate Envelope', 
+			'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Window Flat Rate Envelope', 
+			'Standard Post&lt;sup&gt;&#174;&lt;/sup&gt;', 
+			'Media Mail&lt;sup&gt;&#174;&lt;/sup&gt;', 
+			'Library Mail'
 		);
-		
-		
-		
-		/*
-		$this->service_list = array(
-				'Express Mail to PO Addressee'=>'Express Mail to PO Addressee',
-      		  	'First Class Mail'=>'First-Class Mail',
-     			'Priority Mail'=>'Priority Mail',
-      			'Parcel Post'=>'Parcel Post',
-      			'Bound Printed Matter'=>'Bound Printed Matter',
-      			'Media Mail'=>'Media Mail',
-      			'Library Mail'=>'Library Mail' 
-      			);
-      	*/
-
 	}
 	
 	function rates()
 	{
-
 		$this->CI->load->library('session');
 
 		// get customer info
@@ -90,14 +70,14 @@ class usps_domestic
 			return array();
 		}
 
-		$user	 		= $settings['username'];
-		$pass 			= $settings['password'];
-		$service		= explode(',',$settings['service']);
-		$container 		= $settings['container'];
-		$size 			= 'Regular';//$settings['size'];
-		$machinable 	= $settings['machinable'];
-		$handling_method = $settings['handling_method'];
-		$handling_amount = $settings['handling_amount'];
+		$user	 			= $settings['username'];
+		$pass 				= $settings['password'];
+		$service			= explode(',',$settings['service']);
+		$container 			= $settings['container'];
+		$size 				= 'Regular';
+		$machinable 		= $settings['machinable'];
+		$handling_method	= $settings['handling_method'];
+		$handling_amount	= $settings['handling_amount'];
 
 		// build allowed service list
 		foreach($service as $s)
@@ -133,7 +113,6 @@ class usps_domestic
 		// send a standard test request
 		if($settings['mode'] == 'test')
 		{
-
 			$str = '<RateV2Request USERID="';
 			$str .= $user . '"><Package ID="1"><Service>';
 			$str .= 'All</Service><ZipOrigination>10022</ZipOrigination>';
@@ -143,25 +122,19 @@ class usps_domestic
 			$str .= '<Machinable>True</Machinable></Package></RateV2Request>';
 
 			$str = $this->testserver .'?API=RateV2&XML='. urlencode($str);
-
 		}
 		else
 		{
-
-			// Domestic Rates
 			$str = '<RateV4Request USERID="';
-			//$str .= $user . '" PASSWORD="' . $pass . '"><Package ID="1"><Service>';
 			$str .= $user . '"><Package ID="1"><Service>';
 			$str .= 'ALL</Service><ZipOrigination>'.$orig_zip.'</ZipOrigination>';
 			$str .= '<ZipDestination>'.$dest_zip.'</ZipDestination>';
 			$str .= '<Pounds>'.$lbs.'</Pounds><Ounces>'.$oz.'</Ounces>';
 			$str .= '<Container>' . $container .'</Container><Size>'.$size.'</Size>';
 			$str .= '<Machinable>'.$machinable.'</Machinable></Package></RateV4Request>';
-
-			$str = $this->liveserver .'?API=RateV4&XML='. urlencode($str);				
-
+			
+			$str = $this->liveserver .'?API=RateV4&XML='. urlencode($str);
 		}
-
 
 		$ch = curl_init();
 		// set URL and other appropriate options
@@ -196,7 +169,6 @@ class usps_domestic
 		{
 			foreach ($array['RATEV2RESPONSE'][0]['PACKAGE'][0]['POSTAGE'] as $value)
 			{
-
 				$amount = $value['RATE'][0]['VALUE'];
 
 				if(is_numeric($handling_amount)) // valid entry?
@@ -212,6 +184,7 @@ class usps_domestic
 					}
 				}
 
+				$value['MAILSERVICE'][0]['VALUE'] = str_replace(array('&lt;', '&gt;'), array('<', '>'), $value['MAILSERVICE'][0]['VALUE']);
 				$rates[$value['MAILSERVICE'][0]['VALUE']] = $amount;
 
 			}
@@ -240,6 +213,7 @@ class usps_domestic
 						}
 					}
 
+					$value['MAILSERVICE'][0]['VALUE'] = str_replace(array('&lt;', '&gt;'), array('<', '>'), $value['MAILSERVICE'][0]['VALUE']);
 					$rates[$value['MAILSERVICE'][0]['VALUE']] = $amount;
 				}	
 			}
@@ -332,9 +306,11 @@ class usps_domestic
 
 				<label><?php echo lang('method')?></label>
 				<div class="controls">
-				 <?php foreach($this->service_list as $id=>$opt):?>
+				 <?php foreach($this->service_list as $id=>$opt):
+					$opt = str_replace(array('&lt;', '&gt;'), array('<', '>'), $opt);
+					?>
 					<label class="checkbox">
-						<input type='checkbox' name='service[]' value='<?php echo $id;?>' <?php echo(in_array($id, $service))?"checked='checked'":'';?> /> <?php echo htmlspecialchars_decode(html_entity_decode(stripslashes($opt)));?>
+						<input type='checkbox' name='service[]' value='<?php echo $id;?>' <?php echo(in_array($id, $service))?"checked='checked'":'';?> /> <?php echo (stripslashes($opt);?>
 					</label>
 		         <?php endforeach;?>
 				</div>
