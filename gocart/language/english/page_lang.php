@@ -19,6 +19,7 @@ $lang['menu_title']				= 'Menu Title';
 $lang['slug']					= 'Slug';
 $lang['seo_title']				= 'SEO Title';
 $lang['meta']					= 'Meta Data';
+$lang['meta_data_description']  = 'ex. &lt;meta name="description" content="We sell products that help you" /&gt;';
 $lang['sequence']				= 'Sequence';
 $lang['parent_id']				= 'Parent';
 $lang['new_window']				= 'New Window';
