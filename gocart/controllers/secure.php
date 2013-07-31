@@ -447,7 +447,9 @@ class Secure extends Front_Controller {
 		}
 		
 		// validate download counter
-		if(intval($filedata->downloads) >= intval($filedata->max_downloads))
+		$downloadIsPossible = intval($filedata->downloads) >= intval($filedata->max_downloads) ? false : true;
+		$downloadIsLimited = intval($filedata->max_downloads) === 0 ? false : true;
+		if(!$downloadIsPossible && $downloadIsLimited)
 		{
 			show_404();
 		}
