@@ -10,6 +10,7 @@ $lang['bill_to']					= 'Bill To';
 $lang['ship_to']					= 'Ship To';
 $lang['ordered_on']					= 'Ordered On';
 $lang['status']						= 'Status';
+$lang['notes']  					= 'Notes';
 $lang['firstname']					= 'First Name';
 $lang['lastname']					= 'Last Name';
 $lang['email']						= 'Email';
