@@ -68,52 +68,54 @@
 				<?php endif;?>
 
 				<div class="span3 product">
-					<?php
-					$photo	= theme_img('no_picture.png', lang('no_image_available'));
-					$product->images	= array_values($product->images);
-			
-					if(!empty($product->images[0]))
-					{
-						$primary	= $product->images[0];
-						foreach($product->images as $photo)
-						{
-							if(isset($photo->primary))
-							{
-								$primary	= $photo;
-							}
-						}
-
-						$photo	= '<img src="'.base_url('uploads/images/thumbnails/'.$primary->filename).'" alt="'.$product->seo_title.'"/>';
-					}
-					?>
-					<div class="product-image">
-						<a class="thumbnail" href="<?php echo site_url(implode('/', $base_url).'/'.$product->slug); ?>">
-							<?php echo $photo; ?>
-						</a>
-					</div>
-					<h5 style="margin-top:5px;">
-						<a href="<?php echo site_url(implode('/', $base_url).'/'.$product->slug); ?>"><?php echo $product->name;?></a>
-						<?php if($this->admin_session->userdata('admin')): ?>
-							<a class="btn" title="<?php echo lang('edit_product'); ?>" href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$product->id); ?>"><i class="icon-pencil"></i></a>
-						<?php endif; ?>
-					</h5>
-
-					<?php if($product->excerpt != ''): ?>
-						<div class="excerpt"><?php echo $product->excerpt; ?></div>
-					<?php endif; ?>
-					
 					<div>
-						<?php if($product->saleprice > 0):?>
-							<span class="price-slash"><?php echo lang('product_reg');?> <?php echo format_currency($product->price); ?></span>
-							<span class="price-sale"><?php echo lang('product_sale');?> <?php echo format_currency($product->saleprice); ?></span>
-						<?php else: ?>
-							<span class="price-reg"><?php echo lang('product_price');?> <?php echo format_currency($product->price); ?></span>
+						<?php
+						$photo	= theme_img('no_picture.png', lang('no_image_available'));
+						$product->images	= array_values($product->images);
+			
+						if(!empty($product->images[0]))
+						{
+							$primary	= $product->images[0];
+							foreach($product->images as $photo)
+							{
+								if(isset($photo->primary))
+								{
+									$primary	= $photo;
+								}
+							}
+
+							$photo	= '<img src="'.base_url('uploads/images/thumbnails/'.$primary->filename).'" alt="'.$product->seo_title.'"/>';
+						}
+						?>
+						<div class="product-image">
+							<a class="thumbnail" href="<?php echo site_url(implode('/', $base_url).'/'.$product->slug); ?>">
+								<?php echo $photo; ?>
+							</a>
+						</div>
+						<h5 style="margin-top:5px;">
+							<a href="<?php echo site_url(implode('/', $base_url).'/'.$product->slug); ?>"><?php echo $product->name;?></a>
+							<?php if($this->admin_session->userdata('admin')): ?>
+								<a class="btn" title="<?php echo lang('edit_product'); ?>" href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$product->id); ?>"><i class="icon-pencil"></i></a>
+							<?php endif; ?>
+						</h5>
+
+						<?php if($product->excerpt != ''): ?>
+							<div class="excerpt"><?php echo $product->excerpt; ?></div>
 						<?php endif; ?>
-					</div>
 					
-                    <?php if((bool)$product->track_stock && $product->quantity < 1 && config_item('inventory_enabled')) { ?>
-						<div class="stock_msg"><?php echo lang('out_of_stock');?></div>
-					<?php } ?>
+						<div>
+							<?php if($product->saleprice > 0):?>
+								<span class="price-slash"><?php echo lang('product_reg');?> <?php echo format_currency($product->price); ?></span>
+								<span class="price-sale"><?php echo lang('product_sale');?> <?php echo format_currency($product->saleprice); ?></span>
+							<?php else: ?>
+								<span class="price-reg"><?php echo lang('product_price');?> <?php echo format_currency($product->price); ?></span>
+							<?php endif; ?>
+						</div>
+					
+	                    <?php if((bool)$product->track_stock && $product->quantity < 1 && config_item('inventory_enabled')) { ?>
+							<div class="stock_msg"><?php echo lang('out_of_stock');?></div>
+						<?php } ?>
+					</div>
 				</div>
 				<?php if($itm_cnt == $cols) {
 					$itm_cnt = 1;
