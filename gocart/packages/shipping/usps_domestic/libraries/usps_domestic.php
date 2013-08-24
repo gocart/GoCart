@@ -310,7 +310,7 @@ class usps_domestic
 					$opt = str_replace(array('&lt;', '&gt;'), array('<', '>'), $opt);
 					?>
 					<label class="checkbox">
-						<input type='checkbox' name='service[]' value='<?php echo $id;?>' <?php echo(in_array($id, $service))?"checked='checked'":'';?> /> <?php echo (stripslashes($opt);?>
+						<input type='checkbox' name='service[]' value='<?php echo $id;?>' <?php echo(in_array($id, $service))?"checked='checked'":'';?> /> <?php echo (stripslashes($opt));?>
 					</label>
 		         <?php endforeach;?>
 				</div>
