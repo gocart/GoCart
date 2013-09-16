@@ -1,6 +1,3 @@
-<?php include('header.php'); ?>
-
-
 <?php if(count($shipping_modules) >0): ?>
 <div class="row">
 	<div class="span12">
@@ -95,4 +92,3 @@ function areyousure()
 	return confirm('<?php echo lang('confirm_are_you_sure');?>');
 }
 </script>
-<?php include('footer.php');

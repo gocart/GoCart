@@ -20,7 +20,7 @@ class Coupons extends Admin_Controller {
 		$data['page_title']	= lang('coupons');
 		$data['coupons']	= $this->Coupon_model->get_coupons();
 		
-		$this->load->view($this->config->item('admin_folder').'/coupons', $data);
+		$this->view($this->config->item('admin_folder').'/coupons', $data);
 	}
 	
 	
@@ -121,7 +121,7 @@ class Coupons extends Admin_Controller {
 	
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/coupon_form', $data);
+			$this->view($this->config->item('admin_folder').'/coupon_form', $data);
 		}
 		else
 		{

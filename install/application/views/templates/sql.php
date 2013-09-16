@@ -453,3 +453,25 @@ CREATE TABLE `prefix_settings` (
 PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
+-- new query
+
+CREATE TABLE `prefix_filters` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` int(10) unsigned NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `slug` varchar(64) NOT NULL,
+  `route_id` int(11) NOT NULL,
+  `sequence` int(10) unsigned NOT NULL,
+  `seo_title` text NOT NULL,
+  `meta` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+-- new query
+
+CREATE TABLE `prefix_filter_products` (
+  `product_id` int(10) unsigned NOT NULL,
+  `filter_id` int(10) unsigned NOT NULL,
+  `sequence` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`product_id`,`filter_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

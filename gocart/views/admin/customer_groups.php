@@ -1,5 +1,3 @@
-<?php include('header.php') ?>
-
 <script type="text/javascript">
 function areyousure()
 {
@@ -40,5 +38,3 @@ function areyousure()
 	<?php endforeach; ?>
 	</tbody>
 </table>
-
-<?php include('footer.php');

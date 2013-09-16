@@ -84,6 +84,6 @@ class Payment extends Admin_Controller {
 		}
 		$data['module']		= $module;
 		$data['page_title']	= sprintf(lang('payment_settings'), humanize($module));
-		$this->load->view($this->config->item('admin_folder').'/payment_module_settings', $data);
+		$this->view($this->config->item('admin_folder').'/payment_module_settings', $data);
 	}
 }

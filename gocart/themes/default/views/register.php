@@ -59,12 +59,12 @@ $phone		= array('id'=>'bill_phone', 'class'=>'span3', 'name'=>'phone', 'value'=>
 				<div class="row">	
 					<div class="span3">
 						<label for="account_password"><?php echo lang('account_password');?></label>
-						<input type="password" name="password" value="" class="span3"/>
+						<input type="password" name="password" value="" class="span3" autocomplete="off" />
 					</div>
 
 					<div class="span3">
 						<label for="account_confirm"><?php echo lang('account_confirm');?></label>
-						<input type="password" name="confirm" value="" class="span3"/>
+						<input type="password" name="confirm" value="" class="span3" autocomplete="off" />
 					</div>
 				</div>
 				

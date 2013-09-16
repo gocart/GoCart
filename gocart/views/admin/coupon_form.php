@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <script type="text/javascript">
 $(function(){
 $("#datepicker1").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker1_alt', altFormat: 'yy-mm-dd'});
@@ -136,6 +134,3 @@ $(document).ready(function(){
 });
 
 </script>
-
-
-<?php include('footer.php'); ?>

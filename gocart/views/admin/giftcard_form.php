@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <?php echo form_open($this->config->item('admin_folder').'/giftcards/form/'); ?>
 
 	<label for="to_name"><?php echo lang('recipient_name');?> </label>
@@ -44,5 +42,3 @@
 	</div>
 	
 </form>
-
-<?php include('footer.php');

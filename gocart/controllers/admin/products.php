@@ -11,7 +11,7 @@ class Products extends Admin_Controller {
 
 		$this->auth->check_access('Admin', true);
 		
-		$this->load->model('Product_model');
+		$this->load->model(array('Product_model', 'Filter_model'));
 		$this->load->helper('form');
 		$this->lang->load('product');
 	}
@@ -83,7 +83,7 @@ class Products extends Admin_Controller {
 		
 		$this->pagination->initialize($config);
 		
-		$this->load->view($this->config->item('admin_folder').'/products', $data);
+		$this->view($this->config->item('admin_folder').'/products', $data);
 	}
 	
 	//basic category search
@@ -140,6 +140,7 @@ class Products extends Admin_Controller {
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
 		$data['categories']		= $this->Category_model->get_categories_tierd();
+		$data['filters']		= $this->Filter_model->get_filters_tierd();
 		$data['file_list']		= $this->Digital_Product_model->get_list();
 
 		$data['page_title']		= lang('product_form');
@@ -164,6 +165,7 @@ class Products extends Admin_Controller {
 		$data['enabled']			= '';
 		$data['related_products']	= array();
 		$data['product_categories']	= array();
+		$data['product_filters']	= array();
 		$data['images']				= array();
 		$data['product_files']		= array();
 
@@ -222,12 +224,14 @@ class Products extends Admin_Controller {
 					$data['product_categories'][] = $product_category->id;
 				}
 				
+				$data['product_filters']	= array();
+				foreach($product->filters as $product_filter)
+				{
+					$data['product_filters'][] = $product_filter->id;
+				}
+				
 				$data['related_products']	= $product->related_products;
 				$data['images']				= (array)json_decode($product->images);
-			}
-			else
-			{
-				
 			}
 		}
 		
@@ -239,6 +243,10 @@ class Products extends Admin_Controller {
 		if(!is_array($data['product_categories']))
 		{
 			$data['product_categories']	= array();
+		}
+		if(!is_array($data['product_filters']))
+		{
+			$data['product_filters']	= array();
 		}
 		
 		//no error checking on these
@@ -280,6 +288,7 @@ class Products extends Admin_Controller {
 			$data['product_options']	= $this->input->post('option');
 			$data['related_products']	= $this->input->post('related_products');
 			$data['product_categories']	= $this->input->post('categories');
+			$data['product_filters']	= $this->input->post('filters');
 			$data['images']				= $this->input->post('images');
 			$data['product_files']		= $this->input->post('downloads');
 			
@@ -287,7 +296,7 @@ class Products extends Admin_Controller {
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/product_form', $data);
+			$this->view($this->config->item('admin_folder').'/product_form', $data);
 		}
 		else
 		{
@@ -376,6 +385,13 @@ class Products extends Admin_Controller {
 				$categories	= array();
 			}
 			
+			// save filters
+			$filters			= $this->input->post('filters');
+			if(!$filters)
+			{
+				$filters = array();
+			}
+			
 			// format options
 			$options	= array();
 			if($this->input->post('option'))
@@ -388,7 +404,7 @@ class Products extends Admin_Controller {
 			}	
 			
 			// save product 
-			$product_id	= $this->Product_model->save($save, $options, $categories);
+			$product_id	= $this->Product_model->save($save, $options, $categories, $filters);
 			
 			// add file associations
 			// clear existsing
