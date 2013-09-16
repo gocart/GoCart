@@ -449,10 +449,14 @@ class Secure extends Front_Controller {
 		}
 		
 		// validate download counter
-		if(intval($filedata->downloads) >= intval($filedata->max_downloads))
+		if($filedata->max_downloads > 0)
 		{
-			show_404();
+			if(intval($filedata->downloads) >= intval($filedata->max_downloads))
+			{
+				show_404();
+			}
 		}
+		
 		
 		// increment downloads counter
 		$this->Digital_Product_model->touch_download($link);
@@ -492,27 +496,6 @@ class Secure extends Front_Controller {
 		$this->go_cart->save_customer($customer);
 		
 		echo "1";
-	}
-	
-	
-	// this is a form partial for the checkout page
-	function checkout_address_manager()
-	{
-		$customer = $this->go_cart->customer();
-		
-		$data['customer_addresses'] = $this->Customer_model->get_address_list($customer['id']);
-	
-		$this->load->view('address_manager', $data);
-	}
-	
-	// this is a partial partial, to refresh the address manager
-	function address_manager_list_contents()
-	{
-		$customer = $this->go_cart->customer();
-		
-		$data['customer_addresses'] = $this->Customer_model->get_address_list($customer['id']);
-	
-		$this->load->view('address_manager_list_content', $data);
 	}
 	
 	function address_form($id = 0)

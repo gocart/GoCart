@@ -1,7 +1,4 @@
-<?php include('header.php'); ?>
-
 <?php echo form_open($this->config->item('admin_folder').'/pages/form/'.$id); ?>
-
 
 <div class="tabbable">
 	
@@ -96,4 +93,3 @@
 	<button type="submit" class="btn btn-primary"><?php echo lang('form_save');?></button>
 </div>	
 </form>
-<?php include('footer.php'); ?>

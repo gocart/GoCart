@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <?php echo form_open($this->config->item('admin_folder').'/giftcards/settings'); ?>
 
 
@@ -21,5 +19,3 @@
 		<input class="btn btn-primary" type="submit" value="<?php echo lang('save');?>"/>
 	</div>
 </form>
-
-<?php include('footer.php');

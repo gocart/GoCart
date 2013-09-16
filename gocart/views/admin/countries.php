@@ -1,4 +1,3 @@
-<?php include('header.php'); ?>
 <script type="text/javascript">
 //<![CDATA[
 $(document).ready(function(){
@@ -82,4 +81,3 @@ function areyousure()
 <?php endforeach; ?>
 	</tbody>
 </table>
-<?php include('footer.php'); ?>

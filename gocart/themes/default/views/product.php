@@ -56,7 +56,7 @@
 					<h2 style="font-weight:normal">
 						<?php echo $product->name;?>
 						<?php if($this->admin_session->userdata('admin')): ?>
-						<a class="btn" title="Edit Category" href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$product->id); ?>"><i class="icon-pencil"></i></a>
+						<a class="btn" title="<?php echo lang('edit_product'); ?>" href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$product->id); ?>"><i class="icon-pencil"></i></a>
 						<?php endif; ?>
 						<span class="pull-right">
 							<?php if($product->saleprice > 0):?>
@@ -161,7 +161,7 @@
 											}?>
 
 											<option<?php echo $selected;?> value="<?php echo $values->id;?>">
-												<?php echo($values->price != 0)?'('.format_currency($values->price).') ':''; echo $values->name;?>
+												<?php echo($values->price != 0)?' (+'.format_currency($values->price).') ':''; echo $values->name;?>
 											</option>
 
 										<?php endforeach;?>
@@ -179,7 +179,7 @@
 											}?>
 											<label class="radio">
 												<input<?php echo $checked;?> type="radio" name="option[<?php echo $option->id;?>]" value="<?php echo $values->id;?>"/>
-												<?php echo $option->name;?> <?php echo($values->price != 0)?'('.format_currency($values->price).') ':''; echo $values->name;?>
+												<?php echo($values->price != 0)?'(+'.format_currency($values->price).') ':''; echo $values->name;?>
 											</label>
 										<?php endforeach;?>
 										<?php echo $required;?>
@@ -267,7 +267,7 @@
 						</a>
 						<h5 style="margin-top:5px;"><a href="<?php echo site_url($relate->slug); ?>"><?php echo $relate->name;?></a>
 						<?php if($this->admin_session->userdata('admin')): ?>
-						<a class="btn" title="Edit Category" href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$relate->id); ?>"><i class="icon-pencil"></i></a>
+						<a class="btn" title="<?php echo lang('edit_product'); ?>" href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$relate->id); ?>"><i class="icon-pencil"></i></a>
 						<?php endif; ?>
 						</h5>
 

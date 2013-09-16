@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <?php echo form_open_multipart($this->config->item('admin_folder').'/categories/form/'.$id); ?>
 
 <div class="tabbable">
@@ -107,4 +105,3 @@ $('form').submit(function() {
 	$('.btn').attr('disabled', true).addClass('disabled');
 });
 </script>
-<?php include('footer.php');

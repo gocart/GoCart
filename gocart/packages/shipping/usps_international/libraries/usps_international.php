@@ -16,26 +16,23 @@ class usps_international
 		$this->CI->lang->load('usps_international');
 		
 		$this->service_list = array(
-			
-			"USPS GXG&lt;sup&gt;&amp;trade;&lt;/sup&gt; Envelopes**",
-			"Express Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International",
-			"Express Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Flat Rate Envelope",
-			"Express Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Legal Flat Rate Envelope",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Large Flat Rate Box",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Medium Flat Rate Box",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Small Flat Rate Box**",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International DVD Flat Rate Box**",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Large Video Flat Rate Box**",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Flat Rate Envelope**",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Legal Flat Rate Envelope**",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Padded Flat Rate Envelope**",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Gift Card Flat Rate Envelope**",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Small Flat Rate Envelope**",
-			"Priority Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Window Flat Rate Envelope**",
-			"First-Class Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Package**",
-			"First-Class Mail&lt;sup&gt;&amp;reg;&lt;/sup&gt; International Large Envelope**"
-						
+			'USPS GXG&lt;sup&gt;&#8482;&lt;/sup&gt; Envelopes**',
+			'Priority Mail Express International&lt;sup&gt;&#8482;&lt;/sup&gt;',
+			'Priority Mail Express International&lt;sup&gt;&#8482;&lt;/sup&gt; Flat Rate Boxes',
+			'Priority Mail Express International&lt;sup&gt;&#8482;&lt;/sup&gt; Flat Rate Envelope',
+			'Priority Mail Express International&lt;sup&gt;&#8482;&lt;/sup&gt; Legal Flat Rate Envelope',
+			'Priority Mail Express International&lt;sup&gt;&#8482;&lt;/sup&gt; Padded Flat Rate Envelope',
+			'Priority Mail International&lt;sup&gt;&#174;&lt;/sup&gt;',
+			'Priority Mail International&lt;sup&gt;&#174;&lt;/sup&gt; Large Flat Rate Box',
+			'Priority Mail International&lt;sup&gt;&#174;&lt;/sup&gt; Medium Flat Rate Box',
+			'Priority Mail International&lt;sup&gt;&#174;&lt;/sup&gt; Flat Rate Envelope**',
+			'Priority Mail International&lt;sup&gt;&#174;&lt;/sup&gt; Legal Flat Rate Envelope**',
+			'Priority Mail International&lt;sup&gt;&#174;&lt;/sup&gt; Padded Flat Rate Envelope**',
+			'Priority Mail International&lt;sup&gt;&#174;&lt;/sup&gt; Gift Card Flat Rate Envelope**',
+			'Priority Mail International&lt;sup&gt;&#174;&lt;/sup&gt; Small Flat Rate Envelope**',
+			'Priority Mail International&lt;sup&gt;&#174;&lt;/sup&gt; Window Flat Rate Envelope**',
+			'First-Class Package International Service&lt;sup&gt;&#8482;&lt;/sup&gt;**',
+			'First-Class Mail&lt;sup&gt;&#174;&lt;/sup&gt; International Large Envelope**'
 		);
 
 	}
@@ -159,8 +156,8 @@ class usps_international
 	    				$amount += $amount * ($handling_amount/100);
 	    			}
 	        	}
-	
-	            $rates[html_entity_decode($value['SVCDESCRIPTION'][0]['VALUE'])] = $amount;
+				$value['SVCDESCRIPTION'][0]['VALUE'] = str_replace(array('&lt;', '&gt;'), array('<', '>'), $value['SVCDESCRIPTION'][0]['VALUE']);
+	            $rates[$value['SVCDESCRIPTION'][0]['VALUE']] = $amount;
 		      }	
         }
 
@@ -247,9 +244,10 @@ class usps_international
 		
 		<label><?php echo lang('method')?></label>
 		<div class="controls">
-		 <?php foreach($this->service_list as $id=>$opt):?>
+		 <?php foreach($this->service_list as $id=>$opt):
+			$opt = str_replace(array('&lt;', '&gt;'), array('<', '>'), $opt);?>
 			<label class="checkbox">
-				<input type='checkbox' name='service[]' value='<?php echo $id;?>' <?php echo(in_array($id, $service))?"checked='checked'":'';?> /> <?php echo htmlspecialchars_decode(html_entity_decode(stripslashes($opt)));?>
+				<input type='checkbox' name='service[]' value='<?php echo $id;?>' <?php echo(in_array($id, $service))?"checked='checked'":'';?> /> <?php echo stripslashes($opt);?>
 			</label>
          <?php endforeach;?>
 		</div>

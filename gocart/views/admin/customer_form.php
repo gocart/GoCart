@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <?php echo form_open($this->config->item('admin_folder').'/customers/form/'.$id); ?>
 
 	<div class="row">
@@ -86,5 +84,3 @@
 		<input class="btn btn-primary" type="submit" value="<?php echo lang('save');?>"/>
 	</div>
 </form>
-
-<?php include('footer.php');

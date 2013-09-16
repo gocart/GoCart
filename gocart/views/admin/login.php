@@ -1,4 +1,4 @@
-<?php include('header.php');?>
+<?php include('header.php'); ?>
 
 <style type="text/css">
 	body {
@@ -37,4 +37,4 @@
 	</div>
 </div>
 
-<?php include('footer.php');?>
+<?php include('footer.php'); ?>

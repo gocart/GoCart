@@ -19,7 +19,7 @@ class Pages extends Admin_Controller
 		$data['pages']		= $this->Page_model->get_pages();
 		
 		
-		$this->load->view($this->config->item('admin_folder').'/pages', $data);
+		$this->view($this->config->item('admin_folder').'/pages', $data);
 	}
 	
 	/********************************************************************
@@ -82,7 +82,7 @@ class Pages extends Admin_Controller
 		// Validate the form
 		if($this->form_validation->run() == false)
 		{
-			$this->load->view($this->config->item('admin_folder').'/page_form', $data);
+			$this->view($this->config->item('admin_folder').'/page_form', $data);
 		}
 		else
 		{
@@ -197,7 +197,7 @@ class Pages extends Admin_Controller
 		// Validate the form
 		if($this->form_validation->run() == false)
 		{
-			$this->load->view($this->config->item('admin_folder').'/link_form', $data);
+			$this->view($this->config->item('admin_folder').'/link_form', $data);
 		}
 		else
 		{	

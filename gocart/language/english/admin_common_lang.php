@@ -14,6 +14,7 @@ $lang['common_coupons']				= 'Coupons';
 $lang['common_giftcards']			= 'Gift Cards';
 $lang['common_catalog']				= 'Catalog';
 $lang['common_categories']			= 'Categories';
+$lang['common_filters']				= 'Filters';
 $lang['common_products']			= 'Products';
 $lang['common_digital_products']	= 'Digital Products';
 $lang['common_content']				= 'Content';
