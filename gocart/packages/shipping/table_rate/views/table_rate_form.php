@@ -17,14 +17,6 @@
 
 </ul>
 
-<?php
-function rate_form($from, $rate, $table_count, $rate_count)
-{
-	?>
-	
-	<?php
-}
-?>
 
 <script type="text/javascript">
 	var rates			= <?php echo json_encode($rates);?>;
@@ -122,7 +114,7 @@ function rate_form($from, $rate, $table_count, $rate_count)
 					
 									<label><?php echo lang('country');?></label>
 									<?php
-										echo form_dropdown('rate[var_count][country]', $countries, '', 'class="span3" id="country_var_count"');
+										echo form_multiselect('rate[var_count][country][]', $countries, '', 'class="span3" id="country_var_count"');
 									?>
 								</div>
 								<div class="span9">

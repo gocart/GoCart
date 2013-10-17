@@ -11,6 +11,8 @@ class Base_Controller extends CI_Controller
 		
 		parent::__construct();
 
+		$this->load->library(array('session', 'auth', 'go_cart'));
+
 		// load the migrations class
 		$this->load->library('migration');
 	
@@ -43,7 +45,7 @@ class Front_Controller extends Base_Controller
 		parent::__construct();
 
 		//load GoCart library
-		$this->load->library(array('Go_cart', 'Banners'));
+		$this->load->library('Banners');
 
 		//load needed models
 		$this->load->model(array('Page_model', 'Product_model', 'Digital_Product_model', 'Gift_card_model', 'Option_model', 'Order_model', 'Settings_model', 'filter_model'));
@@ -117,7 +119,6 @@ class Admin_Controller extends Base_Controller
 	{
 		parent::__construct();
 		
-		$this->load->library('auth');
 		$this->auth->is_logged_in(uri_string());
 		
 		//load the base language file
