@@ -4,10 +4,11 @@ class Migration_gocart extends CI_migration {
 	
 	public function up()
 	{
+
 		//eliminate heard_about from orders tbale
 		if($this->db->field_exists('postcode_required', 'countries'))
 		{
-			$fields	= array('postcode_required'=>array('name'=>'zip_required'));
+			$fields	= array('postcode_required'=>array('name'=>'zip_required', 'type'=>'int','constraint'=>1));
 			$this->dbforge->modify_column('countries', $fields);
 		}
 		
@@ -49,7 +50,9 @@ class Migration_gocart extends CI_migration {
 					'auto_increment'	=> TRUE
 				),
 				'title'					=> array(
-					'name'				=> 'name'
+					'name'				=> 'name',
+					'type'				=> 'varchar',
+					'constraint'		=> 128
 				),
 				'enable_on'				=> array(
 					'name'				=> 'enable_date',
@@ -79,9 +82,9 @@ class Migration_gocart extends CI_migration {
 			$this->dbforge->add_column('banners', $fields);
 		
 			//put them all in the homepage banners collection
-			$this->db->where('id !=', 0)->update('banners', array('banner_collection_id', 1));
+			$this->db->where('id !=', 0)->update('banners', array('banner_collection_id'=>1));
 		}
-		
+
 		if ($this->db->table_exists('boxes'))
 		{
 			//move boxes over and delete the field.
@@ -108,13 +111,86 @@ class Migration_gocart extends CI_migration {
 			//drop the boxes table
 			$this->dbforge->drop_table('boxes');
 		}
+
+		// Create the filters and filter products tables
+		if(!$this->db->table_exists('filters'))
+		{
+			$this->dbforge->add_field(array(
+				'id' => array(
+							'type' => 'int',
+							'constraint' => 11,
+							'auto_increment' => true
+						),
+				'parent_id' => array(
+							'type' => 'int',
+							'constraint' => 10,
+							'unsigned' => true,
+							'null' => false
+						),
+				'name' => array(
+							'type' => 'varchar',
+							'constraint' => 64, 
+							'null' => false
+						),
+				'slug' => array(
+							'type' => 'varchar',
+							'constraint' => 64,
+							'null' => false
+						),
+				'route_id' => array(
+							'type' => 'int',
+							'constraint' => 11,
+							'null' => false
+						),
+				'sequence' => array(
+							'type' => 'int',
+							'constraint' => 10,
+							'unsigned' => true,
+							'null' => false
+						),
+				'seo_title' => array(
+							'type' => 'text',
+							'null' => true
+						),
+  				'meta' => array(
+  							'type' => 'text',
+  							'null' => true,
+						)
+  			));
+
+  			$this->dbforge->add_key('id', true);
+			$this->dbforge->create_table('filters');
+
+
+			$this->dbforge->add_field(array(
+				'product_id' => array(
+							'type' => 'int',
+							'constraint' => 10,
+							'unsigned' => true, 
+							'null' => false
+						),
+  				'filter_id' => array(
+  							'type' => 'int',
+  							'constraint' => 10, 
+  							'unsigned' => true,
+  							'null' => false
+  						),
+  				'sequence' => array( 
+  							'type' => 'int',
+  							'constraint' => 10,
+  							'unsigned' => true, 
+  							'null' => false
+  						)
+			));
+			$this->dbforge->create_table('filter_products', true);
+		}
 	}
 	
 	public function down()
 	{
 		if($this->db->field_exists('zip_required', 'countries'))
 		{
-			$fields	= array('zip_required'=>array('name'=>'postcode_required'));
+			$fields	= array('zip_required'=>array('name'=>'postcode_required', 'type'=>'int', 'constraint'=>1));
 			$this->dbforge->modify_column('countries', $fields);
 		}
 		
@@ -124,7 +200,7 @@ class Migration_gocart extends CI_migration {
 			//drop the boxes table
 			$this->dbforge->drop_table('banner_collections');
 		}
-		
+
 		if ($this->db->table_exists('banners'))
 		{
 			$this->dbforge->drop_table('banners');
@@ -219,7 +295,12 @@ class Migration_gocart extends CI_migration {
 			$this->dbforge->create_table('boxes', TRUE);
 		}
 		
-		
+		// Drop filters tables
+		if (!$this->db->table_exists('filters'))
+		{	
+			$this->dbforge->drop_table('filters');
+			$this->dbforge->drop_table('filter_products');
+		}
 	}
 	
 }
