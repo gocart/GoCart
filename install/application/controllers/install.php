@@ -69,7 +69,7 @@ class Install extends CI_Controller {
 			$config['password'] = $this->input->post('password');
 			$config['database'] = $this->input->post('database');
 			$config['dbdriver'] = "mysql";
-			$config['dbprefix'] = "";
+			$config['dbprefix'] = $this->input->post('prefix');
 			$config['pconnect'] = FALSE;
 			$config['db_debug'] = FALSE;
 			$config['cache_on'] = FALSE;
@@ -85,6 +85,7 @@ class Install extends CI_Controller {
 			if (is_resource($this->db->conn_id) OR is_object($this->db->conn_id))
 			{	
 
+				/*  -- Moving away from using the SQL dump
 				$queries	= $this->load->view('templates/sql', '', true);
 				$queries	= explode('-- new query', $queries);
 				
@@ -93,6 +94,11 @@ class Install extends CI_Controller {
 					$query	= str_replace('prefix_', $this->input->post('prefix'), $q);
 					$this->db->query($query);
 				}
+				*/
+
+				// Populate the DB with CI Migration
+				$this->load->library('migration');
+				$this->migration->version(1);
 
 				//set up the admin user
 				$this->db->insert($this->input->post('prefix').'admin', array('access'=>'Admin', 'email'=>$this->input->post('admin_email'), 'password'=>sha1($this->input->post('admin_password') ) ) );
@@ -164,5 +170,5 @@ class Install extends CI_Controller {
 	}
 }
 
-/* End of file welcome.php */
+/* End of file install.php */
 /* Location: ./application/controllers/install.php */
