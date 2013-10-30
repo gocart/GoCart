@@ -3,20 +3,12 @@
 class Install extends CI_Controller {
 
 	/**
-	 * Index Page for this controller.
+	 * Install Gocart
 	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
+	 * Provides a form for database and admin data, then
+	 * sets up the database tables and config files for the application.
 	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
+	 **/
 	public function index()
 	{
 		/*
@@ -84,17 +76,6 @@ class Install extends CI_Controller {
 			
 			if (is_resource($this->db->conn_id) OR is_object($this->db->conn_id))
 			{	
-
-				/*  -- Moving away from using the SQL dump
-				$queries	= $this->load->view('templates/sql', '', true);
-				$queries	= explode('-- new query', $queries);
-				
-				foreach($queries as $q)
-				{
-					$query	= str_replace('prefix_', $this->input->post('prefix'), $q);
-					$this->db->query($query);
-				}
-				*/
 
 				// Populate the DB with CI Migration
 				$this->load->library('migration');

@@ -22,6 +22,7 @@ Version 2.3
 		- Added strtolower to all coupon codes submitted on the front end to stop duplicate entries
         - Added migrations / migration version to installation
         - Added config_item check for inventory on the category view file.
+        - Fixed product routes not being deleted correctly
 
 	Other
 		

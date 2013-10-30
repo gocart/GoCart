@@ -295,7 +295,7 @@ class Migration_Gocart extends CI_Migration {
 						),
 					'name' => array(
 						'type' => 'varchar',
-						'constraint' => 12,
+						'constraint' => 128,
 						'null' => false
 						),
 					'iso_code_2' => array(
@@ -336,12 +336,14 @@ class Migration_Gocart extends CI_Migration {
 
 			// Seed
 
-			$records = $this->load->view('templates/countries.csv.php', array(), true);
+			$records = $this->load->view('templates/countries.txt', array(), true);
 			$records = explode("\n", $records);
 
 			$batch = array();
 			foreach($records as $r)
 			{
+				$r = explode('|', $r);
+
 				$batch[] = array('id'=>$r[0], 
 								 'sequence'=>$r[1], 
 								 'name'=>$r[2], 
@@ -433,11 +435,13 @@ class Migration_Gocart extends CI_Migration {
 
 			// Seed
 
-			$records = $this->load->view('templates/country_zones.csv.php', array(), true);
+			$records = $this->load->view('templates/country_zones.txt', array(), true);
 			$records = explode("\n", $records);
 
 			foreach($records as $r)
 			{
+				$r = explode('|', $r);
+
 				$insert = array('id'=>$r[0], 
 								'country_id' => $r[1],
 								'code' => $r[2],
