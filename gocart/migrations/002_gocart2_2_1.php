@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_gocart extends CI_migration {
+class Migration_gocart2_2_1 extends CI_migration {
 	
 	public function up()
 	{

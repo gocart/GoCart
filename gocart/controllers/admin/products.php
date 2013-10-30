@@ -530,7 +530,7 @@ class Products extends Admin_Controller {
 
 				// remove the slug
 				$this->load->model('Routes_model');
-				$this->Routes_model->remove('('.$product->slug.')');
+				$this->Routes_model->delete($product->route_id);
 
 				//if the product is legit, delete them
 				$this->Product_model->delete_product($id);
