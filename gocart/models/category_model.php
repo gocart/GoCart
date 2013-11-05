@@ -24,8 +24,10 @@ Class Category_model extends CI_Model
 		return $categories;
 	}
 	
-	function get_categories_tierd()
-	{
+	function get_categories_tierd($admin = false)
+    {
+    	if(!$admin) $this->db->where('enabled', 1);
+		
 		$this->db->order_by('sequence');
 		$this->db->order_by('name', 'ASC');
 		$categories = $this->db->get('categories')->result();

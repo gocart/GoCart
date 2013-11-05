@@ -18,7 +18,7 @@ class Categories extends Admin_Controller {
 		//$this->session->set_flashdata('message', 'this is our message');
 		
 		$data['page_title']	= lang('categories');
-		$data['categories']	= $this->Category_model->get_categories_tierd();
+		$data['categories']	= $this->Category_model->get_categories_tierd(true);
 		
 		$this->view($this->config->item('admin_folder').'/categories', $data);
 	}
@@ -110,6 +110,7 @@ class Categories extends Admin_Controller {
 		$data['seo_title']		= '';
 		$data['meta']			= '';
 		$data['parent_id']		= 0;
+		$data['enabled']    	= '';
 		$data['error']			= '';
 		
 		//create the photos array for later use
@@ -140,6 +141,7 @@ class Categories extends Admin_Controller {
 			$data['image']			= $category->image;
 			$data['seo_title']		= $category->seo_title;
 			$data['meta']			= $category->meta;
+			$data['enabled']    	= $category->enabled;
 			
 		}
 		
@@ -152,6 +154,7 @@ class Categories extends Admin_Controller {
 		$this->form_validation->set_rules('image', 'lang:image', 'trim');
 		$this->form_validation->set_rules('seo_title', 'lang:seo_title', 'trim');
 		$this->form_validation->set_rules('meta', 'lang:meta', 'trim');
+		$this->form_validation->set_rules('enabled', 'lang:enabled', 'trim|numeric');
 		
 		
 		// validate the form
@@ -279,7 +282,7 @@ class Categories extends Admin_Controller {
 			$save['sequence']		= intval($this->input->post('sequence'));
 			$save['seo_title']		= $this->input->post('seo_title');
 			$save['meta']			= $this->input->post('meta');
-
+			$save['enabled']    	= $this->input->post('enabled');
 			$save['route_id']		= intval($route_id);
 			$save['slug']			= $slug;
 			

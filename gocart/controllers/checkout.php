@@ -428,6 +428,7 @@ class Checkout extends Front_Controller {
 			redirect('checkout/step_4');
 		}
 	}
+
 	/* callback that lets the payment method return an error if invalid */
 	function check_payment($module)
 	{
@@ -440,6 +441,7 @@ class Checkout extends Front_Controller {
 		else
 		{
 			$this->form_validation->set_message('check_payment', $check);
+			return false;
 		}
 	}
 
@@ -578,10 +580,10 @@ class Checkout extends Front_Controller {
 			if(!empty($data['customer']['id']))
 			{
 				// they can access their downloads by logging in
-				$download_section = str_replace('{download_link}', anchor('secure/my_downloads', lang('download_link')),$downlod_msg_record['content']);
+				$download_section = str_replace('{download_link}', anchor(site_url('secure/my_downloads'), lang('download_link')),$downlod_msg_record['content']);
 			} else {
 				// non regs will receive a code
-				$download_section = str_replace('{download_link}', anchor('secure/my_downloads/'.$order_downloads['code'], lang('download_link')), $downlod_msg_record['content']);
+				$download_section = str_replace('{download_link}', anchor(site_url('secure/my_downloads').'/'.$order_downloads['code'], lang('download_link')), $downlod_msg_record['content']);
 			}
 		}
 		

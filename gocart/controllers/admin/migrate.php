@@ -16,9 +16,6 @@ class Migrate extends Admin_Controller{
 
      public function version($version)
      {
-        // CLI is not working very well with our routing setup + bug in CI
-        // if($this->input->is_cli_request())
-         //{
             $migration = $this->migration->version($version);
             if(!$migration)
             {
@@ -28,12 +25,5 @@ class Migrate extends Admin_Controller{
             {
                 echo 'Migration(s) done'.PHP_EOL;
             }
-       /* 
-       }
-        else
-        {
-            show_error('You don\'t have permission for this action');;
-        }
-        */
      }
  }

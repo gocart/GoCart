@@ -184,10 +184,24 @@ class Migration_gocart2_3 extends CI_migration {
 			));
 			$this->dbforge->create_table('filter_products', true);
 		}
+
+		if (!$this->db->field_exists('enabled', 'categories'))
+		{
+			// Add the enabled field to categories
+	    	$fields  = array(
+	    	  'enabled'  => array(
+	    	    'type'      => 'tinyint',
+	    	    'constraint'  => 1,
+	    	    'default'    => 1
+	    	  )
+	    	);
+	    	$this->dbforge->add_column('categories', $fields);
+	    }
 	}
 	
 	public function down()
 	{
+
 		if($this->db->field_exists('zip_required', 'countries'))
 		{
 			$fields	= array('zip_required'=>array('name'=>'postcode_required', 'type'=>'int', 'constraint'=>1));
@@ -300,6 +314,12 @@ class Migration_gocart2_3 extends CI_migration {
 		{	
 			$this->dbforge->drop_table('filters');
 			$this->dbforge->drop_table('filter_products');
+		}
+
+		// drop enabled field on categories
+		if($this->db->field_exists('enabled', 'categories'))
+		{
+			$this->dbforge->drop_column('categories', 'enabled');
 		}
 	}
 	
