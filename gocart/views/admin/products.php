@@ -68,16 +68,16 @@ function areyousure()
 					<fieldset>
 						<?php
 						
-						function list_categories($cats, $product_categories, $sub='') {
+						function list_categories($id, $categories, $sub='') {
 
-							foreach ($cats as $cat):?>
-							<option class="span2" value="<?php echo $cat['category']->id;?>"><?php echo  $sub.$cat['category']->name; ?></option>
+							foreach ($categories[$id] as $cat):?>
+							<option class="span2" value="<?php echo $cat->id;?>"><?php echo  $sub.$cat->name; ?></option>
 							<?php
-							if (sizeof($cat['children']) > 0)
+							if (isset($categories[$cat->id]) && sizeof($categories[$cat->id]) > 0)
 							{
 								$sub2 = str_replace('&rarr;&nbsp;', '&nbsp;', $sub);
 								$sub2 .=  '&nbsp;&nbsp;&nbsp;&rarr;&nbsp;';
-								list_categories($cat['children'], $product_categories, $sub2);
+								list_categories($cat->id, $categories, $sub2);
 							}
 							endforeach;
 						}
@@ -86,7 +86,7 @@ function areyousure()
 						{
 							echo '<select name="category_id">';
 							echo '<option value="">'.lang('filter_by_category').'</option>';
-							list_categories($categories);
+							list_categories(0, $categories);
 							echo '</select>';
 							
 						}?>

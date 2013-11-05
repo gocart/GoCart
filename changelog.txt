@@ -4,36 +4,41 @@ Version 2.3
 	Features
 		
 		- Added (for admins) edit buttons in the default theme that link to the appropriate edit pages in the admin panel.
-		- Humanize the Shipping and Payment Module Names (thanks onfriendaday)
-        - Replaced banners & boxes with the new Banner Collections
-        - Added filters for products within a category, configurable in the admin section
+		- Humanize the Shipping and Payment Module Names (thanks onfriendaday).
+        - Replaced banners & boxes with the new Banner Collections.
+        - Added filters for products within a category, configurable in the admin section.
+        - Added the ability to disable categories.
+        - Included the 2checkout payment package (thx craigchristenson).
 	
 	Bug Fix
 	
-		- Remove ? from url on category sort when returning to default
-		- Added language support to secure.php (thx daneoshiga)
-		- Fixed product form verbaige (thx olimortimer)
-		- Added require_shipping flag to gocart.php installation config file
-		- Fixed image upload error checking in admin/categories.php controller
+		- Remove ? from url on category sort when returning to default.
+		- Added language support to secure.php (thx daneoshiga).
+		- Fixed product form verbaige (thx olimortimer).
+		- Added require_shipping flag to gocart.php installation config file.
+		- Fixed image upload error checking in admin/categories.php controller.
 		- Updated PayPal Express config form to show live/sandbox config option.
-		- Fixed admin reports date ajax to send the correctly formatted date. (thanks onefriendaday)
+		- Fixed admin reports date ajax to send the correctly formatted date. (thanks onefriendaday).
 		- Added translatable field names to checkout step 1.
 		- Removed redundant index from download_package_files table.
-		- Added strtolower to all coupon codes submitted on the front end to stop duplicate entries
-        - Added migrations / migration version to installation
+		- Added strtolower to all coupon codes submitted on the front end to stop duplicate entries.
+        - Added migrations / migration version to installation.
         - Added config_item check for inventory on the category view file.
-        - Fixed product routes not being deleted correctly
+        - Fixed product routes not being deleted correctly.
+        - Fixed incorrect download link sent in notification email for subfolder installs.
+        - Fixed the issue of the state field losing its value after an address validation failure during checkout
 
 	Other
 		
-		- Improved tiered category code to reduce queries
+		- Improved tiered category code to reduce queries.
 		- Changed Category controller to check for $_FILES upload error number rather than text match.
-		- Added open in new window to image based anchors (in redactor.js)
-		- Removed legacy tablerate shipping method
-		- Added the ability to choose multiple countries for a table rate
+		- Added open in new window to image based anchors (in redactor.js).
+		- Removed legacy tablerate shipping method.
+		- Added the ability to choose multiple countries for a table rate.
 		- Replaced ajax category search in the admin product form with a category tree.
-		- Improved readablity of the coupon_model
+		- Improved readablity of the coupon_model.
 		- Upgraded to CodeIgniter 2.1.4
+
 
 Version 2.2.1
 -------------
