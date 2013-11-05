@@ -175,7 +175,7 @@ class Cart extends Front_Controller {
 		//get the category
 		$data['category'] = $this->Category_model->get_category($id);
 				
-		if (!$data['category'])
+		if (!$data['category'] || $data['category']->enabled==0)
 		{
 			show_404();
 		}
