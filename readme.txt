@@ -1,5 +1,12 @@
 GoCart
 
+
+License
+
+
+Download
+
+
 The Basics
 
 We created GoCart to be a simple e-commerce platform that any developer can pick up and begin customizing quickly and with as little headache as possible. 

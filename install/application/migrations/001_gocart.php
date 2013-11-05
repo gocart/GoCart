@@ -349,7 +349,7 @@ class Migration_Gocart extends CI_Migration {
 								 'name'=>$r[2], 
 								 'iso_code_2'=>$r[3],
 								 'iso_code_3'=>$r[4], 
-								 'address_format'=>$r[5],
+								 'address_format'=> str_replace('\n', "\n", $r[5]), // convert string newline to literal
 								 'zip_required'=>$r[6],
 								 'status'=>$r[7],
 								 'tax'=>$r[8]
