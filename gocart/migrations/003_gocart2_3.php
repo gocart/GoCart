@@ -4,7 +4,11 @@ class Migration_gocart2_3 extends CI_migration {
 	
 	public function up()
 	{
-
+		//We replaced the sessions library in CI and no longer need this table.
+		if($this->db->table_exists('sessions'))
+		{
+			$this->dbforge->drop_table('sessions');
+		}
 		//eliminate heard_about from orders tbale
 		if($this->db->field_exists('postcode_required', 'countries'))
 		{
@@ -201,6 +205,45 @@ class Migration_gocart2_3 extends CI_migration {
 	
 	public function down()
 	{
+
+		//put the session table back if rolling back
+		if(!$this->db->table_exists('sessions'))
+		{
+			$this->dbforge->add_field(array(
+				'session_id' => array(
+					'type' => 'varchar',
+					'constraint' => 40, 
+					'null' => false,
+					'default' => '0'
+					),
+				'ip_address' => array(
+					'type' => 'varchar',
+					'constraint' => 45, 
+					'null' => false,
+					'default' => '0'
+					),
+				'user_agent' => array(
+					'type' => 'varchar',
+					'constraint' => 120, 
+					'null' => true
+					),
+				'last_activity' => array(
+					'type' => 'int',
+					'constraint' => 10, 
+					'unsigned' => true,
+					'null' => false,
+					'default' => '0'
+					),
+				'user_data' => array(
+					'type' => 'text',
+					'null' => false
+					)
+			));
+
+			$this->dbforge->add_key('session_id', true);
+			$this->dbforge->add_key('last_activity');
+			$this->dbforge->create_table('sessions', true);
+		}
 
 		if($this->db->field_exists('zip_required', 'countries'))
 		{
