@@ -94,7 +94,7 @@
 						</div>
 						<h5 style="margin-top:5px;">
 							<a href="<?php echo site_url(implode('/', $base_url).'/'.$product->slug); ?>"><?php echo $product->name;?></a>
-							<?php if($this->admin_session->userdata('admin')): ?>
+							<?php if($this->session->userdata('admin')): ?>
 								<a class="btn" title="<?php echo lang('edit_product'); ?>" href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$product->id); ?>"><i class="icon-pencil"></i></a>
 							<?php endif; ?>
 						</h5>
