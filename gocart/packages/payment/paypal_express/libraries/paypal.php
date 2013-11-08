@@ -72,7 +72,7 @@ class PayPal {
 			$this->currency = $settings['currency'];
 			
 			// Test mode?
-			if (!$settings['SANDBOX']) {
+			if ($settings['SANDBOX']=='0') {
 				$this->host = "api-3t.paypal.com";
 				$this->gate = 'https://www.paypal.com/cgi-bin/webscr?';
 			} else {

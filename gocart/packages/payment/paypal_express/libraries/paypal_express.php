@@ -64,12 +64,10 @@ class Paypal_express
 		$config['password'] = '';; 
 		$config['signature'] = '';
 		$config['currency'] = 'USD'; // default
+		$config['SANDBOX'] = '1';
+		$config['enabled'] = '0';
 		
-		$config['SANDBOX'] = true;
-		
-		$config['enabled'] = "0";
-		
-		//not normally user configurable
+		//not normally user configurable, these are hidden on the form
 		$config['return_url'] = "pp_gate/pp_return/";
 		$config['cancel_url'] = "pp_gate/pp_cancel/";
 

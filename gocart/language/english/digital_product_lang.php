@@ -28,3 +28,5 @@ $lang['download_btn']			= 'Download';
 $lang['attributes']				= 'Attributes';
 
 $lang['missing_file_msg']		= 'Oops! This file is unavailable for download at the moment. We\'ll try to have this fixed ASAP.';
+
+$lang['file_size_warning']		= '<strong>Notice:</strong> Your php.ini settings restrict uploads to the following:<br/><br/>Max POST Size: %s<br/>Max Upload File Size: %s<br/><br/>If you need a higher limit you will need to edit your configuration.';
