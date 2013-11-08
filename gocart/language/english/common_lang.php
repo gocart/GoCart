@@ -51,6 +51,7 @@ $lang['form_add_to_cart']		= 'Add to Cart';
 $lang['form_update_cart']		= 'Update Cart';
 $lang['form_checkout']			= 'Checkout';
 $lang['form_continue']			= 'Continue';
+$lang['form_previous']			= 'Edit Billing';
 $lang['form_choose']			= 'Choose';
 $lang['form_edit']				= 'Edit';
 $lang['form_delete']			= 'Delete';

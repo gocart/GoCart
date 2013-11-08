@@ -163,6 +163,21 @@ class Location_model extends CI_Model
 		return $return;
 	}
 	
+	function has_zones($country_id)
+	{
+		if(!$country_id)
+		{
+			return false;
+		}
+		$count = $this->db->where('country_id', $country_id)->count_all_results('country_zones');
+		if($count > 0)
+		{
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	/*
 	// returns array of strings formatted for select boxes
 	function get_countries_zones()

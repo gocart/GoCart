@@ -198,16 +198,30 @@ $zip		= array('placeholder'=>lang('address_zip'), 'maxlength'=>'10', 'class'=>'a
 					</div>
 					<div class="span3">
 						<label class="placeholder"><?php echo lang('address_state');?><b class="r"> *</b></label>
-						<?php echo form_dropdown('zone_id',$zone_menu, @$customer[$address_form_prefix.'_address']['zone_id'], 'id="zone_id" class="address span3"');?>
+						<?php 
+							echo form_dropdown('zone_id',$zone_menu, @$customer[$address_form_prefix.'_address']['zone_id'], 'id="zone_id" class="address span3" ');?>
 					</div>
 					<div class="span2">
 						<label class="placeholder"><?php echo lang('address_zip');?><b class="r"> *</b></label>
 						<?php echo form_input($zip);?>
 					</div>
 				</div>
-			
+				<?php if($address_form_prefix=='bill') : ?>
+				<div class="row">
+					<div class="span3">
+						<label class="checkbox inline" for="use_shipping">
+						<?php echo form_checkbox(array('name'=>'use_shipping', 'value'=>'yes', 'id'=>'use_shipping', 'checked'=>$use_shipping)) ?>
+						<?php echo lang('ship_to_address') ?>
+						</label>
+					</div>
+				</div>
+				<?php endif ?>
+
 				<div class="row">
 					<div class="span8">
+						<?php if($address_form_prefix=='ship') : ?>
+						<input class="btn btn-block btn-large btn-secondary" type="button" value="<?php echo lang('form_previous');?>" onclick="window.location='<?php echo base_url('checkout/step_1') ?>'"/>
+						<?php endif; ?>
 						<input class="btn btn-block btn-large btn-primary" type="submit" value="<?php echo lang('form_continue');?>"/>
 					</div>
 				</div>
