@@ -1,9 +1,5 @@
 .htaccess
 uploads/*
-database.php
-config.php
-gocart/config/config.php
-gocart.php
 *.bak
 
 # OS generated files #
@@ -16,4 +12,3 @@ gocart.php
 Icon?
 ehthumbs.db
 Thumbs.db
-gocart/config/config.php
