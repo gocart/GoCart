@@ -86,7 +86,7 @@ class Auth
 
                 if(is_array($cred))
                 {
-                    if( $this->login_admin($cred['email'], $cred['password']) )
+                    if( $this->login_admin($cred['username'], $cred['password']) )
                     {
                         return $this->is_logged_in($redirect, $default_redirect);
                     }
@@ -113,10 +113,10 @@ class Auth
     /*
     this function does the logging in.
     */
-    function login_admin($email, $password, $remember=false)
+    function login_admin($username, $password, $remember=false)
     {
         $this->CI->db->select('*');
-        $this->CI->db->where('email', $email);
+        $this->CI->db->where('username', $username);
         $this->CI->db->where('password',  sha1($password));
         $this->CI->db->limit(1);
         $result = $this->CI->db->get('admin');
@@ -125,16 +125,17 @@ class Auth
         if (sizeof($result) > 0)
         {
             $admin = array();
-            $admin['admin']         = array();
-            $admin['admin']['id']       = $result['id'];
-            $admin['admin']['access']   = $result['access'];
-            $admin['admin']['firstname']    = $result['firstname'];
+            $admin['admin'] = array();
+            $admin['admin']['id'] = $result['id'];
+            $admin['admin']['access'] = $result['access'];
+            $admin['admin']['firstname'] = $result['firstname'];
             $admin['admin']['lastname'] = $result['lastname'];
-            $admin['admin']['email']    = $result['email'];
+            $admin['admin']['email'] = $result['email'];
+            $admin['admin']['username'] = $result['username'];
             
             if($remember)
             {
-                $loginCred = json_encode(array('email'=>$email, 'password'=>$password));
+                $loginCred = json_encode(array('username'=>$username, 'password'=>$password));
                 $loginCred = base64_encode($this->aes256Encrypt($loginCred));
                 //remember the user for 6 months
                 $this->generateCookie($loginCred, strtotime('+6 months'));
@@ -188,11 +189,11 @@ class Auth
     }
 
     /*
-    This function resets the admins password and emails them a copy
+    This function resets the admins password and usernames them a copy
     */
-    function reset_password($email)
+    function reset_password($username)
     {
-        $admin = $this->get_admin_by_email($email);
+        $admin = $this->get_admin_by_username($username);
         if ($admin)
         {
             $this->CI->load->helper('string');
@@ -203,7 +204,7 @@ class Auth
             $this->save_admin($admin);
             
             $this->CI->email->from(config_item('email'), config_item('site_name'));
-            $this->CI->email->to($email);
+            $this->CI->email->to($admin['email']);
             $this->CI->email->subject(config_item('site_name').': Admin Password Reset');
             $this->CI->email->message('Your password has been reset to '. $new_password .'.');
             $this->CI->email->send();
@@ -216,13 +217,13 @@ class Auth
     }
     
     /*
-    This function gets the admin by their email address and returns the values in an array
+    This function gets the admin by their username address and returns the values in an array
     it is not intended to be called outside this class
     */
-    private function get_admin_by_email($email)
+    private function get_admin_by_username($username)
     {
         $this->CI->db->select('*');
-        $this->CI->db->where('email', $email);
+        $this->CI->db->where('username', $username);
         $this->CI->db->limit(1);
         $result = $this->CI->db->get('admin');
         $result = $result->row_array();
@@ -263,6 +264,7 @@ class Auth
         $this->CI->db->order_by('lastname', 'ASC');
         $this->CI->db->order_by('firstname', 'ASC');
         $this->CI->db->order_by('email', 'ASC');
+        $this->CI->db->order_by('username', 'ASC');
         $result = $this->CI->db->get('admin');
         $result = $result->result();
         
@@ -299,11 +301,11 @@ class Auth
         }   
     }
     
-    function check_email($str, $id=false)
+    function check_username($str, $id=false)
     {
-        $this->CI->db->select('email');
+        $this->CI->db->select('username');
         $this->CI->db->from('admin');
-        $this->CI->db->where('email', $str);
+        $this->CI->db->where('username', $str);
         if ($id)
         {
             $this->CI->db->where('id !=', $id);
