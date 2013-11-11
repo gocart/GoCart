@@ -14,8 +14,9 @@ class Base_Controller extends CI_Controller
 		//load base libraries, helpers and models
 		$this->load->database();
 
-		// load the migrations class
+		// load the migrations class & settings model
 		$this->load->library('migration');
+		$this->load->model('Settings_model');
 	
 		// Migrate to the latest migration file found
 		if ( ! $this->migration->latest())
@@ -23,11 +24,23 @@ class Base_Controller extends CI_Controller
 			echo $this->migration->error_string();
 		}
 
+		//load in config items from the database
+		$settings = $this->Settings_model->get_settings('gocart');
+		foreach($settings as $key=>$setting)
+		{
+			//special for the order status settings
+			if($key == 'order_statuses')
+			{
+				$setting = json_decode($setting, true);
+			}
+			$this->config->set_item($key, $setting);
+		}
+
 		//load the default libraries
 		$this->load->library(array('session', 'auth', 'go_cart'));
-		$this->load->model(array('Customer_model', 'Category_model', 'Settings_model', 'Location_model'));
+		$this->load->model(array('Customer_model', 'Category_model', 'Location_model'));
 		$this->load->helper(array('url', 'file', 'string', 'html', 'language'));
-		
+
 	}
 	
 }//end Base_Controller
