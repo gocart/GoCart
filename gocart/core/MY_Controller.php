@@ -11,7 +11,8 @@ class Base_Controller extends CI_Controller
 		
 		parent::__construct();
 
-		$this->load->library(array('session', 'auth', 'go_cart'));
+		//load base libraries, helpers and models
+		$this->load->database();
 
 		// load the migrations class
 		$this->load->library('migration');
@@ -21,8 +22,13 @@ class Base_Controller extends CI_Controller
 		{
 			echo $this->migration->error_string();
 		}
+
+		//load the default libraries
+		$this->load->library(array('session', 'auth', 'go_cart'));
+		$this->load->model(array('Customer_model', 'Category_model', 'Settings_model', 'Location_model'));
+		$this->load->helper(array('url', 'file', 'string', 'html', 'language'));
 		
-	}//end __construct()
+	}
 	
 }//end Base_Controller
 
