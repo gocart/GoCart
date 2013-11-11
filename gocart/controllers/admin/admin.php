@@ -51,6 +51,7 @@ class Admin extends Admin_Controller
 		$data['firstname']	= '';
 		$data['lastname']	= '';
 		$data['email']		= '';
+		$data['username']	= '';
 		$data['access']		= '';
 		
 		if ($id)
@@ -68,12 +69,14 @@ class Admin extends Admin_Controller
 			$data['firstname']	= $admin->firstname;
 			$data['lastname']	= $admin->lastname;
 			$data['email']		= $admin->email;
+			$data['username']	= $admin->username;
 			$data['access']		= $admin->access;
 		}
 		
 		$this->form_validation->set_rules('firstname', 'lang:firstname', 'trim|max_length[32]');
 		$this->form_validation->set_rules('lastname', 'lang:lastname', 'trim|max_length[32]');
-		$this->form_validation->set_rules('email', 'lang:email', 'trim|required|valid_email|max_length[128]|callback_check_email');
+		$this->form_validation->set_rules('email', 'lang:email', 'trim|required|valid_email|max_length[128]');
+		$this->form_validation->set_rules('username', 'lang:username', 'trim|required|max_length[128]|callback_check_username');
 		$this->form_validation->set_rules('access', 'lang:access', 'trim|required');
 		
 		//if this is a new account require a password, or if they have entered either a password or a password confirmation
@@ -93,6 +96,7 @@ class Admin extends Admin_Controller
 			$save['firstname']	= $this->input->post('firstname');
 			$save['lastname']	= $this->input->post('lastname');
 			$save['email']		= $this->input->post('email');
+			$save['username']	= $this->input->post('username');
 			$save['access']		= $this->input->post('access');
 			
 			if ($this->input->post('password') != '' || !$id)
@@ -109,12 +113,12 @@ class Admin extends Admin_Controller
 		}
 	}
 	
-	function check_email($str)
+	function check_username($str)
 	{
-		$email = $this->auth->check_email($str, $this->admin_id);
+		$email = $this->auth->check_username($str, $this->admin_id);
 		if ($email)
 		{
-			$this->form_validation->set_message('check_email', lang('error_email_taken'));
+			$this->form_validation->set_message('check_username', lang('error_username_taken'));
 			return FALSE;
 		}
 		else

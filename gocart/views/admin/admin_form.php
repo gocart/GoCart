@@ -12,6 +12,12 @@
 		echo form_input($data);
 		?>
 
+		<label><?php echo lang('username');?></label>
+		<?php
+		$data	= array('name'=>'username', 'value'=>set_value('username', $username));
+		echo form_input($data);
+		?>
+
 		<label><?php echo lang('email');?></label>
 		<?php
 		$data	= array('name'=>'email', 'value'=>set_value('email', $email));
