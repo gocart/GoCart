@@ -221,7 +221,7 @@ class Migration_gocart2_3 extends CI_migration {
 
             //set the username to be the email by default so people can continue to login
             $admins = $this->db->get('admin')->result();
-            foreach($admin as $admin)
+            foreach($admins as $admin)
             {
                 $admin->username = $admin->email;
                 $this->db->where('id', $admin->id)->update('admin', $admin);
