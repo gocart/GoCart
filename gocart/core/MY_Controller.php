@@ -11,6 +11,13 @@ class Base_Controller extends CI_Controller
 		
 		parent::__construct();
 
+		//kill any references to the following methods
+		$mthd = $this->router->method;
+		if($mthd == 'view' || $mthd == 'partial' || $mthd == 'set_template')
+		{
+			show_404();
+		}
+		
 		//load base libraries, helpers and models
 		$this->load->database();
 
