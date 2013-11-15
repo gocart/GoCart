@@ -17,7 +17,34 @@ class Payment extends Admin_Controller {
 	
 	function index()
 	{
-		redirect($this->config->item('admin_folder').'/settings');
+		//Payment Information
+        $payment_order = $this->Settings_model->get_settings('payment_order');
+        $enabled_modules = $this->Settings_model->get_settings('payment_modules');
+
+        $data['payment_modules']    = array();
+        //create a list of available payment modules
+        if ($handle = opendir(APPPATH.'packages/payment/')) {
+            while (false !== ($file = readdir($handle)))
+            {
+                //now we eliminate the periods from the list.
+                if (!strstr($file, '.'))
+                {
+                    //also, set whether or not they are installed according to our payment settings
+                    if(array_key_exists($file, $enabled_modules))
+                    {
+                        $data['payment_modules'][$file] = true;
+                    }
+                    else
+                    {
+                        $data['payment_modules'][$file] = false;
+                    }
+                }
+            }
+            closedir($handle);
+        }
+
+        $data['page_title'] = lang('common_payment_modules');
+        $this->view($this->config->item('admin_folder').'/payment_modules', $data);
 	}
 	
 	function install($module)

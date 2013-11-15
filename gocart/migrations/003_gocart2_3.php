@@ -241,6 +241,18 @@ class Migration_gocart2_3 extends CI_migration {
             {
                 include(FCPATH.'gocart/config/gocart.php');
                 $config['order_statuses'] = json_encode($config['order_statuses']);
+
+                //set locale to default
+                $config['locale'] = locale_get_default();
+                $config['currency_iso'] = $config['currency'];
+
+                unset($config['currency']);
+                unset($config['currency_symbol']);
+                unset($config['currency_symbol_side']);
+                unset($config['currency_decimal']);
+                unset($config['currency_thousands_separator']);
+                
+                
             }
             else
             {
@@ -250,15 +262,14 @@ class Migration_gocart2_3 extends CI_migration {
                 $config['address1'] = '';
                 $config['address2'] = '';
                 $config['country'] = '';
+                $config['country_id'] = '';
                 $config['city'] = '';
+                $config['zone_id'] = '';
                 $config['state'] = '';
                 $config['zip'] = '';
                 $config['email'] = '';
-                $config['currency'] = 'USD';
-                $config['currency_symbol'] = '$';
-                $config['currency_symbol_side'] = 'left';
-                $config['currency_decimal'] = '.';
-                $config['currency_thousands_separator'] = ',';
+                $config['locale'] = locale_get_default();
+                $config['currency_iso'] = 'USD';
                 $config['weight_unit'] = 'LB';
                 $config['dimension_unit'] = 'IN';
                 $config['require_shipping'] = true;
@@ -266,9 +277,9 @@ class Migration_gocart2_3 extends CI_migration {
                 $config['admin_folder'] = 'admin';
                 $config['new_customer_status'] = true;
                 $config['require_login'] = false;
-                $config['order_status'] = 'Pending';
-                $config['nonship_status'] = 'Delivered';
+                $config['order_status'] = 'Order Placed';
                 $config['order_statuses'] = json_encode(array(
+                                                'Order Placed' => 'Order Placed',
                                                 'Pending' => 'Pending',
                                                 'Processing' => 'Processing',
                                                 'Shipped' => 'Shipped',

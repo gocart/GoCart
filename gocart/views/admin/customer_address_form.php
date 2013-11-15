@@ -80,10 +80,8 @@ $f_zip		= array('maxlength'=>'10', 'class'=>'span1', 'name'=>'zip', 'value'=> se
 	</div>
 	<script type="text/javascript">
 	$(document).ready(function(){
-		$('.button').button();
-	
 		$('#f_country_id').change(function(){
-			$.post('<?php echo site_url($this->config->item('admin_folder').'/locations/get_zone_menu');?>',{id:$('#f_country_id').val()}, function(data) {
+			$.post('<?php echo site_url(config_item('admin_folder').'/locations/get_zone_menu');?>',{id:$('#f_country_id').val()}, function(data) {
 			  $('#f_zone_id').html(data);
 			});
 	
