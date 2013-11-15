@@ -1,6 +1,6 @@
 <?php
 
-class Login extends CI_Controller {
+class Login extends Base_Controller {
 
 	function __construct()
 	{
