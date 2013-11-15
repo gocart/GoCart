@@ -15,7 +15,34 @@ class Shipping extends Admin_Controller {
 	
 	function index()
 	{
-		redirect($this->config->item('admin_folder').'/settings');
+		//now time to do it again with shipping
+        $shipping_order     = $this->Settings_model->get_settings('shipping_order');
+        $enabled_modules    = $this->Settings_model->get_settings('shipping_modules');
+        
+        $data['shipping_modules']   = array();
+        //create a list of available shipping modules
+        if ($handle = opendir(APPPATH.'packages/shipping/')) {
+            while (false !== ($file = readdir($handle)))
+            {
+                //now we eliminate anything with periods
+                if (!strstr($file, '.'))
+                {
+                    //also, set whether or not they are installed according to our shipping settings
+                    if(array_key_exists($file, $enabled_modules))
+                    {
+                        $data['shipping_modules'][$file]    = true;
+                    }
+                    else
+                    {
+                        $data['shipping_modules'][$file]    = false;
+                    }
+                }
+            }
+            closedir($handle);
+        }
+
+        $data['page_title'] = lang('common_shipping_modules');
+        $this->view($this->config->item('admin_folder').'/shipping_modules', $data);
 	}
 	
 	function install($module)
