@@ -1128,17 +1128,12 @@ class go_cart {
 			}
 		}
 		//default status comes from the config file
-		if($none_shippable)
-		{
-			$save['status']				= $this->CI->config->item('nonship_status');
-		} else {
-			$save['status']				= $this->CI->config->item('order_status');
-		}
+		$save['status'] = $this->CI->config->item('order_status');
 		
 		//if the id exists, then add it to the array $save array and remove it from the customer
 		if(isset($this->_cart_contents['customer']['id']) && $this->_cart_contents['customer']['id'] != '')
 		{
-			$save['customer_id']	= $this->_cart_contents['customer']['id'];
+			$save['customer_id'] = $this->_cart_contents['customer']['id'];
 		}
 		
 		$customer					= $this->_cart_contents['customer'];
