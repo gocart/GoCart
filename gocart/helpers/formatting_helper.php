@@ -39,39 +39,6 @@ function format_address($fields, $br=false)
 
 function format_currency($value, $symbol=true)
 {
-
-	if(!is_numeric($value))
-	{
-		return;
-	}
-	
-	$CI = &get_instance();
-	
-	if($value < 0 )
-	{
-		$neg = '- ';
-	} else {
-		$neg = '';
-	}
-	
-	if($symbol)
-	{
-		$formatted	= number_format(abs($value), 2, $CI->config->item('currency_decimal'), $CI->config->item('currency_thousands_separator'));
-		
-		if($CI->config->item('currency_symbol_side') == 'left')
-		{
-			$formatted	= $neg.$CI->config->item('currency_symbol').$formatted;
-		}
-		else
-		{
-			$formatted	= $neg.$formatted.$CI->config->item('currency_symbol');
-		}
-	}
-	else
-	{
-		//traditional number formatting
-		$formatted	= number_format(abs($value), 2, '.', ',');
-	}
-	
-	return $formatted;
+	$fmt = numfmt_create( config_item('locale'), NumberFormatter::CURRENCY );
+	return numfmt_format_currency($fmt, $value, config_item('currency_iso'));
 }
