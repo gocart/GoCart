@@ -38,8 +38,64 @@ class Migration_gocart2_3 extends CI_migration {
             $this->dbforge->create_table('banner_collections', TRUE);
         
             //create 2 collections to replace the current Banners & Boxes
-            $this->db->insert('banner_collections', array('banner_collection_id'=>1, 'name'=>'Homepage Banners'));
-            $this->db->insert('banner_collections', array('banner_collection_id'=>2, 'name'=>'Homepage Boxes'));
+            $records = array(array('name'=>'Homepage Banners'), array('name'=>'Homepage Boxes'));
+            $this->db->insert_batch('banner_collections', $records);
+        }
+        
+        if(!$this->db->table_exists('banners'))
+        {
+            $this->dbforge->add_field(array(
+                'banner_id' => array(
+                            'type' => 'int',
+                            'constraint' => 9,
+                            'unsigned' => true,
+                            'auto_increment' => true
+                            ),
+                'banner_collection_id' => array(
+                            'type' => 'int',
+                            'constraint' => 9,
+                            'unsigned' => true,
+                            'null' => false
+                            ),
+                'title' => array(
+                            'type' => 'varchar',
+                            'constraint' => 128,
+                            'null' => false
+                            ),
+                'enable_on' => array(
+                            'type' => 'date',
+                            'null' => false
+                            ),
+                'disable_on' => array(
+                            'type' => 'date',
+                            'null' => false
+                            ),
+                'image' => array(
+                            'type' => 'varchar',
+                            'constraint' => 64,
+                            'null' => false
+                            ),
+                'link' => array(
+                            'type' => 'varchar',
+                            'constraint' => 128,
+                            'null' => true
+                            ),
+                'new_window' => array(
+                            'type' => 'tinyint',
+                            'constraint' => 1,
+                            'null' => false,
+                            'default' => 0
+                            ),
+                'sequence' => array(
+                            'type' => 'int',
+                            'constraint' => 11,
+                            'null' => false,
+                            'default' => 0
+                            )
+            ));
+
+            $this->dbforge->add_key('banner_id', true);
+            $this->dbforge->create_table('banners', true);
         }
         
         if ($this->db->field_exists('id', 'banners'))
@@ -472,6 +528,5 @@ class Migration_gocart2_3 extends CI_migration {
         //kill the settings from the DB
         $this->load->model('settings_model');
         $this->settings_model->delete_settings('gocart');
-    }
-    
+    }   
 }
