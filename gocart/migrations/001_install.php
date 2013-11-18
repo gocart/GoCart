@@ -5,8 +5,6 @@ class Migration_Install extends CI_Migration {
     public function up()
     {
         $this->_table_admin();
-        $this->_table_banner_collections();
-        $this->_table_banners();
         $this->_table_canned_messages();
         $this->_table_categories();
         $this->_table_products();
@@ -107,101 +105,6 @@ class Migration_Install extends CI_Migration {
         }
     }
 
-    /********************************************
-    *
-    * Generate banner_collections table
-    *
-    *********************************************/
-    private function _table_banner_collections()
-    {
-        if(!$this->db->table_exists('banner_collections'))
-        {
-            $this->dbforge->add_field(array(
-                'banner_collection_id' => array(
-                            'type' => 'int',
-                            'constraint' => 4,
-                            'unsigned' => true,
-                            'auto_increment' => true
-                            ),
-                'name' => array(
-                            'type' => 'varchar',
-                            'constraint' => 32
-                            )
-            ));
-
-            $this->dbforge->add_key('banner_collection_id', true);
-            $this->dbforge->create_table('banner_collections', true);
-
-
-            $records = array(array('name'=>'Homepage Banners'), array('name'=>'Homepage Boxes'));
-            $this->db->insert_batch('banner_collections', $records);
-        }
-    }
-
-    /********************************************
-    *
-    * Generate banners table
-    *
-    *********************************************/
-    private function _table_banners()
-    {
-        if(!$this->db->table_exists('banners'))
-        {
-            $this->dbforge->add_field(array(
-                'banner_id' => array(
-                            'type' => 'int',
-                            'constraint' => 9,
-                            'unsigned' => true,
-                            'auto_increment' => true
-                            ),
-                'banner_collection_id' => array(
-                            'type' => 'int',
-                            'constraint' => 9,
-                            'unsigned' => true,
-                            'null' => false
-                            ),
-                'title' => array(
-                            'type' => 'varchar',
-                            'constraint' => 128,
-                            'null' => false
-                            ),
-                'enable_on' => array(
-                            'type' => 'date',
-                            'null' => false
-                            ),
-                'disable_on' => array(
-                            'type' => 'date',
-                            'null' => false
-                            ),
-                'image' => array(
-                            'type' => 'varchar',
-                            'constraint' => 64,
-                            'null' => false
-                            ),
-                'link' => array(
-                            'type' => 'varchar',
-                            'constraint' => 128,
-                            'null' => true
-                            ),
-                'new_window' => array(
-                            'type' => 'tinyint',
-                            'constraint' => 1,
-                            'null' => false,
-                            'default' => 0
-                            ),
-                'sequence' => array(
-                            'type' => 'int',
-                            'constraint' => 11,
-                            'null' => false,
-                            'default' => 0
-                            )
-            ));
-
-            $this->dbforge->add_key('banner_id', true);
-            $this->dbforge->create_table('banners', true);
-        }
-    }
-    
     /********************************************
     *
     * Generate canned_messages table
