@@ -71,8 +71,8 @@ class Cart extends Front_Controller {
 		$sort_array = array(
 							'name/asc' => array('by' => 'name', 'sort'=>'ASC'),
 							'name/desc' => array('by' => 'name', 'sort'=>'DESC'),
-							'price/asc' => array('by' => 'price', 'sort'=>'ASC'),
-							'price/desc' => array('by' => 'price', 'sort'=>'DESC'),
+							'price/asc' => array('by' => 'sort_price', 'sort'=>'ASC'),
+							'price/desc' => array('by' => 'sort_price', 'sort'=>'DESC'),
 							);
 		$sort_by	= array('by'=>false, 'sort'=>false);
 	
@@ -217,8 +217,8 @@ class Cart extends Front_Controller {
 		$sort_array = array(
 							'name/asc' => array('by' => 'products.name', 'sort'=>'ASC'),
 							'name/desc' => array('by' => 'products.name', 'sort'=>'DESC'),
-							'price/asc' => array('by' => 'products.price', 'sort'=>'ASC'),
-							'price/desc' => array('by' => 'products.price', 'sort'=>'DESC'),
+							'price/asc' => array('by' => 'sort_price', 'sort'=>'ASC'),
+							'price/desc' => array('by' => 'sort_price', 'sort'=>'DESC'),
 							);
 		$sort_by	= array('by'=>'sequence', 'sort'=>'ASC');
 	
