@@ -55,6 +55,7 @@ Version 2.3
         - Removed GoEdit language file.
         - Using usernames for back end login now (upgrading will result in the email address being used for both).
         - Autoloading is now handled in the CI_Controller.php file now to support database configuration.
+        - Eliminated eval usage in group discounts.
 
 
 Version 2.2.1
