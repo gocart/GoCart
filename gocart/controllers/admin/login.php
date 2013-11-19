@@ -5,9 +5,6 @@ class Login extends Base_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		
-		force_ssl();
-
 		$this->lang->load('login');
 	}
 

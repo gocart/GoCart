@@ -47,7 +47,14 @@ class Base_Controller extends CI_Controller
 		$this->load->library(array('session', 'auth', 'go_cart'));
 		$this->load->model(array('Customer_model', 'Category_model', 'Location_model'));
 		$this->load->helper(array('url', 'file', 'string', 'html', 'language'));
-
+        
+        //if SSL is enabled in config force it here.
+        if (config_item('ssl_support') && (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off'))
+		{
+			$CI =& get_instance();
+			$CI->config->config['base_url'] = str_replace('http://', 'https://', $CI->config->config['base_url']);
+			redirect($CI->uri->uri_string());
+		}
 	}
 	
 }//end Base_Controller

@@ -5,8 +5,6 @@ class Pages extends Admin_Controller
 	function __construct()
 	{
 		parent::__construct();
-		
-		remove_ssl();
 
 		$this->auth->check_access('Admin', true);
 		$this->load->model('Page_model');
