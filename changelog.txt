@@ -38,6 +38,7 @@ Version 2.3
         - Restricting access to convenience methods in the Base controller from being URL accessible.
         - Updated CI to process mysql & mysqli the same way.
         - updated page view file to not decode entities since this resulted in incorrect encoding.
+        - Fixed sort by price.
 
 	Other
 		
