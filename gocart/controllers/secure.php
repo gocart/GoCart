@@ -8,10 +8,7 @@ class Secure extends Front_Controller {
 	{
 		parent::__construct();
 		
-		force_ssl();
-		
 		$this->load->model(array('location_model'));
-		
 		$this->customer = $this->go_cart->customer();
 	}
 	
