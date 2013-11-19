@@ -37,9 +37,7 @@ class Admin extends Admin_Controller
 		redirect($this->config->item('admin_folder').'/admin');
 	}
 	function form($id = false)
-	{
-		force_ssl();
-		
+	{	
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');

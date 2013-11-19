@@ -6,9 +6,7 @@ class Checkout extends Front_Controller {
 	function __construct()
 	{
 		parent::__construct();
-
-		force_ssl();
-
+        
 		/*make sure the cart isnt empty*/
 		if($this->go_cart->total_items()==0)
 		{

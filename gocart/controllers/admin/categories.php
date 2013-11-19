@@ -6,7 +6,6 @@ class Categories extends Admin_Controller {
 	{		
 		parent::__construct();
 		
-		remove_ssl();
 		$this->auth->check_access('Admin', true);
 		$this->lang->load('category');
 		$this->load->model('Category_model');

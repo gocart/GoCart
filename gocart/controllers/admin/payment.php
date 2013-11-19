@@ -5,9 +5,7 @@ class Payment extends Admin_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		
-		force_ssl();
-	
+
 		$this->auth->check_access('Admin', true);
 		$this->load->model('Settings_model');
 
