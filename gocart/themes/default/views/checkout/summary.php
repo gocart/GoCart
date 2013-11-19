@@ -19,7 +19,7 @@
 			<?php if($this->go_cart->group_discount() > 0)  : ?> 
         	<tr>
 				<td colspan="5"><strong><?php echo lang('group_discount');?></strong></td>
-				<td><?php echo format_currency(0-$this->go_cart->group_discount()); ?></td>
+				<td>-<?php echo format_currency($this->go_cart->group_discount()); ?></td>
 			</tr>
 			<?php endif; ?>
 			<tr>
