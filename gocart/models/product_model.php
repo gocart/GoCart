@@ -149,21 +149,13 @@ Class Product_model extends CI_Model
 		//if we are provided a category_id, then get products according to category
 		if ($category_id)
 		{
-			$this->db->select('category_products.*, LEAST(IFNULL(NULLIF(saleprice, 0), price), price) as sort_price', false)->from('category_products')->join('products', 'category_products.product_id=products.id')->where(array('category_id'=>$category_id, 'enabled'=>1));
+			$this->db->select('category_products.*, products.*, LEAST(IFNULL(NULLIF(saleprice, 0), price), price) as sort_price', false)->from('category_products')->join('products', 'category_products.product_id=products.id')->where(array('category_id'=>$category_id, 'enabled'=>1));
+
 			$this->db->order_by($by, $sort);
 			
 			$result	= $this->db->limit($limit)->offset($offset)->get()->result();
-
-			$contents	= array();
-			$count		= 0;
-			foreach ($result as $product)
-			{
-
-				$contents[$count]	= $this->get_product($product->product_id);
-				$count++;
-			}
-
-			return $contents;
+			
+			return $result;
 		}
 		else
 		{
