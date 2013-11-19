@@ -1,22 +1,6 @@
 <?php
 Class Product_model extends CI_Model
 {
-		
-	// we will store the group discount formula here
-	// and apply it to product prices as they are fetched 
-	var $group_discount_formula = false;
-	
-	function __construct()
-	{
-		parent::__construct();
-		
-		// check for possible group discount 
-		$customer = $this->session->userdata('customer');
-		if(isset($customer['group_discount_formula'])) 
-		{
-			$this->group_discount_formula = $customer['group_discount_formula'];
-		}
-	}
 	
 	function product_autocomplete($name, $limit)
 	{
@@ -90,15 +74,8 @@ Class Product_model extends CI_Model
 		//sort by alphabetically by default
 		$this->db->order_by('name', 'ASC');
 		$result	= $this->db->get('products');
-		//apply group discount
-		$return = $result->result();
-		if($this->group_discount_formula) 
-		{
-			foreach($return as &$product) {
-				eval('$product->price=$product->price'.$this->group_discount_formula.';');
-			}
-		}
-		return $return;
+
+		return $result->result();
 	}
 	
 	function get_filtered_products($product_ids, $limit = false, $offset = false)
@@ -162,15 +139,8 @@ Class Product_model extends CI_Model
 			//sort by alphabetically by default
 			$this->db->order_by('name', 'ASC');
 			$result	= $this->db->get('products');
-			//apply group discount
-			$return = $result->result();
-			if($this->group_discount_formula) 
-			{
-				foreach($return as &$product) {
-					eval('$product->price=$product->price'.$this->group_discount_formula.';');
-				}
-			}
-			return $return;
+
+			return $result->result();
 		}
 	}
 	
@@ -214,12 +184,6 @@ Class Product_model extends CI_Model
 		}
 		$result->categories			= $this->get_product_categories($result->id);
 		$result->filters			= $this->get_product_filters($result->id);
-	
-		// group discount?
-		if($this->group_discount_formula) 
-		{
-			eval('$result->price=$result->price'.$this->group_discount_formula.';');
-		}
 
 		return $result;
 	}

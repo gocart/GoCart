@@ -224,15 +224,7 @@ Class Customer_model extends CI_Model
                 $group = $this->get_group($customer['group_id']);
                 if($group) // group might not exist
                 {
-                    if($group->discount_type == "fixed")
-                    {
-                        $customer['group_discount_formula'] = "- ". $group->discount; 
-                    }
-                    else
-                    {
-                        $percent    = (100-(float)$group->discount)/100;
-                        $customer['group_discount_formula'] = '* ('.$percent.')';
-                    }
+                    $customer['group'] = $group;
                 }
             }
             

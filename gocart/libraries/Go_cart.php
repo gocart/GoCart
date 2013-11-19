@@ -715,10 +715,19 @@ class go_cart {
 			foreach ($this->_cart_contents['items'] as $key => &$val)
 			{
 				// Apply any group discount
-				if(isset($this->_cart_contents['customer']['group_discount_formula']))
+				if(isset($this->_cart_contents['customer']['group']))
 				{
-					// calculate the discount amount
-					eval('$this_price=$val["price"]'. $this->_cart_contents['customer']['group_discount_formula'] .';');
+					$group = $this->_cart_contents['customer']['group'];
+
+					if($group->discount_type == "fixed")
+                    {
+                    	$this_price = $val['price'] - $group->discount;
+                    }
+                    else
+                    {
+                        $percent    = (100-(float)$group->discount)/100;
+                        $this_price = $val['price'] * $percent;
+                    }
 					
 					// add to the total group discount
 					$this->_cart_contents['group_discount'] 	+=  ($val['price'] - $this_price) * $val['quantity'];
