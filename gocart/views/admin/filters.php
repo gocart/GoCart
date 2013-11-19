@@ -33,12 +33,8 @@ function areyousure()
 				<td><?php echo  $sub.$fil->slug; ?></td>
 				<td>
 					<div class="btn-group" style="float:right">
-
 						<a class="btn" href="<?php echo  site_url(ADMIN_FOLDER.'/filters/form/'.$fil->id);?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
-
-						<a class="btn" href="<?php echo  site_url(ADMIN_FOLDER.'/filters/organize/'.$fil->id);?>"><i class="icon-move"></i> <?php echo lang('organize');?></a>
-						
-						<a class="btn btn-danger" href="<?php echo  site_url(ADMIN_FOLDER.'/filters/delete/'.$fil->id);?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
+                        <a class="btn btn-danger" href="<?php echo  site_url(ADMIN_FOLDER.'/filters/delete/'.$fil->id);?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
 					</div>
 				</td>
 			</tr>
