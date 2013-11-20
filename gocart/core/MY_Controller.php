@@ -77,6 +77,12 @@ class Front_Controller extends Base_Controller
 		
 		parent::__construct();
 
+		//load the theme package
+		$this->load->add_package_path(APPPATH.'themes/'.$this->config->item('theme').'/');
+
+		//load common language
+		$this->lang->load('common');
+		
 		//load GoCart library
 		$this->load->library('Banners');
 
@@ -100,9 +106,6 @@ class Front_Controller extends Base_Controller
 		{
 			$this->gift_cards_enabled = false;
 		}
-		
-		//load the theme package
-		$this->load->add_package_path(APPPATH.'themes/'.$this->config->item('theme').'/');
 	}
 	
 	/*
