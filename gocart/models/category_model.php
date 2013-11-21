@@ -24,7 +24,7 @@ Class Category_model extends CI_Model
 		return $categories;
 	}
 	
-	function get_categories_tierd($admin = false)
+	function get_categories_tiered($admin = false)
     {
     	if(!$admin) $this->db->where('enabled', 1);
 		
