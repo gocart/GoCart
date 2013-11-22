@@ -88,7 +88,7 @@ $("#datepicker2").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker2_al
 </div>
 
 <div class="form-actions">
-	<button type="submit" class="btn btn-primary"><?php echo lang('form_save');?></button>
+	<button type="submit" class="btn btn-primary"><?php echo lang('save');?></button>
 </div>
 </form>
 

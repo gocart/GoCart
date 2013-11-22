@@ -41,7 +41,7 @@
 		<label class="checkbox"><?php echo form_checkbox($status); ?> <?php echo lang('enabled');?></label>
 	
 <div class="form-actions">
-	<button type="submit" class="btn btn-primary"><?php echo lang('form_save');?></button>
+	<button type="submit" class="btn btn-primary"><?php echo lang('save');?></button>
 </div>
 </form>
 
