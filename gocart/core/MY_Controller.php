@@ -78,11 +78,8 @@ class Front_Controller extends Base_Controller
 		parent::__construct();
 
 		//load the theme package
-		$this->load->add_package_path(APPPATH.'themes/'.$this->config->item('theme').'/');
+		$this->load->add_package_path(APPPATH.'themes/'.config_item('theme').'/');
 
-		//load common language
-		$this->lang->load('common');
-		
 		//load GoCart library
 		$this->load->library('Banners');
 
@@ -92,9 +89,12 @@ class Front_Controller extends Base_Controller
 		//load helpers
 		$this->load->helper(array('form_helper', 'formatting_helper'));
 		
+		//load common language
+		$this->lang->load('common');
+
 		//fill in our variables
-		$this->categories	= $this->Category_model->get_categories_tierd(0);
-		$this->pages		= $this->Page_model->get_pages();
+		$this->categories	= $this->Category_model->get_categories_tiered(0);
+		$this->pages		= $this->Page_model->get_pages_tiered();
 		
 		// check if giftcards are enabled
 		$gc_setting = $this->Settings_model->get_settings('gift_cards');
