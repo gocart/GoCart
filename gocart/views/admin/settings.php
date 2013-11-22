@@ -28,7 +28,7 @@
 
     <div class="row">
         <div class="span6">
-            <label><?php echo lang('address');?></label>
+            <label><?php echo lang('address1');?></label>
             <?php echo form_input(array('name'=>'address1', 'class'=>'span12','value'=>set_value('address1',$address1)));?>
         </div>
     </div>
