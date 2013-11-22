@@ -57,16 +57,16 @@ class Migration_gocart2_3 extends CI_migration {
                             'unsigned' => true,
                             'null' => false
                             ),
-                'title' => array(
+                'name' => array(
                             'type' => 'varchar',
                             'constraint' => 128,
                             'null' => false
                             ),
-                'enable_on' => array(
+                'enable_date' => array(
                             'type' => 'date',
                             'null' => false
                             ),
-                'disable_on' => array(
+                'disable_date' => array(
                             'type' => 'date',
                             'null' => false
                             ),
