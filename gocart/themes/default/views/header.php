@@ -58,16 +58,20 @@ if(isset($additional_header_info))
 						<?php
 						endif;
 						
-						foreach($this->pages as $menu_page):?>
-							<li <?php echo $menu_page->active ? 'class="active"' : false; ?>>
-							<?php if(empty($menu_page->content)):?>
-								<a href="<?php echo $menu_page->url;?>" <?php if($menu_page->new_window ==1){echo 'target="_blank"';} ?>><?php echo $menu_page->menu_title;?></a>
-							<?php else:?>
-								<a href="<?php echo site_url($menu_page->slug);?>"><?php echo $menu_page->menu_title;?></a>
-							<?php endif;?>
-							</li>
-							
-						<?php endforeach;?>
+						if(isset($this->pages[0]))
+						{
+							foreach($this->pages[0] as $menu_page):?>
+								<li>
+								<?php if(empty($menu_page->content)):?>
+									<a href="<?php echo $menu_page->url;?>" <?php if($menu_page->new_window ==1){echo 'target="_blank"';} ?>><?php echo $menu_page->menu_title;?></a>
+								<?php else:?>
+									<a href="<?php echo site_url($menu_page->slug);?>"><?php echo $menu_page->menu_title;?></a>
+								<?php endif;?>
+								</li>
+								
+							<?php endforeach;	
+						}
+						?>
 					</ul>
 					
 					<ul class="nav pull-right">
