@@ -32,7 +32,7 @@ Class Page_model extends CI_Model
 	function get_pages_tiered()
     {
 		$this->db->order_by('sequence', 'ASC');
-		$this->db->order_by('name', 'ASC');
+		$this->db->order_by('title', 'ASC');
 		$pages = $this->db->get('pages')->result();
 		
 		$results	= array();
