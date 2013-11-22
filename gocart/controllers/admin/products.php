@@ -25,7 +25,7 @@ class Products extends Admin_Controller {
 		$category_id		= false;
 		
 		//get the category list for the drop menu
-		$data['categories']	= $this->Category_model->get_categories_tierd();
+		$data['categories']	= $this->Category_model->get_categories_tiered();
 		
 		$post				= $this->input->post(null, false);
 		$this->load->model('Search_model');
@@ -138,8 +138,8 @@ class Products extends Admin_Controller {
 		$this->lang->load('digital_product');
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
-		$data['categories']		= $this->Category_model->get_categories_tierd();
-		$data['filters']		= $this->Filter_model->get_filters_tierd();
+		$data['categories']		= $this->Category_model->get_categories_tiered();
+		$data['filters']		= $this->Filter_model->get_filters_tiered();
 		$data['file_list']		= $this->Digital_Product_model->get_list();
 
 		$data['page_title']		= lang('product_form');
