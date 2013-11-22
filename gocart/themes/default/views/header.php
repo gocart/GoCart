@@ -161,7 +161,7 @@ if(isset($additional_header_info))
 		
 		
 		<?php 
-			$this->load->view('filters_list', array('filters'=>$this->filter_model->get_filters_tierd())); 
+			$this->load->view('filters_list', array('filters'=>$this->filter_model->get_filters_tiered())); 
 		?>
 
 <?php

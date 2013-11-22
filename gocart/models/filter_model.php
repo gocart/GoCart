@@ -131,7 +131,7 @@ Class filter_model extends CI_Model
 	}
 	
 	
-	function get_filters_tierd()
+	function get_filters_tiered()
 	{
 		$this->db->order_by('sequence');
 		$this->db->order_by('name', 'ASC');

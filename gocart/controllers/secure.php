@@ -85,7 +85,7 @@ class Secure extends Front_Controller {
 		//if they want to limit to the top 5 banners and use the enable/disable on dates, add true to the get_banners function
 		//$data['banners']	= $this->banner_model->get_banners();
 		//$data['ads']		= $this->banner_model->get_banners(true);
-		$data['categories']	= $this->Category_model->get_categories_tierd(0);
+		$data['categories']	= $this->Category_model->get_categories_tiered(0);
 			
 		$this->load->view('login', $data);
 	}
@@ -157,7 +157,7 @@ class Secure extends Front_Controller {
 			//$this->load->model('banner_model');
 			$this->load->helper('directory');
 		
-			$data['categories']	= $this->Category_model->get_categories_tierd(0);
+			$data['categories']	= $this->Category_model->get_categories_tiered(0);
 			
 			$data['error'] = validation_errors();
 			
@@ -287,7 +287,7 @@ class Secure extends Front_Controller {
 		//if they want to limit to the top 5 banners and use the enable/disable on dates, add true to the get_banners function
 		//$data['banners']	= $this->banner_model->get_banners();
 		//$data['ads']		= $this->banner_model->get_banners(true);
-		$data['categories']	= $this->Category_model->get_categories_tierd();
+		$data['categories']	= $this->Category_model->get_categories_tiered();
 		
 		
 		$this->load->view('forgot_password', $data);
@@ -316,7 +316,7 @@ class Secure extends Front_Controller {
 		//if they want to limit to the top 5 banners and use the enable/disable on dates, add true to the get_banners function
 	//	$data['banners']	= $this->banner_model->get_banners();
 	//	$data['ads']		= $this->banner_model->get_banners(true);
-		$data['categories']	= $this->Category_model->get_categories_tierd(0);
+		$data['categories']	= $this->Category_model->get_categories_tiered(0);
 		
 		
 		// paginate the orders

@@ -21,7 +21,7 @@ class filters extends Admin_Controller {
 		//$this->session->set_flashdata('message', 'this is our message');
 		
 		$data['page_title']	= lang('filters');
-		$data['filters']	= $this->filter_model->get_filters_tierd();
+		$data['filters']	= $this->filter_model->get_filters_tiered();
 		
 		$this->view($this->config->item('admin_folder').'/filters', $data);
 	}
