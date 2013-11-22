@@ -35,7 +35,8 @@ $lang['common_front_end'] = 'Front End';
 $lang['common_dashboard'] = 'Dashboard';
 $lang['common_home']= 'Home';
 $lang['common_actions'] = 'Actions';
-
+$lang['enabled'] = 'Enabled';
+$lang['disabled'] = 'Disabled';
 //buttons
 $lang['save'] = 'Save';
 $lang['edit'] = 'Edit';
