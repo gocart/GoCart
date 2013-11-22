@@ -7,7 +7,7 @@ class Cart extends Front_Controller {
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		$data['homepage']			= true;
 		
-		$this->load->view('homepage', $data);
+		$this->view('homepage', $data);
 	}
 
 	function page($id = false)
@@ -30,7 +30,7 @@ class Cart extends Front_Controller {
 		
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		
-		$this->load->view('page', $data);
+		$this->view('page', $data);
 	}
 	
 	
@@ -126,7 +126,7 @@ class Cart extends Front_Controller {
 				$p->images	= (array)json_decode($p->images);
 				$p->options	= $this->Option_model->get_product_options($p->id);
 			}
-			$this->load->view('category', $data);
+			$this->view('category', $data);
 	}
 	
 	// Sends back a reformatted filter string to append to the URL
@@ -281,7 +281,7 @@ class Cart extends Front_Controller {
 			$p->options	= $this->Option_model->get_product_options($p->id);
 		}
 		
-		$this->load->view('category', $data);
+		$this->view('category', $data);
 	}
 	
 	function product($id)
@@ -324,7 +324,7 @@ class Cart extends Front_Controller {
 
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 					
-		$this->load->view('product', $data);
+		$this->view('product', $data);
 	}
 	
 	
@@ -401,7 +401,7 @@ class Cart extends Front_Controller {
 		$data['page_title']	= 'View Cart';
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		
-		$this->load->view('view_cart', $data);
+		$this->view('view_cart', $data);
 	}
 	
 	function remove_item($key)
@@ -563,7 +563,7 @@ class Cart extends Front_Controller {
 			$data['error']				= validation_errors();
 			$data['page_title']			= lang('giftcard');
 			$data['gift_cards_enabled']	= $this->gift_cards_enabled;
-			$this->load->view('giftcards', $data);
+			$this->view('giftcards', $data);
 		}
 		else
 		{
