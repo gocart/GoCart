@@ -28,7 +28,22 @@ Class Page_model extends CI_Model
 		
 		return $return;
 	}
-	
+
+	function get_pages_tiered()
+    {
+		$this->db->order_by('sequence', 'ASC');
+		$this->db->order_by('name', 'ASC');
+		$pages = $this->db->get('pages')->result();
+		
+		$results	= array();
+		foreach($pages as $page)
+		{
+			$results[$page->parent_id][$page->id] = $page;
+		}
+		
+		return $results;
+	}
+
 	function get_page($id)
 	{
 		$this->db->where('id', $id);
