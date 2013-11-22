@@ -17,7 +17,7 @@ class Categories extends Admin_Controller {
 		//$this->session->set_flashdata('message', 'this is our message');
 		
 		$data['page_title']	= lang('categories');
-		$data['categories']	= $this->Category_model->get_categories_tierd(true);
+		$data['categories']	= $this->Category_model->get_categories_tiered(true);
 		
 		$this->view($this->config->item('admin_folder').'/categories', $data);
 	}
