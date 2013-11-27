@@ -140,16 +140,22 @@ class table_rate
 
 	function cust_in_rate_country($customer, $rate)
 	{
-		if(is_array($rate['country']) && in_array($customer['ship_address']['country_id'], $rate['country']))
+		if(isset($rate['country']))
+		{
+			if(is_array($rate['country']) && in_array($customer['ship_address']['country_id'], $rate['country']))
+			{
+				return true;
+			}
+			else if(!is_array($rate['country']) && $rate['country'] == $customer['ship_address']['country_id'])
+			{
+				return true;
+			}
+			return false;
+		}
+		else
 		{
 			return true;
 		}
-		else if(!is_array($rate['country']) && $rate['country'] == $customer['ship_address']['country_id'])
-		{
-			return true;
-		}
-
-		return false;
 	}
 	
 	function check()
