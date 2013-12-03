@@ -85,7 +85,7 @@ echo form_input($f_id);
 	</div>
 </div>
 
-<script type="text/javascript">
+<script>
 $(function(){
 	$('#f_country_id').change(function(){
 			$.post('<?php echo site_url('locations/get_zone_menu');?>',{id:$('#f_country_id').val()}, function(data) {

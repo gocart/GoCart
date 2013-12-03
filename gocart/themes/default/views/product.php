@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<script>
     window.onload = function()
     {
         $('.product').equalHeights();
@@ -289,10 +289,10 @@
     </div>
     <?php endif;?>
 </div>
-<script type="text/javascript"><!--
+<script>
 $(function(){ 
     $('.category_container').each(function(){
         $(this).children().equalHeights();
     }); 
 });
-//--></script>
+</script>

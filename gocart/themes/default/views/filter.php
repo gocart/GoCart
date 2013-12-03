@@ -1,10 +1,8 @@
-<?php include('header.php'); ?>
-	
+
 	<div class="page-header">
 		<h1><?php echo $page_title; ?></h1>
 		
 	</div>
-	
 	
 	<?php if((!(count($products) == 0)):?>
 		<div class="alert alert-info">
@@ -85,9 +83,8 @@
 		</div>
 	</div>
 
-<script type="text/javascript">
+<script>
 	window.onload = function(){
 		$('.product').equalHeights();
 	}
 </script>
-<?php include('footer.php'); ?>

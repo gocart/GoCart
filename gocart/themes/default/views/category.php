@@ -42,11 +42,11 @@
               } 
         ?>
         <div class="row" style="margin-top:20px; margin-bottom:15px">
-            <div class="span6">
+            <div class="<?php echo ($cols == 4)?'span9':'span6';?>">
                 <?php echo $this->pagination->create_links();?>
             </div>
             <div class="span3 pull-right">
-                <select id="sort_products" onchange="window.location='<?php echo site_url(uri_string());?>/'+$(this).val();">
+                <select class="span3" id="sort_products" onchange="window.location='<?php echo site_url(uri_string());?>/'+$(this).val();">
                     <option value=''><?php echo lang('default');?></option>
                     <option<?php echo(!empty($_GET['by']) && $_GET['by']=='name/asc')?' selected="selected"':'';?> value="?by=name/asc"><?php echo lang('sort_by_name_asc');?></option>
                     <option<?php echo(!empty($_GET['by']) && $_GET['by']=='name/desc')?' selected="selected"':'';?>  value="?by=name/desc"><?php echo lang('sort_by_name_desc');?></option>
