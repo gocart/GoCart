@@ -1,12 +1,10 @@
-<?php include('header.php');?>
-
 <?php if(validation_errors()):?>
 <div class="alert allert-error">
 	<a class="close" data-dismiss="alert">×</a>
 	<?php echo validation_errors();?>
 </div>
 <?php endif;?>
-<script type="text/javascript">
+<script>
 $(document).ready(function(){
 	$('.delete_address').click(function(){
 		if($('.delete_address').length > 1)
@@ -220,4 +218,3 @@ $confirm	= array('id'=>'confirm', 'class'=>'span2', 'name'=>'confirm', 'value'=>
 
 <div id="address-form-container" class="hide">
 </div>
-<?php include('footer.php');

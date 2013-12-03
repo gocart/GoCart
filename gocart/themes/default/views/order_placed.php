@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <div class="page-header">
 	<h2><?php echo lang('order_number');?>: <?php echo $order_id;?></h2>
 </div>
@@ -158,10 +156,9 @@ echo $download_section;
 				}
 				?></td>
 			<td><?php echo $product['quantity'];?></td>
-			<td><?php echo format_currency($product['price']*$product['quantity']); ?>				</td>
+			<td><?php echo format_currency($product['price']*$product['quantity']); ?></td>
 		</tr>
 			
 	<?php endforeach; ?>
 	</tbody>
 </table>
-<?php include('footer.php');

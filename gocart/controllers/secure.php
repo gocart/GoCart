@@ -87,7 +87,7 @@ class Secure extends Front_Controller {
 		//$data['ads']		= $this->banner_model->get_banners(true);
 		$data['categories']	= $this->Category_model->get_categories_tiered(0);
 			
-		$this->load->view('login', $data);
+		$this->view('login', $data);
 	}
 	
 	function logout()
@@ -161,7 +161,7 @@ class Secure extends Front_Controller {
 			
 			$data['error'] = validation_errors();
 			
-			$this->load->view('register', $data);
+			$this->view('register', $data);
 		}
 		else
 		{
@@ -290,7 +290,7 @@ class Secure extends Front_Controller {
 		$data['categories']	= $this->Category_model->get_categories_tiered();
 		
 		
-		$this->load->view('forgot_password', $data);
+		$this->view('forgot_password', $data);
 	}
 	
 	function my_account($offset=0)
@@ -385,7 +385,7 @@ class Secure extends Front_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view('my_account', $data);
+			$this->view('my_account', $data);
 		}
 		else
 		{
@@ -431,7 +431,7 @@ class Secure extends Front_Controller {
 		
 		$data['page_title'] = lang('my_downloads');
 		
-		$this->load->view('my_downloads', $data);
+		$this->view('my_downloads', $data);
 	}
 	
 	
@@ -565,7 +565,7 @@ class Secure extends Front_Controller {
 			}
 			else
 			{
-				$this->load->view('address_form', $data);
+				$this->partial('address_form', $data);
 			}
 		}
 		else

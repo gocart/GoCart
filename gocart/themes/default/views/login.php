@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <div class="row" style="margin-top:50px;">
 	<div class="span6 offset3">
 		<div class="page-header">
@@ -49,4 +47,3 @@
 			</div>
 	</div>
 </div>
-<?php include('footer.php'); ?>
