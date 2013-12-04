@@ -43,7 +43,7 @@
         ?>
         <div class="row" style="margin-top:20px; margin-bottom:15px">
             <div class="<?php echo ($cols == 4)?'span9':'span6';?>">
-                <?php echo $this->pagination->create_links();?>
+                <?php echo $this->pagination->create_links();?>&nbsp;
             </div>
             <div class="span3 pull-right">
                 <select class="span3" id="sort_products" onchange="window.location='<?php echo site_url(uri_string());?>/'+$(this).val();">
