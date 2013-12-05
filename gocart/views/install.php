@@ -23,7 +23,7 @@
 					<p><strong>Alert!</strong><br> The root directory is not writable! This is required if you want to eliminate "index.php" from the URL by generating an .htaccess file.</p>
 				<?php endif;?>
 				<?php if(!$is_writeable['uploads']):?>
-					<p><strong>Alert!</strong><br> The gocart/uploads directory is not writable! This is required for uploading files.</p>
+					<p><strong>Alert!</strong><br> The uploads directory is not writable! This is required for uploading files.</p>
 				<?php endif;?>
 
 			</div>
