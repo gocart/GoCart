@@ -317,9 +317,6 @@ class go_cart {
 		if($this->_cart_contents['coupon_list'][$coupon_code]['reduction_type']=="percent")
 		{
 			//make sure we're removing the right percentage
-//			$reduction_amount	= 100 - $coupon['reduction_amount'];
-//			$str = ' - ($subtotal * ('. $reduction_ammount .' /100))';
-			
 			
 			$reduction_amount	= 100 - (float) $this->_cart_contents['coupon_list'][$coupon_code]['reduction_amount'];
 			$discount			= ($price * ($reduction_amount/100));
@@ -346,6 +343,11 @@ class go_cart {
 				// replace previous value
 				$this->_cart_contents['items'][$cartkey]['coupon_discount'] = $discount_amount;
 				$this->_cart_contents['items'][$cartkey]['coupon_code'] = $coupon_code;
+
+				for($x=0;$x<$this->_cart_contents['items'][$cartkey]['quantity'];$x++) 
+				{
+					$this->_cart_contents['applied_coupons'][$coupon_code][$cartkey][] = $discount_amount;
+				}
 				
 				// Un-apply the previously applied coupon by removing the old code placeholder from the cart item array
 				unset($this->_cart_contents['applied_coupons'][$old_code][$cartkey]);

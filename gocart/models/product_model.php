@@ -183,7 +183,6 @@ Class Product_model extends CI_Model
 			$result->related_products	= array();
 		}
 		$result->categories			= $this->get_product_categories($result->id);
-		$result->filters			= $this->get_product_filters($result->id);
 
 		return $result;
 	}
@@ -191,11 +190,6 @@ Class Product_model extends CI_Model
 	function get_product_categories($id)
 	{
 		return $this->db->where('product_id', $id)->join('categories', 'category_id = categories.id')->get('category_products')->result();
-	}
-	
-	function get_product_filters($id)
-	{
-		return $this->db->where('product_id', $id)->join('filters', 'filter_id = filters.id')->get('filter_products')->result();
 	}
 
 	function get_slug($id)
@@ -224,7 +218,7 @@ Class Product_model extends CI_Model
 		}
 	}
 
-	function save($product, $options=false, $categories=false, $filters=false)
+	function save($product, $options=false, $categories=false)
 	{
 		if ($product['id'])
 		{
@@ -304,47 +298,6 @@ Class Product_model extends CI_Model
 			}
 		}
 		
-		if($filters !== false)
-		{
-			if($product['id'])
-			{
-				//get all the categories that the product is in
-				$fils	= $this->get_product_filters($id);
-				
-				//generate cat_id array
-				$ids	= array();
-				foreach($fils as $f)
-				{
-					$ids[]	= $f->id;
-				}
-
-				//eliminate categories that products are no longer in
-				foreach($ids as $f)
-				{
-					if(!in_array($f, $filters))
-					{
-						$this->db->delete('filter_products', array('product_id'=>$id,'filter_id'=>$f));
-					}
-				}
-				
-				//add products to new categories
-				foreach($filters as $f)
-				{
-					if(!in_array($f, $ids))
-					{
-						$this->db->insert('filter_products', array('product_id'=>$id,'filter_id'=>$f));
-					}
-				}
-			}
-			else
-			{
-				//new product add them all
-				foreach($filters as $f)
-				{
-					$this->db->insert('filter_products', array('product_id'=>$id,'filter_id'=>$f));
-				}
-			}
-		}
 		
 		//return the product id
 		return $id;
