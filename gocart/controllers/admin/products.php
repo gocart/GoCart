@@ -10,7 +10,7 @@ class Products extends Admin_Controller {
         
 		$this->auth->check_access('Admin', true);
 		
-		$this->load->model(array('Product_model', 'Filter_model'));
+		$this->load->model(array('Product_model'));
 		$this->load->helper('form');
 		$this->lang->load('product');
 	}
@@ -139,7 +139,6 @@ class Products extends Admin_Controller {
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
 		$data['categories']		= $this->Category_model->get_categories_tiered();
-		$data['filters']		= $this->Filter_model->get_filters_tiered();
 		$data['file_list']		= $this->Digital_Product_model->get_list();
 
 		$data['page_title']		= lang('product_form');
@@ -164,7 +163,6 @@ class Products extends Admin_Controller {
 		$data['enabled']			= '';
 		$data['related_products']	= array();
 		$data['product_categories']	= array();
-		$data['product_filters']	= array();
 		$data['images']				= array();
 		$data['product_files']		= array();
 
@@ -223,12 +221,6 @@ class Products extends Admin_Controller {
 					$data['product_categories'][] = $product_category->id;
 				}
 				
-				$data['product_filters']	= array();
-				foreach($product->filters as $product_filter)
-				{
-					$data['product_filters'][] = $product_filter->id;
-				}
-				
 				$data['related_products']	= $product->related_products;
 				$data['images']				= (array)json_decode($product->images);
 			}
@@ -243,10 +235,7 @@ class Products extends Admin_Controller {
 		{
 			$data['product_categories']	= array();
 		}
-		if(!is_array($data['product_filters']))
-		{
-			$data['product_filters']	= array();
-		}
+
 		
 		//no error checking on these
 		$this->form_validation->set_rules('caption', 'Caption');
@@ -287,7 +276,6 @@ class Products extends Admin_Controller {
 			$data['product_options']	= $this->input->post('option');
 			$data['related_products']	= $this->input->post('related_products');
 			$data['product_categories']	= $this->input->post('categories');
-			$data['product_filters']	= $this->input->post('filters');
 			$data['images']				= $this->input->post('images');
 			$data['product_files']		= $this->input->post('downloads');
 			
@@ -384,12 +372,6 @@ class Products extends Admin_Controller {
 				$categories	= array();
 			}
 			
-			// save filters
-			$filters			= $this->input->post('filters');
-			if(!$filters)
-			{
-				$filters = array();
-			}
 			
 			// format options
 			$options	= array();
@@ -403,7 +385,7 @@ class Products extends Admin_Controller {
 			}	
 			
 			// save product 
-			$product_id	= $this->Product_model->save($save, $options, $categories, $filters);
+			$product_id	= $this->Product_model->save($save, $options, $categories);
 			
 			// add file associations
 			// clear existsing

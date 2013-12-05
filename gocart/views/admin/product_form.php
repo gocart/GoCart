@@ -75,7 +75,6 @@ function remove_option(id)
 				<li><a href="#product_downloads" data-toggle="tab"><?php echo lang('digital_content');?></a></li>
 				<?php endif;?>
 				<li><a href="#product_categories" data-toggle="tab"><?php echo lang('categories');?></a></li>
-				<li><a href="#product_filters" data-toggle="tab"><?php echo lang('filters');?></a></li>
 				<li><a href="#product_options" data-toggle="tab"><?php echo lang('options');?></a></li>
 				<li><a href="#product_related" data-toggle="tab"><?php echo lang('related_products');?></a></li>
 				<li><a href="#product_photos" data-toggle="tab"><?php echo lang('images');?></a></li>
@@ -244,49 +243,6 @@ function remove_option(id)
 						</table>
 					<?php else:?>
 						<div class="alert"><?php echo lang('no_available_categories');?></div>
-					<?php endif;?>
-					</div>
-				</div>
-			</div>
-			
-			<div class="tab-pane" id="product_filters">
-				<div class="row">
-					<div class="span8">
-						<?php if(isset($filters[0])):?>
-							<label><strong><?php echo lang('select_a_filter');?></strong></label>
-							<table class="table table-striped">
-							    <thead>
-									<tr>
-										<th colspan="2"><?php echo lang('name')?></th>
-									</tr>
-								</thead>
-							<?php
-							function list_filters($parent_id, $filts, $sub='', $product_filters) {
-			
-								foreach ($filts[$parent_id] as $fil):?>
-								<tr>
-									<td><?php echo  $sub.$fil->name; ?></td>
-									<td>
-										<input type="checkbox" name="filters[]" value="<?php echo $fil->id;?>" <?php echo(in_array($fil->id, $product_filters))?'checked="checked"':'';?>/>
-									</td>
-								</tr>
-								<?php
-								if (isset($filts[$fil->id]) && sizeof($filts[$fil->id]) > 0)
-								{
-									$sub2 = str_replace('&rarr;&nbsp;', '&nbsp;', $sub);
-										$sub2 .=  '&nbsp;&nbsp;&nbsp;&rarr;&nbsp;';
-									list_categories($cat->id, $filts, $sub2, $product_filters);
-								}
-								endforeach;
-							}
-						
-						
-							list_filters(0, $filters, '', $product_filters);
-						
-							?>
-						</table>
-					<?php else:?>
-						<div class="alert"><?php echo lang('no_available_filters');?></div>
 					<?php endif;?>
 					</div>
 				</div>

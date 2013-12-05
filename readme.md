@@ -113,8 +113,45 @@ Admins can edit anything on the site. Order admins can only see options related 
 
 
 ### <a name="categories"></a> Categories
+
+Categories are a simple tree system useful for organizing the display structure of your products. 
+
+*Description* 
+
+Under the first tab, the most basic fields are displayed, name, description, and the status of enabled/disabled.
+
+*Attributes*
+
+The slug attribute provides a URL keyword for your category.
+
+Sequence is the order the category will appear on it's level.
+
+The Parent field provdes a way to specify the category as a top level or child of an existing category.
+
+Exerpt is similar to description, but is a text snippet.
+
+*SEO*
+
+Enter in your keywords and metadata for search engine optimization.
+
 ### <a name="filters"></a> Filters
+
+Filters provides a simple way of filtering the display of products within a category without having to create more branches in your existing category tree. They allow you to show a subset of products within a particular category and it's children.
+
+You create filters the same way you would a category, giving it a url variable keyword. Filters are also nestable, so you can create elaborate filter tree organization. In your product properties, you can select the filters that are relevant to it.
+
+You must generate filter links on your own, either in category or product description text, or in your site theme.
+
+To apply a filter, use "get" variables to specify which filters to apply by keyword.
+
+Example  www.mysite.com/mycategory?filters=filterred,filterblue
+
+This will show all products that are related to "filterred" and "filterblue" including products from child filters.
+
 ### <a name="products"></a> Products
+
+
+
 #### <a name="details"></a> Details
 #### <a name="digitalconent"></a> Digital Content
 #### <a name="productcategories"></a> Categories

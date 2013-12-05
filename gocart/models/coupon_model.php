@@ -65,13 +65,14 @@ class Coupon_model extends CI_Model
 	function is_valid($coupon)
 	{
 		//$coupon = $this->get_coupon($id);
+
+		//die(var_dump($coupon));
 				
 		if($coupon['max_uses']!=0 && $coupon['num_uses'] >= $coupon['max_uses'] ) return false;
 		
 		if($coupon['start_date'] != "0000-00-00")
 		{
-			$s_date = explode("-", $coupon['start_date']);
-			$start = mktime(0,0,0, $s_date[1], $s_date[2], $s_date[0]);
+			$start = strtotime($coupon['start_date']);
 		
 			$current = time();
 		
@@ -83,8 +84,7 @@ class Coupon_model extends CI_Model
 		
 		if($coupon['end_date'] != "0000-00-00")
 		{
-			$e_date = explode("-", $coupon['end_date']);
-			$end = mktime(0,0,0, $e_date[1], (int) $e_date[2] +1 , $e_date[0]); // add a day to account for the end date as the last viable day
+			$end = strtotime($coupon['end_date']) + 86400; // add a day for the availability to be inclusive
 		
 			$current = time();
 		

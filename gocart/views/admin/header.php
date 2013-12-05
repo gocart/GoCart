@@ -113,7 +113,6 @@ $(document).ready(function(){
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('common_catalog') ?> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="<?php echo $admin_url;?>categories"><?php echo lang('common_categories') ?></a></li>
-                            <li><a href="<?php echo $admin_url;?>filters"><?php echo lang('common_filters') ?></a></li>
                             <li><a href="<?php echo $admin_url;?>products"><?php echo lang('common_products') ?></a></li>
                             <li><a href="<?php echo $admin_url;?>digital_products"><?php echo lang('common_digital_products') ?></a></li>
                         </ul>

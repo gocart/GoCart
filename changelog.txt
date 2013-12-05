@@ -6,7 +6,6 @@ Version 2.3
 		- Added (for admins) edit buttons in the default theme that link to the appropriate edit pages in the admin panel.
 		- Humanize the Shipping and Payment Module Names (thanks onfriendaday).
         - Replaced banners & boxes with the new Banner Collections.
-        - Added filters for products within a category, configurable in the admin section.
         - Added the ability to disable categories.
         - Included the 2checkout payment package (thx craigchristenson).
         - Updated Redactor to version 1.9.7 & replaced the existing media manager with Redactors built in functions.

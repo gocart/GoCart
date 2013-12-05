@@ -25,6 +25,9 @@ class Coupons extends Admin_Controller {
 	
 	function form($id = false)
 	{
+		
+		//die(print_r($_POST));
+
 		$this->load->helper(array('form', 'date'));
 		$this->load->library('form_validation');
 		
@@ -134,6 +137,15 @@ class Coupons extends Admin_Controller {
 			$save['reduction_target']		= $this->input->post('reduction_target');
 			$save['reduction_type']			= $this->input->post('reduction_type');
 			$save['reduction_amount']		= $this->input->post('reduction_amount');
+
+			if($save['start_date']=='')
+			{
+				$save['start_date'] = null;
+			}
+			if($save['end_date']=='')
+			{
+				$save['end_date'] = null;
+			}
 			
 			$product = $this->input->post('product');
 			

@@ -129,37 +129,7 @@ class Cart extends Front_Controller {
 			$this->view('category', $data);
 	}
 	
-	// Sends back a reformatted filter string to append to the URL
-	function changefilterstring()
-	{
-		$option 		= $this->input->post('option');
-		$value 			= $this->input->post('value');
-		$filter_string 	= $this->input->post('filters');
-		if($filter_string!='')
-		{
-			$active_filters = explode(',', $filter_string);
-		} else {
-			$active_filters = array();
-		}
-		if($option=='remove')
-		{
-			$new_filters = array();
-			foreach($active_filters as $f)
-			{
-				if($f!=$value) 
-				{
-					$new_filters[] = $f;
-				}
-			}
-		} else {
-			$new_filters = $active_filters;
-			if(!in_array($value, $active_filters))
-			{
-				$new_filters[] = $value;
-			}
-		}
-		echo implode(',', $new_filters);
-	}
+
 	
 	function category($id)
 	{
@@ -171,23 +141,8 @@ class Cart extends Front_Controller {
 		{
 			show_404();
 		}
-		
-		//check for filter information
-		$filters = array();
-		if($this->input->get('filters'))
-		{
-			$filters = explode(',', $this->input->get('filters'));
-		}
-		if(count($filters)>0)
-		{
-			$filtered = true;
-			$data['filters'] = $this->filter_model->get_filters_by_names($filters);
-			$product_ids = $this->filter_model->get_filter_product_ids($filters, $data['category']->id);
-			$product_count = count($product_ids);
-		} else {
-			$filtered = false;
-			$product_count = $this->Product_model->count_products($data['category']->id);
-		}
+				
+		$product_count = $this->Product_model->count_products($data['category']->id);
 		
 		//set up pagination
 		$segments	= $this->uri->total_segments();
@@ -233,11 +188,7 @@ class Cart extends Front_Controller {
 		//set up pagination
 		$this->load->library('pagination');
 		$config['base_url']		= site_url($base_url);
-		if ($filtered)
-		{
-			$config['suffix'] = '?filters='.$this->input->get('filters');
-			$config['first_url'] = $config['base_url'].$config['suffix'];
-		}
+		
 		$config['uri_segment']	= $segments;
 		$config['per_page']		= 24;
 		$config['total_rows']	= $product_count;
@@ -267,13 +218,9 @@ class Cart extends Front_Controller {
 				
 		$this->pagination->initialize($config);
 		
-		//grab the products using the pagination lib
-		if($filtered)
-		{
-			$data['products'] = $this->Product_model->get_filtered_products($product_ids, $config['per_page'], $page);
-		} else {
-			$data['products']	= $this->Product_model->get_products($data['category']->id, $config['per_page'], $page, $sort_by['by'], $sort_by['sort']);
-		}
+		
+		$data['products']	= $this->Product_model->get_products($data['category']->id, $config['per_page'], $page, $sort_by['by'], $sort_by['sort']);
+		
 		
 		foreach ($data['products'] as &$p)
 		{
