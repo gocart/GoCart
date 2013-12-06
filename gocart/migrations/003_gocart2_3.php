@@ -172,81 +172,6 @@ class Migration_gocart2_3 extends CI_migration {
             //drop the boxes table
             $this->dbforge->drop_table('boxes');
         }
-
-        // Create the filters and filter products tables
-        if(!$this->db->table_exists('filters'))
-        {
-            $this->dbforge->add_field(array(
-                'id' => array(
-                            'type' => 'int',
-                            'constraint' => 11,
-                            'auto_increment' => true
-                        ),
-                'parent_id' => array(
-                            'type' => 'int',
-                            'constraint' => 10,
-                            'unsigned' => true,
-                            'null' => false
-                        ),
-                'name' => array(
-                            'type' => 'varchar',
-                            'constraint' => 64, 
-                            'null' => false
-                        ),
-                'slug' => array(
-                            'type' => 'varchar',
-                            'constraint' => 64,
-                            'null' => false
-                        ),
-                'route_id' => array(
-                            'type' => 'int',
-                            'constraint' => 11,
-                            'null' => false
-                        ),
-                'sequence' => array(
-                            'type' => 'int',
-                            'constraint' => 10,
-                            'unsigned' => true,
-                            'null' => false
-                        ),
-                'seo_title' => array(
-                            'type' => 'text',
-                            'null' => true
-                        ),
-                'meta' => array(
-                            'type' => 'text',
-                            'null' => true,
-                        )
-            ));
-
-            $this->dbforge->add_key('id', true);
-            $this->dbforge->create_table('filters');
-        }
-
-        if(!$this->db->table_exists('filter_products'))
-        {
-            $this->dbforge->add_field(array(
-                'product_id' => array(
-                            'type' => 'int',
-                            'constraint' => 10,
-                            'unsigned' => true, 
-                            'null' => false
-                        ),
-                'filter_id' => array(
-                            'type' => 'int',
-                            'constraint' => 10, 
-                            'unsigned' => true,
-                            'null' => false
-                        ),
-                'sequence' => array( 
-                            'type' => 'int',
-                            'constraint' => 10,
-                            'unsigned' => true, 
-                            'null' => false
-                        )
-            ));
-            $this->dbforge->create_table('filter_products', true);
-        }
         
         if (!$this->db->field_exists('enabled', 'categories'))
         {
@@ -505,14 +430,7 @@ class Migration_gocart2_3 extends CI_migration {
             $this->dbforge->add_key('id', TRUE);
             $this->dbforge->create_table('boxes', TRUE);
         }
-        
-        // Drop filters tables
-        if (!$this->db->table_exists('filters'))
-        {   
-            $this->dbforge->drop_table('filters');
-            $this->dbforge->drop_table('filter_products');
-        }
-
+      
         // drop enabled field on categories
         if($this->db->field_exists('enabled', 'categories'))
         {
