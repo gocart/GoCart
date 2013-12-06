@@ -46,7 +46,7 @@
 				
 				<label for="parent_id"><?php echo lang('parent');?> </label>
 				<?php
-				$data	= array(0 => 'Top Level Category');
+				$data	= array(0 => lang('top_level_category'));
 				foreach($categories as $parent)
 				{
 					if($parent->id != $id)
