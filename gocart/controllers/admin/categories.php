@@ -196,7 +196,7 @@ class Categories extends Admin_Controller {
 			
 			if(!$uploaded)
 			{
-				$error	= $this->upload->display_errors();
+				$data['error']	= $this->upload->display_errors();
 				if($_FILES['image']['error'] != 4)
 				{
 					$data['error']	.= $this->upload->display_errors();
