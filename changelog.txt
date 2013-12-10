@@ -1,5 +1,5 @@
 Version 2.3
-	Release date: TBD
+	Release date: December 10, 2013
 	
 	Features
 		
