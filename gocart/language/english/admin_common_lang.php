@@ -37,6 +37,8 @@ $lang['common_home']= 'Home';
 $lang['common_actions'] = 'Actions';
 $lang['enabled'] = 'Enabled';
 $lang['disabled'] = 'Disabled';
+$lang['yes'] = 'Yes';
+$lang['no'] = 'No';
 //buttons
 $lang['save'] = 'Save';
 $lang['edit'] = 'Edit';
