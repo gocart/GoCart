@@ -34,3 +34,5 @@ $lang['free_shipping']			= 'FREE Shipping';
 $lang['apply_to_whole_order']	= 'Apply Coupon to Whole Order';
 $lang['apply_to_select_items']	= 'Apply Coupon to Select Items';
 $lang['usage']					= 'Usage';
+$lang['percentage']				= 'Percentage';
+$lang['fixed']					= 'Fixed';

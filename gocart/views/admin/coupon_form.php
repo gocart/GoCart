@@ -59,15 +59,15 @@ $("#datepicker2").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker2_al
 			<div class="row">
 				<div class="span1">
 				<?php	$options = array(
-	                  'percent'  => '%',
-					  'fixed' => $this->config->item('currency_symbol')
+	                  'percent'  => lang('percentage'),
+					  'fixed' => lang('fixed')
 	               	);
-					echo ' '.form_dropdown('reduction_type', $options,  $reduction_type, 'class="span1"');
+					echo ' '.form_dropdown('reduction_type', $options,  $reduction_type, 'class="span2"');
 				?>
 				</div>
 				<div class="span2">
 					<?php
-						$data	= array('id'=>'reduction_amount', 'name'=>'reduction_amount', 'value'=>set_value('reduction_amount', $reduction_amount), 'class'=>'span2');
+						$data	= array('id'=>'reduction_amount', 'name'=>'reduction_amount', 'value'=>set_value('reduction_amount', $reduction_amount), 'class'=>'span1');
 						echo form_input($data);?>
 				</div>
 			</div>
