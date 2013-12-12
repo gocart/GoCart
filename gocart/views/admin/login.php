@@ -15,7 +15,7 @@
     
     <?php echo form_open($this->config->item('admin_folder').'/login') ?>
     <fieldset>
-        <label for="email"><?php echo lang('username');?></label>
+        <label for="username"><?php echo lang('username');?></label>
         <?php echo form_input(array('name'=>'username', 'class'=>'span4')); ?>
         
         <label for="password"><?php echo lang('password');?></label>

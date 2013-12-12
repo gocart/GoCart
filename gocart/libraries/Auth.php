@@ -115,6 +115,12 @@ class Auth
     */
     function login_admin($username, $password, $remember=false)
     {
+        // make sure the username doesn't go into the query as false or 0
+        if(!$username)
+        {
+            return false;
+        }
+
         $this->CI->db->select('*');
         $this->CI->db->where('username', $username);
         $this->CI->db->where('password',  sha1($password));

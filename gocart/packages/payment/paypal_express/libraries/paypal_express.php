@@ -63,7 +63,7 @@ class Paypal_express
 		$config['username'] = '';
 		$config['password'] = '';; 
 		$config['signature'] = '';
-		$config['currency'] = 'USD'; // default
+		//$config['currency'] = 'USD'; // default
 		$config['SANDBOX'] = '1';
 		$config['enabled'] = '0';
 		
@@ -114,10 +114,6 @@ class Paypal_express
 	{	
 		$error	= false;
 		
-		// The only value that matters is currency code.
-		//if ( empty($_POST['']) )
-			//$error = "<div>You must enter a valid currency code</div>";
-					
 		//count the errors
 		if($error)
 		{
