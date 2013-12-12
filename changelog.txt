@@ -1,5 +1,19 @@
+Version 2.3.1
+-------------
+	Release date: December 12, 2013
+
+	Bug Fix
+
+		- Fixed a problem with the Admin login not passing the username into the auth library but logging in anyway.
+		- Fixed the discount field in the coupon settings form, it was attempting to show the currency from the old settings.
+
+	Other
+
+		- Removed the currency setting from the paypal express module and integrated it with global currency settings.
+		
+
 Version 2.3
------------
+-------------
 	Release date: December 10, 2013
 	
 	Features
