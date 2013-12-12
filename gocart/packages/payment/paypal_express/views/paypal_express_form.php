@@ -11,9 +11,6 @@
 	<option value="0"<?php echo((bool)$settings['SANDBOX'])?'':' selected="selected"';?>><?php echo lang('live_mode');?></option>
 </select>
 
-<label><?php echo lang('currency') ?></label>
-<input class="span3" name="currency" value="<?php echo @$settings["currency"] ?>" /> <?php echo lang('currency_label') ?>
-
 <label><?php echo lang('pp_username') ?></label>
 <input class="span3" name="username" type="text" value="<?php echo @$settings["username"] ?>" size="50" >
 
