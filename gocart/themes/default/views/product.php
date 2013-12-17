@@ -265,7 +265,7 @@
                             <?php echo $photo; ?>
                         </a>
                         <h5 style="margin-top:5px;"><a href="<?php echo site_url($relate->slug); ?>"><?php echo $relate->name;?></a>
-                        <?php if($this->admin_session->userdata('admin')): ?>
+                        <?php if($this->session->userdata('admin')): ?>
                         <a class="btn" title="<?php echo lang('edit_product'); ?>" href="<?php echo  site_url($this->config->item('admin_folder').'/products/form/'.$relate->id); ?>"><i class="icon-pencil"></i></a>
                         <?php endif; ?>
                         </h5>
