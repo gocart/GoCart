@@ -1,3 +1,11 @@
+Version 2.3.2
+-------------
+	Release date: December 17, 2013
+
+	Bug Fix
+
+		- Fixed a reference to the old admin session instance on the product view
+
 Version 2.3.1
 -------------
 	Release date: December 12, 2013
