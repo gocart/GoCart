@@ -696,6 +696,6 @@ class Checkout extends Front_Controller {
 		$this->go_cart->destroy();
 
 		/*  show final confirmation page */
-		$this->load->view('order_placed', $data);
+		$this->view('order_placed', $data);
 	}
 }
