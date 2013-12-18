@@ -708,13 +708,12 @@ class go_cart {
 			// Lets add up the individual prices and set the cart sub-total
 			$total 			= 0;
 			$taxable 		= 0;
-			$coupon_total 	= 0;
 			$this->_cart_contents['requires_shipping'] = false; // Go back to default and redetermine if there is anything shippable
 			
 			// Lets calculate the total item quantity
 			$total_quantity = 0;
 
-			foreach ($this->_cart_contents['items'] as $key => &$val)
+			foreach ($this->_cart_contents['items'] as &$val)
 			{
 				// Apply any group discount
 				if(isset($this->_cart_contents['customer']['group']))
@@ -1290,7 +1289,7 @@ class go_cart {
 		// touch any used product coupons (increment usage)
 		if(isset($this->_cart_contents['applied_coupons']))
 		{
-			foreach($this->_cart_contents['applied_coupons'] as $code=>$content)
+			foreach(array_keys($this->_cart_contents['applied_coupons']) as $code)
 				$this->CI->Coupon_model->touch_coupon($code);
 		}
 		

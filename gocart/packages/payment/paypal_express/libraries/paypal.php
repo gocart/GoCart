@@ -87,8 +87,6 @@ class PayPal {
 	 * @return string URL of the "success" page
 	 */
 	private function getReturnTo() {
-		//return sprintf("%s://%s/".$this->RETURN_URL,
-		//$this->getScheme(), $_SERVER['SERVER_NAME']);
 		return site_url($this->RETURN_URL);
 	}
 
@@ -96,8 +94,6 @@ class PayPal {
 	 * @return string URL of the "cancel" page
 	 */
 	private function getReturnToCancel() {
-		//return sprintf("%s://%s/".$this->CANCEL_URL,
-		//$this->getScheme(), $_SERVER['SERVER_NAME']);
 		return site_url($this->CANCEL_URL);
 	}
 
@@ -105,8 +101,6 @@ class PayPal {
 	 * @return HTTPRequest
 	 */
 	private function response($data){
-		//$r = new HTTPRequest($this->host, $this->endpoint, 'POST', true);
-		//$result = $r->connect($data);
 		$result = $this->CI->httprequest->connect($data);
 		if ($result<400) return $this->CI->httprequest;
 		return false;
@@ -186,7 +180,7 @@ class PayPal {
 		
 		$details = $this->getCheckoutDetails($token);
 		if (!$details) return false;
-		list($amount,$currency,$invoice) = explode('|',$details['CUSTOM']);
+		list($amount,$currency) = explode('|',$details['CUSTOM']);
 		$data = array(
 		'PAYMENTACTION' => 'Sale',
 		'PAYERID' => $payer,
@@ -211,14 +205,6 @@ class PayPal {
 		 */
 
 		return($return);
-	}
-
-	private function getScheme() {
-		$scheme = 'http';
-		if (isset($_SERVER['HTTPS']) and $_SERVER['HTTPS'] == 'on') {
-			$scheme .= 's';
-		}
-		return $scheme;
 	}
 
 	private function responseParse($resp){

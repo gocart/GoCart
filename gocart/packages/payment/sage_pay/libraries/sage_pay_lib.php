@@ -23,7 +23,6 @@ class Sage_pay_lib {
     private $response = array();
     private $vendor_tx_code = '';
 	private $settings;
-    private $debuginfo;
     private $gateway_url = "";
 
     /**

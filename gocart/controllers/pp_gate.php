@@ -59,7 +59,6 @@ class pp_gate extends CI_Controller {
 		}
 	
 		// User canceled using paypal, send them back to the payment page
-		$cart  = $this->session->userdata('cart');	
 		$this->session->set_flashdata('message', "<div>Paypal transaction canceled, select another payment method</div>");
 		redirect('checkout');
 	}

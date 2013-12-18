@@ -22,7 +22,7 @@ function format_address($fields, $br=false)
 	}
 
 	$keys = preg_split("/[\s,{}]+/", $formatted);
-	foreach ($keys as $id=>$key)
+	foreach ($keys as $key)
 	{
 		$formatted = array_key_exists($key, $fields) ? str_replace('{'.$key.'}', $fields[$key], $formatted) : str_replace('{'.$key.'}', '', $formatted);
 	}
@@ -37,7 +37,7 @@ function format_address($fields, $br=false)
 	
 }
 
-function format_currency($value, $symbol=true)
+function format_currency($value)
 {
 	$fmt = numfmt_create( config_item('locale'), NumberFormatter::CURRENCY );
 	return numfmt_format_currency($fmt, $value, config_item('currency_iso'));

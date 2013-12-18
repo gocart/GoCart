@@ -70,10 +70,6 @@ class fedex
 
 		$customer_address = $customer['ship_address'];
 
-
-		// Weight of order
-		$weight	= $this->CI->go_cart->order_weight();
-
 		// retrieve settings
 		$settings	= $this->CI->Settings_model->get_settings('fedex');
 
@@ -96,9 +92,6 @@ class fedex
 		$pkg_height			= $settings['height'];
 		$pkg_length 		= $settings['length'];
 		$insurance 			= $settings['insurance'];
-		$billAccount 		= $shipAccount;
-
-
 
 		// Build Request
 

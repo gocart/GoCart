@@ -50,10 +50,9 @@ class Sage_pay
 	/**
 	* customer front end checkout form
 	* 
-	* @param array $post
 	* @return string
 */
-	public function checkout_form($post = false){
+	public function checkout_form(){
 		//load form helper
 		$this->CI->load->helper('form');
 

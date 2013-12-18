@@ -334,10 +334,8 @@ class Checkout extends Front_Controller {
 
 	/*
 		callback for shipping form 
-		if callback is true then it's being called for form_Validation
-		In that case, set the message otherwise just return true or false
 	*/
-	function validate_shipping_option($str, $callback=true)
+	function validate_shipping_option($str)
 	{
 		$shipping_methods	= $this->_get_shipping_methods();
 
@@ -370,7 +368,7 @@ class Checkout extends Front_Controller {
 			if($this->go_cart->requires_shipping())
 			{
 				/* ok so lets grab some shipping methods. If none exists, then we know that shipping isn't going to happen! */
-				foreach ($this->Settings_model->get_settings('shipping_modules') as $shipping_method=>$order)
+				foreach (array_keys($this->Settings_model->get_settings('shipping_modules')) as $shipping_method)
 				{
 					$this->load->add_package_path(APPPATH.'packages/shipping/'.$shipping_method.'/');
 					/* eventually, we will sort by order, but I'm not concerned with that at the moment */
@@ -494,7 +492,7 @@ class Checkout extends Front_Controller {
 		$payment_methods	= array();
 		if($this->go_cart->total() != 0)
 		{
-			foreach ($this->Settings_model->get_settings('payment_modules') as $payment_method=>$order)
+			foreach (array_keys($this->Settings_model->get_settings('payment_modules')) as $payment_method)
 			{
 				$this->load->add_package_path(APPPATH.'packages/payment/'.$payment_method.'/');
 				$this->load->library($payment_method);

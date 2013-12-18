@@ -71,7 +71,6 @@ class usps_domestic
 		}
 
 		$user	 			= $settings['username'];
-		$pass 				= $settings['password'];
 		$service			= explode(',',$settings['service']);
 		$container 			= $settings['container'];
 		$size 				= 'Regular';
@@ -87,9 +86,6 @@ class usps_domestic
 
 		//set the weight
 		$weight	= $this->CI->go_cart->order_weight();
-
-		// value of contents
-		$total = $this->CI->go_cart->order_insurable_value();
 
 		//strip the decimal
 		$oz		= ($weight-(floor($weight)))*100;

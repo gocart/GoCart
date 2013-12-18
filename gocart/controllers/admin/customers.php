@@ -201,7 +201,7 @@ class Customers extends Admin_Controller {
 			else
 			{
 				//if the customer is legit, delete them
-				$delete	= $this->Customer_model->delete($id);
+				$this->Customer_model->delete($id);
 				
 				$this->session->set_flashdata('message', lang('message_customer_deleted'));
 				redirect($this->config->item('admin_folder').'/customers');
@@ -462,7 +462,7 @@ class Customers extends Admin_Controller {
 			else
 			{
 				//if the customer is legit, delete them
-				$delete	= $this->Customer_model->delete_address($id, $customer_id);				
+				$this->Customer_model->delete_address($id, $customer_id);				
 				$this->session->set_flashdata('message', lang('message_address_deleted'));
 				
 				if($customer_id)

@@ -249,7 +249,6 @@ class Cart extends Front_Controller {
 		
 		$data['options']	= $this->Option_model->get_product_options($data['product']->id);
 		
-		$related			= $data['product']->related_products;
 		$data['related']	= array();
 		
 
@@ -377,8 +376,6 @@ class Cart extends Front_Controller {
 			$coupon_code = strtolower($coupon_code);
 		}
 			
-		//get the items in the cart and test their quantities
-		$items			= $this->go_cart->contents();
 		$new_key_list	= array();
 		//first find out if we're deleting any products
 		foreach($item_keys as $key=>$quantity)

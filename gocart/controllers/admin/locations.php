@@ -81,7 +81,7 @@ class Locations extends Admin_Controller {
 			$save['status'] 			= $this->input->post('status');
 			$save['tax'] 				= $this->input->post('tax');
 
-			$promo_id = $this->Location_model->save_country($save);
+			$this->Location_model->save_country($save);
 			
 			$this->session->set_flashdata('message', lang('message_saved_country'));
 			

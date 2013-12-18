@@ -466,7 +466,7 @@ class mpgResponse
 		return ($this->cardHash[$ecr_no]);
 	}
 
-	function characterHandler($parser,$data)
+	function characterHandler($data)
 	{
 
 		if($this->isBatchTotals)
@@ -541,7 +541,7 @@ class mpgResponse
 	}//end characterHandler
 
 
-	function startHandler($parser,$name,$attrs)
+	function startHandler($name)
 	{
 		$this->currentTag=$name;
 
@@ -567,7 +567,7 @@ class mpgResponse
 	}
 
 
-	function endHandler($parser,$name)
+	function endHandler($name)
 	{
 
 		$this->currentTag=$name;
@@ -621,8 +621,6 @@ function mpgRequest($txn)
 function toXML()
 {
 	$tmpTxnArray=$this->txnArray;
-
- 	$txnArrayLen=count($tmpTxnArray); //total number of transactions
 
 	$txnObj=$tmpTxnArray;
 
@@ -706,7 +704,7 @@ class mpgCustInfo
 	var $email;
 	var $instructions;
 
-	function mpgCustInfo($custinfo=0,$billing=0,$shipping=0,$items=0)
+	function mpgCustInfo($custinfo=0)
 	{
 		if($custinfo)
 		{

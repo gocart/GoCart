@@ -319,11 +319,6 @@ Class Product_model extends CI_Model
 
 	}
 
-	function add_product_to_category($product_id, $optionlist_id, $sequence)
-	{
-		$this->db->insert('product_categories', array('product_id'=>$product_id, 'category_id'=>$category_id, 'sequence'=>$sequence));
-	}
-
 	function search_products($term, $limit=false, $offset=false, $by=false, $sort=false)
 	{
 		$results		= array();

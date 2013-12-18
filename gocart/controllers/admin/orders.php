@@ -128,9 +128,6 @@ class Orders extends Admin_Controller {
 		$this->form_validation->set_rules('notes', 'lang:notes');
 		$this->form_validation->set_rules('status', 'lang:status', 'required');
 	
-		$message	= $this->session->flashdata('message');
-		
-	
 		if ($this->form_validation->run() == TRUE)
 		{
 			$save			= array();

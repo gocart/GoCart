@@ -15,7 +15,6 @@ class Shipping extends Admin_Controller {
 	function index()
 	{
 		//now time to do it again with shipping
-        $shipping_order     = $this->Settings_model->get_settings('shipping_order');
         $enabled_modules    = $this->Settings_model->get_settings('shipping_modules');
         
         $data['shipping_modules']   = array();
