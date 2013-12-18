@@ -1,10 +1,11 @@
 Version 2.3.2
 -------------
-	Release date: December 17, 2013
+	Release date: December 18, 2013
 
 	Bug Fix
 
-		- Fixed a reference to the old admin session instance on the product view
+		- Fixed a reference to the old admin session instance on the product view.
+		- Fixed order placed view to incorporate missing header and footer.
 
 Version 2.3.1
 -------------
