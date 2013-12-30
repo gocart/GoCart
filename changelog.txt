@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+Version 2.3.3
+-------------
+	Release date: December 30, 2013
+
+	Bug Fix
+
+		- Fixed locations controller to have DB access.
+
+=======
+>>>>>>> 60f0421e22a56876792604c16c432699bc8bee5f
 Version 2.3.2
 -------------
 	Release date: December 18, 2013
@@ -88,12 +99,21 @@ Version 2.2.1
 	Bug Fix
 	
 		- Fixed PHP syntax error in Go_cart.php library
+<<<<<<< HEAD
 
 
 Version 2.2
 -------------
 	Release date: January 23, 2013
 
+=======
+
+
+Version 2.2
+-------------
+	Release date: January 23, 2013
+
+>>>>>>> 60f0421e22a56876792604c16c432699bc8bee5f
 	Features
 	
 		- Replaced experimental "GoEdit" with RedactorJS (RedactorJS is distributable with GoCart but NOT OPEN SOURCE http://imperavi.com/redactor/).
