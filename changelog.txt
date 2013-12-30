@@ -1,3 +1,11 @@
+Version 2.3.3
+-------------
+	Release date: December 30, 2013
+
+	Bug Fix
+
+		- Fixed locations controller to have DB access.
+
 Version 2.3.2
 -------------
 	Release date: December 18, 2013
