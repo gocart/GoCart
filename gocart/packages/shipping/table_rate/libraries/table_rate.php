@@ -43,9 +43,9 @@ class table_rate
 		$return = array();
 		foreach($rates as $rate)
 		{
-			if((bool)$rate['country'] && ($rate['country'] != $customer['ship_address']['country_id']))
+			// Check if customer is in the applicable country
+			if(!$this->cust_in_rate_country($customer, $rate))
 			{
-				// if the customer is not in the country specified by this table, then skip it
 				continue;
 			}
 
@@ -89,7 +89,7 @@ class table_rate
 		$rate[0]			= array();
 		$rate[0]['name']	= 'Example';
 		$rate[0]['method']	= 'price';
-		$rate[0]['country']	= 0;
+		$rate[0]['country']	= array();
 		
 		// install some example data
 		$rate[0]['rates'] =  array(
@@ -113,11 +113,12 @@ class table_rate
 		$this->CI->Settings_model->delete_settings('table_rate');
 	}
 	
-	function form($_POST	= false)
+	function form()
 	{ 
 		$this->CI->load->helper('form');
+
 		//this same function processes the form
-		if(!$_POST)
+		if(empty($_POST))
 		{
 			$settings				= $this->CI->Settings_model->get_settings('table_rate');
 			$settings['rates']		= unserialize($settings['rates']);
@@ -131,10 +132,30 @@ class table_rate
 		$countries					= $this->CI->Location_model->get_countries_menu();
 		
 		$data						= $settings;
-		$data['countries']			= array(0=>lang('all_countries')) + $countries;
+		$data['countries']			= $countries;
 		
 		return $this->CI->load->view('table_rate_form', $data, true);
 		
+	}
+
+	function cust_in_rate_country($customer, $rate)
+	{
+		if(isset($rate['country']))
+		{
+			if(is_array($rate['country']) && in_array($customer['ship_address']['country_id'], $rate['country']))
+			{
+				return true;
+			}
+			else if(!is_array($rate['country']) && $rate['country'] == $customer['ship_address']['country_id'])
+			{
+				return true;
+			}
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 	
 	function check()
@@ -183,25 +204,27 @@ class table_rate
 		return $new_rates;
 	}
 	
-	
-	function organize_post_rates($_POST)
+	/*
+	function organize_post_rates()
 	{
 		$rates	= array();
-		
-		foreach($_POST['from'] as $table=>$list)
+		if(is_array($_POST['from']))
 		{
-			foreach($list as $key=>$value)
+			foreach($_POST['from'] as $table=>$list)
 			{
-				$rates[$table][$value] = $_POST['rate'][$table][$key];
+				foreach($list as $key=>$value)
+				{
+					$rates[$table][$value] = $_POST['rate'][$table][$key];
+				}
+				// sort the list
+				krsort($rates[$table]);
 			}
-			// sort the list
-			krsort($rates[$table]);
 		}
-
 		
 		return $rates;
 	}
-	
+	*/
+
 	function get_order_weight()
 	{
 		return $this->CI->go_cart->order_weight();

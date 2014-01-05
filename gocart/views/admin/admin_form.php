@@ -1,4 +1,3 @@
-<?php include('header.php'); ?>
 <?php echo form_open($this->config->item('admin_folder').'/admin/form/'.$id); ?>
 	
 		<label><?php echo lang('firstname');?></label>
@@ -10,6 +9,12 @@
 		<label><?php echo lang('lastname');?></label>
 		<?php
 		$data	= array('name'=>'lastname', 'value'=>set_value('lastname', $lastname));
+		echo form_input($data);
+		?>
+
+		<label><?php echo lang('username');?></label>
+		<?php
+		$data	= array('name'=>'username', 'value'=>set_value('username', $username));
 		echo form_input($data);
 		?>
 
@@ -45,11 +50,7 @@
 	
 </form>
 <script type="text/javascript">
-if ($.browser.webkit) {
-    $('input').attr('autocomplete', 'off');
-}
 $('form').submit(function() {
 	$('.btn').attr('disabled', true).addClass('disabled');
 });
 </script>
-<?php include('footer.php');

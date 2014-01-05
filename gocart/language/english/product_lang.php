@@ -24,6 +24,7 @@ $lang['saleprice']					= 'Sale Price';
 $lang['weight']						= 'Weight';
 $lang['attributes']					= 'Attributes';
 $lang['categories']					= 'Categories';
+$lang['filters']					= 'Filters';
 $lang['add_category']				= 'Add Category';
 $lang['header_information']			= 'SEO Information';
 $lang['options']					= 'Options';
@@ -49,7 +50,10 @@ $lang['digital_products_desc']		= 'Associate downloadable files with this produc
 $lang['fixed_quantity_note']		= '(This restricts someone from adding multiple copies of the item to their cart.)';
 $lang['quantity_in_stock_note']		= '(This figure will only be used if the product is marked "Track Stock")';
 $lang['filter_by_category']			= 'Filter by Category';
-$lang['select_a_category']			= 'Search for a Category';
+$lang['select_a_category']			= 'Select one or more categories';
+$lang['select_a_filter']			= 'Select filters';
+$lang['no_available_categories']	= 'There are no available categories.';
+$lang['no_available_filters']		= 'There are no available filters';
 $lang['inventory']					= 'Inventory';
 
 //option form elements

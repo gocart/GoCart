@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <?php echo form_open($this->config->item('admin_folder').'/settings/canned_message_form/'.$id); ?>
 
 	<label for="name"><?php echo lang('label_canned_name');?> </label>
@@ -33,4 +31,3 @@
 		$('.btn').attr('disabled', true).addClass('disabled');
 	});
 </script>
-<?php include('footer.php');

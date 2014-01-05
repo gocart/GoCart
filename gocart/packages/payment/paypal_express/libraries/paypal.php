@@ -69,10 +69,10 @@ class PayPal {
 			$this->RETURN_URL = $settings["return_url"];
 			$this->CANCEL_URL = $settings["cancel_url"];
 			
-			$this->currency = $settings['currency'];
+			$this->currency = $this->CI->config->item('currency'); //$settings['currency'];
 			
 			// Test mode?
-			if (!$settings['SANDBOX']) {
+			if ($settings['SANDBOX']=='0') {
 				$this->host = "api-3t.paypal.com";
 				$this->gate = 'https://www.paypal.com/cgi-bin/webscr?';
 			} else {

@@ -2,25 +2,12 @@
 
 class Cart extends Front_Controller {
 
-	function __construct()
-	{
-		parent::__construct();
-		
-		//make sure we're not always behind ssl
-		remove_ssl();
-	}
-
 	function index()
 	{
-		$this->load->model(array('Banner_model', 'box_model'));
-		$this->load->helper('directory');
-
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
-		$data['banners']			= $this->Banner_model->get_homepage_banners(5);
-		$data['boxes']				= $this->box_model->get_homepage_boxes(4);
 		$data['homepage']			= true;
 		
-		$this->load->view('homepage', $data);
+		$this->view('homepage', $data);
 	}
 
 	function page($id = false)
@@ -43,8 +30,9 @@ class Cart extends Front_Controller {
 		
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		
-		$this->load->view('page', $data);
+		$this->view('page', $data);
 	}
+	
 	
 	function search($code=false, $page = 0)
 	{
@@ -70,10 +58,10 @@ class Cart extends Front_Controller {
 		if(empty($term))
 		{
 			//if there is still no search term throw an error
-			//if there is still no search term throw an error
 			$this->session->set_flashdata('error', lang('search_error'));
 			redirect('cart');
 		}
+
 		$data['page_title']			= lang('search');
 		$data['gift_cards_enabled']	= $this->gift_cards_enabled;
 		
@@ -83,8 +71,8 @@ class Cart extends Front_Controller {
 		$sort_array = array(
 							'name/asc' => array('by' => 'name', 'sort'=>'ASC'),
 							'name/desc' => array('by' => 'name', 'sort'=>'DESC'),
-							'price/asc' => array('by' => 'price', 'sort'=>'ASC'),
-							'price/desc' => array('by' => 'price', 'sort'=>'DESC'),
+							'price/asc' => array('by' => 'sort_price', 'sort'=>'ASC'),
+							'price/desc' => array('by' => 'sort_price', 'sort'=>'DESC'),
 							);
 		$sort_by	= array('by'=>false, 'sort'=>false);
 	
@@ -96,15 +84,6 @@ class Cart extends Front_Controller {
 			}
 		}
 		
-
-		if(empty($term))
-		{
-			//if there is still no search term throw an error
-			$this->load->view('search_error', $data);
-		}
-		else
-		{
-	
 			$data['page_title']	= lang('search');
 			$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		
@@ -147,19 +126,23 @@ class Cart extends Front_Controller {
 				$p->images	= (array)json_decode($p->images);
 				$p->options	= $this->Option_model->get_product_options($p->id);
 			}
-			$this->load->view('category', $data);
-		}
+			$this->view('category', $data);
 	}
+	
+
 	
 	function category($id)
 	{
+		
 		//get the category
-		$data['category']			= $this->Category_model->get_category($id);
+		$data['category'] = $this->Category_model->get_category($id);
 				
-		if (!$data['category'])
+		if (!$data['category'] || $data['category']->enabled==0)
 		{
 			show_404();
 		}
+				
+		$product_count = $this->Product_model->count_products($data['category']->id);
 		
 		//set up pagination
 		$segments	= $this->uri->total_segments();
@@ -179,7 +162,6 @@ class Cart extends Front_Controller {
 		$data['base_url']	= $base_url;
 		$base_url			= implode('/', $base_url);
 		
-		$data['subcategories']		= $this->Category_model->get_categories($data['category']->id);
 		$data['product_columns']	= $this->config->item('product_columns');
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		
@@ -190,8 +172,8 @@ class Cart extends Front_Controller {
 		$sort_array = array(
 							'name/asc' => array('by' => 'products.name', 'sort'=>'ASC'),
 							'name/desc' => array('by' => 'products.name', 'sort'=>'DESC'),
-							'price/asc' => array('by' => 'products.price', 'sort'=>'ASC'),
-							'price/desc' => array('by' => 'products.price', 'sort'=>'DESC'),
+							'price/asc' => array('by' => 'sort_price', 'sort'=>'ASC'),
+							'price/desc' => array('by' => 'sort_price', 'sort'=>'DESC'),
 							);
 		$sort_by	= array('by'=>'sequence', 'sort'=>'ASC');
 	
@@ -206,9 +188,10 @@ class Cart extends Front_Controller {
 		//set up pagination
 		$this->load->library('pagination');
 		$config['base_url']		= site_url($base_url);
+		
 		$config['uri_segment']	= $segments;
 		$config['per_page']		= 24;
-		$config['total_rows']	= $this->Product_model->count_products($data['category']->id);
+		$config['total_rows']	= $product_count;
 		
 		$config['first_link'] = 'First';
 		$config['first_tag_open'] = '<li>';
@@ -219,7 +202,7 @@ class Cart extends Front_Controller {
 
 		$config['full_tag_open'] = '<div class="pagination"><ul>';
 		$config['full_tag_close'] = '</ul></div>';
-		$config['cur_tag_open'] = '<li class="active"><a href="#">';
+		$config['cur_tag_open'] = '<li class="active"><a href="">';
 		$config['cur_tag_close'] = '</a></li>';
 		
 		$config['num_tag_open'] = '<li>';
@@ -232,18 +215,20 @@ class Cart extends Front_Controller {
 		$config['next_link'] = '&raquo;';
 		$config['next_tag_open'] = '<li>';
 		$config['next_tag_close'] = '</li>';
-		
+				
 		$this->pagination->initialize($config);
 		
-		//grab the products using the pagination lib
+		
 		$data['products']	= $this->Product_model->get_products($data['category']->id, $config['per_page'], $page, $sort_by['by'], $sort_by['sort']);
+		
+		
 		foreach ($data['products'] as &$p)
 		{
 			$p->images	= (array)json_decode($p->images);
 			$p->options	= $this->Option_model->get_product_options($p->id);
 		}
 		
-		$this->load->view('category', $data);
+		$this->view('category', $data);
 	}
 	
 	function product($id)
@@ -286,7 +271,7 @@ class Cart extends Front_Controller {
 
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 					
-		$this->load->view('product', $data);
+		$this->view('product', $data);
 	}
 	
 	
@@ -363,7 +348,7 @@ class Cart extends Front_Controller {
 		$data['page_title']	= 'View Cart';
 		$data['gift_cards_enabled'] = $this->gift_cards_enabled;
 		
-		$this->load->view('view_cart', $data);
+		$this->view('view_cart', $data);
 	}
 	
 	function remove_item($key)
@@ -386,7 +371,11 @@ class Cart extends Front_Controller {
 		$item_keys		= $this->input->post('cartkey');
 		$coupon_code	= $this->input->post('coupon_code');
 		$gc_code		= $this->input->post('gc_code');
-			
+		
+		if($coupon_code)
+		{
+			$coupon_code = strtolower($coupon_code);
+		}
 			
 		//get the items in the cart and test their quantities
 		$items			= $this->go_cart->contents();
@@ -521,7 +510,7 @@ class Cart extends Front_Controller {
 			$data['error']				= validation_errors();
 			$data['page_title']			= lang('giftcard');
 			$data['gift_cards_enabled']	= $this->gift_cards_enabled;
-			$this->load->view('giftcards', $data);
+			$this->view('giftcards', $data);
 		}
 		else
 		{

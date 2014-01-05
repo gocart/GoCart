@@ -5,16 +5,43 @@ class Shipping extends Admin_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		force_ssl();
 
 		$this->auth->check_access('Admin', true);
 		$this->load->model('Settings_model');
 		$this->lang->load('settings');
+		$this->load->helper('inflector');
 	}
 	
 	function index()
 	{
-		redirect($this->config->item('admin_folder').'/settings');
+		//now time to do it again with shipping
+        $shipping_order     = $this->Settings_model->get_settings('shipping_order');
+        $enabled_modules    = $this->Settings_model->get_settings('shipping_modules');
+        
+        $data['shipping_modules']   = array();
+        //create a list of available shipping modules
+        if ($handle = opendir(APPPATH.'packages/shipping/')) {
+            while (false !== ($file = readdir($handle)))
+            {
+                //now we eliminate anything with periods
+                if (!strstr($file, '.'))
+                {
+                    //also, set whether or not they are installed according to our shipping settings
+                    if(array_key_exists($file, $enabled_modules))
+                    {
+                        $data['shipping_modules'][$file]    = true;
+                    }
+                    else
+                    {
+                        $data['shipping_modules'][$file]    = false;
+                    }
+                }
+            }
+            closedir($handle);
+        }
+
+        $data['page_title'] = lang('common_shipping_modules');
+        $this->view($this->config->item('admin_folder').'/shipping_modules', $data);
 	}
 	
 	function install($module)
@@ -80,7 +107,7 @@ class Shipping extends Admin_Controller {
 			$data['form']		= $this->$module->form();
 		}
 		$data['module']		= $module;
-		$data['page_title']	= sprintf(lang('shipping_settings'), $module);
-		$this->load->view($this->config->item('admin_folder').'/shipping_module_settings', $data);
+		$data['page_title']	= sprintf(lang('shipping_settings'), humanize($module));
+		$this->view($this->config->item('admin_folder').'/shipping_module_settings', $data);
 	}
 }

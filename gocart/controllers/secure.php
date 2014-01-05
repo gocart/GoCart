@@ -8,10 +8,7 @@ class Secure extends Front_Controller {
 	{
 		parent::__construct();
 		
-		force_ssl();
-		
 		$this->load->model(array('location_model'));
-		
 		$this->customer = $this->go_cart->customer();
 	}
 	
@@ -88,9 +85,9 @@ class Secure extends Front_Controller {
 		//if they want to limit to the top 5 banners and use the enable/disable on dates, add true to the get_banners function
 		//$data['banners']	= $this->banner_model->get_banners();
 		//$data['ads']		= $this->banner_model->get_banners(true);
-		$data['categories']	= $this->Category_model->get_categories_tierd(0);
+		$data['categories']	= $this->Category_model->get_categories_tiered(0);
 			
-		$this->load->view('login', $data);
+		$this->view('login', $data);
 	}
 	
 	function logout()
@@ -136,14 +133,17 @@ class Secure extends Front_Controller {
 		$data['state']		= '';
 		$data['zip']		= '';
 
-		$this->form_validation->set_rules('company', 'Company', 'trim|max_length[128]');
-		$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[128]|callback_check_email');
-		$this->form_validation->set_rules('phone', 'Phone', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|sha1');
-		$this->form_validation->set_rules('confirm', 'Confirm Password', 'required|matches[password]');
-		$this->form_validation->set_rules('email_subscribe', 'Subscribe', 'trim|numeric|max_length[1]');
+
+
+		$this->form_validation->set_rules('company', 'lang:address_company', 'trim|max_length[128]');
+		$this->form_validation->set_rules('firstname', 'lang:address_firstname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('lastname', 'lang:address_lastname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('email', 'lang:address_email', 'trim|required|valid_email|max_length[128]|callback_check_email');
+		$this->form_validation->set_rules('phone', 'lang:address_phone', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('password', 'lang:password', 'required|min_length[6]|sha1');
+		$this->form_validation->set_rules('confirm', 'lang:confirm_password', 'required|matches[password]');
+		$this->form_validation->set_rules('email_subscribe', 'lang:account_newsletter_subscribe', 'trim|numeric|max_length[1]');
+
 		
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -157,11 +157,11 @@ class Secure extends Front_Controller {
 			//$this->load->model('banner_model');
 			$this->load->helper('directory');
 		
-			$data['categories']	= $this->Category_model->get_categories_tierd(0);
+			$data['categories']	= $this->Category_model->get_categories_tiered(0);
 			
 			$data['error'] = validation_errors();
 			
-			$this->load->view('register', $data);
+			$this->view('register', $data);
 		}
 		else
 		{
@@ -287,10 +287,10 @@ class Secure extends Front_Controller {
 		//if they want to limit to the top 5 banners and use the enable/disable on dates, add true to the get_banners function
 		//$data['banners']	= $this->banner_model->get_banners();
 		//$data['ads']		= $this->banner_model->get_banners(true);
-		$data['categories']	= $this->Category_model->get_categories_tierd();
+		$data['categories']	= $this->Category_model->get_categories_tiered();
 		
 		
-		$this->load->view('forgot_password', $data);
+		$this->view('forgot_password', $data);
 	}
 	
 	function my_account($offset=0)
@@ -316,7 +316,7 @@ class Secure extends Front_Controller {
 		//if they want to limit to the top 5 banners and use the enable/disable on dates, add true to the get_banners function
 	//	$data['banners']	= $this->banner_model->get_banners();
 	//	$data['ads']		= $this->banner_model->get_banners(true);
-		$data['categories']	= $this->Category_model->get_categories_tierd(0);
+		$data['categories']	= $this->Category_model->get_categories_tiered(0);
 		
 		
 		// paginate the orders
@@ -363,15 +363,14 @@ class Secure extends Front_Controller {
 		This is for the customers to be able to edit their account information
 		*/
 
-		$this->load->library('form_validation');	
-		$this->form_validation->set_rules('company', 'Company', 'trim|max_length[128]');
-		$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[128]|callback_check_email');
-		$this->form_validation->set_rules('phone', 'Phone', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('email_subscribe', 'Subscribe', 'trim|numeric|max_length[1]');
-
-
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('company', 'lang:address_company', 'trim|max_length[128]');
+		$this->form_validation->set_rules('firstname', 'lang:address_firstname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('lastname', 'lang:address_lastname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('email', 'lang:address_email', 'trim|required|valid_email|max_length[128]|callback_check_email');
+		$this->form_validation->set_rules('phone', 'lang:address_phone', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('email_subscribe', 'lang:account_newsletter_subscribe', 'trim|numeric|max_length[1]');
+		
 		if($this->input->post('password') != '' || $this->input->post('confirm') != '')
 		{
 			$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|sha1');
@@ -386,7 +385,7 @@ class Secure extends Front_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view('my_account', $data);
+			$this->view('my_account', $data);
 		}
 		else
 		{
@@ -432,7 +431,7 @@ class Secure extends Front_Controller {
 		
 		$data['page_title'] = lang('my_downloads');
 		
-		$this->load->view('my_downloads', $data);
+		$this->view('my_downloads', $data);
 	}
 	
 	
@@ -447,10 +446,14 @@ class Secure extends Front_Controller {
 		}
 		
 		// validate download counter
-		if(intval($filedata->downloads) >= intval($filedata->max_downloads))
+		if($filedata->max_downloads > 0)
 		{
-			show_404();
+			if(intval($filedata->downloads) >= intval($filedata->max_downloads))
+			{
+				show_404();
+			}
 		}
+		
 		
 		// increment downloads counter
 		$this->Digital_Product_model->touch_download($link);
@@ -490,27 +493,6 @@ class Secure extends Front_Controller {
 		$this->go_cart->save_customer($customer);
 		
 		echo "1";
-	}
-	
-	
-	// this is a form partial for the checkout page
-	function checkout_address_manager()
-	{
-		$customer = $this->go_cart->customer();
-		
-		$data['customer_addresses'] = $this->Customer_model->get_address_list($customer['id']);
-	
-		$this->load->view('address_manager', $data);
-	}
-	
-	// this is a partial partial, to refresh the address manager
-	function address_manager_list_contents()
-	{
-		$customer = $this->go_cart->customer();
-		
-		$data['customer_addresses'] = $this->Customer_model->get_address_list($customer['id']);
-	
-		$this->load->view('address_manager_list_content', $data);
 	}
 	
 	function address_form($id = 0)
@@ -562,17 +544,17 @@ class Secure extends Front_Controller {
 		}
 
 		$this->load->library('form_validation');	
-		$this->form_validation->set_rules('company', 'Company', 'trim|max_length[128]');
-		$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[128]');
-		$this->form_validation->set_rules('phone', 'Phone', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('address1', 'Address', 'trim|required|max_length[128]');
-		$this->form_validation->set_rules('address2', 'Address', 'trim|max_length[128]');
-		$this->form_validation->set_rules('city', 'City', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('country_id', 'Country', 'trim|required|numeric');
-		$this->form_validation->set_rules('zone_id', 'State', 'trim|required|numeric');
-		$this->form_validation->set_rules('zip', 'Zip', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('company', 'lang:address_company', 'trim|max_length[128]');
+		$this->form_validation->set_rules('firstname', 'lang:address_firstname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('lastname', 'lang:address_lastname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('email', 'lang:address_email', 'trim|required|valid_email|max_length[128]');
+		$this->form_validation->set_rules('phone', 'lang:address_phone', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('address1', 'lang:address:address', 'trim|required|max_length[128]');
+		$this->form_validation->set_rules('address2', 'lang:address:address', 'trim|max_length[128]');
+		$this->form_validation->set_rules('city', 'lang:address:city', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('country_id', 'lang:address:country', 'trim|required|numeric');
+		$this->form_validation->set_rules('zone_id', 'lang:address:state', 'trim|required|numeric');
+		$this->form_validation->set_rules('zip', 'lang:address:zip', 'trim|required|max_length[32]');
 		
 		
 		if ($this->form_validation->run() == FALSE)
@@ -583,7 +565,7 @@ class Secure extends Front_Controller {
 			}
 			else
 			{
-				$this->load->view('address_form', $data);
+				$this->partial('address_form', $data);
 			}
 		}
 		else

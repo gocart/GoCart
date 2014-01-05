@@ -317,9 +317,6 @@ class go_cart {
 		if($this->_cart_contents['coupon_list'][$coupon_code]['reduction_type']=="percent")
 		{
 			//make sure we're removing the right percentage
-//			$reduction_amount	= 100 - $coupon['reduction_amount'];
-//			$str = ' - ($subtotal * ('. $reduction_ammount .' /100))';
-			
 			
 			$reduction_amount	= 100 - (float) $this->_cart_contents['coupon_list'][$coupon_code]['reduction_amount'];
 			$discount			= ($price * ($reduction_amount/100));
@@ -346,6 +343,11 @@ class go_cart {
 				// replace previous value
 				$this->_cart_contents['items'][$cartkey]['coupon_discount'] = $discount_amount;
 				$this->_cart_contents['items'][$cartkey]['coupon_code'] = $coupon_code;
+
+				for($x=0;$x<$this->_cart_contents['items'][$cartkey]['quantity'];$x++) 
+				{
+					$this->_cart_contents['applied_coupons'][$coupon_code][$cartkey][] = $discount_amount;
+				}
 				
 				// Un-apply the previously applied coupon by removing the old code placeholder from the cart item array
 				unset($this->_cart_contents['applied_coupons'][$old_code][$cartkey]);
@@ -709,13 +711,25 @@ class go_cart {
 			$coupon_total 	= 0;
 			$this->_cart_contents['requires_shipping'] = false; // Go back to default and redetermine if there is anything shippable
 			
+			// Lets calculate the total item quantity
+			$total_quantity = 0;
+
 			foreach ($this->_cart_contents['items'] as $key => &$val)
 			{
 				// Apply any group discount
-				if(isset($this->_cart_contents['customer']['group_discount_formula']))
+				if(isset($this->_cart_contents['customer']['group']))
 				{
-					// calculate the discount amount
-					eval('$this_price=$val["price"]'. $this->_cart_contents['customer']['group_discount_formula'] .';');
+					$group = $this->_cart_contents['customer']['group'];
+
+					if($group->discount_type == "fixed")
+                    {
+                    	$this_price = $val['price'] - $group->discount;
+                    }
+                    else
+                    {
+                        $percent    = (100-(float)$group->discount)/100;
+                        $this_price = $val['price'] * $percent;
+                    }
 					
 					// add to the total group discount
 					$this->_cart_contents['group_discount'] 	+=  ($val['price'] - $this_price) * $val['quantity'];
@@ -743,11 +757,14 @@ class go_cart {
 				
 				// set product subtotal (NOT accounting for coupon discount yet)
 				$val['subtotal'] = ($this_price * $val['quantity']);
+
+				// Add to the total item quantity
+				$total_quantity += $val['quantity'];
 			
 			}
 			
 			// total products in the cart
-			$this->_cart_contents['total_items'] = count($this->_cart_contents['items']);	
+			$this->_cart_contents['total_items'] = $total_quantity;
 			
 			// Set the cart price totals ...
 			$this->_cart_contents['cart_subtotal'] = $total;
@@ -1122,17 +1139,12 @@ class go_cart {
 			}
 		}
 		//default status comes from the config file
-		if($none_shippable)
-		{
-			$save['status']				= $this->CI->config->item('nonship_status');
-		} else {
-			$save['status']				= $this->CI->config->item('order_status');
-		}
+		$save['status'] = $this->CI->config->item('order_status');
 		
 		//if the id exists, then add it to the array $save array and remove it from the customer
 		if(isset($this->_cart_contents['customer']['id']) && $this->_cart_contents['customer']['id'] != '')
 		{
-			$save['customer_id']	= $this->_cart_contents['customer']['id'];
+			$save['customer_id'] = $this->_cart_contents['customer']['id'];
 		}
 		
 		$customer					= $this->_cart_contents['customer'];
@@ -1421,7 +1433,11 @@ class go_cart {
 		return $this->_cart_contents['custom_charges'];
 	}
 
-	function customer()
+	// Return the customer array, or the requested value (string or array)
+	// 	$this->go_cart->customer()
+	// 	$this->go_cart->customer('firstname')
+	// 	$this->go_cart->customer(array('bill_address', 'firstname'))
+	function customer($value = false)
 	{
 	
 		if(!$this->_cart_contents['customer'])
@@ -1430,7 +1446,36 @@ class go_cart {
 		}
 		else
 		{
-			return $this->_cart_contents['customer'];
+
+			// Set our customer
+			$customer = $this->_cart_contents['customer'];
+
+			// If we've requested a specific value
+			if($value) {
+
+				// If it's an array of values, then loop over each, to move down the customer array
+				if(is_array($value)) {
+
+					$return = $customer;
+					foreach($value as $v) {
+						if(isset($return[$v])) {
+							$return = $return[$v];
+						} else {
+							return $customer;
+						}
+					}
+
+					// ... to return the last requested value
+					return $return;
+
+				// ... otherwise, just return the requested value
+				} elseif(isset($customer[$value])) {
+					return $customer[$value];
+				}
+
+			}
+
+			return $customer;
 		}
 	}
 	

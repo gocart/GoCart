@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <?php if(!$payment_module_installed):?>
 	
 	<div class="alert">
@@ -33,7 +31,7 @@
     <tbody>
     <?php foreach($orders as $order): ?>
 	<tr>
-		<td  class="gc_cell_left"><a href="<?php echo site_url($this->config->item('admin_folder').'/orders/view/'.$order->id); ?>"><?php echo $order->order_number; ?></a></td>
+		<td  class="gc_cell_left"><a href="<?php echo site_url($this->config->item('admin_folder').'/orders/order/'.$order->id); ?>"><?php echo $order->order_number; ?></a></td>
 		<td><?php echo $order->bill_lastname.', '.$order->bill_firstname; ?></td>
 		<td><?php echo $order->ship_lastname.', '.$order->ship_firstname; ?></td>
 		<td><?php echo format_date($order->ordered_on); ?></td>
@@ -49,7 +47,7 @@
 
 <div class="row">
 	<div class="span12" style="text-align:center;">
-		<a class="btn btn-large" href="<?php echo $admin_url;?>orders"><?php echo lang('view_all_orders');?></a>
+		<a class="btn btn-large" href="<?php echo site_url(config_item('admin_folder').'/orders');?>"><?php echo lang('view_all_orders');?></a>
 	</div>
 </div>
 
@@ -92,7 +90,6 @@
 
 <div class="row">
 	<div class="span12" style="text-align:center;">
-		<a class="btn btn-large" href="<?php echo $admin_url;?>customers"><?php echo lang('view_all_customers');?></a>
+		<a class="btn btn-large" href="<?php echo site_url(config_item('admin_folder').'/customers');?>"><?php echo lang('view_all_customers');?></a>
 	</div>
 </div>
-<?php include('footer.php');

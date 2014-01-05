@@ -23,6 +23,12 @@
 			$('.placeholder').show();
 		}
 		
+		<?php
+		// Restore previous selection, if we are on a validation page reload
+		$zone_id = set_value('zone_id');
+
+		echo "\$('#zone_id').val($zone_id);\n";
+		?>
 	});
 	
 	function supports_placeholder()
@@ -112,7 +118,7 @@ $last		= array('placeholder'=>lang('address_lastname'), 'class'=>'address span4'
 $email		= array('placeholder'=>lang('address_email'), 'class'=>'address span4', 'name'=>'email', 'value'=> set_value('email', @$customer[$address_form_prefix.'_address']['email']));
 $phone		= array('placeholder'=>lang('address_phone'), 'class'=>'address span4', 'name'=>'phone', 'value'=> set_value('phone', @$customer[$address_form_prefix.'_address']['phone']));
 $city		= array('placeholder'=>lang('address_city'), 'class'=>'address span3', 'name'=>'city', 'value'=> set_value('city', @$customer[$address_form_prefix.'_address']['city']));
-$zip		= array('placeholder'=>lang('address_postcode'), 'maxlength'=>'10', 'class'=>'address span2', 'name'=>'zip', 'value'=> set_value('zip', @$customer[$address_form_prefix.'_address']['zip']));
+$zip		= array('placeholder'=>lang('address_zip'), 'maxlength'=>'10', 'class'=>'address span2', 'name'=>'zip', 'value'=> set_value('zip', @$customer[$address_form_prefix.'_address']['zip']));
 
 
 ?>
@@ -192,16 +198,30 @@ $zip		= array('placeholder'=>lang('address_postcode'), 'maxlength'=>'10', 'class
 					</div>
 					<div class="span3">
 						<label class="placeholder"><?php echo lang('address_state');?><b class="r"> *</b></label>
-						<?php echo form_dropdown('zone_id',$zone_menu, @$customer[$address_form_prefix.'_address']['zone_id'], 'id="zone_id" class="address span3"');?>
+						<?php 
+							echo form_dropdown('zone_id',$zone_menu, @$customer[$address_form_prefix.'_address']['zone_id'], 'id="zone_id" class="address span3" ');?>
 					</div>
 					<div class="span2">
-						<label class="placeholder"><?php echo lang('address_postcode');?><b class="r"> *</b></label>
+						<label class="placeholder"><?php echo lang('address_zip');?><b class="r"> *</b></label>
 						<?php echo form_input($zip);?>
 					</div>
 				</div>
-			
+				<?php if($address_form_prefix=='bill') : ?>
+				<div class="row">
+					<div class="span3">
+						<label class="checkbox inline" for="use_shipping">
+						<?php echo form_checkbox(array('name'=>'use_shipping', 'value'=>'yes', 'id'=>'use_shipping', 'checked'=>$use_shipping)) ?>
+						<?php echo lang('ship_to_address') ?>
+						</label>
+					</div>
+				</div>
+				<?php endif ?>
+
 				<div class="row">
 					<div class="span8">
+						<?php if($address_form_prefix=='ship') : ?>
+						<input class="btn btn-block btn-large btn-secondary" type="button" value="<?php echo lang('form_previous');?>" onclick="window.location='<?php echo base_url('checkout/step_1') ?>'"/>
+						<?php endif; ?>
 						<input class="btn btn-block btn-large btn-primary" type="submit" value="<?php echo lang('form_continue');?>"/>
 					</div>
 				</div>

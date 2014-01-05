@@ -25,6 +25,7 @@ $lang['message_delete_category']	= 'The category has been deleted.';
 $lang['current_file']				= 'Current File';
 $lang['confirm_delete_category']	= 'Are you sure you want to delete this category?';
 $lang['add_new_category']			= 'Add New Category';
+$lang['top_level_category']         = 'Top Level Category';
 $lang['no_categories']				= 'There are currently no categories';
 $lang['attributes']					= 'Attributes';
 $lang['seo']						= 'SEO';

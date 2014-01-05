@@ -16,11 +16,15 @@ class fedex
 		$this->CI =& get_instance();
 		$this->CI->lang->load('fedex');
 
-		//$this->server = 'https://gatewaybeta.fedex.com/GatewayDC';
 
-		//The WSDL is not included with the sample code.
-		//Please include and reference in $path_to_wsdl variable.
-		$this->path_to_wsdl = APPPATH."packages/shipping/fedex/libraries/RateService_v8.wsdl";
+		$this->path_to_wsdl = APPPATH."packages/shipping/fedex/libraries/RateService_v14.wsdl";
+
+		// Drop Off Types
+		$this->dropoff_types['BUSINESS_SERVICE_CENTER'] = lang('BUSINESS_SERVICE_CENTER');
+		$this->dropoff_types['DROP_BOX'] = lang('DROP_BOX');
+		$this->dropoff_types['REGULAR_PICKUP'] = lang('REGULAR_PICKUP');
+		$this->dropoff_types['REQUEST_COURIER'] = lang('REQUEST_COURIER');
+		$this->dropoff_types['STATION'] = lang('STATION');
 
 		// Packaging types
 		$this->package_types['FEDEX_10KG_BOX'] = lang('FEDEX_10KG_BOX');
@@ -83,6 +87,7 @@ class fedex
 		$password			= $settings['password'];
 		$shipAccount 		= $settings['shipaccount'];
 		$meter				= $settings['meter'];
+		$dropofftype 		= $settings['dropofftype'];
 		$service			= explode(',',$settings['service']);
 		$package 			= $settings['package'];
 		$handling_method	= $settings['handling_method'];
@@ -90,63 +95,106 @@ class fedex
 		$pkg_width	 		= $settings['width'];
 		$pkg_height			= $settings['height'];
 		$pkg_length 		= $settings['length'];
+		$insurance 			= $settings['insurance'];
 		$billAccount 		= $shipAccount;
 
 
 
-		//====== Fedex code start
-
-		require_once('fedex-common.php');
+		// Build Request
 
 		ini_set("soap.wsdl_cache_enabled", "0");
-
+		 
 		$client = new SoapClient($this->path_to_wsdl, array('trace' => 1)); // Refer to http://us3.php.net/manual/en/ref.soap.php for more information
 
-		$request['WebAuthenticationDetail'] = array('UserCredential' =>
-			array('Key' => $key, 'Password' => $password)); 
-		$request['ClientDetail'] = array('AccountNumber' => $shipAccount, 'MeterNumber' => $meter);
-		$request['TransactionDetail'] = array('CustomerTransactionId' => ' *** Rate Available Services Request v8 using PHP ***');
-		$request['Version'] = array('ServiceId' => 'crs', 'Major' => '8', 'Intermediate' => '0', 'Minor' => '0');
-		$request['ReturnTransitAndCommit'] = true;
-		$request['RequestedShipment']['DropoffType'] = 'REGULAR_PICKUP'; // valid values REGULAR_PICKUP, REQUEST_COURIER, ...
-		$request['RequestedShipment']['ShipTimestamp'] = date('c');
+		$request['WebAuthenticationDetail'] = array(
+			'UserCredential' =>array(
+				'Key' => $key,
+				'Password' => $password
+			)
+		); 
+		$request['ClientDetail'] = array(
+			'AccountNumber' => $shipAccount,
+			'MeterNumber' => $meter
+		);
+		$request['TransactionDetail'] = array('CustomerTransactionId' => '*** Rate Request v14 using PHP ***');
 
-		$request['RequestedShipment']['Shipper'] = array('Address' => array(
-			'StreetLines' => array($this->CI->config->item('address1'), $this->CI->config->item('address2')), // Origin details
-			'City' => $this->CI->config->item('city'),
-			'StateOrProvinceCode' => $this->CI->config->item('state'),
-			'PostalCode' => $this->CI->config->item('zip'),
-			'CountryCode' => $this->CI->config->item('country')));
-		$request['RequestedShipment']['Recipient'] = array('Address' => array (
-			'StreetLines' => array($customer_address['address1'],$customer_address['address2']), // Destination details
-			'City' => $customer_address['city'],
-			'StateOrProvinceCode' => $customer_address['state'],
-			'PostalCode' => $customer_address['zip'],
-			'CountryCode' => $customer_address['country_code'],
-			'Residential'=> true));
-		$request['RequestedShipment']['ShippingChargesPayment'] = array('PaymentType' => 'SENDER',
-			'Payor' => array('AccountNumber' => $billAccount, 
-			'CountryCode' => $customer_address['country_code']));
-		$request['RequestedShipment']['RateRequestTypes'] = 'ACCOUNT'; 
+		$request['Version'] = array(
+			'ServiceId' => 'crs', 
+			'Major' => '14', 
+			'Intermediate' => '0', 
+			'Minor' => '0'
+		);
+
+		$request['ReturnTransitAndCommit'] = false;
+		$request['RequestedShipment']['RequestedCurrency'] = $this->CI->config->item('currency');
+		$request['RequestedShipment']['DropoffType'] = $dropofftype;
+		$request['RequestedShipment']['ShipTimestamp'] = date('c');
+		$request['RequestedShipment']['PackagingType'] = $package; 
+
+		if($insurance=='yes')
+		{
+			$request['RequestedShipment']['TotalInsuredValue']=array(
+				'Ammount'=> $this->CI->go_cart->order_insurable_value(),
+				'Currency'=> $this->CI->config->item('currency')
+			);
+		}
+
+		$request['RequestedShipment']['Shipper'] = array(
+				'Contact' => array(
+					'CompanyName' => $this->CI->config->item('company_name'),
+					'EMailAddress' => $this->CI->config->item('email')
+				),
+				'Address' => array(
+					'StreetLines' => array($this->CI->config->item('address1'), $this->CI->config->item('address2')),
+					'City' => $this->CI->config->item('city'),
+					'StateOrProvinceCode' => $this->CI->config->item('state'),
+					'PostalCode' => $this->CI->config->item('zip'),
+					'CountryCode' => $this->CI->config->item('country')
+				)
+			);
+
+
+		$request['RequestedShipment']['Recipient'] =  array(
+				'Contact' => array(
+					'PersonName' => "{$customer_address['firstname']} {$customer_address['lastname']}",
+					'CompanyName' => $customer_address['company'],
+					'PhoneNumber' => $customer_address['phone']
+				),
+				'Address' => array(
+					'StreetLines' => array($customer_address['address1'], $customer_address['address2']),
+					'City' => $customer_address['city'],
+					'StateOrProvinceCode' => $customer_address['zone'],
+					'PostalCode' => $customer_address['zip'],
+					'CountryCode' => $customer_address['country_code'],
+					//'Residential' => false   // no way to determine this
+				)
+			);
+
 		$request['RequestedShipment']['RateRequestTypes'] = 'LIST'; 
 		$request['RequestedShipment']['PackageCount'] = '1';
-		$request['RequestedShipment']['PackageDetail'] = 'INDIVIDUAL_PACKAGES';
-		$request['RequestedShipment']['PackagingType'] = $package;
-		$request['RequestedShipment']['RequestedPackageLineItems'] = array('0' => array('Weight' => array('Value' => $weight,
-			'Units' => $this->config->item('weight_unit')),
-			'Dimensions' => array('Length' => $pkg_length,
-			'Width' => $pkg_width,
-			'Height' => $pkg_height,
-			'Units' => $this->config->item('dimension_unit'))));
+		$request['RequestedShipment']['RequestedPackageLineItems'] =  array(
+				'SequenceNumber'=>1,
+				'GroupPackageCount'=>1,
+				'Weight' => array(
+					'Value' => $this->CI->go_cart->order_weight(),
+					'Units' => $this->CI->config->item('weight_unit')
+				),
+				'Dimensions' => array(
+					'Length' => $pkg_length,
+					'Width' => $pkg_width,
+					'Height' => $pkg_height,
+					'Units' => $this->CI->config->item('dimension_unit')
+				)
+			);
 
-		// send request
-		$response = $client ->getRates($request);
+		// Send the request to FedEx
+		$response = $client->getRates($request);
 
-
+		// Handle response
 		if ($response->HighestSeverity != 'FAILURE' && $response->HighestSeverity != 'ERROR' )
 		{
 
-			if(!isset($response->RateReplyDetails) || ! is_array($response->RateReplyDetails))
+			if(!is_array(@$response->RateReplyDetails))
 			{
 				return array(); // No Results
 			}
@@ -160,11 +208,11 @@ class fedex
 
 					if(is_numeric($handling_amount)) // valid entry?
 					{
-						if($handling_method=='$')
+						if($handling_method=='price')
 						{
 							$amount += $handling_amount;
 						}
-						elseif($handling_method=='%')
+						elseif($handling_method=='percent')
 						{
 							$amount += $amount * ($handling_amount/100);
 						}
@@ -181,10 +229,6 @@ class fedex
 			return array(); // fail
 		}
 
-
-		//========  Fedex Code End
-
-
 	}
 
 	function install()
@@ -195,11 +239,13 @@ class fedex
 			'password'=>'',
 			'meter'=>'',
 			'shipaccount'=>'',
-			'handling_method'=>'$',
+			'handling_method'=>'Price',
 			'handling_amount'=>5,
 			'length' => 10,
 			'width' => 10,
 			'height' => 3,
+			'dropofftype'=>'',
+			'insurance'=>'',
 			'package'=>'YOUR_PACKAGING',
 			'service' => implode(',', array_keys($this->service_list))
 			);
@@ -216,88 +262,50 @@ class fedex
 	{
 		$this->CI->load->helper('form');
 
-		//this same function processes the form
+		$data['service_list'] = $this->service_list;
+		$data['package_types'] = $this->package_types;
+		$data['dropoff_types']	= $this->dropoff_types;
+
 		if(!$post)
 		{
-			$settings			= $this->CI->Settings_model->get_settings('fedex');
-			$package			= $settings['package'];
-			$service			= explode(',', $settings['service']);
-			$key				= $settings['key'];
-			$shipaccount		= $settings['shipaccount'];
-			$meter				= $settings['meter'];
-			$password			= $settings['password'];
-			$handling_method	= $settings['handling_method'];
-			$handling_amount	= $settings['handling_amount'];
-			$height 			= $settings['height'];
-			$width 				= $settings['width'];
-			$length				= $settings['length'];
-			$enabled			= $settings['enabled'];
+			$settings		= $this->CI->Settings_model->get_settings('fedex');
+
+			$data['package']			= $settings['package'];
+			$data['service']			= explode(',', $settings['service']);
+			$data['dropofftype'] 		= $settings['dropofftype'];
+			$data['key']				= $settings['key'];
+			$data['shipaccount']		= $settings['shipaccount'];
+			$data['meter']				= $settings['meter'];
+			$data['password']			= $settings['password'];
+			$data['handling_method']	= $settings['handling_method'];
+			$data['handling_amount']	= $settings['handling_amount'];
+			$data['height'] 			= $settings['height'];
+			$data['width'] 				= $settings['width'];
+			$data['length']				= $settings['length'];
+			$data['insurance'] 			= $settings['insurance'];
+			$data['enabled']			= $settings['enabled'];
 		}
 		else
 		{
-			$package			= $post['package'];
-			$service 			= $post['service'];
-			$key				= $post['key'];
-			$password			= $post['password'];
-			$shipaccount		= $post['shipaccount'];
-			$meter				= $post['meter'];
-			$handling_method	= $post['handling_method'];
-			$handling_amount	= $post['handling_amount'];
-			$height 			= $settings['height'];
-			$width				= $settings['width'];
-			$length				= $settings['length'];
-			$enabled			= $post['enabled'];
+			$data['package']			= $post['package'];
+			$data['service'] 			= $post['service'];
+			$data['dropofftype'] 		= $post['dropofftype'];
+			$data['key']				= $post['key'];
+			$data['password']			= $post['password'];
+			$data['shipaccount']		= $post['shipaccount'];
+			$data['meter']				= $post['meter'];
+			$data['handling_method']	= $post['handling_method'];
+			$data['handling_amount']	= $post['handling_amount'];
+			$data['height'] 			= $post['height'];
+			$data['width']				= $post['width'];
+			$data['length']				= $post['length'];
+			$data['insurance'] 			= $post['insurance'];
+			$data['enabled']			= $post['enabled'];
 
 		}
 
-		ob_start();
-		?>
+	return $this->CI->load->view('admin_form', $data, true);
 
-		<label><?php echo lang('fedex_key');?></label>
-	<?php echo form_input('key', $key, 'class="span3"');?>
-
-	<label><?php echo lang('fedex_account');?></label>
-	<?php echo form_input('shipaccount', $shipaccount, 'class="span3"');?>
-
-	<label><?php echo lang('fedex_meter');?></label>
-	<?php echo form_input('meter', $meter, 'class="span3"');?>
-
-	<label><?php echo lang('password');?></label>
-	<?php echo form_input('password', $password, 'class="span3"');?>
-
-	<label><?php echo lang('fedex_services');?></label>
-
-	<?php  foreach($this->service_list as $id=>$opt):?>
-		<label class="checkbox">
-			<input type="checkbox" name="service[]" value="<?php echo $id;?>" <?php echo (in_array($id, $service))?'checked="checked"':'';?> />
-		<?php echo $opt;?>
-	</label>
-	<?php endforeach;?>
-
-	<label><?php echo lang('container');?></label>
-	<?php echo form_dropdown('package', $this->package_types, $package, 'class="span3"');?>
-
-	<h4><?php echo lang('dimensions');?> (<?php echo $this->CI->config->item('dimension_unit');?>)</h4>
-	<label><?php echo lang('height');?></label>
-	<?php echo form_input('height', $height, 'class="span3"');?>
-
-	<label><?php echo lang('width');?></label>
-	<?php echo form_input('width', $width, 'class="span3"');?>
-
-	<label><?php echo lang('length');?></label>
-	<?php echo form_input('length', $length, 'class="span3"');?>
-
-	<label><?php echo lang('fee');?></label>
-	<?php echo form_dropdown('handling_method', array('$'=>'$', '%'=>'%'), $handling_method, 'class="span3"');?>
-
-	<label><?php echo lang('enabled');?></label>
-	<?php echo form_dropdown('enabled', array(lang('disabled'), lang('enabled')), $enabled, 'class="span3"');?>
-
-	<?php
-	$form =ob_get_contents();
-	ob_end_clean();
-
-	return $form;
 }
 
 function check()

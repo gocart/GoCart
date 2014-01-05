@@ -47,7 +47,7 @@
 	</div>
 	<input class="btn btn-block btn-large btn-primary" type="submit" value="<?php echo lang('form_continue');?>"/>
 </form>
-<script type="text/javascript">
+<script>
 	function toggle_shipping(key)
 	{
 		var check = $('#'+key);

@@ -14,13 +14,36 @@ Class Page_model extends CI_Model
 		$return	= array();
 		foreach($result as $page)
 		{
+
+			// Set a class to active, so we can highlight our current page
+			if($this->uri->segment(1) == $page->slug) {
+				$page->active = true;
+			} else {
+				$page->active = false;
+			}
+
 			$return[$page->id]				= $page;
 			$return[$page->id]->children	= $this->get_pages($page->id);
 		}
 		
 		return $return;
 	}
-	
+
+	function get_pages_tiered()
+    {
+		$this->db->order_by('sequence', 'ASC');
+		$this->db->order_by('title', 'ASC');
+		$pages = $this->db->get('pages')->result();
+		
+		$results	= array();
+		foreach($pages as $page)
+		{
+			$results[$page->parent_id][$page->id] = $page;
+		}
+		
+		return $results;
+	}
+
 	function get_page($id)
 	{
 		$this->db->where('id', $id);

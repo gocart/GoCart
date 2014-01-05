@@ -1,3 +1,94 @@
+Version 2.3.3
+-------------
+	Release date: December 30, 2013
+
+	Bug Fix
+
+		- Fixed locations controller to have DB access.
+
+Version 2.3.2
+-------------
+	Release date: December 18, 2013
+
+	Bug Fix
+
+		- Fixed a reference to the old admin session instance on the product view.
+		- Fixed order placed view to incorporate missing header and footer.
+
+Version 2.3.1
+-------------
+	Release date: December 12, 2013
+
+	Bug Fix
+
+		- Fixed a problem with the Admin login not passing the username into the auth library but logging in anyway.
+		- Fixed the discount field in the coupon settings form, it was attempting to show the currency from the old settings.
+
+	Other
+
+		- Removed the currency setting from the paypal express module and integrated it with global currency settings.
+		
+
+Version 2.3
+-------------
+	Release date: December 10, 2013
+	
+	Features
+		
+		- Added (for admins) edit buttons in the default theme that link to the appropriate edit pages in the admin panel.
+		- Humanize the Shipping and Payment Module Names (thanks onfriendaday).
+        - Replaced banners & boxes with the new Banner Collections.
+        - Added the ability to disable categories.
+        - Included the 2checkout payment package (thx craigchristenson).
+        - Updated Redactor to version 1.9.7 & replaced the existing media manager with Redactors built in functions.
+        - Use Locale & ISO codes for currency formatting.
+        - Move GoCart configuration to the DB and added a back end panel for managing it.
+        - Total Items updated to display total quantities rather than just unique items.
+        - Migrations used for initial installation now.
+        - Streamlined Installation process.
+	
+	Bug Fix
+	
+		- Remove ? from url on category sort when returning to default.
+		- Added language support to secure.php (thx daneoshiga).
+		- Fixed product form verbaige (thx olimortimer).
+		- Fixed image upload error checking in admin/categories.php controller.
+		- Updated PayPal Express config form to show live/sandbox config option.
+		- Fixed admin reports date ajax to send the correctly formatted date. (thanks onefriendaday).
+		- Added translatable field names to checkout step 1.
+		- Removed redundant index from download_package_files table.
+		- Added strtolower to all coupon codes submitted on the front end to stop duplicate entries.
+        - Added migrations / migration version to installation.
+        - Added config_item check for inventory on the category view file.
+        - Fixed product routes not being deleted correctly.
+        - Fixed incorrect download link sent in notification email for subfolder installs.
+        - Fixed the issue of the state field losing its value after an address validation failure during checkout.
+        - Fixed empty category list colspan attribute.
+        - Using native sessions to fix CI session library bug that cause premature logout.
+        - Using native sessions to fix CI session bug that breaks on slashes when adding a product to the cart.
+        - Restricting access to convenience methods in the Base controller from being URL accessible.
+        - Updated CI to process mysql & mysqli the same way.
+        - updated page view file to not decode entities since this resulted in incorrect encoding.
+        - Fixed sort by price.
+
+	Other
+		
+		- Improved tiered category code to reduce queries.
+		- Changed Category controller to check for $_FILES upload error number rather than text match.
+		- Added open in new window to image based anchors (in redactor.js).
+		- Removed legacy tablerate shipping method.
+		- Added the ability to choose multiple countries for a table rate.
+		- Replaced ajax category search in the admin product form with a category tree.
+		- Improved readablity of the coupon_model.
+		- Upgraded to CodeIgniter 2.1.4
+        - If SSL is enabled secure all pages.
+        - Remove non-ship status.
+        - Removed GoEdit language file.
+        - Using usernames for back end login now (upgrading will result in the email address being used for both).
+        - Autoloading is now handled in the CI_Controller.php file now to support database configuration.
+        - Eliminated eval usage in group discounts.
+
+
 Version 2.2.1
 -------------
 	Release date: January 25, 2013
@@ -5,12 +96,21 @@ Version 2.2.1
 	Bug Fix
 	
 		- Fixed PHP syntax error in Go_cart.php library
+<<<<<<< HEAD
 
 
 Version 2.2
 -------------
 	Release date: January 23, 2013
 
+=======
+
+
+Version 2.2
+-------------
+	Release date: January 23, 2013
+
+>>>>>>> 60f0421e22a56876792604c16c432699bc8bee5f
 	Features
 	
 		- Replaced experimental "GoEdit" with RedactorJS (RedactorJS is distributable with GoCart but NOT OPEN SOURCE http://imperavi.com/redactor/).
@@ -69,7 +169,7 @@ Version 2.0
 		- New default theme based on Twitter bootstrap 2.0
 		- Admin interface now based on twitter bootstrap
 		- Pagination on admin product list
-		- Category filter on admin product list page
+		- Category filtering on admin product list page
 		- Admin Reports are better optimized than before.
 		- AJAX related products search on product_form.php view.
 		- AJAX category search on product_form.php view.

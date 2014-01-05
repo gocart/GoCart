@@ -6,8 +6,6 @@ class Giftcards extends Admin_Controller {
 	{
 		parent::__construct();
 		
-		force_ssl();
-		
 		$this->load->model('Settings_model');
 		$this->load->model('Gift_card_model');
 		$this->load->helper('form');
@@ -32,7 +30,7 @@ class Giftcards extends Admin_Controller {
 			$data['gift_cards']['enabled'] = false;
 		}
 		
-		$this->load->view($this->config->item('admin_folder').'/giftcards', $data);
+		$this->view($this->config->item('admin_folder').'/giftcards', $data);
 		
 	}
 	
@@ -49,7 +47,7 @@ class Giftcards extends Admin_Controller {
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/giftcard_form', $data);
+			$this->view($this->config->item('admin_folder').'/giftcard_form', $data);
 		}
 		else
 		{
@@ -148,7 +146,7 @@ class Giftcards extends Admin_Controller {
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/giftcards_settings', $data);
+			$this->view($this->config->item('admin_folder').'/giftcards_settings', $data);
 		}
 		else
 		{

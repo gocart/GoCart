@@ -1,19 +1,16 @@
 <?php
 
-class Login extends CI_Controller {
+class Login extends Base_Controller {
 
 	function __construct()
 	{
 		parent::__construct();
-		
-		force_ssl();
-		
-		$this->load->library('Auth');
 		$this->lang->load('login');
 	}
 
 	function index()
 	{
+
 		//we check if they are logged in, generally this would be done in the constructor, but we want to allow customers to log out still
 		//or still be able to either retrieve their password or anything else this controller may be extended to do
 		$redirect	= $this->auth->is_logged_in(false, false);
@@ -29,11 +26,11 @@ class Login extends CI_Controller {
 		$submitted 			= $this->input->post('submitted');
 		if ($submitted)
 		{
-			$email		= $this->input->post('email');
+			$username	= $this->input->post('username');
 			$password	= $this->input->post('password');
 			$remember   = $this->input->post('remember');
 			$redirect	= $this->input->post('redirect');
-			$login		= $this->auth->login_admin($email, $password, $remember);
+			$login		= $this->auth->login_admin($username, $password, $remember);
 			if ($login)
 			{
 				if ($redirect == '')

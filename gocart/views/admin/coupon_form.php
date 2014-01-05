@@ -1,9 +1,7 @@
-<?php include('header.php'); ?>
-
 <script type="text/javascript">
 $(function(){
-$("#datepicker1").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker1_alt', altFormat: 'yy-mm-dd'});
-$("#datepicker2").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker2_alt', altFormat: 'yy-mm-dd'});
+$("#datepicker1").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker1_alt', altFormat: 'yy-mm-dd'}).attr('readonly', 'readonly');
+$("#datepicker2").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker2_alt', altFormat: 'yy-mm-dd'}).attr('readonly', 'readonly');
 });
 </script>
 
@@ -38,14 +36,16 @@ $("#datepicker2").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker2_al
 			$data	= array('id'=>'datepicker1', 'value'=>set_value('start_date', reverse_format($start_date)), 'class'=>'span3');
 			echo form_input($data);
 			?>
-			<input type="hidden" name="start_date" value="<?php echo set_value('start_date', $start_date) ?>" id="datepicker1_alt" />
+			<input type="button" value="Clear" class="btn" onclick="$('#datepicker1_alt').val('');$('#datepicker1').val('');" />
+			<input type="hidden" name="start_date" value="<?php echo set_value('start_date', $start_date) ?>" id="datepicker1_alt" readonly />
 			
 			<label for="end_date"><?php echo lang('disable_on');?></label>
 			<?php
 			$data	= array('id'=>'datepicker2', 'value'=>set_value('end_date', reverse_format($end_date)), 'class'=>'span3');
 			echo form_input($data);
 			?>
-			<input type="hidden" name="end_date" value="<?php echo set_value('end_date', $end_date) ?>" id="datepicker2_alt" />
+			<input type="button" value="Clear"  class="btn" onclick="$('#datepicker2_alt').val('');$('#datepicker2').val('');" />
+			<input type="hidden" name="end_date" value="<?php echo set_value('end_date', $end_date) ?>" id="datepicker2_alt" readonly />
 			
 			<label for="reduction_target"><?php echo lang('coupon_type');?></label>
 			<?php
@@ -59,15 +59,15 @@ $("#datepicker2").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker2_al
 			<div class="row">
 				<div class="span1">
 				<?php	$options = array(
-	                  'percent'  => '%',
-					  'fixed' => $this->config->item('currency_symbol')
+	                  'percent'  => lang('percentage'),
+					  'fixed' => lang('fixed')
 	               	);
-					echo ' '.form_dropdown('reduction_type', $options,  $reduction_type, 'class="span1"');
+					echo ' '.form_dropdown('reduction_type', $options,  $reduction_type, 'class="span2"');
 				?>
 				</div>
 				<div class="span2">
 					<?php
-						$data	= array('id'=>'reduction_amount', 'name'=>'reduction_amount', 'value'=>set_value('reduction_amount', $reduction_amount), 'class'=>'span2');
+						$data	= array('id'=>'reduction_amount', 'name'=>'reduction_amount', 'value'=>set_value('reduction_amount', $reduction_amount), 'class'=>'span1');
 						echo form_input($data);?>
 				</div>
 			</div>
@@ -90,7 +90,7 @@ $("#datepicker2").datepicker({dateFormat: 'mm-dd-yy', altField: '#datepicker2_al
 </div>
 
 <div class="form-actions">
-	<button type="submit" class="btn btn-primary"><?php echo lang('form_save');?></button>
+	<button type="submit" class="btn btn-primary"><?php echo lang('save');?></button>
 </div>
 </form>
 
@@ -136,6 +136,3 @@ $(document).ready(function(){
 });
 
 </script>
-
-
-<?php include('footer.php'); ?>

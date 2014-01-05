@@ -72,6 +72,23 @@ $config['url_suffix'] = '';
 */
 $config['language']	= 'english';
 
+
+/*
+|--------------------------------------------------------------------------
+| Supported Languages
+|--------------------------------------------------------------------------
+|
+| This is the list of supported languages you have installed, for URL mapping
+|   
+|	Should be [language abbreviation (for url) => language folder name, ...]
+|
+| Example: /en/path/to/controller 
+|          /fr/path/to/controller
+|
+*/
+$config['supported_languages'] = array('en'=>'english');
+
+
 /*
 |--------------------------------------------------------------------------
 | Default Character Set
@@ -225,7 +242,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = 'default encryption key';
+$config['encryption_key'] = 'bfe6085e48aedf44f11854f8d4574567';
 
 /*
 |--------------------------------------------------------------------------

@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <div class="row">
 	<div class="span12">
 		<?php echo form_open($this->config->item('admin_folder').'/shipping/settings/'. $module);?>
@@ -14,4 +12,3 @@ echo $form;
 		</form>
 	</div>
 </div>
-<?php include('footer.php');

@@ -38,8 +38,15 @@
 |
 */
 
-$route['default_controller']	= "cart";
+if(file_exists(FCPATH.'gocart/config/database.php'))
+{
+    $route['default_controller']	= "cart";
+}
+else
+{
+    $route['default_controller']   = "install";   
+}
 
 //this for the admininstration console
 $route['admin']					= 'admin/dashboard';
-$route['admin/media/(:any)']		= 'admin/media/$1';
+$route['admin/media/(:any)']	= 'admin/media/$1';

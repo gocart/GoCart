@@ -5,7 +5,6 @@ class Locations extends Admin_Controller {
 	function __construct()
 	{		
 		parent::__construct();
-		remove_ssl();
 		
 		$this->auth->check_access('Admin', true);
 		$this->load->model('Location_model');
@@ -17,7 +16,7 @@ class Locations extends Admin_Controller {
 		$data['page_title']	= lang('countries');
 		$data['locations']	= $this->Location_model->get_countries();
 		
-		$this->load->view($this->config->item('admin_folder').'/countries', $data);
+		$this->view($this->config->item('admin_folder').'/countries', $data);
 	}
 	
 	function organize_countries()
@@ -42,7 +41,7 @@ class Locations extends Admin_Controller {
 		$data['iso_code_2']			= '';
 		$data['iso_code_3']			= '';
 		$data['status']				= false;
-		$data['postcode_required']	= false;
+		$data['zip_required']	= false;
 		$data['address_format']		= '';
 		$data['tax']				= 0;
 
@@ -63,13 +62,13 @@ class Locations extends Admin_Controller {
 		$this->form_validation->set_rules('iso_code_2', 'lang:iso_code_2', 'trim|required');
 		$this->form_validation->set_rules('iso_code_3', 'lang:iso_code_3', 'trim|required');
 		$this->form_validation->set_rules('address_format', 'lang:address_format', 'trim');
-		$this->form_validation->set_rules('postcode_required', 'lang:require_postcode', 'trim');
+		$this->form_validation->set_rules('zip_required', 'lang:require_zip', 'trim');
 		$this->form_validation->set_rules('tax', 'lang:tax', 'trim|numeric');
 		$this->form_validation->set_rules('status', 'lang:status', 'trim');		
 	
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/country_form', $data);
+			$this->view($this->config->item('admin_folder').'/country_form', $data);
 		}
 		else
 		{
@@ -78,7 +77,7 @@ class Locations extends Admin_Controller {
 			$save['iso_code_2']			= $this->input->post('iso_code_2');
 			$save['iso_code_3']			= $this->input->post('iso_code_3');
 			$save['address_format']		= $this->input->post('address_format');
-			$save['postcode_required']	= $this->input->post('postcode_required');
+			$save['zip_required']	= $this->input->post('zip_required');
 			$save['status'] 			= $this->input->post('status');
 			$save['tax'] 				= $this->input->post('tax');
 
@@ -159,7 +158,7 @@ class Locations extends Admin_Controller {
 		
 		$data['page_title']	= sprintf(lang('country_zones'), $data['country']->name);
 
-		$this->load->view($this->config->item('admin_folder').'/country_zones', $data);
+		$this->view($this->config->item('admin_folder').'/country_zones', $data);
 	}
 	
 	function zone_form($id = false)
@@ -202,7 +201,7 @@ class Locations extends Admin_Controller {
 	
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/country_zone_form', $data);
+			$this->view($this->config->item('admin_folder').'/country_zone_form', $data);
 		}
 		else
 		{
@@ -240,7 +239,7 @@ class Locations extends Admin_Controller {
 		
 		$data['page_title']		= sprintf(lang('zone_areas_for'), $data['zone']->name);
 		
-		$this->load->view($this->config->item('admin_folder').'/country_zone_areas', $data);
+		$this->view($this->config->item('admin_folder').'/country_zone_areas', $data);
 	}
 
 	function delete_zone_area($id = false)
@@ -305,7 +304,7 @@ class Locations extends Admin_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/country_zone_area_form', $data);
+			$this->view($this->config->item('admin_folder').'/country_zone_area_form', $data);
 		}
 		else
 		{

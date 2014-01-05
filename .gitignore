@@ -1,8 +1,5 @@
 .htaccess
 uploads/*
-database.php
-config.php
-gocart.php
 *.bak
 
 # OS generated files #

@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <div class="row" style="margin-top:50px;">
 	<div class="span6 offset3">
 		<div class="page-header">
@@ -18,7 +16,7 @@
 					<div class="control-group">
 						<label class="control-label" for="password"><?php echo lang('password');?></label>
 						<div class="controls">
-							<input type="password" name="password" class="span3"/>
+							<input type="password" name="password" class="span3" autocomplete="off" />
 						</div>
 					</div>
 				
@@ -49,4 +47,3 @@
 			</div>
 	</div>
 </div>
-<?php include('footer.php'); ?>

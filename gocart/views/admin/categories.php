@@ -1,4 +1,3 @@
-<?php include('header.php'); ?>
 <script type="text/javascript">
 function areyousure()
 {
@@ -15,42 +14,47 @@ function areyousure()
 		<tr>
 			<th><?php echo lang('category_id');?></th>
 			<th><?php echo lang('name')?></th>
+			<th><?php echo lang('enabled');?></th>
 			<th></th>
 		</tr>
 	</thead>
 	<tbody>
-		<?php echo (count($categories) < 1)?'<tr><td style="text-align:center;" colspan="3">'.lang('no_categories').'</td></tr>':''?>
+		<?php echo (count($categories) < 1)?'<tr><td style="text-align:center;" colspan="4">'.lang('no_categories').'</td></tr>':''?>
 		<?php
 		define('ADMIN_FOLDER', $this->config->item('admin_folder'));
-		function list_categories($cats, $sub='') {
+		function list_categories($parent_id, $cats, $sub='') {
 			
-			foreach ($cats as $cat):?>
+			foreach ($cats[$parent_id] as $cat):?>
 			<tr>
-				<td><?php echo  $cat['category']->id; ?></td>
-				<td><?php echo  $sub.$cat['category']->name; ?></td>
+				<td><?php echo  $cat->id; ?></td>
+				<td><?php echo  $sub.$cat->name; ?></td>
+				<td><?php echo ($cat->enabled == '1') ? lang('enabled') : lang('disabled'); ?></td>
 				<td>
 					<div class="btn-group" style="float:right">
 
-						<a class="btn" href="<?php echo  site_url(ADMIN_FOLDER.'/categories/form/'.$cat['category']->id);?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
+						<a class="btn" href="<?php echo  site_url(ADMIN_FOLDER.'/categories/form/'.$cat->id);?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
 
-						<a class="btn" href="<?php echo  site_url(ADMIN_FOLDER.'/categories/organize/'.$cat['category']->id);?>"><i class="icon-move"></i> <?php echo lang('organize');?></a>
+						<a class="btn" href="<?php echo  site_url(ADMIN_FOLDER.'/categories/organize/'.$cat->id);?>"><i class="icon-move"></i> <?php echo lang('organize');?></a>
 						
-						<a class="btn btn-danger" href="<?php echo  site_url(ADMIN_FOLDER.'/categories/delete/'.$cat['category']->id);?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
+						<a class="btn btn-danger" href="<?php echo  site_url(ADMIN_FOLDER.'/categories/delete/'.$cat->id);?>" onclick="return areyousure();"><i class="icon-trash icon-white"></i> <?php echo lang('delete');?></a>
 					</div>
 				</td>
 			</tr>
 			<?php
-			if (sizeof($cat['children']) > 0)
+			if (isset($cats[$cat->id]) && sizeof($cats[$cat->id]) > 0)
 			{
 				$sub2 = str_replace('&rarr;&nbsp;', '&nbsp;', $sub);
 					$sub2 .=  '&nbsp;&nbsp;&nbsp;&rarr;&nbsp;';
-				list_categories($cat['children'], $sub2);
+				list_categories($cat->id, $cats, $sub2);
 			}
 			endforeach;
 		}
 		
-		list_categories($categories);
+		if(isset($categories[0]))
+		{
+			list_categories(0, $categories);
+		}
+		
 		?>
 	</tbody>
 </table>
-<?php include('footer.php');

@@ -6,9 +6,7 @@ class Checkout extends Front_Controller {
 	function __construct()
 	{
 		parent::__construct();
-
-		force_ssl();
-
+        
 		/*make sure the cart isnt empty*/
 		if($this->go_cart->total_items()==0)
 		{
@@ -65,22 +63,31 @@ class Checkout extends Front_Controller {
 
 		/*require a billing address*/
 		$this->form_validation->set_rules('address_id', 'Billing Address ID', 'numeric');
-		$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[128]');
-		$this->form_validation->set_rules('phone', 'Phone', 'trim|required|max_length[32]');
-		$this->form_validation->set_rules('company', 'Company', 'trim|max_length[128]');
-		$this->form_validation->set_rules('address1', 'Address 1', 'trim|required|max_length[128]');
-		$this->form_validation->set_rules('address2', 'Address 2', 'trim|max_length[128]');
-		$this->form_validation->set_rules('city', 'City', 'trim|required|max_length[128]');
-		$this->form_validation->set_rules('country_id', 'Country', 'trim|required|numeric');
-		$this->form_validation->set_rules('zone_id', 'State', 'trim|required|numeric');
+		$this->form_validation->set_rules('firstname', 'lang:address_firstname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('lastname', 'lang:address_lastname', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('email', 'lang:address_email', 'trim|required|valid_email|max_length[128]');
+		$this->form_validation->set_rules('phone', 'lang:address_phone', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('company', 'lang:address_company', 'trim|max_length[128]');
+		$this->form_validation->set_rules('address1', 'lang:address1', 'trim|required|max_length[128]');
+		$this->form_validation->set_rules('address2', 'lang:address2', 'trim|max_length[128]');
+		$this->form_validation->set_rules('city', 'lang:address_city', 'trim|required|max_length[128]');
+		$this->form_validation->set_rules('country_id', 'lang:address_country', 'trim|required|numeric');
+		$this->form_validation->set_rules('use_shipping', 'lang:ship_to_address', '');
 		
+		// Relax the requirement for countries without zones
+		if($this->Location_model->has_zones($this->input->post('country_id')))
+		{
+			$this->form_validation->set_rules('zone_id', 'lang:address_state', 'trim|required|numeric');
+		} else {
+			$this->form_validation->set_rules('zone_id', 'lang:address_state'); // will be empty
+		}
+		
+			
 		/*if there is post data, get the country info and see if the zip code is required*/
 		if($this->input->post('country_id'))
 		{
 			$country = $this->Location_model->get_country($this->input->post('country_id'));
-			if((bool)$country->postcode_required)
+			if((bool)$country->zip_required)
 			{
 				$this->form_validation->set_rules('zip', 'Zip', 'trim|required|max_length[10]');
 			}
@@ -93,6 +100,19 @@ class Checkout extends Front_Controller {
 		if ($this->form_validation->run() == false)
 		{
 			$data['address_form_prefix']	= 'bill';
+
+			// Since we don't store this value, first check if there is an incoming value from the form
+			//  If not, determine if it's already the case
+			//  If so, check the incoming post value
+			if($this->input->post('use_shipping')===false && isset($data['customer']['bill_address']))
+			{
+				$data['use_shipping'] = ($data['customer']['bill_address'] == @$data['customer']['ship_address']);
+			} else if($this->input->post('use_shipping')=='yes') {
+				$data['use_shipping'] = true;
+			} else {
+				$data['use_shipping'] = false;
+			}
+			
 			$this->view('checkout/address_form', $data);
 		}
 		else
@@ -112,9 +132,14 @@ class Checkout extends Front_Controller {
 
 			/* get zone / country data using the zone id submitted as state*/
 			$country								= $this->Location_model->get_country(set_value('country_id'));
-			$zone									= $this->Location_model->get_zone(set_value('zone_id'));
+			if($this->Location_model->has_zones($country->id))
+			{
+				$zone									= $this->Location_model->get_zone(set_value('zone_id'));
 
-			$customer['bill_address']['zone']			= $zone->code;  /*  save the state for output formatted addresses */
+				$customer['bill_address']['zone']			= $zone->code;  /*  save the state for output formatted addresses */
+			} else {
+				$customer['bill_address']['zone'] 		= '';
+			}
 			$customer['bill_address']['country']		= $country->name; /*  some shipping libraries require country name */
 			$customer['bill_address']['country_code']   = $country->iso_code_2; /*  some shipping libraries require the code */ 
 			$customer['bill_address']['zone_id']		= $this->input->post('zone_id');  /*  use the zone id to populate address state field value */
@@ -135,8 +160,8 @@ class Checkout extends Front_Controller {
 				$customer['group_id'] = 1; /* default group */
 			}
 
-			/*if there is no address set then return blank*/
-			if(empty($customer['ship_address']))
+			// Use as shipping address
+			if($this->input->post('use_shipping')=='yes')
 			{
 				$customer['ship_address']	= $customer['bill_address'];
 			}
@@ -144,8 +169,15 @@ class Checkout extends Front_Controller {
 			/* save customer details*/
 			$this->go_cart->save_customer($customer);
 
-			/*send to the next form*/
-			redirect('checkout/step_2');
+
+			if($this->input->post('use_shipping')=='yes')
+			{
+				/*send to the next form*/
+				redirect('checkout/step_2');	
+			} else {
+				redirect('checkout/shipping_address');
+			}
+			
 		}
 	}
 
@@ -171,18 +203,26 @@ class Checkout extends Front_Controller {
 		$this->form_validation->set_rules('country_id', 'lang:address_country', 'trim|required|numeric');
 		$this->form_validation->set_rules('zone_id', 'lang:address_state', 'trim|required|numeric');
 		
+		// Relax the requirement for countries without zones
+		if($this->Location_model->has_zones($this->input->post('country_id')))
+		{
+			$this->form_validation->set_rules('zone_id', 'lang:address_state', 'trim|required|numeric');
+		} else {
+			$this->form_validation->set_rules('zone_id', 'lang:address_state'); // will be empty
+		}
+
 		/* if there is post data, get the country info and see if the zip code is required */
 		if($this->input->post('country_id'))
 		{
 			$country = $this->Location_model->get_country($this->input->post('country_id'));
-			if((bool)$country->postcode_required)
+			if((bool)$country->zip_required)
 			{
-				$this->form_validation->set_rules('zip', 'lang:address_postcode', 'trim|required|max_length[10]');
+				$this->form_validation->set_rules('zip', 'lang:address_zip', 'trim|required|max_length[10]');
 			}
 		}
 		else
 		{
-			$this->form_validation->set_rules('zip', 'lang:address_postcode', 'trim|max_length[10]');
+			$this->form_validation->set_rules('zip', 'lang:address_zip', 'trim|max_length[10]');
 		}
 
 		if ($this->form_validation->run() == false)
@@ -206,11 +246,16 @@ class Checkout extends Front_Controller {
 			$customer['ship_address']['city']			= $this->input->post('city');
 			$customer['ship_address']['zip']			= $this->input->post('zip');
 
-			/* get zone / country data using the zone id submitted as state */
+			/* get zone / country data using the zone id submitted as state*/
 			$country								= $this->Location_model->get_country(set_value('country_id'));
-			$zone									= $this->Location_model->get_zone(set_value('zone_id'));
+			if($this->Location_model->has_zones($country->id))
+			{
+				$zone									= $this->Location_model->get_zone(set_value('zone_id'));
 
-			$customer['ship_address']['zone']			= $zone->code;
+				$customer['ship_address']['zone']			= $zone->code;  /*  save the state for output formatted addresses */
+			} else {
+				$customer['ship_address']['zone'] 		= '';
+			}
 			$customer['ship_address']['country']		= $country->name;
 			$customer['ship_address']['country_code']   = $country->iso_code_2;
 			$customer['ship_address']['zone_id']		= $this->input->post('zone_id');
@@ -427,6 +472,7 @@ class Checkout extends Front_Controller {
 			redirect('checkout/step_4');
 		}
 	}
+
 	/* callback that lets the payment method return an error if invalid */
 	function check_payment($module)
 	{
@@ -439,6 +485,7 @@ class Checkout extends Front_Controller {
 		else
 		{
 			$this->form_validation->set_message('check_payment', $check);
+			return false;
 		}
 	}
 
@@ -577,10 +624,10 @@ class Checkout extends Front_Controller {
 			if(!empty($data['customer']['id']))
 			{
 				// they can access their downloads by logging in
-				$download_section = str_replace('{download_link}', anchor('secure/my_downloads', lang('download_link')),$downlod_msg_record['content']);
+				$download_section = str_replace('{download_link}', anchor(site_url('secure/my_downloads'), lang('download_link')),$downlod_msg_record['content']);
 			} else {
 				// non regs will receive a code
-				$download_section = str_replace('{download_link}', anchor('secure/my_downloads/'.$order_downloads['code'], lang('download_link')), $downlod_msg_record['content']);
+				$download_section = str_replace('{download_link}', anchor(site_url('secure/my_downloads').'/'.$order_downloads['code'], lang('download_link')), $downlod_msg_record['content']);
 			}
 		}
 		
@@ -649,6 +696,6 @@ class Checkout extends Front_Controller {
 		$this->go_cart->destroy();
 
 		/*  show final confirmation page */
-		$this->load->view('order_placed', $data);
+		$this->view('order_placed', $data);
 	}
 }

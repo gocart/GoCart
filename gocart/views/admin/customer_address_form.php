@@ -1,4 +1,4 @@
-<?php include('header.php');
+<?php
 $f_company	= array('name'=>'company','class'=>'span3', 'value'=> set_value('company',$company));
 $f_address1	= array('name'=>'address1', 'class'=>'span6','value'=>set_value('address1',$address1));
 $f_address2	= array('name'=>'address2', 'class'=>'span6','value'=> set_value('address2',$address2));
@@ -70,7 +70,7 @@ $f_zip		= array('maxlength'=>'10', 'class'=>'span1', 'name'=>'zip', 'value'=> se
 			<?php echo form_dropdown('zone_id', $zones_menu, set_value('zone_id', $zone_id), 'id="f_zone_id" class="span3"');?>
 		</div>
 		<div class="span1">
-			<label><?php echo lang('postcode');?></label>
+			<label><?php echo lang('zip');?></label>
 			<?php echo form_input($f_zip);?>
 		</div>
 	</div>
@@ -80,10 +80,8 @@ $f_zip		= array('maxlength'=>'10', 'class'=>'span1', 'name'=>'zip', 'value'=> se
 	</div>
 	<script type="text/javascript">
 	$(document).ready(function(){
-		$('.button').button();
-	
 		$('#f_country_id').change(function(){
-			$.post('<?php echo site_url($this->config->item('admin_folder').'/locations/get_zone_menu');?>',{id:$('#f_country_id').val()}, function(data) {
+			$.post('<?php echo site_url(config_item('admin_folder').'/locations/get_zone_menu');?>',{id:$('#f_country_id').val()}, function(data) {
 			  $('#f_zone_id').html(data);
 			});
 	
@@ -91,4 +89,3 @@ $f_zip		= array('maxlength'=>'10', 'class'=>'span1', 'name'=>'zip', 'value'=> se
 	});
 	</script>
 </form>
-<?php include('footer.php');

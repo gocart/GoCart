@@ -74,7 +74,7 @@ echo form_input($f_id);
 				<?php echo form_dropdown('zone_id', $zones_menu, set_value('zone_id', $zone_id), 'id="f_zone_id" class="span12"');?>
 			</div>
 			<div class="span2">
-				<label><?php echo lang('address_postcode');?></label>
+				<label><?php echo lang('address_zip');?></label>
 				<?php echo form_input($f_zip);?>
 			</div>
 		</div>
@@ -85,7 +85,7 @@ echo form_input($f_id);
 	</div>
 </div>
 
-<script type="text/javascript">
+<script>
 $(function(){
 	$('#f_country_id').change(function(){
 			$.post('<?php echo site_url('locations/get_zone_menu');?>',{id:$('#f_country_id').val()}, function(data) {

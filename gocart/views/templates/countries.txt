@@ -1,0 +1,239 @@
+1|3|Afghanistan|AF|AFG||0|1|0.00000
+2|4|Albania|AL|ALB||0|1|0.00000
+3|5|Algeria|DZ|DZA||1|1|0.00000
+4|6|American Samoa|AS|ASM||0|1|0.00000
+5|7|Andorra|AD|AND||0|1|0.00000
+6|8|Angola|AO|AGO||0|1|0.00000
+7|9|Anguilla|AI|AIA||0|1|0.00000
+8|10|Antarctica|AQ|ATA||1|1|0.00000
+9|11|Antigua and Barbuda|AG|ATG||0|1|0.00000
+10|12|Argentina|AR|ARG||1|1|0.00000
+11|13|Armenia|AM|ARM||1|1|0.00000
+12|14|Aruba|AW|ABW||0|1|0.00000
+13|15|Australia|AU|AUS||1|1|0.00000
+14|16|Austria|AT|AUT||1|1|0.00000
+15|17|Azerbaijan|AZ|AZE||1|1|0.00000
+16|18|Bahamas|BS|BHS||0|1|0.00000
+17|19|Bahrain|BH|BHR||0|1|0.00000
+18|20|Bangladesh|BD|BGD||1|1|0.00000
+19|21|Barbados|BB|BRB||0|1|0.00000
+20|22|Belarus|BY|BLR||1|1|0.00000
+21|23|Belgium|BE|BEL||1|1|0.00000
+22|24|Belize|BZ|BLZ||0|1|0.00000
+23|25|Benin|BJ|BEN||0|1|0.00000
+24|26|Bermuda|BM|BMU||0|1|0.00000
+25|27|Bhutan|BT|BTN||0|1|0.00000
+26|28|Bolivia|BO|BOL||0|1|0.00000
+27|29|Bosnia and Herzegowina|BA|BIH||1|1|0.00000
+28|30|Botswana|BW|BWA||0|1|0.00000
+29|31|Bouvet Island|BV|BVT||1|1|0.00000
+30|32|Brazil|BR|BRA||1|1|0.00000
+31|33|British Indian Ocean Territory|IO|IOT||1|1|0.00000
+32|34|Brunei Darussalam|BN|BRN||0|1|0.00000
+33|35|Bulgaria|BG|BGR||1|1|0.00000
+34|36|Burkina Faso|BF|BFA||0|1|0.00000
+35|37|Burundi|BI|BDI||0|1|0.00000
+36|38|Cambodia|KH|KHM||0|1|0.00000
+37|39|Cameroon|CM|CMR||0|1|0.00000
+38|1|Canada|CA|CAN||1|1|0.00000
+39|40|Cape Verde|CV|CPV||0|1|0.00000
+40|41|Cayman Islands|KY|CYM||0|1|0.00000
+41|42|Central African Republic|CF|CAF||0|1|0.00000
+42|43|Chad|TD|TCD||0|1|0.00000
+43|44|Chile|CL|CHL||0|1|0.00000
+44|45|China|CN|CHN||1|1|0.00000
+45|46|Christmas Island|CX|CXR||1|1|0.00000
+46|47|Cocos (Keeling) Islands|CC|CCK||1|1|0.00000
+47|48|Colombia|CO|COL||0|1|0.00000
+48|49|Comoros|KM|COM||1|1|0.00000
+49|50|Congo|CG|COG||0|1|0.00000
+50|51|Cook Islands|CK|COK||0|1|0.00000
+51|52|Costa Rica|CR|CRI||0|1|0.00000
+52|53|Cote D\Ivoire|CI|CIV||1|1|0.00000
+53|54|Croatia|HR|HRV||1|1|0.00000
+54|55|Cuba|CU|CUB||1|1|0.00000
+55|56|Cyprus|CY|CYP||1|1|0.00000
+56|57|Czech Republic|CZ|CZE||1|1|0.00000
+57|58|Denmark|DK|DNK||1|1|0.00000
+58|59|Djibouti|DJ|DJI||0|1|0.00000
+59|60|Dominica|DM|DMA||0|1|0.00000
+60|61|Dominican Republic|DO|DOM||0|1|0.00000
+61|62|East Timor|TP|TMP||1|1|0.00000
+62|63|Ecuador|EC|ECU||0|1|0.00000
+63|64|Egypt|EG|EGY||0|1|0.00000
+64|65|El Salvador|SV|SLV||0|1|0.00000
+65|66|Equatorial Guinea|GQ|GNQ||0|1|0.00000
+66|67|Eritrea|ER|ERI||0|1|0.00000
+67|68|Estonia|EE|EST||1|1|0.00000
+68|69|Ethiopia|ET|ETH||0|1|0.00000
+69|70|Falkland Islands (Malvinas)|FK|FLK||1|1|0.00000
+70|71|Faroe Islands|FO|FRO||1|1|0.00000
+71|72|Fiji|FJ|FJI||0|1|0.00000
+72|73|Finland|FI|FIN||1|1|0.00000
+73|74|France|FR|FRA||1|1|0.00000
+74|75|France|Metropolitan|FX|FXX||1|1|0.00000
+75|76|French Guiana|GF|GUF||0|1|0.00000
+76|77|French Polynesia|PF|PYF||0|1|0.00000
+77|78|French Southern Territories|TF|ATF||1|1|0.00000
+78|79|Gabon|GA|GAB||0|1|0.00000
+79|80|Gambia|GM|GMB||0|1|0.00000
+80|81|Georgia|GE|GEO||1|1|0.00000
+81|82|Germany|DE|DEU||1|1|0.00000
+82|83|Ghana|GH|GHA||0|1|0.00000
+83|84|Gibraltar|GI|GIB||0|1|0.00000
+84|85|Greece|GR|GRC||1|1|0.00000
+85|86|Greenland|GL|GRL||1|1|0.00000
+86|87|Grenada|GD|GRD||0|1|0.00000
+87|88|Guadeloupe|GP|GLP||0|1|0.00000
+88|89|Guam|GU|GUM||0|1|0.00000
+89|90|Guatemala|GT|GTM||0|1|0.00000
+90|91|Guinea|GN|GIN||0|1|0.00000
+91|92|Guinea-bissau|GW|GNB||0|1|0.00000
+92|93|Guyana|GY|GUY||0|1|0.00000
+93|94|Haiti|HT|HTI||0|1|0.00000
+94|95|Heard and Mc Donald Islands|HM|HMD||1|1|0.00000
+95|96|Honduras|HN|HND||0|1|0.00000
+96|97|Hong Kong|HK|HKG||0|1|0.00000
+97|98|Hungary|HU|HUN||1|1|0.00000
+98|99|Iceland|IS|ISL||1|1|0.00000
+99|100|India|IN|IND||1|1|0.00000
+100|101|Indonesia|ID|IDN||1|1|0.00000
+101|102|Iran (Islamic Republic of)|IR|IRN||1|1|0.00000
+102|103|Iraq|IQ|IRQ||0|1|0.00000
+103|104|Ireland|IE|IRL||0|1|0.00000
+104|105|Israel|IL|ISR||1|1|0.00000
+105|106|Italy|IT|ITA||1|1|0.00000
+106|107|Jamaica|JM|JAM||0|1|0.00000
+107|108|Japan|JP|JPN||1|1|0.00000
+108|109|Jordan|JO|JOR||0|1|0.00000
+109|110|Kazakhstan|KZ|KAZ||1|1|0.00000
+110|111|Kenya|KE|KEN||0|1|0.00000
+111|112|Kiribati|KI|KIR||0|1|0.00000
+112|113|North Korea|KP|PRK||1|1|0.00000
+113|114|Korea|Republic of|KR|KOR||1|1|0.00000
+114|115|Kuwait|KW|KWT||0|1|0.00000
+115|116|Kyrgyzstan|KG|KGZ||1|1|0.00000
+116|117|Lao People\s Democratic Republic|LA|LAO||0|1|0.00000
+117|118|Latvia|LV|LVA||1|1|0.00000
+118|119|Lebanon|LB|LBN||0|1|0.00000
+119|120|Lesotho|LS|LSO||0|1|0.00000
+120|121|Liberia|LR|LBR||0|1|0.00000
+121|122|Libyan Arab Jamahiriya|LY|LBY||1|1|0.00000
+122|123|Liechtenstein|LI|LIE||1|1|0.00000
+123|124|Lithuania|LT|LTU||1|1|0.00000
+124|125|Luxembourg|LU|LUX||1|1|0.00000
+125|126|Macau|MO|MAC||0|1|0.00000
+126|127|Macedonia|MK|MKD||1|1|0.00000
+127|128|Madagascar|MG|MDG||0|1|0.00000
+128|129|Malawi|MW|MWI||1|1|0.00000
+129|130|Malaysia|MY|MYS||1|1|0.00000
+130|131|Maldives|MV|MDV||0|1|0.00000
+131|132|Mali|ML|MLI||0|1|0.00000
+132|133|Malta|MT|MLT||0|1|0.00000
+133|134|Marshall Islands|MH|MHL||1|1|0.00000
+134|135|Martinique|MQ|MTQ||1|1|0.00000
+135|136|Mauritania|MR|MRT||0|1|0.00000
+136|137|Mauritius|MU|MUS||0|1|0.00000
+137|138|Mayotte|YT|MYT||1|1|0.00000
+138|139|Mexico|MX|MEX||1|1|0.00000
+139|140|Micronesia|Federated States of|FM|FSM||1|1|0.00000
+140|141|Moldova|Republic of|MD|MDA||1|1|0.00000
+141|142|Monaco|MC|MCO||1|1|0.00000
+142|143|Mongolia|MN|MNG||1|1|0.00000
+143|144|Montserrat|MS|MSR||0|1|0.00000
+144|145|Morocco|MA|MAR||0|1|0.00000
+145|146|Mozambique|MZ|MOZ||0|1|0.00000
+146|147|Myanmar|MM|MMR||1|1|0.00000
+147|148|Namibia|NA|NAM||0|1|0.00000
+148|149|Nauru|NR|NRU||1|1|0.00000
+149|150|Nepal|NP|NPL||0|1|0.00000
+150|151|Netherlands|NL|NLD||1|1|0.00000
+151|152|Netherlands Antilles|AN|ANT||0|1|0.00000
+152|153|New Caledonia|NC|NCL||0|1|0.00000
+153|154|New Zealand|NZ|NZL||1|1|0.00000
+154|155|Nicaragua|NI|NIC||0|1|0.00000
+155|156|Niger|NE|NER||0|1|0.00000
+156|157|Nigeria|NG|NGA||0|1|0.00000
+157|158|Niue|NU|NIU||1|1|0.00000
+158|159|Norfolk Island|NF|NFK||0|1|0.00000
+159|160|Northern Mariana Islands|MP|MNP||0|1|0.00000
+160|161|Norway|NO|NOR||1|1|0.00000
+161|162|Oman|OM|OMN||0|1|0.00000
+162|163|Pakistan|PK|PAK||1|1|0.00000
+163|164|Palau|PW|PLW||1|1|0.00000
+164|165|Panama|PA|PAN||0|1|0.00000
+165|166|Papua New Guinea|PG|PNG||0|1|0.00000
+166|167|Paraguay|PY|PRY||0|1|0.00000
+167|168|Peru|PE|PER||0|1|0.00000
+168|169|Philippines|PH|PHL||1|1|0.00000
+169|170|Pitcairn|PN|PCN||1|1|0.00000
+170|171|Poland|PL|POL||1|1|0.00000
+171|172|Portugal|PT|PRT||1|1|0.00000
+172|173|Puerto Rico|PR|PRI||1|1|0.00000
+173|174|Qatar|QA|QAT||0|1|0.00000
+174|175|Reunion|RE|REU||1|1|0.00000
+175|176|Romania|RO|ROM||1|1|0.00000
+176|177|Russian Federation|RU|RUS||1|1|0.00000
+177|178|Rwanda|RW|RWA||0|1|0.00000
+178|179|Saint Kitts and Nevis|KN|KNA||1|1|0.00000
+179|180|Saint Lucia|LC|LCA||1|1|0.00000
+180|181|Saint Vincent and the Grenadines|VC|VCT||1|1|0.00000
+181|182|Samoa|WS|WSM||1|1|0.00000
+182|183|San Marino|SM|SMR||1|1|0.00000
+183|184|Sao Tome and Principe|ST|STP||1|1|0.00000
+184|185|Saudi Arabia|SA|SAU||1|1|0.00000
+185|186|Senegal|SN|SEN||0|1|0.00000
+186|187|Seychelles|SC|SYC||0|1|0.00000
+187|188|Sierra Leone|SL|SLE||0|1|0.00000
+188|189|Singapore|SG|SGP||1|1|0.00000
+189|190|Slovak Republic|SK|SVK|{firstname} {lastname}\r\n{company}\r\n{address_1}\n{address_2}\r\n{city} {zip}\r\n{zone}\r\n{country}|1|1|0.00000
+190|191|Slovenia|SI|SVN||1|1|0.00000
+191|192|Solomon Islands|SB|SLB||0|1|0.00000
+192|193|Somalia|SO|SOM||1|1|0.00000
+193|194|South Africa|ZA|ZAF||1|1|0.00000
+194|195|South Georgia &amp; South Sandwich Islands|GS|SGS||1|1|0.00000
+195|196|Spain|ES|ESP||1|1|0.00000
+196|197|Sri Lanka|LK|LKA||1|1|0.00000
+197|198|St. Helena|SH|SHN||1|1|0.00000
+198|199|St. Pierre and Miquelon|PM|SPM||1|1|0.00000
+199|200|Sudan|SD|SDN||1|1|0.00000
+200|201|Suriname|SR|SUR||0|1|0.00000
+201|202|Svalbard and Jan Mayen Islands|SJ|SJM||1|1|0.00000
+202|203|Swaziland|SZ|SWZ||0|1|0.00000
+203|204|Sweden|SE|SWE||1|1|0.00000
+204|205|Switzerland|CH|CHE||1|1|0.00000
+205|206|Syrian Arab Republic|SY|SYR||0|1|0.00000
+206|207|Taiwan|TW|TWN||1|1|0.00000
+207|208|Tajikistan|TJ|TJK||1|1|0.00000
+208|209|Tanzania|United Republic of|TZ|TZA||0|1|0.00000
+209|210|Thailand|TH|THA||1|1|0.00000
+210|211|Togo|TG|TGO||0|1|0.00000
+211|212|Tokelau|TK|TKL||1|1|0.00000
+212|213|Tonga|TO|TON||0|1|0.00000
+213|214|Trinidad and Tobago|TT|TTO||0|1|0.00000
+214|215|Tunisia|TN|TUN||0|1|0.00000
+215|216|Turkey|TR|TUR||1|1|0.00000
+216|217|Turkmenistan|TM|TKM||1|1|0.00000
+217|218|Turks and Caicos Islands|TC|TCA||0|1|0.00000
+218|219|Tuvalu|TV|TUV||0|1|0.00000
+219|220|Uganda|UG|UGA||0|1|0.00000
+220|221|Ukraine|UA|UKR||1|1|0.00000
+221|222|United Arab Emirates|AE|ARE||0|1|0.00000
+222|2|United Kingdom|GB|GBR||1|1|0.00000
+223|0|United States|US|USA|{firstname} {lastname}\n{company}\n{address_1}\n{address_2}\n{city}, {zone} {zip}\n{country}|1|1|0.00000
+224|223|United States Minor Outlying Islands|UM|UMI||1|1|0.00000
+225|224|Uruguay|UY|URY||1|1|0.00000
+226|225|Uzbekistan|UZ|UZB||1|1|0.00000
+227|226|Vanuatu|VU|VUT||0|1|0.00000
+228|227|Vatican City State (Holy See)|VA|VAT||1|1|0.00000
+229|228|Venezuela|VE|VEN||0|1|0.00000
+230|229|Viet Nam|VN|VNM||1|1|0.00000
+231|230|Virgin Islands (British)|VG|VGB||0|1|0.00000
+232|231|Virgin Islands (U.S.)|VI|VIR||1|1|0.00000
+233|232|Wallis and Futuna Islands|WF|WLF||0|1|0.00000
+234|233|Western Sahara|EH|ESH||1|1|0.00000
+235|234|Yemen|YE|YEM||0|1|0.00000
+236|235|Yugoslavia|YU|YUG||1|1|0.00000
+237|236|Democratic Republic of Congo|CD|COD||1|1|0.00000
+238|237|Zambia|ZM|ZMB||0|1|0.00000
+239|238|Zimbabwe|ZW|ZWE||0|1|0.00000

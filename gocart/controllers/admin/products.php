@@ -7,11 +7,10 @@ class Products extends Admin_Controller {
 	function __construct()
 	{		
 		parent::__construct();
-		remove_ssl();
-
+        
 		$this->auth->check_access('Admin', true);
 		
-		$this->load->model('Product_model');
+		$this->load->model(array('Product_model'));
 		$this->load->helper('form');
 		$this->lang->load('product');
 	}
@@ -26,7 +25,7 @@ class Products extends Admin_Controller {
 		$category_id		= false;
 		
 		//get the category list for the drop menu
-		$data['categories']	= $this->Category_model->get_categories_tierd();
+		$data['categories']	= $this->Category_model->get_categories_tiered();
 		
 		$post				= $this->input->post(null, false);
 		$this->load->model('Search_model');
@@ -83,7 +82,7 @@ class Products extends Admin_Controller {
 		
 		$this->pagination->initialize($config);
 		
-		$this->load->view($this->config->item('admin_folder').'/products', $data);
+		$this->view($this->config->item('admin_folder').'/products', $data);
 	}
 	
 	//basic category search
@@ -139,8 +138,7 @@ class Products extends Admin_Controller {
 		$this->lang->load('digital_product');
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
-		//$data['categories']		= $this->Category_model->get_categories_tierd();
-		//$data['product_list']	= $this->Product_model->get_products();
+		$data['categories']		= $this->Category_model->get_categories_tiered();
 		$data['file_list']		= $this->Digital_Product_model->get_list();
 
 		$data['page_title']		= lang('product_form');
@@ -216,7 +214,13 @@ class Products extends Admin_Controller {
 			//make sure we haven't submitted the form yet before we pull in the images/related products from the database
 			if(!$this->input->post('submit'))
 			{
-				$data['product_categories']	= $product->categories;
+				
+				$data['product_categories']	= array();
+				foreach($product->categories as $product_category)
+				{
+					$data['product_categories'][] = $product_category->id;
+				}
+				
 				$data['related_products']	= $product->related_products;
 				$data['images']				= (array)json_decode($product->images);
 			}
@@ -231,6 +235,7 @@ class Products extends Admin_Controller {
 		{
 			$data['product_categories']	= array();
 		}
+
 		
 		//no error checking on these
 		$this->form_validation->set_rules('caption', 'Caption');
@@ -278,7 +283,7 @@ class Products extends Admin_Controller {
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view($this->config->item('admin_folder').'/product_form', $data);
+			$this->view($this->config->item('admin_folder').'/product_form', $data);
 		}
 		else
 		{
@@ -366,6 +371,7 @@ class Products extends Admin_Controller {
 			{
 				$categories	= array();
 			}
+			
 			
 			// format options
 			$options	= array();
@@ -505,7 +511,7 @@ class Products extends Admin_Controller {
 
 				// remove the slug
 				$this->load->model('Routes_model');
-				$this->Routes_model->remove('('.$product->slug.')');
+				$this->Routes_model->delete($product->route_id);
 
 				//if the product is legit, delete them
 				$this->Product_model->delete_product($id);

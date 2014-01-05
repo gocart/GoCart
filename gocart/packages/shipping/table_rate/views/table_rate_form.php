@@ -17,14 +17,6 @@
 
 </ul>
 
-<?php
-function rate_form($from, $rate, $table_count, $rate_count)
-{
-	?>
-	
-	<?php
-}
-?>
 
 <script type="text/javascript">
 	var rates			= <?php echo json_encode($rates);?>;
@@ -59,7 +51,6 @@ function rate_form($from, $rate, $table_count, $rate_count)
 		$('#country_'+table_count).val(value.country);
 		$('#method_'+table_count).val(value.method);
 		$('#name_'+table_count).val(value.name);
-		$('#rates_'+table_count).sortable({handle:'.handle'});
 		table_count++;
 	}
 	
@@ -122,7 +113,7 @@ function rate_form($from, $rate, $table_count, $rate_count)
 					
 									<label><?php echo lang('country');?></label>
 									<?php
-										echo form_dropdown('rate[var_count][country]', $countries, '', 'class="span3" id="country_var_count"');
+										echo form_multiselect('rate[var_count][country][]', $countries, '', 'class="span3" id="country_var_count"');
 									?>
 								</div>
 								<div class="span9">
@@ -153,7 +144,6 @@ function rate_form($from, $rate, $table_count, $rate_count)
 	<table style="display:none;">
 		<tbody id="rate_form_template" >
 			<tr id="rate_var_count" class="form-inline">
-				<td><a href="#" class="handle btn"><i class="icon-align-justify"></i></a></td>
 				<td><?php echo lang('from');?> </td>
 				<td><input id="from_line_var_count" type="input" name="rate[var_table_count][rates][var_count][from]" class="span1"/></td>
 				<td><?php echo lang('rate');?> </td>

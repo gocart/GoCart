@@ -1,15 +1,13 @@
 	<table class="table table-striped table-bordered">
 		<thead>
-			<thead>
-				<tr>
-					<th style="width:10%;"><?php echo lang('sku');?></th>
-					<th style="width:20%;"><?php echo lang('name');?></th>
-					<th style="width:10%;"><?php echo lang('price');?></th>
-					<th><?php echo lang('description');?></th>
-					<th style="width:10%;"><?php echo lang('quantity');?></th>
-					<th style="width:8%;"><?php echo lang('totals');?></th>
-				</tr>
-			</thead>
+			<tr>
+				<th style="width:10%;"><?php echo lang('sku');?></th>
+				<th style="width:20%;"><?php echo lang('name');?></th>
+				<th style="width:10%;"><?php echo lang('price');?></th>
+				<th><?php echo lang('description');?></th>
+				<th style="width:10%;"><?php echo lang('quantity');?></th>
+				<th style="width:8%;"><?php echo lang('totals');?></th>
+			</tr>
 		</thead>
 		
 		<tfoot>
@@ -21,7 +19,7 @@
 			<?php if($this->go_cart->group_discount() > 0)  : ?> 
         	<tr>
 				<td colspan="5"><strong><?php echo lang('group_discount');?></strong></td>
-				<td><?php echo format_currency(0-$this->go_cart->group_discount()); ?>                </td>
+				<td>-<?php echo format_currency($this->go_cart->group_discount()); ?></td>
 			</tr>
 			<?php endif; ?>
 			<tr>

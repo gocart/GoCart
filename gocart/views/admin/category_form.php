@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <?php echo form_open_multipart($this->config->item('admin_folder').'/categories/form/'.$id); ?>
 
 <div class="tabbable">
@@ -25,6 +23,9 @@
 				$data	= array('name'=>'description', 'class'=>'redactor', 'value'=>set_value('description', $description));
 				echo form_textarea($data);
 				?>
+
+				<label for="enabled"><?php echo lang('enabled');?> </label>
+        		<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled)); ?>
 			</fieldset>
 		</div>
 
@@ -43,9 +44,9 @@
 				echo form_input($data);
 				?>
 				
-				<label for="slug"><?php echo lang('parent');?> </label>
+				<label for="parent_id"><?php echo lang('parent');?> </label>
 				<?php
-				$data	= array(0 => 'Top Level Category');
+				$data	= array(0 => lang('top_level_category'));
 				foreach($categories as $parent)
 				{
 					if($parent->id != $id)
@@ -98,7 +99,7 @@
 </div>
 
 <div class="form-actions">
-	<button type="submit" class="btn btn-primary"><?php echo lang('form_save');?></button>
+	<button type="submit" class="btn btn-primary"><?php echo lang('save');?></button>
 </div>
 </form>
 
@@ -107,4 +108,3 @@ $('form').submit(function() {
 	$('.btn').attr('disabled', true).addClass('disabled');
 });
 </script>
-<?php include('footer.php');

@@ -1,22 +1,6 @@
 <?php
 Class Product_model extends CI_Model
 {
-		
-	// we will store the group discount formula here
-	// and apply it to product prices as they are fetched 
-	var $group_discount_formula = false;
-	
-	function __construct()
-	{
-		parent::__construct();
-		
-		// check for possible group discount 
-		$customer = $this->session->userdata('customer');
-		if(isset($customer['group_discount_formula'])) 
-		{
-			$this->group_discount_formula = $customer['group_discount_formula'];
-		}
-	}
 	
 	function product_autocomplete($name, $limit)
 	{
@@ -90,15 +74,51 @@ Class Product_model extends CI_Model
 		//sort by alphabetically by default
 		$this->db->order_by('name', 'ASC');
 		$result	= $this->db->get('products');
-		//apply group discount
-		$return = $result->result();
-		if($this->group_discount_formula) 
+
+		return $result->result();
+	}
+	
+	function get_filtered_products($product_ids, $limit = false, $offset = false)
+	{
+		
+		if(count($product_ids)==0)
 		{
-			foreach($return as &$product) {
-				eval('$product->price=$product->price'.$this->group_discount_formula.';');
-			}
+			return array();
 		}
-		return $return;
+		
+		$this->db->select('id, LEAST(IFNULL(NULLIF(saleprice, 0), price), price) as sort_price', false)->from('products');
+		
+		if(count($product_ids)>1)
+		{
+			$querystr = '';
+			foreach($product_ids as $id)
+			{
+				$querystr .= 'id=\''.$id.'\' OR ';
+			}
+		
+			$querystr = substr($querystr, 0, -3);
+			
+			$this->db->where($querystr, null, false);
+			
+		} else {
+			$this->db->where('id', $product_ids[0]);
+		}
+		
+		$result	= $this->db->limit($limit)->offset($offset)->get()->result();
+
+		//die($this->db->last_query());
+
+		$contents	= array();
+		$count		= 0;
+		foreach ($result as $product)
+		{
+
+			$contents[$count]	= $this->get_product($product->id);
+			$count++;
+		}
+
+		return $contents;
+		
 	}
 	
 	function get_products($category_id = false, $limit = false, $offset = false, $by=false, $sort=false)
@@ -106,36 +126,21 @@ Class Product_model extends CI_Model
 		//if we are provided a category_id, then get products according to category
 		if ($category_id)
 		{
-			$this->db->select('category_products.*, LEAST(IFNULL(NULLIF(saleprice, 0), price), price) as sort_price', false)->from('category_products')->join('products', 'category_products.product_id=products.id')->where(array('category_id'=>$category_id, 'enabled'=>1));
+			$this->db->select('category_products.*, products.*, LEAST(IFNULL(NULLIF(saleprice, 0), price), price) as sort_price', false)->from('category_products')->join('products', 'category_products.product_id=products.id')->where(array('category_id'=>$category_id, 'enabled'=>1));
+
 			$this->db->order_by($by, $sort);
 			
 			$result	= $this->db->limit($limit)->offset($offset)->get()->result();
-
-			$contents	= array();
-			$count		= 0;
-			foreach ($result as $product)
-			{
-
-				$contents[$count]	= $this->get_product($product->product_id);
-				$count++;
-			}
-
-			return $contents;
+			
+			return $result;
 		}
 		else
 		{
 			//sort by alphabetically by default
 			$this->db->order_by('name', 'ASC');
 			$result	= $this->db->get('products');
-			//apply group discount
-			$return = $result->result();
-			if($this->group_discount_formula) 
-			{
-				foreach($return as &$product) {
-					eval('$product->price=$product->price'.$this->group_discount_formula.';');
-				}
-			}
-			return $return;
+
+			return $result->result();
 		}
 	}
 	
@@ -162,20 +167,15 @@ Class Product_model extends CI_Model
 		if(!empty($related))
 		{
 			//build the where
-			$where = false;
+			$where = array();
 			foreach($related as $r)
 			{
-				if(!$where)
-				{
-					$this->db->where('id', $r);
-				}
-				else
-				{
-					$this->db->or_where('id', $r);
-				}
-				$where = true;
+				$where[] = '`id` = '.$r;
 			}
-		
+
+			$this->db->where('('.implode(' OR ', $where).')', null);
+			$this->db->where('enabled', 1);
+
 			$result->related_products	= $this->db->get('products')->result();
 		}
 		else
@@ -183,12 +183,6 @@ Class Product_model extends CI_Model
 			$result->related_products	= array();
 		}
 		$result->categories			= $this->get_product_categories($result->id);
-	
-		// group discount?
-		if($this->group_discount_formula) 
-		{
-			eval('$result->price=$result->price'.$this->group_discount_formula.';');
-		}
 
 		return $result;
 	}
@@ -303,6 +297,7 @@ Class Product_model extends CI_Model
 				}
 			}
 		}
+		
 		
 		//return the product id
 		return $id;

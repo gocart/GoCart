@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <?php echo form_open($this->config->item('admin_folder').'/locations/zone_form/'.$id); ?>
 
 	<label for="country_id"><?php echo lang('country');?></label>
@@ -40,7 +38,7 @@
 
 
 	<div class="form-actions">
-		<button type="submit" class="btn btn-primary"><?php echo lang('form_save');?></button>
+		<button type="submit" class="btn btn-primary"><?php echo lang('save');?></button>
 	</div>
 </form>
 
@@ -49,5 +47,3 @@ $('form').submit(function() {
 	$('.btn').attr('disabled', true).addClass('disabled');
 });
 </script>
-
-<?php include('footer.php');

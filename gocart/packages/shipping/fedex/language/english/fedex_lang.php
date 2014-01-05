@@ -1,6 +1,10 @@
 <?php
 
-
+$lang['BUSINESS_SERVICE_CENTER']	= 'Business Service Center';
+$lang['DROP_BOX']	= 'Drop Box';
+$lang['REGULAR_PICKUP']	= 'Regular Pickup';
+$lang['REQUEST_COURIER']	= 'Request Courier';
+$lang['STATION']	= 'Station';
 
 $lang['FEDEX_25KG_BOX']  = '25KG Box'; 
 $lang['FEDEX_BOX']  = 'Fedex Box';
@@ -30,18 +34,21 @@ $lang['FEDEX_FREIGHT']  = 'Fedex Freight';
 $lang['FEDEX_NATIONAL_FREIGHT']  = 'Fedex National Freight';
 $lang['INTERNATIONAL_GROUND']  = 'Fedex International Ground';
 
-
+$lang['dropofftype']					= 'Drop Off Type';
 $lang['fedex_key']						= 'Key';
 $lang['fedex_account']					= 'Ship Account';
 $lang['fedex_meter']					= 'Meter';
 $lang['fedex_pw']						= 'Password';
 $lang['fedex_services']					= 'Services Allowed (If Available)';
 
+$lang['packageopts']		= 'Package Options';
 $lang['container']			= 'Container';
-$lang['dimensions']			= 'Container Dimensions';
+$lang['dimensions']			= 'Your Container Dimensions';
 $lang['height']				= 'Height';
 $lang['width']				= 'Width';
 $lang['length']				= 'Length';
-$lang['fee']				= 'Handling Fee';
+$lang['fee']				= 'Handling Fee Calculation';
+$lang['fee_amount']			= 'Handling Fee Amount';
+$lang['insurance']			= 'Insured Shipping';
 
 	

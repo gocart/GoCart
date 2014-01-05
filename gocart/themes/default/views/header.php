@@ -2,6 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title><?php echo (!empty($seo_title)) ? $seo_title .' - ' : ''; echo $this->config->item('company_name'); ?></title>
 
 
@@ -47,15 +49,20 @@ if(isset($additional_header_info))
 				
 				<div class="nav-collapse">
 					<ul class="nav">
+						<?php if(isset($this->categories[0])):?>
 						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('catalog');?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<?php foreach($this->categories as $cat_menu):?>
-								<li><a href="<?php echo site_url($cat_menu['category']->slug);?>"><?php echo $cat_menu['category']->name;?></a></li>
+								<?php foreach($this->categories[0] as $cat_menu):?>
+								<li <?php echo $cat_menu->active ? 'class="active"' : false; ?>><a href="<?php echo site_url($cat_menu->slug);?>"><?php echo $cat_menu->name;?></a></li>
 								<?php endforeach;?>
 							</ul>
-							
-							<?php foreach($this->pages as $menu_page):?>
-
+						</li>	
+						<?php
+						endif;
+						
+						if(isset($this->pages[0]))
+						{
+							foreach($this->pages[0] as $menu_page):?>
 								<li>
 								<?php if(empty($menu_page->content)):?>
 									<a href="<?php echo $menu_page->url;?>" <?php if($menu_page->new_window ==1){echo 'target="_blank"';} ?>><?php echo $menu_page->menu_title;?></a>
@@ -64,7 +71,9 @@ if(isset($additional_header_info))
 								<?php endif;?>
 								</li>
 								
-							<?php endforeach;?>
+							<?php endforeach;	
+						}
+						?>
 					</ul>
 					
 					<ul class="nav pull-right">
@@ -155,7 +164,6 @@ if(isset($additional_header_info))
 				<?php echo $error;?>
 			</div>
 		<?php endif;?>
-		
 		
 
 <?php

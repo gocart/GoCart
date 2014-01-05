@@ -1,5 +1,3 @@
-<?php include('header.php'); ?>
-
 <?php echo form_open($this->config->item('admin_folder').'/locations/country_form/'.$id); ?>
 
 <fieldset>
@@ -27,8 +25,8 @@
 		echo form_textarea($data);
 		?>
 
-		<?php $postcode_required = array('name'=>'postcode_required', 'value'=>1, 'checked'=>set_checkbox('postcode_required', 1, (bool)$postcode_required));?>
-		<label class="checkbox"><?php echo form_checkbox($postcode_required); ?> <?php echo lang('require_postcode');?></label>
+		<?php $zip_required = array('name'=>'zip_required', 'value'=>1, 'checked'=>set_checkbox('zip_required', 1, (bool)$zip_required));?>
+		<label class="checkbox"><?php echo form_checkbox($zip_required); ?> <?php echo lang('require_zip');?></label>
 		
 		<label for="tax"><?php echo lang('tax');?></label>
 		<div class="input-append">
@@ -43,7 +41,7 @@
 		<label class="checkbox"><?php echo form_checkbox($status); ?> <?php echo lang('enabled');?></label>
 	
 <div class="form-actions">
-	<button type="submit" class="btn btn-primary"><?php echo lang('form_save');?></button>
+	<button type="submit" class="btn btn-primary"><?php echo lang('save');?></button>
 </div>
 </form>
 
@@ -52,5 +50,3 @@ $('form').submit(function() {
 	$('.btn').attr('disabled', true).addClass('disabled');
 });
 </script>
-
-<?php include('footer.php');
