@@ -603,7 +603,7 @@ class Checkout extends Front_Controller {
 		// run the complete payment module method once order has been saved
 		if(!empty($payment))
 		{
-			if(method_exists($this->$payment['module'], 'complete_payment'))
+			if(isset($payment['module']) &&  method_exists($this->$payment['module'], 'complete_payment'))
 			{
 				$this->$payment['module']->complete_payment($data);
 			}
