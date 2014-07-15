@@ -38,6 +38,14 @@ Class Page_model extends CI_Model
 		$results	= array();
 		foreach($pages as $page)
 		{
+
+			// Set a class to active, so we can highlight our current page
+			if($this->uri->segment(1) == $page->slug) {
+				$page->active = true;
+			} else {
+				$page->active = false;
+			}
+
 			$results[$page->parent_id][$page->id] = $page;
 		}
 		
