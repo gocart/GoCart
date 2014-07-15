@@ -645,6 +645,9 @@ class Checkout extends Front_Controller {
 		// {site_name}
 		$row['subject'] = str_replace('{site_name}', $this->config->item('company_name'), $row['subject']);
 		$row['content'] = str_replace('{site_name}', $this->config->item('company_name'), $row['content']);
+		
+		// {order_number}
+		$row['subject'] = str_replace('{order_number}', $data['order_id'], $row['subject']);
 			
 		// {order_summary}
 		$row['content'] = str_replace('{order_summary}', $this->load->view('order_email', $data, true), $row['content']);
