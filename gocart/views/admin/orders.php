@@ -58,9 +58,9 @@ if ($term):?>
 			<div class="span8">
 				<?php echo form_open($this->config->item('admin_folder').'/orders/index', 'class="form-inline" style="float:right"');?>
 					<fieldset>
-						<input id="start_top"  value="" class="span2" type="text" placeholder="Start Date"/>
+						<input id="start_top"  value="" class="span2" type="text" placeholder="<?php echo lang('start_date');?>"/>
 						<input id="start_top_alt" type="hidden" name="start_date" />
-						<input id="end_top" value="" class="span2" type="text"  placeholder="End Date"/>
+						<input id="end_top" value="" class="span2" type="text"  placeholder="<?php echo lang('end_date');?>"/>
 						<input id="end_top_alt" type="hidden" name="end_date" />
 				
 						<input id="top" type="text" class="span2" name="term" placeholder="<?php echo lang('term')?>" /> 
