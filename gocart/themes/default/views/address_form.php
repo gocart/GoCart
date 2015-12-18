@@ -96,7 +96,7 @@ $(function(){
 
 function save_address()
 {
-	$.post("<?php echo site_url('secure/address_form');?>/"+$('#f_id').val(), {	company: $('#f_company').val(),
+	$.post("<?php echo site_url('secure/address_form');?>"+($('#f_id').val() ? '/'+$('#f_id').val() : ''), {	company: $('#f_company').val(),
 																				firstname: $('#f_firstname').val(),
 																				lastname: $('#f_lastname').val(),
 																				email: $('#f_email').val(),
