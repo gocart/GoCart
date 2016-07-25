@@ -148,7 +148,6 @@ Class order_model extends CI_Model
 	//get an individual customers orders
 	function get_customer_orders($id, $offset=0)
 	{
-		$this->db->join('order_items', 'orders.id = order_items.order_id');
 		$this->db->order_by('ordered_on', 'DESC');
 		return $this->db->get_where('orders', array('customer_id'=>$id), 15, $offset)->result();
 	}
