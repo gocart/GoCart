@@ -71,7 +71,7 @@
 71|72|Fiji|FJ|FJI||0|1|0.00000
 72|73|Finland|FI|FIN||1|1|0.00000
 73|74|France|FR|FRA||1|1|0.00000
-74|75|France|Metropolitan|FX|FXX||1|1|0.00000
+74|75|France Metropolitan|FX|FXX||1|1|0.00000
 75|76|French Guiana|GF|GUF||0|1|0.00000
 76|77|French Polynesia|PF|PYF||0|1|0.00000
 77|78|French Southern Territories|TF|ATF||1|1|0.00000
