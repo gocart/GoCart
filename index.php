@@ -21,4 +21,6 @@ $_SESSION['newFlashdata'] = array();
 
 require_once('CI.php');
 
+//comment
+
 exit;
