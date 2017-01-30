@@ -310,6 +310,8 @@ class go_cart {
 	// Applies a coupon to a product and calculates the discount amount
 	private function _apply_coupon_to_product($cartkey, $coupon_code) 
 	{
+		// convert to lowercase
+		$coupon_code = strtolower($coupon_code);
 		
 		// calculate discount amount
 		$price = (float) $this->_cart_contents['items'][$cartkey]['price'];
