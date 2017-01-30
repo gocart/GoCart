@@ -1,6 +1,6 @@
 <?php
 
-class pp_gate extends CI_Controller {
+class pp_gate extends Base_Controller {
 
 	function __construct()
 	{

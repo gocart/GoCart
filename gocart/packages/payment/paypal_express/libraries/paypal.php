@@ -69,7 +69,7 @@ class PayPal {
 			$this->RETURN_URL = $settings["return_url"];
 			$this->CANCEL_URL = $settings["cancel_url"];
 			
-			$this->currency = $this->CI->config->item('currency'); //$settings['currency'];
+			$this->currency = $this->CI->config->item('currency_iso'); //$settings['currency'];
 			
 			// Test mode?
 			if ($settings['SANDBOX']=='0') {
