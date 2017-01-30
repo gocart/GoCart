@@ -187,8 +187,8 @@ class Secure extends Front_Controller {
 				$redirect = 'secure/my_account';
 			}
 			
-			// save the customer info and get their new id
-			$id = $this->Customer_model->save($save);
+			// save the customer info
+			$this->Customer_model->save($save);
 
 			/* send an email */
 			// get the email template

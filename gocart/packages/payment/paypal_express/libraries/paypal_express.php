@@ -26,7 +26,7 @@ class Paypal_express
 	*/
 	
 	//these are the front end form and check functions
-	function checkout_form($post = false)
+	function checkout_form()
 	{
 		$settings	= $this->CI->Settings_model->get_settings('paypal_express');
 		$enabled	= $settings['enabled'];
@@ -82,8 +82,6 @@ class Paypal_express
 	//payment processor
 	function process_payment()
 	{
-		$process	= false;
-		
 		$store		= $this->CI->config->item('company_name');
 		// this will forward the page to the paypal interface, leaving gocart behind
 		// the user will be sent back and authenticated by the paypal gateway controller pp_gate.php

@@ -45,12 +45,10 @@ class usps_international
 		
 		// get customer info
 		$customer = $this->CI->go_cart->customer();
-		$dest_zip 	= $customer['ship_address']['zip'];
 		$dest_country = $customer['ship_address']['country'];
 		
 		//grab this information from the config file
 		$country	= $this->CI->config->item('country');
-		$orig_zip	= $this->CI->config->item('zip');
 		
 		// retrieve settings
 		$settings	= $this->CI->Settings_model->get_settings('usps_international');
@@ -62,12 +60,9 @@ class usps_international
 		}
 		
 		$user	 			= $settings['username'];
-		$pass 				= $settings['password'];
 		$service			= explode(',',$settings['service']);
-		$mailtype 			= $settings['mailtype'];
 		$container 			= $settings['container'];
 		$size 				= $settings['size'];
-		$machinable 		= $settings['machinable'];
 		$handling_method	= $settings['handling_method'];
 		$handling_amount	= $settings['handling_amount'];
 		
@@ -101,7 +96,6 @@ class usps_international
 			return array();
 		}
 		
-		//$str = '<IntlRateV2Request USERID="'. $user . '" PASSWORD="' . $pass . '">';
 		$str = '<IntlRateV2Request USERID="'. $user . '">';
 		$str .= '<Package ID="1">';
         $str .= '<Pounds>'.$lbs.'</Pounds><Ounces>'.$oz.'</Ounces>';
@@ -239,8 +233,6 @@ class usps_international
 
 		<label><?php echo lang('username');?></label>
 		<?php echo form_input('username', $username, 'class="span3"');?>
-				
-		<?php //form_input('password', $password);?>
 		
 		<label><?php echo lang('method')?></label>
 		<div class="controls">

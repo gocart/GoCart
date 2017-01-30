@@ -21,8 +21,6 @@ class HTTPRequest {
 
 	private $host;
 	private $path;
-	private $data;
-	private $method = "POST";
 	private $port;
 	private $rawhost;
 	public $ssl = true;
@@ -32,26 +30,19 @@ class HTTPRequest {
 	private $parsedHeader;
 	private $CI;
 
-	function __construct(/* $host, $path, $method = 'POST', $ssl = false, $port = 0 */) {
+	function __construct() {
 		$this->CI =& get_instance();
 		$this->host = $this->CI->paypal->host;
 		$this->rawhost = $this->ssl ? "ssl://$this->host" : $this->host;
 		$this->path = $this->CI->paypal->endpoint;
-		//$this->method = strtoupper($method);
-		//if ($port) {
-		//	$this->port = $port;
-		//} else {
 		if (!$this->ssl) $this->port = 80; else $this->port = 443;
-		//}
 	}
 
 	public function connect( $data = ''){
-		//$protocol = $this->ssl ? "https://" : "http://";
 		$fp = fsockopen($this->rawhost, $this->port);
 		if (!$fp) return false;
-		fputs($fp, "$this->method $this->path HTTP/1.1\r\n");
+		fputs($fp, "POST $this->path HTTP/1.1\r\n");
 		fputs($fp, "Host: $this->host\r\n");
-		//fputs($fp, "Content-type: $contenttype\r\n");
 		fputs($fp, "Content-length: ".strlen($data)."\r\n");
 		fputs($fp, "Connection: close\r\n");
 		fputs($fp, "\r\n");

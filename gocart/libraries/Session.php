@@ -122,7 +122,7 @@ class CI_Session {
 
 		if (count($newdata) > 0)
 		{
-			foreach ($newdata as $key => $val)
+			foreach (array_keys($newdata) as $key)
 			{
 				unset($_SESSION['userdata'][$key]);
 			}

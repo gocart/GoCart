@@ -38,8 +38,6 @@ class table_rate
 		$order_weight	= $this->get_order_weight();
 		$order_price	= $this->get_order_price();
 		
-		$countries = $this->CI->Location_model->get_countries();
-		
 		$return = array();
 		foreach($rates as $rate)
 		{

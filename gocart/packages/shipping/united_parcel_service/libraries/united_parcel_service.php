@@ -38,7 +38,6 @@ class United_parcel_service
 			$access_key						= $settings['access_key'];
 			$ups_account_username			= $settings['ups_account_username'];
 			$ups_account_password			= $settings['ups_account_password'];
-			$enabled						= $settings['enabled'];
 			$services 	    				= explode(',', $settings['services']);	
 			$handling_method 				= $settings['handling_method'];
 			$handling_amount 				= $settings['handling_amount'];	

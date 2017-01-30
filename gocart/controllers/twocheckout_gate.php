@@ -86,7 +86,6 @@ class twocheckout_gate extends CI_Controller {
 		}
 	
 		// User canceled using 2Checkout, send them back to the payment page
-		$cart  = $this->session->userdata('cart');	
 		$this->session->set_flashdata('message', "<div>2Checkout transaction canceled.</div>");
 		redirect('checkout');
 	}

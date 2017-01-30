@@ -2,8 +2,6 @@
 
 class Products extends Admin_Controller {	
 	
-	private $use_inventory = false;
-	
 	function __construct()
 	{		
 		parent::__construct();
@@ -22,7 +20,6 @@ class Products extends Admin_Controller {
 		
 		$data['code']		= $code;
 		$term				= false;
-		$category_id		= false;
 		
 		//get the category list for the drop menu
 		$data['categories']	= $this->Category_model->get_categories_tiered();

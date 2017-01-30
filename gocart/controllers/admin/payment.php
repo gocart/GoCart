@@ -16,7 +16,6 @@ class Payment extends Admin_Controller {
 	function index()
 	{
 		//Payment Information
-        $payment_order = $this->Settings_model->get_settings('payment_order');
         $enabled_modules = $this->Settings_model->get_settings('payment_modules');
 
         $data['payment_modules']    = array();
