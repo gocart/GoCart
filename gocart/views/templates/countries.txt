@@ -184,7 +184,8 @@
 184|185|Saudi Arabia|SA|SAU||1|1|0.00000
 185|186|Senegal|SN|SEN||0|1|0.00000
 186|187|Seychelles|SC|SYC||0|1|0.00000
-187|188|Sierra Leone|SL|SLE||0|1|0.00000
+187|188|Sierra Leone|SL|SLE||0
+0.00000
 188|189|Singapore|SG|SGP||1|1|0.00000
 189|190|Slovak Republic|SK|SVK|{firstname} {lastname}\r\n{company}\r\n{address_1}\n{address_2}\r\n{city} {zip}\r\n{zone}\r\n{country}|1|1|0.00000
 190|191|Slovenia|SI|SVN||1|1|0.00000
@@ -237,3 +238,4 @@
 237|236|Democratic Republic of Congo|CD|COD||1|1|0.00000
 238|237|Zambia|ZM|ZMB||0|1|0.00000
 239|238|Zimbabwe|ZW|ZWE||0|1|0.00000
+240|0|Channel Islands|GB|GBR||1|1|0.00000
