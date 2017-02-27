@@ -238,4 +238,5 @@
 237|236|Democratic Republic of Congo|CD|COD||1|1|0.00000
 238|237|Zambia|ZM|ZMB||0|1|0.00000
 239|238|Zimbabwe|ZW|ZWE||0|1|0.00000
-240|0|Channel Islands|GB|GBR||1|1|0.00000
+240|0|Jersey|JE|JER||1|1|0.00000
+241|0|Guernsey|GG|GGY||1|1|0.00000
