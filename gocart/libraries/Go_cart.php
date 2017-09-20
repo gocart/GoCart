@@ -743,7 +743,7 @@ class go_cart {
 				{
 					// shipping insurable value & weight
 					$this->_cart_contents['order_insurable_value']  += $this_price;
-					$this->_cart_contents['order_weight'] 			+= $val['weight']*$val['quantity'];
+					$this->_cart_contents['order_weight'] 			+= ($val['weight'] ? $val['weight'] : 0) * $val['quantity'];
 					$this->_cart_contents['requires_shipping'] 		= true;
 				}
 				
