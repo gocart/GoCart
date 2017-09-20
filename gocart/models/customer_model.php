@@ -82,6 +82,7 @@ Class Customer_model extends CI_Model
             $this->db->update('customers_address_bank', $data);
             return $data['id'];
         } else {
+            unset($data['id']);
             $this->db->insert('customers_address_bank', $data);
             return $this->db->insert_id();
         }
