@@ -538,7 +538,9 @@ class Secure extends Front_Controller {
 		if($id==0)
 		{
 			//if there is no set ID, the get the zones of the first country in the countries menu
-			$data['zones_menu']	= $this->location_model->get_zones_menu(array_shift(array_keys($data['countries_menu'])));
+			$keys	= array_keys($data['countries_menu']);
+			$shift	= array_shift($keys);
+			$data['zones_menu']	= $this->location_model->get_zones_menu($shift);
 		} else {
 			$data['zones_menu']	= $this->location_model->get_zones_menu($data['country_id']);
 		}
